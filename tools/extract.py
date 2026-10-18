@@ -1185,7 +1185,7 @@ def build_values():
           ("QUALITY_VSYNC_COUNT", "settings/QualitySettings.json#m_QualitySettings[0].vSyncCount"),
           ("QUALITY_ANTI_ALIASING", "settings/QualitySettings.json#m_QualitySettings[0].antiAliasing")]
     R += input_axis("INPUT_KEY_HORIZONTAL", 0) + input_axis("INPUT_KEY_VERTICAL", 1)
-    R += input_axis("INPUT_STICK_HORIZONTAL", 10) + input_axis("INPUT_STICK_VERTICAL", 11)
+    R += input_axis("INPUT_STICK_HORIZONTAL", 9) + input_axis("INPUT_STICK_VERTICAL", 10)
 
     # ---- Intro
     I = "scenes/Intro.json"

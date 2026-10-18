@@ -1,0 +1,50 @@
+    <!-- Rockmorse's cover page text. CMake puts it into site.html.in.
+         First draft from step 2 of the plan. Step 9 adds screenshots and checks every line. -->
+    <h2>About</h2>
+    <p>You are an astronaut stranded on Mars. Your radio still hears Earth, but Earth cannot hear you. Each sol, a Mars day, Earth sends a question to the screen in your rover.</p>
+    <p>You answer by dragging rocks into Morse code. Dark rocks are dashes and light rocks are dots. Earth can only read your answer in daylight, when its satellite can see you.</p>
+    <p>Life support runs out after a set number of sols. Answer every message before it does, and a lander comes to take you home.</p>
+
+    <h2>Aim of the game</h2>
+    <p>Answer each of Earth's messages in Morse code, then walk into the lander when it arrives.</p>
+
+    <h2>How to play</h2>
+    <ol>
+      <li>Read the help screen, then press Space to start.</li>
+      <li>Walk into the rover to read Earth's message on its screen.</li>
+      <li>Find the answer's slots on the ground. Hold Space near a rock to pull it, and drag it onto a slot of its kind.</li>
+      <li>Wait for daylight. Earth reads your answer, and a new message arrives at the rover.</li>
+    </ol>
+
+    <h2>Controls</h2>
+    <p class="hint-touch">On a touch screen, the buttons under the game stand in for these keys.</p>
+    <dl class="controls">
+      <dt><kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> or <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></dt><dd>Walk</dd>
+      <dt><kbd>Space</kbd></dt><dd>Hold to pull the nearest rock. Also dismisses a message and goes on from the story screens.</dd>
+      <dt><kbd>M</kbd> or <kbd>Tab</kbd></dt><dd>Hold to see the whole answer</dd>
+      <dt><kbd>H</kbd> or <kbd>Shift</kbd></dt><dd>Show or hide the help</dd>
+      <dt><kbd>Enter</kbd></dt><dd>Go on from the title, story and end screens</dd>
+    </dl>
+    <p>A gamepad works too. The D-pad or left stick walks. A pulls and goes on, the left shoulder shows the map, and Start shows the help. In a browser, press a gamepad button once so the page sees the gamepad.</p>
+
+    <h2>History</h2>
+    <p>Super Damage made Rockmorse for Ludum Dare 30 in August 2014, whose theme was "Connected Worlds". Super Damage was Eren Ozel and Eralp Karaduman.</p>
+    <p>It was made in Unity and kept working on after the jam. The last build, from December 2016, is the version this port follows.</p>
+
+    <h2>How it was ported</h2>
+    <p>The game's Unity project and its 2016 builds survived. The scenes, prefabs and settings were read out of the project into plain data files, and the C# scripts were rewritten by hand in plain C, with their original comments kept.</p>
+    <p>The port uses raylib 6.0 for drawing, input and sound, and Box2D for physics. The web version is compiled to WebAssembly with Emscripten. The same code also builds for macOS, Windows and Linux.</p>
+    <p>The port was written with Claude Code, Anthropic's coding agent, running the Claude Opus 5.5 model.</p>
+
+    <h2>More information</h2>
+    <table class="info">
+      <tr><th>Made</th><td>August 2014, last build December 2016</td></tr>
+      <tr><th>Event</th><td>Ludum Dare 30, theme "Connected Worlds"</td></tr>
+      <tr><th>Made by</th><td>Super Damage: <a href="https://erenozel.art">Eren Ozel</a> and <a href="https://eralp.dev">Eralp Karaduman</a></td></tr>
+      <tr><th>Original</th><td>Unity 5.4, C#</td></tr>
+      <tr><th>Port</th><td>C17, raylib 6.0, Box2D 3.1, WebAssembly</td></tr>
+      <tr><th>Controls</th><td>Keyboard and mouse, gamepad, or touch on phones and tablets</td></tr>
+      <tr><th>Source</th><td><a href="https://github.com/eralpkaraduman/rockmorse">github.com/eralpkaraduman/rockmorse</a></td></tr>
+    </table>
+
+    <footer>Rockmorse by Super Damage, 2014. C port, 2026.</footer>
