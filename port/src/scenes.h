@@ -8,6 +8,7 @@ extern const Scene INTRO_SCENE;  // intro.c
 extern const Scene TITLE_SCENE;  // title.c
 extern const Scene STORY1_SCENE; // next_scene_on_space.c
 extern const Scene STORY2_SCENE; // next_scene_on_space.c
+extern const Scene GAME_SCENE;   // game.c
 extern const Scene DEATH_SCENE;  // end_game.c
 extern const Scene WIN_SCENE;    // end_game.c
 

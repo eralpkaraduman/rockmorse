@@ -5,22 +5,6 @@
 #include <emscripten/emscripten.h>
 #endif
 
-// Game scene placeholder until step 3 of the plan: the camera background
-// colour, nothing else.
-static UnityCamera gameCamera;
-
-static void game_start(void)
-{
-    gameCamera = CAMERA(GAME_CAMERA);
-}
-
-static void game_draw(void)
-{
-    camera_clear(&gameCamera);
-}
-
-static const Scene GAME_SCENE = {.name = "Game", .start = game_start, .draw = game_draw};
-
 // Build order, settings/EditorBuildSettings.json.
 static const Scene *const SCENES[SCENE_COUNT] = {
     [SCENE_INTRO] = &INTRO_SCENE,

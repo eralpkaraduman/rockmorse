@@ -35,10 +35,23 @@ FetchContent_MakeAvailable(raylib box2d)
 
 set(GAME_SOURCES
     src/unity.c
+    src/physics.c
     src/intro.c
     src/title.c
     src/next_scene_on_space.c
-    src/end_game.c)
+    src/end_game.c
+    src/game.c
+    src/mars.c
+    src/earth.c
+    src/rover_screen.c
+    src/player.c
+    src/camera_focus.c
+    src/rock.c
+    src/rock_generator.c
+    src/rock_dragger.c
+    src/drag_target.c
+    src/rover.c
+    src/rocket.c)
 
 # The engine layer rasterises the Joystix font itself, with the
 # stb_truetype copy that ships inside raylib (see unity.c).

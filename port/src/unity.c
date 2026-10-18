@@ -98,9 +98,11 @@ void unity_frame(void)
     Time.deltaTime = dt * Time.timeScale;
     timeNow += Time.deltaTime;
     Time.time = (float)timeNow;
-    // Input axes move with real time, so a pause does not freeze them.
-    // ponytail: unverified on the reference, step 3 of the plan measures it.
-    axes_update(Time.unscaledDeltaTime);
+    // Input axes move with scaled time, so a pause freezes them. Measured
+    // on the 2016 WebGL build: an arrow held through the paused tutorial
+    // ramps up from 0 over 20 frames after Space, and an arrow released
+    // during a pause still decays over 20 frames after it.
+    axes_update(Time.deltaTime);
 
     if (pendingScene >= 0) {
         audio_scene_unload();
@@ -328,6 +330,18 @@ float mathf_round(float f)
     return rintf(f); // the default rounding mode rounds halves to even
 }
 
+float mathf_clamp(float value, float min, float max)
+{
+    if (value < min) value = min;
+    else if (value > max) value = max;
+    return value;
+}
+
+float mathf_lerp(float a, float b, float t)
+{
+    return a + (b - a) * mathf_clamp(t, 0, 1); // Clamp01
+}
+
 // Copied from the decompiled UnityEngine.dll (INVENTORY.md section 2.21),
 // in float and in the same order of operations.
 float mathf_smooth_damp(float current, float target, float *currentVelocity,
@@ -428,8 +442,14 @@ Vector2 camera_world_to_screen(const UnityCamera *camera, Vector3 world)
 
 static void draw_sprite(const UnityCamera *camera, const SpriteRenderer *r)
 {
-    const SpriteInfo *s = &SPRITES[r->sprite];
     float ppu = pixels_per_unit(camera);
+    if (r->solid) {
+        float w = r->transform.scale.x * ppu, h = r->transform.scale.y * ppu;
+        Vector2 at = camera_world_to_screen(camera, r->transform.position);
+        DrawRectangleRec((Rectangle){at.x - w / 2, at.y - h / 2, w, h}, to_color(r->color));
+        return;
+    }
+    const SpriteInfo *s = &SPRITES[r->sprite];
     float w = s->w / s->pixels_per_unit * r->transform.scale.x * ppu;
     float h = s->h / s->pixels_per_unit * r->transform.scale.y * ppu;
     Vector2 at = camera_world_to_screen(camera, r->transform.position);
@@ -462,10 +482,42 @@ void draw_sprites(const UnityCamera *camera, SpriteRenderer *const *sprites, int
     static SortEntry order[MAX_SPRITES];
     int n = 0;
     for (int i = 0; i < count && n < MAX_SPRITES; i++) {
-        if (sprites[i]->enabled && sprites[i]->sprite >= 0) order[n++] = (SortEntry){sprites[i], i};
+        if (sprites[i]->enabled && (sprites[i]->sprite >= 0 || sprites[i]->solid)) order[n++] = (SortEntry){sprites[i], i};
     }
     qsort(order, n, sizeof order[0], compare_draw_order);
     for (int i = 0; i < n; i++) draw_sprite(camera, order[i].r);
+}
+
+// --- Sprite animation ----------------------------------------------------
+
+Animator animator_new(void)
+{
+    return (Animator){.state = ANIM_DEFAULT_STATE};
+}
+
+void animator_play(Animator *a, const char *state)
+{
+    for (int i = 0; i < ANIM_STATE_COUNT; i++) {
+        if (strcmp(ANIM_STATES[i].name, state) != 0) continue;
+        if (i != a->state) *a = (Animator){.state = i};
+        return;
+    }
+    TraceLog(LOG_WARNING, "Animator.Play: no state %s", state);
+}
+
+void animator_update(Animator *a, float deltaTime)
+{
+    a->time += deltaTime * ANIM_STATES[a->state].speed;
+}
+
+// A sprite curve steps: each key holds until the next. All clips loop.
+int animator_sprite(const Animator *a)
+{
+    const Clip *c = &CLIPS[ANIM_STATES[a->state].clip];
+    float t = c->loop ? fmodf(a->time, c->length) : fminf(a->time, c->length);
+    int sprite = c->keys[0].sprite;
+    for (int k = 0; k < c->key_count && c->keys[k].time <= t; k++) sprite = c->keys[k].sprite;
+    return sprite;
 }
 
 // --- Text ------------------------------------------------------------------
@@ -738,27 +790,36 @@ static const char *clip_path(int clip)
     return TextFormat("assets/%s", SOUNDS[clip].path);
 }
 
+// Loads a source's sound on its first play, so the Game scene's hundred
+// rocks with a drag sound each do not open a hundred streams.
+static bool audio_source_load(AudioSource *s)
+{
+    if (s->loaded) return true;
+    if (!IsAudioDeviceReady() || liveSourceCount == MAX_LIVE_SOURCES) return false;
+    if (s->loop) {
+        s->music = LoadMusicStream(clip_path(s->clip));
+        s->music.looping = true;
+    } else {
+        if (clips[s->clip].frameCount == 0) clips[s->clip] = LoadSound(clip_path(s->clip));
+        s->sound = LoadSoundAlias(clips[s->clip]);
+    }
+    s->loaded = true;
+    liveSources[liveSourceCount++] = s;
+    return true;
+}
+
 void audio_source_awake(AudioSource *s)
 {
-    if (!s->loaded && IsAudioDeviceReady()) {
-        if (s->loop) {
-            s->music = LoadMusicStream(clip_path(s->clip));
-            s->music.looping = true;
-        } else {
-            if (clips[s->clip].frameCount == 0) clips[s->clip] = LoadSound(clip_path(s->clip));
-            s->sound = LoadSoundAlias(clips[s->clip]);
-        }
-        s->loaded = true;
-        if (liveSourceCount < MAX_LIVE_SOURCES) liveSources[liveSourceCount++] = s;
-    }
     if (s->enabled && s->playOnAwake) audio_source_play(s);
 }
 
-// Unity 5.4 does not play a disabled source.
+// Unity 5.4 does not play a disabled source. The Player's strain sound is
+// disabled in the scene and nothing enables it, so it never plays
+// (INVENTORY.md section 2.5).
 // ponytail: unverified, step 7 of the plan measures it.
-void audio_source_play(const AudioSource *s)
+void audio_source_play(AudioSource *s)
 {
-    if (!s->loaded || !s->enabled) return;
+    if (!s->enabled || !audio_source_load(s)) return;
     if (s->loop) {
         StopMusicStream(s->music);
         PlayMusicStream(s->music);
@@ -807,16 +868,28 @@ static void audio_sources_update(void)
     for (int i = 0; i < liveSourceCount; i++) audio_source_update(liveSources[i]);
 }
 
+static void audio_source_unload(AudioSource *s)
+{
+    audio_source_stop(s);
+    if (s->loop) UnloadMusicStream(s->music);
+    else UnloadSoundAlias(s->sound);
+    s->loaded = false;
+}
+
+void audio_source_destroy(AudioSource *s)
+{
+    for (int i = 0; i < liveSourceCount; i++) {
+        if (liveSources[i] != s) continue;
+        audio_source_unload(s);
+        liveSources[i] = liveSources[--liveSourceCount];
+        return;
+    }
+}
+
 // A scene change destroys the scene's sources, which cuts their sound.
 static void audio_scene_unload(void)
 {
-    for (int i = 0; i < liveSourceCount; i++) {
-        AudioSource *s = liveSources[i];
-        audio_source_stop(s);
-        if (s->loop) UnloadMusicStream(s->music);
-        else UnloadSoundAlias(s->sound);
-        s->loaded = false;
-    }
+    for (int i = 0; i < liveSourceCount; i++) audio_source_unload(liveSources[i]);
     liveSourceCount = 0;
 }
 

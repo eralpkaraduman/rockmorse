@@ -118,6 +118,9 @@ void flx_touch_key(int key, bool down);
 
 // Mathf.Round: halves round to even, like C#'s Math.Round.
 float mathf_round(float f);
+// Mathf.Lerp and Mathf.Clamp, as Unity 5.4 has them (INVENTORY.md 2.21).
+float mathf_lerp(float a, float b, float t);
+float mathf_clamp(float value, float min, float max);
 // Mathf.SmoothDamp, six argument form, exactly as Unity 5.4 has it.
 float mathf_smooth_damp(float current, float target, float *currentVelocity,
                         float smoothTime, float maxSpeed, float deltaTime);
@@ -166,11 +169,34 @@ typedef struct {
     Rgba color;
     int sortingOrder;
     bool enabled;
+    // A flat plane of one colour instead of a sprite, as the Game scene's
+    // night overlay MeshRenderer: transform.scale.x by .y world units,
+    // centred on the position.
+    bool solid;
 } SpriteRenderer;
 
 // Draws sprites like Unity: sorting order first, then far to near (larger z
 // first, the camera looks along +z). Equal keys keep the list order.
 void draw_sprites(const UnityCamera *camera, SpriteRenderer *const *sprites, int count);
+
+// --- Sprite animation ----------------------------------------------------
+
+// The Animator of Sprites/run/Player.controller: three states, each one
+// sprite clip, no transitions (asset_tables.h, ANIM_STATES). It starts in
+// the default state at time 0.
+typedef struct {
+    int state; // index into ANIM_STATES
+    float time;
+} Animator;
+
+Animator animator_new(void);
+// Animator.Play(name). Playing the state that is already playing does
+// nothing, so it keeps its time. The game calls it every fixed update.
+void animator_play(Animator *a, const char *state);
+// Advances the clip. Unity does this after Update, by Time.deltaTime.
+void animator_update(Animator *a, float deltaTime);
+// The sprite the clip shows now.
+int animator_sprite(const Animator *a);
 
 // --- GUI elements --------------------------------------------------------
 
@@ -243,7 +269,7 @@ void text_mesh_draw(const UnityCamera *camera, const TextMesh *t);
 
 // --- Audio -----------------------------------------------------------------
 
-// A 2D audio source. Sounds load on first use and stay loaded. A scene
+// A 2D audio source. A source loads its sound when it first plays. A scene
 // change stops every source, as the 2016 build does (measured: the title's
 // click sound stops 19 ms after the click, when Story1 loads).
 typedef struct {
@@ -261,7 +287,7 @@ typedef struct {
 
 // Unity's Awake for a source: plays it when enabled and playOnAwake.
 void audio_source_awake(AudioSource *s);
-void audio_source_play(const AudioSource *s);
+void audio_source_play(AudioSource *s);
 void audio_source_stop(const AudioSource *s);
 bool audio_source_is_playing(const AudioSource *s);
 // AudioSource.enabled. Turning it on from off starts a playOnAwake source.
@@ -269,6 +295,8 @@ bool audio_source_is_playing(const AudioSource *s);
 void audio_source_set_enabled(AudioSource *s, bool enabled);
 // Pushes volume and pitch to the sound, and feeds a looping stream.
 void audio_source_update(const AudioSource *s);
+// Destroying the source's object: stops and unloads it.
+void audio_source_destroy(AudioSource *s);
 
 // AudioListener.volume, a global that survives scene loads.
 void audio_listener_set_volume(float volume);

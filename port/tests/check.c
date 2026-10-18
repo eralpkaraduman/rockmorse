@@ -2,6 +2,7 @@
 // in assets/ is found:
 //   ./build/rockmorse_check
 #include "../src/scenes.h"
+#include "../src/game.h"
 #include "../src/code_constants.h"
 
 // Release builds define NDEBUG, which would remove every assert below,
@@ -280,9 +281,283 @@ static void check_mouse(void)
     assert(r.x == 246 && r.y == 219 && r.width == 168 && r.height == 20);
 }
 
+// --- Convex pieces ------------------------------------------------------------
+
+// Box2D drops a corner flatter than its slop, and a release build swaps a
+// bad hull for a small box without a word. So every piece must keep all its
+// points, with the game's length unit set first (plan section 6.1).
+static void check_hulls(void)
+{
+    b2SetLengthUnitsPerMeter(LENGTH_UNITS_PER_METER);
+    assert(near(B2_LINEAR_SLOP_USED, 0.005f * LENGTH_UNITS_PER_METER, 1e-9f));
+    struct { const char *name; const float *points; const int *sizes; int count; } sets[] = {
+        {"player body", PLAYER_BODY_PIECES_POINTS, PLAYER_BODY_PIECES_SIZES, PLAYER_BODY_PIECES_COUNT},
+        {"rover roof", ROVER_ROOF_COLLIDER_PIECES_POINTS, ROVER_ROOF_COLLIDER_PIECES_SIZES, ROVER_ROOF_COLLIDER_PIECES_COUNT},
+        {"rocket body", ROCKET_BODY_COLLIDER_PIECES_POINTS, ROCKET_BODY_COLLIDER_PIECES_SIZES, ROCKET_BODY_COLLIDER_PIECES_COUNT},
+    };
+    for (size_t k = 0; k < sizeof sets / sizeof sets[0]; k++) {
+        const float *p = sets[k].points;
+        for (int i = 0; i < sets[k].count; i++) {
+            int n = sets[k].sizes[i];
+            assert(n >= 3 && n <= B2_MAX_POLYGON_VERTICES);
+            b2Vec2 v[B2_MAX_POLYGON_VERTICES];
+            for (int j = 0; j < n; j++) v[j] = (b2Vec2){p[2 * j], p[2 * j + 1]};
+            b2Hull hull = b2ComputeHull(v, n);
+            assert(hull.count == n && b2ValidateHull(&hull));
+            // The mirrored piece, used while the player faces left, too.
+            for (int j = 0; j < n; j++) v[j].x = -v[j].x;
+            hull = b2ComputeHull(v, n);
+            assert(hull.count == n);
+            p += 2 * n;
+        }
+        printf("hulls: %s, %d pieces keep all their points\n", sets[k].name, sets[k].count);
+    }
+}
+
+// --- Physics bridge -------------------------------------------------------------
+
+#define MAX_LOG 64
+typedef struct { PhysicsEvent e; int self, other; bool otherRockAlive; } LogEntry;
+static LogEntry eventLog[MAX_LOG];
+static int logCount;
+static RockRef watchedRock;
+
+static void record(PhysicsEvent e, const Collider *self, const Collider *other)
+{
+    assert(logCount < MAX_LOG);
+    eventLog[logCount++] = (LogEntry){e, self->kind, other->kind, rock_get(watchedRock) != NULL};
+}
+
+static int count_events(PhysicsEvent e, int self, int other)
+{
+    int n = 0;
+    for (int i = 0; i < logCount; i++) n += eventLog[i].e == e && eventLog[i].self == self && eventLog[i].other == other;
+    return n;
+}
+
+static void steps(int n)
+{
+    for (int i = 0; i < n; i++) physics_step();
+}
+
+enum { K_SENSOR_BOX = 100, K_POLY, K_SENSOR_A, K_SENSOR_B, K_ROOF, K_REPELLER, K_BALL, K_ZONE };
+
+static void check_physics_bridge(void)
+{
+    physics_init(record);
+
+    // A multi-piece solid polygon (the player's 3 pieces) walks through a
+    // static trigger box. Each owner gets one enter and one exit, though
+    // up to 3 Box2D shape pairs touch.
+    logCount = 0;
+    b2BodyId box = physics_body(b2_staticBody, (b2Vec2){0, 0}, 0, 0, 0, false);
+    physics_box(box, (Collider){K_SENSOR_BOX, 0, TAG_UNTAGGED, true}, (b2Vec2){0, 0}, (b2Vec2){2, 2});
+    b2BodyId walker = physics_body(b2_dynamicBody, (b2Vec2){-3, 0}, 0, 0, 0, true);
+    physics_polygon(walker, (Collider){K_POLY, 0, PLAYER_TAG, false}, PLAYER_BODY_PIECES_POINTS,
+                    PLAYER_BODY_PIECES_SIZES, PLAYER_BODY_PIECES_COUNT);
+    physics_set_mass(walker, PLAYER_RB_MASS);
+    assert(near(b2Body_GetMass(walker), PLAYER_RB_MASS, 1e-6f));
+    for (int i = 0; i < 300; i++) {
+        b2Body_SetLinearVelocity(walker, (b2Vec2){1, 0}); // 6 units in 6 s
+        physics_step();
+    }
+    assert(b2Body_GetPosition(walker).x > 2.5f);
+    assert(count_events(TRIGGER_ENTER, K_SENSOR_BOX, K_POLY) == 1 && count_events(TRIGGER_ENTER, K_POLY, K_SENSOR_BOX) == 1);
+    assert(count_events(TRIGGER_EXIT, K_SENSOR_BOX, K_POLY) == 1 && count_events(TRIGGER_EXIT, K_POLY, K_SENSOR_BOX) == 1);
+    assert(logCount == 4);
+    printf("physics: a 3 piece polygon through a trigger gives 1 enter and 1 exit to each owner\n");
+
+    // Two sensors that overlap: Box2D reports the pair from both sides,
+    // the bridge once. Trigger against trigger fires, as plan 6.3 item 1
+    // needs for the player's circle and the rover's inside trigger.
+    logCount = 0;
+    b2BodyId a = physics_body(b2_dynamicBody, (b2Vec2){10, 0}, 0, 0, 0, true);
+    physics_circle(a, (Collider){K_SENSOR_A, 0, PLAYER_TAG, true}, (b2Vec2){0, 0}, 1);
+    physics_set_mass(a, 1);
+    b2BodyId b = physics_body(b2_staticBody, (b2Vec2){11.5f, 0}, 0, 0, 0, false);
+    physics_circle(b, (Collider){K_SENSOR_B, 0, TAG_UNTAGGED, true}, (b2Vec2){0, 0}, 0.6f);
+    steps(2);
+    assert(count_events(TRIGGER_ENTER, K_SENSOR_A, K_SENSOR_B) == 1 && count_events(TRIGGER_ENTER, K_SENSOR_B, K_SENSOR_A) == 1);
+    assert(logCount == 2);
+    b2Body_SetTransform(a, (b2Vec2){20, 0}, b2Rot_identity);
+    steps(2);
+    assert(count_events(TRIGGER_EXIT, K_SENSOR_A, K_SENSOR_B) == 1 && count_events(TRIGGER_EXIT, K_SENSOR_B, K_SENSOR_A) == 1);
+    assert(logCount == 4);
+    printf("physics: two overlapping triggers give one enter per owner, not two\n");
+
+    // A solid ball on the rover's roof polygon and in a trigger at once
+    // gets both a collision and a trigger enter, counted apart.
+    logCount = 0;
+    b2BodyId roof = physics_body(b2_kinematicBody, (b2Vec2){30, 0}, 0, 0, 0, false);
+    physics_polygon(roof, (Collider){K_ROOF, 0, ROVER_ROOF_TAG, false}, ROVER_ROOF_COLLIDER_PIECES_POINTS,
+                    ROVER_ROOF_COLLIDER_PIECES_SIZES, ROVER_ROOF_COLLIDER_PIECES_COUNT);
+    b2BodyId rep = physics_body(b2_staticBody, (b2Vec2){30, 0}, 0, 0, 0, false);
+    physics_circle(rep, (Collider){K_REPELLER, 0, ROCK_REPELLER_TAG, true}, (b2Vec2){0, 0}, 3.29f);
+    b2BodyId ball = physics_body(b2_dynamicBody, (b2Vec2){30 + 2.0f, 0}, 0, 0, 0, false);
+    physics_circle(ball, (Collider){K_BALL, 0, TAG_UNTAGGED, false}, (b2Vec2){0, 0}, ROCK_RADIUS_WORLD);
+    physics_set_mass(ball, ROCK_RB_MASS);
+    for (int i = 0; i < 60; i++) {
+        b2Body_SetLinearVelocity(ball, (b2Vec2){-1, 0});
+        physics_step();
+    }
+    assert(count_events(TRIGGER_ENTER, K_BALL, K_REPELLER) == 1 && count_events(TRIGGER_ENTER, K_REPELLER, K_BALL) == 1);
+    assert(count_events(COLLISION_ENTER, K_BALL, K_ROOF) == 1 && count_events(COLLISION_ENTER, K_ROOF, K_BALL) == 1);
+    // The roof (kinematic) and the repeller (static) overlap, but neither is
+    // dynamic, so Unity's Box2D 2.x reports nothing for them.
+    assert(count_events(TRIGGER_ENTER, K_ROOF, K_REPELLER) == 0);
+    printf("physics: a ball on the roof and in the repeller gets a collision and a trigger\n");
+
+    // Mass: set after the shapes, inertia scaled by the same ratio.
+    b2MassData m = b2Body_GetMassData(ball);
+    float r = ROCK_RADIUS_WORLD;
+    assert(near(m.mass, ROCK_RB_MASS, 1e-4f) && near(m.rotationalInertia, 0.5f * ROCK_RB_MASS * r * r, 1e-4f));
+    // Damping: 4 Box2D sub-steps give Unity's one-step factor 1 / (1 + h c).
+    float c = physics_damping(ROCK_RB_LINEAR_DRAG), h = FIXED_TIMESTEP / PHYSICS_SUB_STEPS;
+    assert(near(powf(1 / (1 + h * c), PHYSICS_SUB_STEPS), 1 / (1 + FIXED_TIMESTEP * ROCK_RB_LINEAR_DRAG), 1e-5f));
+    physics_shutdown();
+}
+
+// --- Rocks: references, deferred destroy, exit on destroy -------------------------
+
+static void check_rocks(void)
+{
+    physics_init(record);
+    memset(rocks, 0, sizeof rocks);
+    player_start(); // the joint's other end
+
+    b2BodyId zone = physics_body(b2_staticBody, (b2Vec2){0, 0}, 0, 0, 0, false);
+    physics_circle(zone, (Collider){K_ZONE, 0, TAG_UNTAGGED, true}, (b2Vec2){0, 0}, 0.2025f);
+
+    Rock *rock = rock_instantiate((Vector3){0, 0, ROCKS_POS_Z});
+    assert(rock && rock->shadowAlive && !rock->dark);
+    rock_set_dark(rock, true);
+    assert(rock->dark && rock->renderer.sprite == ROCK_DARK_SPRITE);
+    RockRef ref = rock_ref(rock);
+    watchedRock = ref;
+    logCount = 0;
+    steps(1);
+    assert(count_events(TRIGGER_ENTER, K_ZONE, OWNER_ROCK) == 1 && count_events(TRIGGER_ENTER, OWNER_ROCK, K_ZONE) == 1);
+
+    // Destroy waits for the end of the frame. Until then the rock exists,
+    // and a second Destroy changes nothing.
+    rock_destroy(rock);
+    rock_destroy(rock);
+    assert(rock_get(ref) == rock);
+    unsigned generation = rock->generation;
+    logCount = 0;
+    rocks_end_of_frame();
+    // The exit went to both owners at destroy time, while the rock still
+    // existed (plan 6.3, item 7).
+    assert(logCount == 2 && count_events(TRIGGER_EXIT, K_ZONE, OWNER_ROCK) == 1 &&
+           count_events(TRIGGER_EXIT, OWNER_ROCK, K_ZONE) == 1);
+    assert(eventLog[0].otherRockAlive && eventLog[1].otherRockAlive);
+    // Then the reference reads as empty, and the slot was freed once.
+    assert(rock_get(ref) == NULL && rocks[ref.slot].generation == generation + 1);
+
+    // A new rock may take the same slot and the freed Box2D shape index.
+    // The old reference stays empty, and Box2D's own late end event for the
+    // old shape finds no owner.
+    Rock *again = rock_instantiate((Vector3){5, 5, ROCKS_POS_Z});
+    assert(again == &rocks[ref.slot] && rock_get(ref) == NULL && rock_get(rock_ref(again)) == again);
+    logCount = 0;
+    steps(3);
+    assert(logCount == 0);
+    printf("rocks: destroy at frame end, exits first, old references read empty\n");
+
+    // The pull joint: Box2D holds one only while enabled and connected,
+    // and Rock.relocate clears the connection.
+    rock_set_joint(again, true, true);
+    assert(b2Joint_IsValid(again->joint) && near(b2DistanceJoint_GetLength(again->joint), ROCK_JOINT_DISTANCE, 1e-6f));
+    rockDragger.activeJoint = rock_ref(again);
+    rockGenerator = (RockGenerator){.numRocks = 0, .worldBounds = {-26, -17.2f, 52.8f, 35.2f}};
+    rock_relocate(again);
+    assert(B2_IS_NULL(again->joint) && again->jointEnabled && !again->jointConnected);
+    assert(rock_get(rockDragger.activeJoint) == NULL && again->destroyQueued && again->shadowDestroyQueued);
+    rocks_end_of_frame();
+    int alive = 0;
+    for (int i = 0; i < MAX_ROCKS; i++) alive += rocks[i].alive;
+    assert(alive == 1); // the replacement
+    physics_shutdown();
+}
+
+// --- The Game scene: movement ------------------------------------------------------
+
+// One frame as main.c runs it: latched presses are used up.
+static void game_frame(void)
+{
+    unity_frame();
+    input_clear();
+}
+
+static void check_movement(void)
+{
+    const Scene *table[SCENE_COUNT] = {&GAME_SCENE, &GAME_SCENE, &GAME_SCENE, &GAME_SCENE,
+                                       &GAME_SCENE, &GAME_SCENE, &GAME_SCENE};
+    unity_init(table, SCENE_GAME);
+    SetRandomSeed(1);
+    game_frame();
+    assert(scene_active() == SCENE_GAME);
+    // The first tutorial pauses the game.
+    assert(focus.tutorial.enabled && Time.timeScale == 0);
+    int count = 0;
+    for (int i = 0; i < MAX_ROCKS; i++) count += rocks[i].alive;
+    assert(count == ROCK_GENERATOR_NUM_ROCKS);
+    assert(near(mars.worldBunds.width, 52.8f, 1e-4f) && near(mars.worldBunds.height, 35.2f, 1e-4f));
+    // Clear the rocks out of the way.
+    for (int i = 0; i < MAX_ROCKS; i++) {
+        if (rocks[i].alive) rock_destroy(&rocks[i]);
+    }
+    // GetAxis uses scaled time: an arrow held through the pause leaves the
+    // axis at 0 (measured on the 2016 WebGL build).
+    flx_touch_key(KEY_LEFT, true);
+    for (int i = 0; i < 30; i++) game_frame();
+    assert(input_get_axis(AXIS_HORIZONTAL) == 0);
+    flx_touch_key(KEY_LEFT, false);
+    flx_touch_key(KEY_SPACE, true);
+    game_frame();
+    flx_touch_key(KEY_SPACE, false);
+    game_frame();
+    assert(!focus.tutorial.enabled && Time.timeScale == 1);
+
+    // Hold left (the rover's roof is just to the right): GetAxis rises by
+    // 0.05 per frame, and every fixed step sets the velocity to
+    // 0.8 * axis * 7.2.
+    float x0 = player_position().x;
+    flx_touch_key(KEY_LEFT, true);
+    int frames = 0;
+    while (b2Body_GetLinearVelocity(player.body).x > -5.76f + 1e-4f && frames < 120) {
+        game_frame();
+        frames++;
+    }
+    printf("movement: full speed %.3f units/s after %d frames\n", b2Body_GetLinearVelocity(player.body).x, frames);
+    assert(frames >= 20 && frames <= 22);
+    float x1 = player_position().x;
+    for (int i = 0; i < 60; i++) game_frame();
+    float speed = x1 - player_position().x;
+    printf("movement: %.4f units in the next second\n", speed);
+    assert(near(speed, 5.76f, 0.02f));
+    assert(x1 < x0 && player.renderer.transform.flipped && player.animator.state == 0); // run
+    flx_touch_key(KEY_LEFT, false);
+    for (int i = 0; i < 30; i++) game_frame();
+    assert(b2Body_GetLinearVelocity(player.body).x == 0 && player.animator.state == 2); // idle
+    // Right faces right.
+    flx_touch_key(KEY_RIGHT, true);
+    for (int i = 0; i < 30; i++) game_frame();
+    flx_touch_key(KEY_RIGHT, false);
+    assert(!player.renderer.transform.flipped);
+    // The camera follows: SmoothDamp of 0.01 s keeps it within a few
+    // hundredths of the player.
+    assert(fabsf(focus.camera.position.x - player_position().x) < 0.1f);
+    for (int i = 0; i < 30; i++) game_frame();
+}
+
 int main(void)
 {
     SetTraceLogLevel(LOG_WARNING);
+    check_hulls();
+    check_physics_bridge();
+    check_rocks();
+    check_movement();
     check_axis();
     check_round();
     check_smooth_damp();
