@@ -1,0 +1,45 @@
+{
+ "b2_linear_slop": 0.0057050935,
+ "colliders": [
+  {
+   "dump": "scenes/Game.json",
+   "gameobject": "Player",
+   "pieces": 3,
+   "points_per_piece": [
+    3,
+    5,
+    4
+   ]
+  },
+  {
+   "dump": "scenes/Game.json",
+   "gameobject": "Rover/bis_rover_v2_roof",
+   "pieces": 7,
+   "points_per_piece": [
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    5
+   ]
+  },
+  {
+   "dump": "prefabs/RocketPrefab.json",
+   "gameobject": "RocketPrefab/RocketBody",
+   "pieces": 7,
+   "points_per_piece": [
+    3,
+    3,
+    3,
+    7,
+    5,
+    4,
+    6
+   ]
+  }
+ ],
+ "lengthUnitsPerMeter": 1.1410187,
+ "rule": "triangulate (widest ear first), merge neighbours while convex, <= 8 points, every corner more than 2 x slop from collinear"
+}

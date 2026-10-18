@@ -1,0 +1,22 @@
+{
+ "bytes": 27694,
+ "file": "Sounds/player_strain.mp3",
+ "forceToMono": 0,
+ "format": 0,
+ "guid": "a7309be61052f427caa24c278e799e7f",
+ "import": {
+  "3D": 1,
+  "forceToMono": 0,
+  "format": 0,
+  "loopable": 0,
+  "quality": 0.194999993,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": true,
+ "loopable": 0,
+ "quality": 0.194999993,
+ "stream": 1
+}

@@ -1,0 +1,222 @@
+{
+ "alignment": 0,
+ "alphaIsTransparency": 1,
+ "aniso": 1,
+ "file": "Sprites/ground/marsTiles.png",
+ "filterMode": 0,
+ "filterModeName": "point",
+ "guid": "37a23dc6dbe694b678862c82586141c0",
+ "height": 16,
+ "isReadable": 0,
+ "maxTextureSize": 64,
+ "meta": {
+  "alignment": 0,
+  "alphaIsTransparency": 1,
+  "buildTargetSettings": [],
+  "bumpmap": {
+   "convertToNormalMap": 0,
+   "externalNormalMap": 0,
+   "heightScale": 0.25,
+   "normalMapFilter": 0
+  },
+  "compressionQuality": 50,
+  "fileIDToRecycleName": {
+   "21300000": "marsTiles",
+   "21300002": "marsTiles_0",
+   "21300004": "marsTiles_1",
+   "21300006": "marsTiles_2"
+  },
+  "generateCubemap": 0,
+  "grayScaleToAlpha": 0,
+  "isReadable": 0,
+  "lightmap": 0,
+  "maxTextureSize": 64,
+  "mipmaps": {
+   "borderMipMap": 0,
+   "correctGamma": 0,
+   "enableMipMap": 0,
+   "fadeOut": 0,
+   "linearTexture": 0,
+   "mipMapFadeDistanceEnd": 3,
+   "mipMapFadeDistanceStart": 1,
+   "mipMapMode": 0
+  },
+  "nPOTScale": 0,
+  "seamlessCubemap": 0,
+  "serializedVersion": 2,
+  "spriteBorder": {
+   "w": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  "spriteExtrude": 1,
+  "spriteMeshType": 1,
+  "spriteMode": 2,
+  "spritePackingTag": null,
+  "spritePivot": {
+   "x": 0.5,
+   "y": 0.5
+  },
+  "spritePixelsToUnits": 100,
+  "spriteSheet": {
+   "sprites": [
+    {
+     "alignment": 0,
+     "border": {
+      "w": 0,
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "name": "marsTiles_0",
+     "pivot": {
+      "x": 0,
+      "y": 0
+     },
+     "rect": {
+      "height": 16,
+      "serializedVersion": 2,
+      "width": 16,
+      "x": 0,
+      "y": 0
+     }
+    },
+    {
+     "alignment": 0,
+     "border": {
+      "w": 0,
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "name": "marsTiles_1",
+     "pivot": {
+      "x": 0,
+      "y": 0
+     },
+     "rect": {
+      "height": 16,
+      "serializedVersion": 2,
+      "width": 16,
+      "x": 16,
+      "y": 0
+     }
+    },
+    {
+     "alignment": 0,
+     "border": {
+      "w": 0,
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "name": "marsTiles_2",
+     "pivot": {
+      "x": 0,
+      "y": 0
+     },
+     "rect": {
+      "height": 16,
+      "serializedVersion": 2,
+      "width": 16,
+      "x": 32,
+      "y": 0
+     }
+    }
+   ]
+  },
+  "textureFormat": -3,
+  "textureSettings": {
+   "aniso": 1,
+   "filterMode": 0,
+   "mipBias": -1,
+   "wrapMode": 1
+  },
+  "textureType": 8,
+  "userData": null
+ },
+ "mipmaps": 0,
+ "npotScale": 0,
+ "pixelsPerUnit": 100,
+ "spriteBorder": {
+  "w": 0,
+  "x": 0,
+  "y": 0,
+  "z": 0
+ },
+ "spriteExtrude": 1,
+ "spriteMeshType": 1,
+ "spriteMode": 2,
+ "spritePackingTag": null,
+ "spritePivot": {
+  "x": 0.5,
+  "y": 0.5
+ },
+ "sprites": [
+  {
+   "alignment": 0,
+   "h": 16,
+   "name": "marsTiles_0",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "size_world": [
+    0.16,
+    0.16
+   ],
+   "stored_pivot": [
+    0,
+    0
+   ],
+   "w": 16,
+   "x": 0,
+   "y": 0
+  },
+  {
+   "alignment": 0,
+   "h": 16,
+   "name": "marsTiles_1",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "size_world": [
+    0.16,
+    0.16
+   ],
+   "stored_pivot": [
+    0,
+    0
+   ],
+   "w": 16,
+   "x": 16,
+   "y": 0
+  },
+  {
+   "alignment": 0,
+   "h": 16,
+   "name": "marsTiles_2",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "size_world": [
+    0.16,
+    0.16
+   ],
+   "stored_pivot": [
+    0,
+    0
+   ],
+   "w": 16,
+   "x": 32,
+   "y": 0
+  }
+ ],
+ "textureFormat": -3,
+ "textureType": 8,
+ "width": 48,
+ "wrapMode": 1
+}

@@ -1,0 +1,148 @@
+{
+ "file": "Sprites/run/run.anim",
+ "objects": [
+  {
+   "fields": {
+    "m_AnimationClipSettings": {
+     "m_CycleOffset": 0.0,
+     "m_HeightFromFeet": false,
+     "m_KeepOriginalOrientation": false,
+     "m_KeepOriginalPositionXZ": false,
+     "m_KeepOriginalPositionY": true,
+     "m_Level": 0.0,
+     "m_LoopBlend": false,
+     "m_LoopBlendOrientation": false,
+     "m_LoopBlendPositionXZ": false,
+     "m_LoopBlendPositionY": false,
+     "m_LoopTime": true,
+     "m_Mirror": false,
+     "m_OrientationOffsetY": 0.0,
+     "m_StartTime": 0.0,
+     "m_StopTime": 0.54545456
+    },
+    "m_AnimationType": 2,
+    "m_Bounds": {
+     "m_Center": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     "m_Extent": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    },
+    "m_ClipBindingConstant": {
+     "genericBindings": [
+      {
+       "attribute": 0,
+       "classID": 212,
+       "customType": 23,
+       "isPPtrCurve": 1,
+       "path": 0,
+       "script": null
+      }
+     ],
+     "pptrCurveMapping": [
+      "Sprites/run/bis_dude_ani_Animation 1_0.png#bis_dude_ani_Animation 1_0",
+      "Sprites/run/bis_dude_ani_Animation 1_1.png#bis_dude_ani_Animation 1_1",
+      "Sprites/run/bis_dude_ani_Animation 1_2.png#bis_dude_ani_Animation 1_2",
+      "Sprites/run/bis_dude_ani_Animation 1_3.png#bis_dude_ani_Animation 1_3",
+      "Sprites/run/bis_dude_ani_Animation 1_4.png#bis_dude_ani_Animation 1_4",
+      "Sprites/run/bis_dude_ani_Animation 1_5.png#bis_dude_ani_Animation 1_5"
+     ]
+    },
+    "m_Compressed": false,
+    "m_CompressedRotationCurves": [],
+    "m_EditorCurves": [],
+    "m_EulerEditorCurves": [],
+    "m_Events": [],
+    "m_FloatCurves": [],
+    "m_Name": "run",
+    "m_ObjectHideFlags": 0,
+    "m_PPtrCurves": [
+     {
+      "attribute": "m_Sprite",
+      "classID": 212,
+      "curve": [
+       {
+        "time": 0.0,
+        "value": "Sprites/run/bis_dude_ani_Animation 1_0.png#bis_dude_ani_Animation 1_0"
+       },
+       {
+        "time": 0.09090909,
+        "value": "Sprites/run/bis_dude_ani_Animation 1_1.png#bis_dude_ani_Animation 1_1"
+       },
+       {
+        "time": 0.18181819,
+        "value": "Sprites/run/bis_dude_ani_Animation 1_2.png#bis_dude_ani_Animation 1_2"
+       },
+       {
+        "time": 0.27272728,
+        "value": "Sprites/run/bis_dude_ani_Animation 1_3.png#bis_dude_ani_Animation 1_3"
+       },
+       {
+        "time": 0.36363637,
+        "value": "Sprites/run/bis_dude_ani_Animation 1_4.png#bis_dude_ani_Animation 1_4"
+       },
+       {
+        "time": 0.45454547,
+        "value": "Sprites/run/bis_dude_ani_Animation 1_5.png#bis_dude_ani_Animation 1_5"
+       }
+      ],
+      "path": "",
+      "script": null
+     }
+    ],
+    "m_PositionCurves": [],
+    "m_PrefabInternal": null,
+    "m_PrefabParentObject": null,
+    "m_RotationCurves": [],
+    "m_SampleRate": 11.0,
+    "m_ScaleCurves": [],
+    "m_UseHighQualityCurve": true,
+    "m_WrapMode": 0
+   },
+   "id": 7400000,
+   "type": "AnimationClip"
+  }
+ ],
+ "summary": {
+  "events": [],
+  "float_curves": [],
+  "key_count": 6,
+  "keys": [
+   {
+    "sprite": "Sprites/run/bis_dude_ani_Animation 1_0.png#bis_dude_ani_Animation 1_0",
+    "time": 0.0
+   },
+   {
+    "sprite": "Sprites/run/bis_dude_ani_Animation 1_1.png#bis_dude_ani_Animation 1_1",
+    "time": 0.09090909
+   },
+   {
+    "sprite": "Sprites/run/bis_dude_ani_Animation 1_2.png#bis_dude_ani_Animation 1_2",
+    "time": 0.18181819
+   },
+   {
+    "sprite": "Sprites/run/bis_dude_ani_Animation 1_3.png#bis_dude_ani_Animation 1_3",
+    "time": 0.27272728
+   },
+   {
+    "sprite": "Sprites/run/bis_dude_ani_Animation 1_4.png#bis_dude_ani_Animation 1_4",
+    "time": 0.36363637
+   },
+   {
+    "sprite": "Sprites/run/bis_dude_ani_Animation 1_5.png#bis_dude_ani_Animation 1_5",
+    "time": 0.45454547
+   }
+  ],
+  "loop_time": true,
+  "name": "run",
+  "sample_rate": 11.0,
+  "start_time": 0.0,
+  "stop_time": 0.54545456,
+  "wrap_mode": 0
+ }
+}

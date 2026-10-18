@@ -1,0 +1,14 @@
+{
+ "file": "NetworkManager.asset",
+ "objects": [
+  {
+   "fields": {
+    "m_AssetToPrefab": [],
+    "m_DebugLevel": 0,
+    "m_ObjectHideFlags": 0,
+    "m_Sendrate": 15.0
+   },
+   "type": "NetworkManager"
+  }
+ ]
+}

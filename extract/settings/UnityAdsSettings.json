@@ -1,0 +1,17 @@
+{
+ "file": "UnityAdsSettings.asset",
+ "objects": [
+  {
+   "fields": {
+    "m_AndroidGameId": "",
+    "m_Enabled": false,
+    "m_EnabledPlatforms": 4294967295,
+    "m_InitializeOnStartup": true,
+    "m_IosGameId": "",
+    "m_ObjectHideFlags": 0,
+    "m_TestMode": false
+   },
+   "type": "UnityAdsManager"
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "bytes": 58168,
+ "file": "Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav",
+ "forceToMono": 0,
+ "format": -1,
+ "guid": "94dbd4febab734210a43c84263f5e116",
+ "import": {
+  "3D": 1,
+  "forceToMono": 0,
+  "format": -1,
+  "loopable": 0,
+  "quality": -1,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": true,
+ "loopable": 0,
+ "quality": -1,
+ "stream": 1
+}

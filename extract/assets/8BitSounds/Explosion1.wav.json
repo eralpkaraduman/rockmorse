@@ -1,0 +1,22 @@
+{
+ "bytes": 47308,
+ "file": "8BitSounds/Explosion1.wav",
+ "forceToMono": 0,
+ "format": -1,
+ "guid": "9339dcde69dda7b4c9728d0e4fee478e",
+ "import": {
+  "3D": 1,
+  "forceToMono": 0,
+  "format": -1,
+  "loopable": 0,
+  "quality": -1,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": true,
+ "loopable": 0,
+ "quality": -1,
+ "stream": 1
+}

@@ -1,0 +1,567 @@
+{
+ "file": "Scenes/Intro.unity",
+ "gameobjects": [
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.8849136,
+       "y": 1.8849146,
+       "z": 1.8849146
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 1
+     },
+     "id": 591176099,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": false,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/superdamage.png#superdamage",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 591176098,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    }
+   ],
+   "id": 591176097,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "superdamage",
+   "parent": null,
+   "path": "superdamage",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.8849136,
+     "y": 1.8849146,
+     "z": 1.8849146
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.8849136,
+     "y": 1.8849146,
+     "z": 1.8849146
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": -10.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 1571309464,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "far clip plane": 1000.0,
+      "field of view": 60.0,
+      "m_BackGroundColor": {
+       "a": 0.019607844,
+       "b": 0.0,
+       "g": 0.0,
+       "r": 0.0
+      },
+      "m_ClearFlags": 1,
+      "m_CullingMask": {
+       "m_Bits": 4294967295
+      },
+      "m_Depth": -1.0,
+      "m_Enabled": 1,
+      "m_HDR": false,
+      "m_NormalizedViewPortRect": {
+       "height": 1.0,
+       "width": 1.0,
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_OcclusionCulling": true,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RenderingPath": -1,
+      "m_StereoConvergence": 10.0,
+      "m_StereoSeparation": 0.022,
+      "m_TargetDisplay": 0,
+      "m_TargetTexture": null,
+      "near clip plane": 0.3,
+      "orthographic": true,
+      "orthographic size": 5.0
+     },
+     "id": 1571309463,
+     "key": "Camera",
+     "type": "Camera"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 1571309462,
+     "key": "GUILayer",
+     "type": "GUILayer"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 1571309461,
+     "key": "FlareLayer",
+     "type": "FlareLayer"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 1571309460,
+     "key": "AudioListener",
+     "type": "AudioListener"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "logo": "@superdamage:Transform",
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/Intro.cs"
+     },
+     "id": 1571309465,
+     "key": "Intro",
+     "script": "Intro",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 1571309459,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Main Camera",
+   "parent": null,
+   "path": "Main Camera",
+   "prefab_source": null,
+   "tag": "MainCamera",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -10.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -10.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 2
+     },
+     "id": 1709232164,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": false,
+      "MaxDistance": 500.0,
+      "MinDistance": 1.0,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 192,
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_Pitch": 1.06,
+      "m_PlayOnAwake": true,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.538,
+      "m_audioClip": "Assets/Free/Assets/8Bit/Explosion_04.wav",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 2,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.25833333
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 1709232163,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 1709232162,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Explosion_04",
+   "parent": null,
+   "path": "Explosion_04",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  }
+ ],
+ "scene_settings": {
+  "HaloManager": {
+   "m_ObjectHideFlags": 0
+  },
+  "LightmapSettings": {
+   "m_BakedColorSpace": 0,
+   "m_LightProbes": null,
+   "m_LightmapEditorSettings": {
+    "m_AOAmount": 0.0,
+    "m_AOContrast": 1.0,
+    "m_AOMaxDistance": 0.1,
+    "m_BounceBoost": 1.0,
+    "m_BounceIntensity": 1.0,
+    "m_Bounces": 1,
+    "m_FinalGatherContrastThreshold": 0.05,
+    "m_FinalGatherGradientThreshold": 0.0,
+    "m_FinalGatherInterpolationPoints": 15,
+    "m_FinalGatherRays": 1000,
+    "m_LODSurfaceMappingDistance": 1.0,
+    "m_LastUsedResolution": 0.0,
+    "m_LockAtlas": false,
+    "m_Padding": 0,
+    "m_Quality": 0,
+    "m_Resolution": 50.0,
+    "m_SkyLightColor": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 0.93,
+     "r": 0.86
+    },
+    "m_SkyLightIntensity": 0.0,
+    "m_TextureCompression": false,
+    "m_TextureHeight": 1024,
+    "m_TextureWidth": 1024
+   },
+   "m_Lightmaps": [],
+   "m_LightmapsMode": 1,
+   "m_ObjectHideFlags": 0,
+   "m_UseDualLightmapsInForward": false
+  },
+  "NavMeshSettings": {
+   "m_BuildSettings": {
+    "accuratePlacement": false,
+    "agentClimb": 0.4,
+    "agentHeight": 2.0,
+    "agentRadius": 0.5,
+    "agentSlope": 45.0,
+    "heightInaccuracy": 10.0,
+    "ledgeDropHeight": 0.0,
+    "maxJumpAcrossDistance": 0.0,
+    "minRegionArea": 2.0,
+    "widthInaccuracy": 16.666666
+   },
+   "m_NavMesh": null,
+   "m_ObjectHideFlags": 0
+  },
+  "OcclusionCullingSettings": {
+   "m_ObjectHideFlags": 0,
+   "m_OcclusionBakeSettings": {
+    "backfaceThreshold": 100.0,
+    "smallestHole": 0.25,
+    "smallestOccluder": 5.0
+   },
+   "m_PVSData": [],
+   "m_PVSObjectsArray": [],
+   "m_PVSPortalsArray": []
+  },
+  "RenderSettings": {
+   "m_AmbientLight": {
+    "a": 1.0,
+    "b": 0.2,
+    "g": 0.2,
+    "r": 0.2
+   },
+   "m_FlareFadeSpeed": 3.0,
+   "m_FlareStrength": 1.0,
+   "m_Fog": false,
+   "m_FogColor": {
+    "a": 1.0,
+    "b": 0.5,
+    "g": 0.5,
+    "r": 0.5
+   },
+   "m_FogDensity": 0.01,
+   "m_FogMode": 3,
+   "m_HaloStrength": 0.5,
+   "m_HaloTexture": null,
+   "m_LinearFogEnd": 300.0,
+   "m_LinearFogStart": 0.0,
+   "m_ObjectHideFlags": 0,
+   "m_SkyboxMaterial": null,
+   "m_SpotCookie": null
+  }
+ },
+ "unity_serialized_version": "4.5.2f1"
+}

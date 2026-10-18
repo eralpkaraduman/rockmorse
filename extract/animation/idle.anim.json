@@ -1,0 +1,292 @@
+{
+ "file": "Sprites/idle/idle.anim",
+ "objects": [
+  {
+   "fields": {
+    "m_AnimationClipSettings": {
+     "m_CycleOffset": 0.0,
+     "m_HeightFromFeet": false,
+     "m_KeepOriginalOrientation": false,
+     "m_KeepOriginalPositionXZ": false,
+     "m_KeepOriginalPositionY": true,
+     "m_Level": 0.0,
+     "m_LoopBlend": false,
+     "m_LoopBlendOrientation": false,
+     "m_LoopBlendPositionXZ": false,
+     "m_LoopBlendPositionY": false,
+     "m_LoopTime": true,
+     "m_Mirror": false,
+     "m_OrientationOffsetY": 0.0,
+     "m_StartTime": 0.0,
+     "m_StopTime": 2.4444444
+    },
+    "m_AnimationType": 2,
+    "m_Bounds": {
+     "m_Center": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     "m_Extent": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    },
+    "m_ClipBindingConstant": {
+     "genericBindings": [
+      {
+       "attribute": 0,
+       "classID": 212,
+       "customType": 23,
+       "isPPtrCurve": 1,
+       "path": 0,
+       "script": null
+      }
+     ],
+     "pptrCurveMapping": [
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_00.png#bis_dude_idle_paranoid_Animation 1_00",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_01.png#bis_dude_idle_paranoid_Animation 1_01",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_02.png#bis_dude_idle_paranoid_Animation 1_02",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_03.png#bis_dude_idle_paranoid_Animation 1_03",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_04.png#bis_dude_idle_paranoid_Animation 1_04",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_05.png#bis_dude_idle_paranoid_Animation 1_05",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_06.png#bis_dude_idle_paranoid_Animation 1_06",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_07.png#bis_dude_idle_paranoid_Animation 1_07",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_08.png#bis_dude_idle_paranoid_Animation 1_08",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_09.png#bis_dude_idle_paranoid_Animation 1_09",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_10.png#bis_dude_idle_paranoid_Animation 1_10",
+      "Sprites/idle/bis_dude_idle_paranoid_Animation 1_11.png#bis_dude_idle_paranoid_Animation 1_11",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_0.png#bis_dude_idle_scratch_Animation 1_0",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_1.png#bis_dude_idle_scratch_Animation 1_1",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_2.png#bis_dude_idle_scratch_Animation 1_2",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_3.png#bis_dude_idle_scratch_Animation 1_3",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_4.png#bis_dude_idle_scratch_Animation 1_4",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_5.png#bis_dude_idle_scratch_Animation 1_5",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_6.png#bis_dude_idle_scratch_Animation 1_6",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_7.png#bis_dude_idle_scratch_Animation 1_7",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_8.png#bis_dude_idle_scratch_Animation 1_8",
+      "Sprites/idle/bis_dude_idle_scratch_Animation 1_9.png#bis_dude_idle_scratch_Animation 1_9"
+     ]
+    },
+    "m_Compressed": false,
+    "m_CompressedRotationCurves": [],
+    "m_EditorCurves": [],
+    "m_EulerEditorCurves": [],
+    "m_Events": [],
+    "m_FloatCurves": [],
+    "m_Name": "idle",
+    "m_ObjectHideFlags": 0,
+    "m_PPtrCurves": [
+     {
+      "attribute": "m_Sprite",
+      "classID": 212,
+      "curve": [
+       {
+        "time": 0.0,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_00.png#bis_dude_idle_paranoid_Animation 1_00"
+       },
+       {
+        "time": 0.11111111,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_01.png#bis_dude_idle_paranoid_Animation 1_01"
+       },
+       {
+        "time": 0.22222222,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_02.png#bis_dude_idle_paranoid_Animation 1_02"
+       },
+       {
+        "time": 0.33333334,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_03.png#bis_dude_idle_paranoid_Animation 1_03"
+       },
+       {
+        "time": 0.44444445,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_04.png#bis_dude_idle_paranoid_Animation 1_04"
+       },
+       {
+        "time": 0.5555556,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_05.png#bis_dude_idle_paranoid_Animation 1_05"
+       },
+       {
+        "time": 0.6666667,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_06.png#bis_dude_idle_paranoid_Animation 1_06"
+       },
+       {
+        "time": 0.7777778,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_07.png#bis_dude_idle_paranoid_Animation 1_07"
+       },
+       {
+        "time": 0.8888889,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_08.png#bis_dude_idle_paranoid_Animation 1_08"
+       },
+       {
+        "time": 1.0,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_09.png#bis_dude_idle_paranoid_Animation 1_09"
+       },
+       {
+        "time": 1.1111112,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_10.png#bis_dude_idle_paranoid_Animation 1_10"
+       },
+       {
+        "time": 1.2222222,
+        "value": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_11.png#bis_dude_idle_paranoid_Animation 1_11"
+       },
+       {
+        "time": 1.3333334,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_0.png#bis_dude_idle_scratch_Animation 1_0"
+       },
+       {
+        "time": 1.4444444,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_1.png#bis_dude_idle_scratch_Animation 1_1"
+       },
+       {
+        "time": 1.5555556,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_2.png#bis_dude_idle_scratch_Animation 1_2"
+       },
+       {
+        "time": 1.6666666,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_3.png#bis_dude_idle_scratch_Animation 1_3"
+       },
+       {
+        "time": 1.7777778,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_4.png#bis_dude_idle_scratch_Animation 1_4"
+       },
+       {
+        "time": 1.8888888,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_5.png#bis_dude_idle_scratch_Animation 1_5"
+       },
+       {
+        "time": 2.0,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_6.png#bis_dude_idle_scratch_Animation 1_6"
+       },
+       {
+        "time": 2.1111112,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_7.png#bis_dude_idle_scratch_Animation 1_7"
+       },
+       {
+        "time": 2.2222223,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_8.png#bis_dude_idle_scratch_Animation 1_8"
+       },
+       {
+        "time": 2.3333333,
+        "value": "Sprites/idle/bis_dude_idle_scratch_Animation 1_9.png#bis_dude_idle_scratch_Animation 1_9"
+       }
+      ],
+      "path": "",
+      "script": null
+     }
+    ],
+    "m_PositionCurves": [],
+    "m_PrefabInternal": null,
+    "m_PrefabParentObject": null,
+    "m_RotationCurves": [],
+    "m_SampleRate": 9.0,
+    "m_ScaleCurves": [],
+    "m_UseHighQualityCurve": true,
+    "m_WrapMode": 0
+   },
+   "id": 7400000,
+   "type": "AnimationClip"
+  }
+ ],
+ "summary": {
+  "events": [],
+  "float_curves": [],
+  "key_count": 22,
+  "keys": [
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_00.png#bis_dude_idle_paranoid_Animation 1_00",
+    "time": 0.0
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_01.png#bis_dude_idle_paranoid_Animation 1_01",
+    "time": 0.11111111
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_02.png#bis_dude_idle_paranoid_Animation 1_02",
+    "time": 0.22222222
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_03.png#bis_dude_idle_paranoid_Animation 1_03",
+    "time": 0.33333334
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_04.png#bis_dude_idle_paranoid_Animation 1_04",
+    "time": 0.44444445
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_05.png#bis_dude_idle_paranoid_Animation 1_05",
+    "time": 0.5555556
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_06.png#bis_dude_idle_paranoid_Animation 1_06",
+    "time": 0.6666667
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_07.png#bis_dude_idle_paranoid_Animation 1_07",
+    "time": 0.7777778
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_08.png#bis_dude_idle_paranoid_Animation 1_08",
+    "time": 0.8888889
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_09.png#bis_dude_idle_paranoid_Animation 1_09",
+    "time": 1.0
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_10.png#bis_dude_idle_paranoid_Animation 1_10",
+    "time": 1.1111112
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_11.png#bis_dude_idle_paranoid_Animation 1_11",
+    "time": 1.2222222
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_0.png#bis_dude_idle_scratch_Animation 1_0",
+    "time": 1.3333334
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_1.png#bis_dude_idle_scratch_Animation 1_1",
+    "time": 1.4444444
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_2.png#bis_dude_idle_scratch_Animation 1_2",
+    "time": 1.5555556
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_3.png#bis_dude_idle_scratch_Animation 1_3",
+    "time": 1.6666666
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_4.png#bis_dude_idle_scratch_Animation 1_4",
+    "time": 1.7777778
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_5.png#bis_dude_idle_scratch_Animation 1_5",
+    "time": 1.8888888
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_6.png#bis_dude_idle_scratch_Animation 1_6",
+    "time": 2.0
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_7.png#bis_dude_idle_scratch_Animation 1_7",
+    "time": 2.1111112
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_8.png#bis_dude_idle_scratch_Animation 1_8",
+    "time": 2.2222223
+   },
+   {
+    "sprite": "Sprites/idle/bis_dude_idle_scratch_Animation 1_9.png#bis_dude_idle_scratch_Animation 1_9",
+    "time": 2.3333333
+   }
+  ],
+  "loop_time": true,
+  "name": "idle",
+  "sample_rate": 9.0,
+  "start_time": 0.0,
+  "stop_time": 2.4444444,
+  "wrap_mode": 0
+ }
+}

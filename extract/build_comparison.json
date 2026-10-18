@@ -1,0 +1,5206 @@
+{
+ "assets": {
+  "audio": [
+   {
+    "build": {
+     "3D": null,
+     "channels": 1,
+     "compression": 0,
+     "frequency": 48000,
+     "length": 0.7306249737739563,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "Explosion_04"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 0,
+     "frequency": 48000,
+     "length": 0.16324999928474426,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "GlassHitScroll6"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 0,
+     "frequency": 48000,
+     "length": 0.5598750114440918,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "HitsAccept2"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 0,
+     "frequency": 44100,
+     "length": 1.846167802810669,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "Menu4"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 1,
+     "frequency": 44100,
+     "length": 1.8024489879608154,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "newMessage"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 1,
+     "frequency": 44100,
+     "length": 0.7575510144233704,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "drag"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 1,
+     "compression": 0,
+     "frequency": 44100,
+     "length": 0.08863945305347443,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "Menu1"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 1,
+     "compression": 1,
+     "frequency": 11000,
+     "length": 14.837545394897461,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [
+     {
+      "build": 11000,
+      "field": "sample_rate",
+      "source": 11025
+     }
+    ],
+    "name": "static"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 1,
+     "compression": 0,
+     "frequency": 44100,
+     "length": 0.5358729958534241,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "Explosion1"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 1,
+     "compression": 0,
+     "frequency": 48000,
+     "length": 0.5930833220481873,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "Footstep_Gravel_1"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 1,
+     "frequency": 44100,
+     "length": 1.4889795780181885,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "player_strain"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 0,
+     "frequency": 48000,
+     "length": 115.42589569091797,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "Sci-fi_AmbienceLoop1"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 1,
+     "compression": 1,
+     "frequency": 44100,
+     "length": 0.6008163094520569,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "Arcade_S-wwwbeat-8526_hifi"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 1,
+     "frequency": 44100,
+     "length": 18.41632652282715,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "Victory_-arewhyae-8093_hifi"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 1,
+     "frequency": 44100,
+     "length": 2.351020336151123,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "FOLEY HORN PARTY TOY BLOW OUT 01"
+   },
+   {
+    "build": {
+     "3D": null,
+     "channels": 2,
+     "compression": 1,
+     "frequency": 32000,
+     "length": 3.5280001163482666,
+     "load_type": 1,
+     "stream": null
+    },
+    "diffs": [],
+    "name": "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm"
+   }
+  ],
+  "counts": {
+   "source_sprites_missing_in_build": [
+    "bis_screen_v2",
+    "death",
+    "rm_tutorial_v4_1",
+    "rm_tutorial_v4_2",
+    "win"
+   ],
+   "sprites_in_build": 56
+  },
+  "fonts": [
+   {
+    "ascent": 16.016000747680664,
+    "character_spacing": 0,
+    "font_size": 16.0,
+    "name": "joystix monospace"
+   }
+  ],
+  "sprites": [],
+  "textures": [
+   {
+    "build_format": 3,
+    "build_size": [
+     254,
+     360
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "filterMode",
+      "source": -1
+     },
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "superdamage"
+   },
+   {
+    "build_format": 10,
+    "build_size": [
+     660,
+     440
+    ],
+    "diffs": [],
+    "name": "rm_tutorial_v4_1"
+   },
+   {
+    "build_format": 10,
+    "build_size": [
+     660,
+     440
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "filterMode",
+      "source": -1
+     },
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "rm_tutorial_v4_2"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_10"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     16
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_rock_light_v3"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_00"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_8"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     16
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_morse_dash_v1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_08"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_6"
+   },
+   {
+    "build_format": 3,
+    "build_size": [
+     660,
+     440
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_cutscene_v1_3"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     16
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_shadow_v1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_02"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [],
+    "name": "bis_dude_ani_Animation 1_0"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_0"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     96,
+     96
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_rover_v2_roof"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     96,
+     96
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_rover_v2"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [],
+    "name": "bis_dude_ani_Animation 1_4"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_9"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_01"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [],
+    "name": "bis_dude_ani_Animation 1_1"
+   },
+   {
+    "build_format": 3,
+    "build_size": [
+     48,
+     16
+    ],
+    "diffs": [],
+    "name": "marsTiles"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     24,
+     24
+    ],
+    "diffs": [],
+    "name": "rockDragTarget"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     32,
+     32
+    ],
+    "diffs": [],
+    "name": "bis_exclamation_v2_2"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_03"
+   },
+   {
+    "build_format": 3,
+    "build_size": [
+     660,
+     440
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_cutscene_v1_2"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_pulling_Animation 1_5"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_2"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     96,
+     160
+    ],
+    "diffs": [],
+    "name": "bis_rocket_v1_cover"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_7"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_3"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     16
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_rock_dark_v3"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_5"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     16
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_morse_correct_v1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [],
+    "name": "bis_dude_ani_Animation 1_3"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_06"
+   },
+   {
+    "build_format": 10,
+    "build_size": [
+     660,
+     440
+    ],
+    "diffs": [],
+    "name": "rm_tutorial_v4_3"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_05"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_pulling_Animation 1_4"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     24,
+     24
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "rockDragTarget_dash"
+   },
+   {
+    "build_format": 3,
+    "build_size": [
+     660,
+     440
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_cutscene_v1_1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_04"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [],
+    "name": "bis_dude_ani_Animation 1_2"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_pulling_Animation 1_3"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [],
+    "name": "bis_dude_ani_Animation 1_5"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_07"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_09"
+   },
+   {
+    "build_format": 3,
+    "build_size": [
+     220,
+     220
+    ],
+    "diffs": [],
+    "name": "bis_screen_v2"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     96,
+     160
+    ],
+    "diffs": [],
+    "name": "bis_rocket_v1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_paranoid_Animation 1_11"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_idle_scratch_Animation 1_4"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_pulling_Animation 1_2"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_pulling_Animation 1_1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     16
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_morse_dot_v1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     16
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_morse_wrong_v1"
+   },
+   {
+    "build_format": 5,
+    "build_size": [
+     16,
+     32
+    ],
+    "diffs": [
+     {
+      "build": 1,
+      "field": "wrapMode",
+      "source": -1
+     }
+    ],
+    "name": "bis_dude_pulling_Animation 1_0"
+   },
+   {
+    "build_format": 3,
+    "build_size": [
+     660,
+     440
+    ],
+    "diffs": [],
+    "name": "death"
+   },
+   {
+    "build_format": 3,
+    "build_size": [
+     660,
+     440
+    ],
+    "diffs": [],
+    "name": "win"
+   }
+  ]
+ },
+ "audio_sources_in_build": [
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "explosion_04",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level0",
+   "gameobject": "Explosion_04",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.059999942779541,
+   "play_on_awake": true,
+   "priority": 192,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 2,
+   "spatial_blend": 0.0,
+   "spread": 0.25833332538604736,
+   "volume": 0.5379999876022339
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "hitsaccept2",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level1",
+   "gameobject": "clickSound",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": false,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 0.4620000123977661
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "glasshitscroll6",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level1",
+   "gameobject": "highlightSound",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": false,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 0.1770000010728836
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "menu4",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level2",
+   "gameobject": "Menu4",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 1.0
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "menu4",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level3",
+   "gameobject": "Menu4",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 1.0
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "menu4",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level4",
+   "gameobject": "Menu4",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 1.0
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "player_strain",
+   "doppler": 1.0,
+   "enabled": false,
+   "file": "level4",
+   "gameobject": "Player",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": false,
+   "priority": 128,
+   "reverb_zone_mix": 1.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 1.0,
+   "spread": 0.0,
+   "volume": 0.027000000700354576
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "footstep_gravel_1",
+   "doppler": 1.0,
+   "enabled": false,
+   "file": "level4",
+   "gameobject": "Player/footsteps",
+   "loop": true,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 1.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 1.0,
+   "spread": 0.0,
+   "volume": 0.05000000074505806
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "sci-fi_ambienceloop1",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level4",
+   "gameobject": "Player/pivot/Sci-fi_AmbienceLoop1",
+   "loop": true,
+   "max_distance": 500.0,
+   "min_distance": 2.7832655906677246,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 100,
+   "reverb_zone_mix": 1.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 1.0,
+   "spread": 0.0,
+   "volume": 0.3540000021457672
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "newmessage",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level4",
+   "gameobject": "Rover",
+   "loop": true,
+   "max_distance": 25.0,
+   "min_distance": 0.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 0.949999988079071,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 1.0,
+   "rolloff_mode": 1,
+   "spatial_blend": 1.0,
+   "spread": 1.0,
+   "volume": 0.0
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "menu1",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level4",
+   "gameobject": "Rover/playerInsideRoverTrigger",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": -0.8799999952316284,
+   "play_on_awake": false,
+   "priority": 107,
+   "reverb_zone_mix": 1.0,
+   "rolloff_mode": 1,
+   "spatial_blend": 1.0,
+   "spread": 0.0,
+   "volume": 0.14300000667572021
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "static",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level4",
+   "gameobject": "Rover/playerInsideRoverTrigger/chatter",
+   "loop": true,
+   "max_distance": 4.599999904632568,
+   "min_distance": 0.41999998688697815,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 1.0,
+   "rolloff_mode": 1,
+   "spatial_blend": 1.0,
+   "spread": 0.4470277428627014,
+   "volume": 0.2879999876022339
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "victory_-arewhyae-8093_hifi",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level5",
+   "gameobject": "Victory_-arewhyae-8093_hifi",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 0.3499999940395355
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "foley horn party toy blow out 01",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level6",
+   "gameobject": "FOLEY HORN PARTY TOY BLOW OUT 01",
+   "loop": true,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 1.0
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "level6",
+   "gameobject": "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm",
+   "loop": true,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 1.0
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "arcade_s-wwwbeat-8526_hifi",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "sharedassets4.assets",
+   "gameobject": "RockPlaceholderPrefab",
+   "loop": false,
+   "max_distance": 500.0,
+   "min_distance": 1.0,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": false,
+   "priority": 128,
+   "reverb_zone_mix": 0.0,
+   "rolloff_mode": 0,
+   "spatial_blend": 0.0,
+   "spread": 0.0,
+   "volume": 1.0
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "drag",
+   "doppler": 1.0,
+   "enabled": false,
+   "file": "sharedassets4.assets",
+   "gameobject": "RockPrefab",
+   "loop": true,
+   "max_distance": 10.0,
+   "min_distance": 0.9042224884033203,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 0.44999998807907104,
+   "play_on_awake": true,
+   "priority": 186,
+   "reverb_zone_mix": 1.0,
+   "rolloff_mode": 2,
+   "spatial_blend": 1.0,
+   "spread": 0.21388888359069824,
+   "volume": 0.15800000727176666
+  },
+  {
+   "bypass_effects": false,
+   "bypass_reverb_zones": false,
+   "clip": "explosion1",
+   "doppler": 1.0,
+   "enabled": true,
+   "file": "sharedassets4.assets",
+   "gameobject": "RockShatterPrefab",
+   "loop": false,
+   "max_distance": 3.0,
+   "min_distance": 0.20000000298023224,
+   "mute": false,
+   "pan2d": 0.0,
+   "pitch": 1.0,
+   "play_on_awake": true,
+   "priority": 128,
+   "reverb_zone_mix": 1.0,
+   "rolloff_mode": 2,
+   "spatial_blend": 1.0,
+   "spread": 0.21388888359069824,
+   "volume": 0.9629999995231628
+  }
+ ],
+ "clips": [
+  {
+   "build_sprite_order": [
+    "bis_dude_idle_paranoid_animation 1_00",
+    "bis_dude_idle_paranoid_animation 1_01",
+    "bis_dude_idle_paranoid_animation 1_02",
+    "bis_dude_idle_paranoid_animation 1_03",
+    "bis_dude_idle_paranoid_animation 1_04",
+    "bis_dude_idle_paranoid_animation 1_05",
+    "bis_dude_idle_paranoid_animation 1_06",
+    "bis_dude_idle_paranoid_animation 1_07",
+    "bis_dude_idle_paranoid_animation 1_08",
+    "bis_dude_idle_paranoid_animation 1_09",
+    "bis_dude_idle_paranoid_animation 1_10",
+    "bis_dude_idle_paranoid_animation 1_11",
+    "bis_dude_idle_scratch_animation 1_0",
+    "bis_dude_idle_scratch_animation 1_1",
+    "bis_dude_idle_scratch_animation 1_2",
+    "bis_dude_idle_scratch_animation 1_3",
+    "bis_dude_idle_scratch_animation 1_4",
+    "bis_dude_idle_scratch_animation 1_5",
+    "bis_dude_idle_scratch_animation 1_6",
+    "bis_dude_idle_scratch_animation 1_7",
+    "bis_dude_idle_scratch_animation 1_8",
+    "bis_dude_idle_scratch_animation 1_9"
+   ],
+   "diffs": [],
+   "file": "sharedassets4.assets",
+   "frames": 22,
+   "loop_time": true,
+   "name": "idle",
+   "sample_rate": 9.0,
+   "start_time": 0.0,
+   "stop_time": 2.444444417953491
+  },
+  {
+   "build_sprite_order": [
+    "bis_dude_pulling_animation 1_0",
+    "bis_dude_pulling_animation 1_1",
+    "bis_dude_pulling_animation 1_2",
+    "bis_dude_pulling_animation 1_3",
+    "bis_dude_pulling_animation 1_4",
+    "bis_dude_pulling_animation 1_5"
+   ],
+   "diffs": [],
+   "file": "sharedassets4.assets",
+   "frames": 6,
+   "loop_time": true,
+   "name": "drag",
+   "sample_rate": 11.0,
+   "start_time": 0.0,
+   "stop_time": 0.5454545617103577
+  },
+  {
+   "build_sprite_order": [
+    "bis_dude_ani_animation 1_0",
+    "bis_dude_ani_animation 1_1",
+    "bis_dude_ani_animation 1_2",
+    "bis_dude_ani_animation 1_3",
+    "bis_dude_ani_animation 1_4",
+    "bis_dude_ani_animation 1_5"
+   ],
+   "diffs": [],
+   "file": "sharedassets4.assets",
+   "frames": 6,
+   "loop_time": true,
+   "name": "run",
+   "sample_rate": 11.0,
+   "start_time": 0.0,
+   "stop_time": 0.5454545617103577
+  },
+  {
+   "build_sprite_order": [],
+   "diffs": [],
+   "file": "sharedassets4.assets",
+   "frames": 0,
+   "loop_time": false,
+   "name": "Stop Emitting ,5 sec",
+   "sample_rate": 60.0,
+   "start_time": 0.0,
+   "stop_time": 1.0
+  }
+ ],
+ "dll": {
+  "dll_types": [
+   "$ArrayType$8",
+   "AddJSONConents",
+   "ApplyTween",
+   "CRSpline",
+   "CamerFocusSwitcher",
+   "CameraFollowBounds",
+   "CutsSceneScaleFixer",
+   "Defaults",
+   "Earth",
+   "EaseType",
+   "EasingFunction",
+   "EndGame",
+   "FieldNotFound",
+   "GUITextButton",
+   "GetFieldResponse",
+   "InsideRocketTrigger",
+   "Intro",
+   "JSONObject",
+   "JSONTemplates",
+   "LevelLoader",
+   "LoopType",
+   "Mars",
+   "Morse",
+   "MoveSample",
+   "NamedValueColor",
+   "NextSceneOnSpace",
+   "OnButtonMouseUpEvent",
+   "Rock",
+   "RockDragger",
+   "RockGenerator",
+   "RockPlaceholder",
+   "Rocket",
+   "RotateSample",
+   "Rover",
+   "RoverInsideTrigger",
+   "RoverScreen",
+   "SampleInfo",
+   "SnapToTarget",
+   "Title",
+   "TopDownControls",
+   "Type",
+   "VisibleOnTrigger",
+   "iTween"
+  ],
+  "scripts": [
+   {
+    "class": "CamerFocusSwitcher",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     5.0,
+     10.0
+    ],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [
+     2,
+     5,
+     10
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "CamerFocusSwitcher.cs",
+    "string_literals_in_source": 1,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "CameraFollowBounds",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [
+     2
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "CameraFollowBounds.cs",
+    "string_literals_in_source": 0,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "CutsSceneScaleFixer",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "CutsSceneScaleFixer.cs",
+    "string_literals_in_source": 0,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "Earth",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     Infinity
+    ],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [
+     27,
+     32,
+     104,
+     112
+    ],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "Earth.cs",
+    "string_literals_in_source": 4,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "EndGame",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     5.0
+    ],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [
+     5
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "EndGame.cs",
+    "string_literals_in_source": 1,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "GUITextButton",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "GUITextButton.cs",
+    "string_literals_in_source": 0,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "InsideRocketTrigger",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "InsideRocketTrigger.cs",
+    "string_literals_in_source": 2,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "Intro",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "Intro.cs",
+    "string_literals_in_source": 1,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "LevelLoader",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     -1.39422,
+     3.0
+    ],
+    "float_literals_in_source_not_in_dll": [
+     1.394218
+    ],
+    "int_constants_in_dll_not_in_source": [
+     -2,
+     32,
+     99,
+     304
+    ],
+    "int_literals_in_source_not_in_dll": [
+     2,
+     3
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "LevelLoader.cs",
+    "string_literals_in_source": 16,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "Mars",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     5.0,
+     24.648,
+     60.0
+    ],
+    "float_literals_in_source_not_in_dll": [
+     1.027
+    ],
+    "int_constants_in_dll_not_in_source": [
+     3
+    ],
+    "int_literals_in_source_not_in_dll": [
+     24,
+     60
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "Mars.cs",
+    "string_literals_in_source": 4,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "Morse",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [
+     -2,
+     32
+    ],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "Morse.cs",
+    "string_literals_in_source": 2,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "NextSceneOnSpace",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     5.0
+    ],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [
+     5
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "NextSceneOnSpace.cs",
+    "string_literals_in_source": 1,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "Rock",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     -0.6,
+     13.0
+    ],
+    "float_literals_in_source_not_in_dll": [
+     0.6
+    ],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [
+     13
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "Rock.cs",
+    "string_literals_in_source": 3,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "RockDragger",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     Infinity
+    ],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "RockDragger.cs",
+    "string_literals_in_source": 1,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "RockGenerator",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "RockGenerator.cs",
+    "string_literals_in_source": 0,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "RockPlaceholder",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "RockPlaceholder.cs",
+    "string_literals_in_source": 2,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "Rocket",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "Rocket.cs",
+    "string_literals_in_source": 1,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "Rover",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "Rover.cs",
+    "string_literals_in_source": 3,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "RoverInsideTrigger",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "RoverInsideTrigger.cs",
+    "string_literals_in_source": 1,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "RoverScreen",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     31.0,
+     60.0,
+     100.0
+    ],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [
+     4,
+     5
+    ],
+    "int_literals_in_source_not_in_dll": [
+     31,
+     60,
+     100
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "RoverScreen.cs",
+    "string_literals_in_source": 15,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "SnapToTarget",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "SnapToTarget.cs",
+    "string_literals_in_source": 0,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "Title",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "Title.cs",
+    "string_literals_in_source": 2,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "TopDownControls",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [
+     5.0
+    ],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [
+     2,
+     5
+    ],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "TopDownControls.cs",
+    "string_literals_in_source": 6,
+    "string_literals_missing_in_dll": []
+   },
+   {
+    "class": "VisibleOnTrigger",
+    "fields_only_in_dll": [],
+    "fields_only_in_source": [],
+    "float_constants_in_dll_not_in_source": [],
+    "float_literals_in_source_not_in_dll": [],
+    "int_constants_in_dll_not_in_source": [],
+    "int_literals_in_source_not_in_dll": [],
+    "methods_only_in_dll": [],
+    "methods_only_in_source": [],
+    "script": "VisibleOnTrigger.cs",
+    "string_literals_in_source": 3,
+    "string_literals_missing_in_dll": []
+   }
+  ],
+  "summary": {
+   "dll_user_string_count": 206,
+   "scripts_checked": 24,
+   "scripts_with_identical_names_and_strings": 15
+  }
+ },
+ "prefabs": [
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "LetterPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_AdditionalVertexStreams": null
+     },
+     "component": "MeshRenderer",
+     "go": "LetterPrefab",
+     "only_in_build": [
+      "m_AdditionalVertexStreams",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "TextMesh",
+     "go": "LetterPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Rocket",
+     "go": "LetterPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    }
+   ],
+   "gameobjects_build": 1,
+   "gameobjects_source": 1,
+   "label": "LetterPrefab (sharedassets4.assets)",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": []
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RockPlaceholderPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "RockPlaceholderPrefab",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "RockPlaceholder",
+     "go": "RockPlaceholderPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "CircleCollider2D",
+     "go": "RockPlaceholderPrefab",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "RockPlaceholderPrefab",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    }
+   ],
+   "gameobjects_build": 1,
+   "gameobjects_source": 1,
+   "label": "RockPlaceholderPrefab (sharedassets4.assets)",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "RockPlaceholderPrefab :: AudioSource"
+    }
+   ]
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RockPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "RockPrefab",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "CircleCollider2D",
+     "go": "RockPrefab",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Constraints": 0,
+      "m_UseAutoMass": false
+     },
+     "component": "Rigidbody2D",
+     "go": "RockPrefab",
+     "only_in_build": [
+      "m_Constraints",
+      "m_UseAutoMass"
+     ],
+     "only_in_source": [
+      "m_FixedAngle"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Rock",
+     "go": "RockPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_AutoConfigureConnectedAnchor": false,
+      "m_AutoConfigureDistance": false,
+      "m_BreakForce": Infinity,
+      "m_BreakTorque": Infinity,
+      "m_EnableCollision": false
+     },
+     "component": "DistanceJoint2D",
+     "go": "RockPrefab",
+     "only_in_build": [
+      "m_AutoConfigureConnectedAnchor",
+      "m_AutoConfigureDistance",
+      "m_BreakForce",
+      "m_BreakTorque",
+      "m_EnableCollision"
+     ],
+     "only_in_source": [
+      "m_CollideConnected"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 1.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "RockPrefab",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    }
+   ],
+   "gameobjects_build": 1,
+   "gameobjects_source": 1,
+   "label": "RockPrefab (sharedassets4.assets)",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": "@RockShadowPrefab:Transform",
+     "field": "rockShadowPrefab",
+     "source": "Prefabs/RockShadowPrefab.prefab#Transform:RockShadowPrefab",
+     "where": "RockPrefab :: Rock"
+    }
+   ]
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RockShadowPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "RockShadowPrefab",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    }
+   ],
+   "gameobjects_build": 1,
+   "gameobjects_source": 1,
+   "label": "RockShadowPrefab (sharedassets4.assets)",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": []
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "MarsTile",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "MarsTile",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    }
+   ],
+   "gameobjects_build": 1,
+   "gameobjects_source": 1,
+   "label": "MarsTile (sharedassets4.assets)",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": []
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RockShatterPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "TimedObjectDestructor",
+     "go": "RockShatterPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 1.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "RockShatterPrefab",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RockShatterPrefab/large flames",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "ParticleAnimator",
+     "go": "RockShatterPrefab/large flames",
+     "only_in_build": [],
+     "only_in_source": [
+      "colorAnimation[0].a",
+      "colorAnimation[0].b",
+      "colorAnimation[0].g",
+      "colorAnimation[0].r",
+      "colorAnimation[1].a",
+      "colorAnimation[1].b",
+      "colorAnimation[1].g",
+      "colorAnimation[1].r",
+      "colorAnimation[2].a",
+      "colorAnimation[2].b",
+      "colorAnimation[2].g",
+      "colorAnimation[2].r",
+      "colorAnimation[3].a",
+      "colorAnimation[3].b",
+      "colorAnimation[3].g",
+      "colorAnimation[3].r",
+      "colorAnimation[4].a",
+      "colorAnimation[4].b",
+      "colorAnimation[4].g",
+      "colorAnimation[4].r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "ParticleRenderer",
+     "go": "RockShatterPrefab/large flames",
+     "only_in_build": [
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    }
+   ],
+   "gameobjects_build": 2,
+   "gameobjects_source": 2,
+   "label": "RockShatterPrefab (sharedassets4.assets)",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": []
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RocketPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Rocket",
+     "go": "RocketPrefab",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RocketPrefab/InsideTrigger",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "InsideRocketTrigger",
+     "go": "RocketPrefab/InsideTrigger",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "BoxCollider2D",
+     "go": "RocketPrefab/InsideTrigger",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RocketPrefab/Reverb",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RocketPrefab/RocketBody",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "RocketPrefab/RocketBody",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_Offset.x": 0.0,
+      "m_Offset.y": 0.0,
+      "m_UsedByEffector": false
+     },
+     "component": "PolygonCollider2D",
+     "go": "RocketPrefab/RocketBody",
+     "only_in_build": [
+      "m_Density",
+      "m_Offset.x",
+      "m_Offset.y",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Constraints": 0,
+      "m_UseAutoMass": false
+     },
+     "component": "Rigidbody2D",
+     "go": "RocketPrefab/RocketBody",
+     "only_in_build": [
+      "m_Constraints",
+      "m_UseAutoMass"
+     ],
+     "only_in_source": [
+      "m_FixedAngle"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RocketPrefab/RocketCover",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "RocketPrefab/RocketCover",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "BoxCollider2D",
+     "go": "RocketPrefab/RocketCover",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "VisibleOnTrigger",
+     "go": "RocketPrefab/RocketCover",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RocketPrefab/rockRepeller",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "BoxCollider2D",
+     "go": "RocketPrefab/rockRepeller",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    }
+   ],
+   "gameobjects_build": 6,
+   "gameobjects_source": 6,
+   "label": "RocketPrefab (sharedassets4.assets)",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": []
+  }
+ ],
+ "prefabs_not_found_in_build": [
+  "RockDragTarget"
+ ],
+ "scenes": [
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Explosion_04",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Explosion_04",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_StereoMirrorMode": false,
+      "m_TargetEye": 3
+     },
+     "component": "Camera",
+     "go": "Main Camera",
+     "only_in_build": [
+      "m_StereoMirrorMode",
+      "m_TargetEye"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Intro",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "superdamage",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "superdamage",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    }
+   ],
+   "gameobjects_build": 3,
+   "gameobjects_source": 3,
+   "label": "Intro",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "Explosion_04 :: AudioSource"
+    }
+   ]
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "LD",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUIText",
+     "go": "LD",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_StereoMirrorMode": false,
+      "m_TargetEye": 3
+     },
+     "component": "Camera",
+     "go": "Main Camera",
+     "only_in_build": [
+      "m_StereoMirrorMode",
+      "m_TargetEye"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Title",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "PLAY",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUIText",
+     "go": "PLAY",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUITextButton",
+     "go": "PLAY",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "SD",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUIText",
+     "go": "SD",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUITextButton",
+     "go": "SD",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Title",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUIText",
+     "go": "Title",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "WR",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUIText",
+     "go": "WR",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "clickSound",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "clickSound",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "highlightSound",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "highlightSound",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    }
+   ],
+   "gameobjects_build": 8,
+   "gameobjects_source": 8,
+   "label": "Title",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "clickSound :: AudioSource"
+    },
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "highlightSound :: AudioSource"
+    }
+   ]
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_StereoMirrorMode": false,
+      "m_TargetEye": 3
+     },
+     "component": "Camera",
+     "go": "Main Camera",
+     "only_in_build": [
+      "m_StereoMirrorMode",
+      "m_TargetEye"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Menu4",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Menu4",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "gfx",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "NextSceneOnSpace",
+     "go": "gfx",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    }
+   ],
+   "gameobjects_build": 3,
+   "gameobjects_source": 3,
+   "label": "Story1",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "Menu4 :: AudioSource"
+    }
+   ]
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_StereoMirrorMode": false,
+      "m_TargetEye": 3
+     },
+     "component": "Camera",
+     "go": "Main Camera",
+     "only_in_build": [
+      "m_StereoMirrorMode",
+      "m_TargetEye"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Menu4",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Menu4",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "gfx",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "NextSceneOnSpace",
+     "go": "gfx",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    }
+   ],
+   "gameobjects_build": 3,
+   "gameobjects_source": 3,
+   "label": "Story2",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "Menu4 :: AudioSource"
+    }
+   ]
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Earth",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Earth",
+     "go": "Earth",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Earth/visibiltyIndicator",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUIText",
+     "go": "Earth/visibiltyIndicator",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Level",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "LevelLoader",
+     "go": "Level",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Level/letters",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Level/rockDestructionEffect",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "ParticleAnimator",
+     "go": "Level/rockDestructionEffect",
+     "only_in_build": [],
+     "only_in_source": [
+      "colorAnimation[0].a",
+      "colorAnimation[0].b",
+      "colorAnimation[0].g",
+      "colorAnimation[0].r",
+      "colorAnimation[1].a",
+      "colorAnimation[1].b",
+      "colorAnimation[1].g",
+      "colorAnimation[1].r",
+      "colorAnimation[2].a",
+      "colorAnimation[2].b",
+      "colorAnimation[2].g",
+      "colorAnimation[2].r",
+      "colorAnimation[3].a",
+      "colorAnimation[3].b",
+      "colorAnimation[3].g",
+      "colorAnimation[3].r",
+      "colorAnimation[4].a",
+      "colorAnimation[4].b",
+      "colorAnimation[4].g",
+      "colorAnimation[4].r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "ParticleRenderer",
+     "go": "Level/rockDestructionEffect",
+     "only_in_build": [
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_StereoMirrorMode": false,
+      "m_TargetEye": 3
+     },
+     "component": "Camera",
+     "go": "Main Camera",
+     "only_in_build": [
+      "m_StereoMirrorMode",
+      "m_TargetEye"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "CamerFocusSwitcher",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera/CameraFocus",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera/cutscenes",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "CutsSceneScaleFixer",
+     "go": "Main Camera/cutscenes",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera/cutscenes/spr_couldDecode",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "Main Camera/cutscenes/spr_couldDecode",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera/cutscenes/spr_couldNotDecode",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "Main Camera/cutscenes/spr_couldNotDecode",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera/cutscenes/spr_newMessage",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "Main Camera/cutscenes/spr_newMessage",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera/cutscenes/spr_tutorial",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "Main Camera/cutscenes/spr_tutorial",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera/nightosphere",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "MeshCollider",
+     "go": "Main Camera/nightosphere",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_SmoothSphereCollisions"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_AdditionalVertexStreams": null
+     },
+     "component": "MeshRenderer",
+     "go": "Main Camera/nightosphere",
+     "only_in_build": [
+      "m_AdditionalVertexStreams",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Mars",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Mars",
+     "go": "Mars",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Mars/solCounter",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUIText",
+     "go": "Mars/solCounter",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Menu4",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Menu4",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Player",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "TopDownControls",
+     "go": "Player",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Constraints": 4,
+      "m_UseAutoMass": false
+     },
+     "component": "Rigidbody2D",
+     "go": "Player",
+     "only_in_build": [
+      "m_Constraints",
+      "m_UseAutoMass"
+     ],
+     "only_in_source": [
+      "m_FixedAngle"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "RockDragger",
+     "go": "Player",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "CircleCollider2D",
+     "go": "Player",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 1.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Player",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_LinearVelocityBlending": false
+     },
+     "component": "Animator",
+     "go": "Player",
+     "only_in_build": [
+      "m_LinearVelocityBlending"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "Player",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_Offset.x": 0.0,
+      "m_Offset.y": 0.0,
+      "m_UsedByEffector": false
+     },
+     "component": "PolygonCollider2D",
+     "go": "Player",
+     "only_in_build": [
+      "m_Density",
+      "m_Offset.x",
+      "m_Offset.y",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Player/footsteps",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 1.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Player/footsteps",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Player/pivot",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Player/pivot/Sci-fi_AmbienceLoop1",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 1.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Player/pivot/Sci-fi_AmbienceLoop1",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Player/pivot/audioListener",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RockDragTarget",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "RockDragTarget",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "SnapToTarget",
+     "go": "RockDragTarget",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rocks",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "RockGenerator",
+     "go": "Rocks",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 1.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Rover",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover/Reverb",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover/RoverBody",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "Rover/RoverBody",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Constraints": 0,
+      "m_UseAutoMass": false
+     },
+     "component": "Rigidbody2D",
+     "go": "Rover/RoverBody",
+     "only_in_build": [
+      "m_Constraints",
+      "m_UseAutoMass"
+     ],
+     "only_in_source": [
+      "m_FixedAngle"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "BoxCollider2D",
+     "go": "Rover/RoverBody",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Rover",
+     "go": "Rover/RoverBody",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover/bis_rover_v2_roof",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "Rover/bis_rover_v2_roof",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Constraints": 0,
+      "m_UseAutoMass": false
+     },
+     "component": "Rigidbody2D",
+     "go": "Rover/bis_rover_v2_roof",
+     "only_in_build": [
+      "m_Constraints",
+      "m_UseAutoMass"
+     ],
+     "only_in_source": [
+      "m_FixedAngle"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_Offset.x": 0.0,
+      "m_Offset.y": 0.0,
+      "m_UsedByEffector": false
+     },
+     "component": "PolygonCollider2D",
+     "go": "Rover/bis_rover_v2_roof",
+     "only_in_build": [
+      "m_Density",
+      "m_Offset.x",
+      "m_Offset.y",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover/playerInsideRoverTrigger",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "CircleCollider2D",
+     "go": "Rover/playerInsideRoverTrigger",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "RoverInsideTrigger",
+     "go": "Rover/playerInsideRoverTrigger",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 1.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Rover/playerInsideRoverTrigger",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover/playerInsideRoverTrigger/chatter",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 1.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Rover/playerInsideRoverTrigger/chatter",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover/rockRepeller",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_Density": 1.0,
+      "m_UsedByEffector": false
+     },
+     "component": "CircleCollider2D",
+     "go": "Rover/rockRepeller",
+     "only_in_build": [
+      "m_Density",
+      "m_UsedByEffector"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover/roverFocusTarget",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Rover/updatesIndicator",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_FlipX": false,
+      "m_FlipY": false
+     },
+     "component": "SpriteRenderer",
+     "go": "Rover/updatesIndicator",
+     "only_in_build": [
+      "m_FlipX",
+      "m_FlipY",
+      "m_LightProbeUsage",
+      "m_LightProbeVolumeOverride",
+      "m_LightmapIndexDynamic",
+      "m_LightmapTilingOffsetDynamic.w",
+      "m_LightmapTilingOffsetDynamic.x",
+      "m_LightmapTilingOffsetDynamic.y",
+      "m_LightmapTilingOffsetDynamic.z",
+      "m_MotionVectors",
+      "m_ProbeAnchor",
+      "m_ReflectionProbeUsage"
+     ],
+     "only_in_source": [
+      "m_LightProbeAnchor",
+      "m_ScaleInLightmap",
+      "m_UseLightProbes"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RoverScreen",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "RoverScreen",
+     "go": "RoverScreen",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "RoverScreen/screenGUIText",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "GUIText",
+     "go": "RoverScreen/screenGUIText",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Color.a",
+      "m_Color.b",
+      "m_Color.g",
+      "m_Color.r"
+     ]
+    }
+   ],
+   "gameobjects_build": 34,
+   "gameobjects_source": 34,
+   "label": "Game",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "Menu4 :: AudioSource"
+    }
+   ]
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_StereoMirrorMode": false,
+      "m_TargetEye": 3
+     },
+     "component": "Camera",
+     "go": "Main Camera",
+     "only_in_build": [
+      "m_StereoMirrorMode",
+      "m_TargetEye"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Victory_-arewhyae-8093_hifi",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "Victory_-arewhyae-8093_hifi",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "gfx",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "EndGame",
+     "go": "gfx",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    }
+   ],
+   "gameobjects_build": 3,
+   "gameobjects_source": 3,
+   "label": "Death",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "Victory_-arewhyae-8093_hifi :: AudioSource"
+    }
+   ]
+  },
+  {
+   "component_set_diffs": [],
+   "field_name_diffs": [
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "FOLEY HORN PARTY TOY BLOW OUT 01",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "FOLEY HORN PARTY TOY BLOW OUT 01",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "Main Camera",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "m_StereoMirrorMode": false,
+      "m_TargetEye": 3
+     },
+     "component": "Camera",
+     "go": "Main Camera",
+     "only_in_build": [
+      "m_StereoMirrorMode",
+      "m_TargetEye"
+     ],
+     "only_in_source": []
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {
+      "OutputAudioMixerGroup": null,
+      "Spatialize": false,
+      "panLevelCustomCurve.m_RotationOrder": 4,
+      "reverbZoneMixCustomCurve.m_Curve.#len": 1,
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].time": 0.0,
+      "reverbZoneMixCustomCurve.m_Curve[0].value": 0.0,
+      "reverbZoneMixCustomCurve.m_PostInfinity": 2,
+      "reverbZoneMixCustomCurve.m_PreInfinity": 2,
+      "reverbZoneMixCustomCurve.m_RotationOrder": 4,
+      "rolloffCustomCurve.m_RotationOrder": 4,
+      "spreadCustomCurve.m_RotationOrder": 4
+     },
+     "component": "AudioSource",
+     "go": "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm",
+     "only_in_build": [
+      "OutputAudioMixerGroup",
+      "Spatialize",
+      "panLevelCustomCurve.m_RotationOrder",
+      "reverbZoneMixCustomCurve.m_Curve.#len",
+      "reverbZoneMixCustomCurve.m_Curve[0].inSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].outSlope",
+      "reverbZoneMixCustomCurve.m_Curve[0].time",
+      "reverbZoneMixCustomCurve.m_Curve[0].value",
+      "reverbZoneMixCustomCurve.m_PostInfinity",
+      "reverbZoneMixCustomCurve.m_PreInfinity",
+      "reverbZoneMixCustomCurve.m_RotationOrder",
+      "rolloffCustomCurve.m_RotationOrder",
+      "spreadCustomCurve.m_RotationOrder"
+     ],
+     "only_in_source": [
+      "panLevelCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[0].tangentMode",
+      "rolloffCustomCurve.m_Curve[1].tangentMode",
+      "spreadCustomCurve.m_Curve[0].tangentMode"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "Transform",
+     "go": "gfx",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_RootOrder"
+     ]
+    },
+    {
+     "build_values_of_new_fields": {},
+     "component": "EndGame",
+     "go": "gfx",
+     "only_in_build": [],
+     "only_in_source": [
+      "m_Name"
+     ]
+    }
+   ],
+   "gameobjects_build": 4,
+   "gameobjects_source": 4,
+   "label": "Win",
+   "monobehaviour_layout_mismatch": [],
+   "node_diffs": [],
+   "only_in_build": [],
+   "only_in_source": [],
+   "value_diffs": [
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "FOLEY HORN PARTY TOY BLOW OUT 01 :: AudioSource"
+    },
+    {
+     "build": 0.0,
+     "field": "panLevelCustomCurve.m_Curve[0].value",
+     "source": 1.0,
+     "where": "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm :: AudioSource"
+    }
+   ]
+  }
+ ],
+ "settings": {
+  "AudioManager": {
+   "fields_only_in_build": 5,
+   "fields_only_in_source": 1,
+   "only_in_build_names": [
+    "m_RealVoiceCount",
+    "m_SampleRate",
+    "m_SpatializerPlugin",
+    "m_VirtualVoiceCount",
+    "m_VirtualizeEffects"
+   ],
+   "only_in_source_names": [
+    "m_SpeedOfSound"
+   ],
+   "value_diffs": []
+  },
+  "InputManager": {
+   "fields_only_in_build": 45,
+   "fields_only_in_source": 0,
+   "only_in_build_names": [
+    "m_Axes[15].altNegativeButton",
+    "m_Axes[15].altPositiveButton",
+    "m_Axes[15].axis",
+    "m_Axes[15].dead",
+    "m_Axes[15].descriptiveName",
+    "m_Axes[15].descriptiveNegativeName",
+    "m_Axes[15].gravity",
+    "m_Axes[15].invert",
+    "m_Axes[15].joyNum",
+    "m_Axes[15].m_Name",
+    "m_Axes[15].negativeButton",
+    "m_Axes[15].positiveButton",
+    "m_Axes[15].sensitivity",
+    "m_Axes[15].snap",
+    "m_Axes[15].type",
+    "m_Axes[16].altNegativeButton",
+    "m_Axes[16].altPositiveButton",
+    "m_Axes[16].axis",
+    "m_Axes[16].dead",
+    "m_Axes[16].descriptiveName",
+    "m_Axes[16].descriptiveNegativeName",
+    "m_Axes[16].gravity",
+    "m_Axes[16].invert",
+    "m_Axes[16].joyNum",
+    "m_Axes[16].m_Name",
+    "m_Axes[16].negativeButton",
+    "m_Axes[16].positiveButton",
+    "m_Axes[16].sensitivity",
+    "m_Axes[16].snap",
+    "m_Axes[16].type",
+    "m_Axes[17].altNegativeButton",
+    "m_Axes[17].altPositiveButton",
+    "m_Axes[17].axis",
+    "m_Axes[17].dead",
+    "m_Axes[17].descriptiveName",
+    "m_Axes[17].descriptiveNegativeName",
+    "m_Axes[17].gravity",
+    "m_Axes[17].invert",
+    "m_Axes[17].joyNum",
+    "m_Axes[17].m_Name"
+   ],
+   "only_in_source_names": [],
+   "value_diffs": [
+    {
+     "build": 18,
+     "field": "m_Axes.#len",
+     "source": 15,
+     "where": "InputManager"
+    }
+   ]
+  },
+  "Physics2DSettings": {
+   "fields_only_in_build": 5,
+   "fields_only_in_source": 3,
+   "only_in_build_names": [
+    "m_ChangeStopsCallbacks",
+    "m_DefaultMaterial",
+    "m_MinPenetrationForPenalty",
+    "m_QueriesHitTriggers",
+    "m_QueriesStartInColliders"
+   ],
+   "only_in_source_names": [
+    "m_DefaultMaterial.m_FileID",
+    "m_DefaultMaterial.m_PathID",
+    "m_RaycastsHitTriggers"
+   ],
+   "value_diffs": []
+  },
+  "PlayerSettings": {
+   "fields_only_in_build": 3,
+   "fields_only_in_source": 479,
+   "only_in_build_names": [
+    "defaultCursor",
+    "m_VirtualRealitySplashScreen",
+    "ps3SplashScreen"
+   ],
+   "only_in_source_names": [
+    "APKExpansionFiles",
+    "Analytics_ServiceEnabled::Analytics_ServiceEnabled",
+    "Android::VR::enable",
+    "Android::VR::enabledDevices.#len",
+    "Android::VR::enabledDevices[0]",
+    "AndroidBundleVersionCode",
+    "AndroidIsGame",
+    "AndroidKeyaliasName",
+    "AndroidKeystoreName",
+    "AndroidMinSdkVersion",
+    "AndroidPreferredInstallLocation",
+    "AndroidSplashScreenScale",
+    "AndroidTVCompatibility",
+    "AndroidTargetDevice",
+    "Build_ServiceEnabled::Build_ServiceEnabled",
+    "Collab_ServiceEnabled::Collab_ServiceEnabled",
+    "CreateWallpaper",
+    "ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled",
+    "ForceInternetPermission",
+    "ForceSDCardPermission",
+    "Game_Performance_ServiceEnabled::Game_Performance_ServiceEnabled",
+    "Hub_ServiceEnabled::Hub_ServiceEnabled",
+    "Metro::VR::enable",
+    "Metro::VR::enabledDevices.#len",
+    "N3DS::VR::enable",
+    "N3DS::VR::enabledDevices.#len",
+    "PS3::VR::enable",
+    "PS3::VR::enabledDevices.#len",
+    "PS4::VR::enable",
+    "PS4::VR::enabledDevices.#len",
+    "PS4::VR::enabledDevices[0]",
+    "PSM::VR::enable",
+    "PSM::VR::enabledDevices.#len",
+    "PSP2::VR::enable",
+    "PSP2::VR::enabledDevices.#len",
+    "Purchasing_ServiceEnabled::Purchasing_ServiceEnabled",
+    "SamsungTV::VR::enable",
+    "SamsungTV::VR::enabledDevices.#len",
+    "Standalone::ScriptingBackend",
+    "Standalone::VR::enable"
+   ],
+   "value_diffs": []
+  },
+  "QualitySettings": {
+   "fields_only_in_build": 55,
+   "fields_only_in_source": 7,
+   "only_in_build_names": [
+    "m_QualitySettings[0].asyncUploadBufferSize",
+    "m_QualitySettings[0].asyncUploadTimeSlice",
+    "m_QualitySettings[0].billboardsFaceCameraPosition",
+    "m_QualitySettings[0].realtimeReflectionProbes",
+    "m_QualitySettings[0].shadowCascade2Split",
+    "m_QualitySettings[0].shadowCascade4Split.x",
+    "m_QualitySettings[0].shadowCascade4Split.y",
+    "m_QualitySettings[0].shadowCascade4Split.z",
+    "m_QualitySettings[0].shadowNearPlaneOffset",
+    "m_QualitySettings[1].asyncUploadBufferSize",
+    "m_QualitySettings[1].asyncUploadTimeSlice",
+    "m_QualitySettings[1].billboardsFaceCameraPosition",
+    "m_QualitySettings[1].realtimeReflectionProbes",
+    "m_QualitySettings[1].shadowCascade2Split",
+    "m_QualitySettings[1].shadowCascade4Split.x",
+    "m_QualitySettings[1].shadowCascade4Split.y",
+    "m_QualitySettings[1].shadowCascade4Split.z",
+    "m_QualitySettings[1].shadowNearPlaneOffset",
+    "m_QualitySettings[2].asyncUploadBufferSize",
+    "m_QualitySettings[2].asyncUploadTimeSlice",
+    "m_QualitySettings[2].billboardsFaceCameraPosition",
+    "m_QualitySettings[2].realtimeReflectionProbes",
+    "m_QualitySettings[2].shadowCascade2Split",
+    "m_QualitySettings[2].shadowCascade4Split.x",
+    "m_QualitySettings[2].shadowCascade4Split.y",
+    "m_QualitySettings[2].shadowCascade4Split.z",
+    "m_QualitySettings[2].shadowNearPlaneOffset",
+    "m_QualitySettings[3].asyncUploadBufferSize",
+    "m_QualitySettings[3].asyncUploadTimeSlice",
+    "m_QualitySettings[3].billboardsFaceCameraPosition",
+    "m_QualitySettings[3].realtimeReflectionProbes",
+    "m_QualitySettings[3].shadowCascade2Split",
+    "m_QualitySettings[3].shadowCascade4Split.x",
+    "m_QualitySettings[3].shadowCascade4Split.y",
+    "m_QualitySettings[3].shadowCascade4Split.z",
+    "m_QualitySettings[3].shadowNearPlaneOffset",
+    "m_QualitySettings[4].asyncUploadBufferSize",
+    "m_QualitySettings[4].asyncUploadTimeSlice",
+    "m_QualitySettings[4].billboardsFaceCameraPosition",
+    "m_QualitySettings[4].realtimeReflectionProbes"
+   ],
+   "only_in_source_names": [
+    "m_PerPlatformDefaultQuality.#len",
+    "m_QualitySettings[0].excludedTargetPlatforms.#len",
+    "m_QualitySettings[1].excludedTargetPlatforms.#len",
+    "m_QualitySettings[2].excludedTargetPlatforms.#len",
+    "m_QualitySettings[3].excludedTargetPlatforms.#len",
+    "m_QualitySettings[4].excludedTargetPlatforms.#len",
+    "m_QualitySettings[5].excludedTargetPlatforms.#len"
+   ],
+   "value_diffs": []
+  },
+  "TagManager": {
+   "fields_only_in_build": 33,
+   "fields_only_in_source": 35,
+   "only_in_build_names": [
+    "layers.#len",
+    "layers[0]",
+    "layers[10]",
+    "layers[11]",
+    "layers[12]",
+    "layers[13]",
+    "layers[14]",
+    "layers[15]",
+    "layers[16]",
+    "layers[17]",
+    "layers[18]",
+    "layers[19]",
+    "layers[1]",
+    "layers[20]",
+    "layers[21]",
+    "layers[22]",
+    "layers[23]",
+    "layers[24]",
+    "layers[25]",
+    "layers[26]",
+    "layers[27]",
+    "layers[28]",
+    "layers[29]",
+    "layers[2]",
+    "layers[30]",
+    "layers[31]",
+    "layers[3]",
+    "layers[4]",
+    "layers[5]",
+    "layers[6]",
+    "layers[7]",
+    "layers[8]",
+    "layers[9]"
+   ],
+   "only_in_source_names": [
+    "Builtin Layer 0",
+    "Builtin Layer 1",
+    "Builtin Layer 2",
+    "Builtin Layer 3",
+    "Builtin Layer 4",
+    "Builtin Layer 5",
+    "Builtin Layer 6",
+    "Builtin Layer 7",
+    "User Layer 10",
+    "User Layer 11",
+    "User Layer 12",
+    "User Layer 13",
+    "User Layer 14",
+    "User Layer 15",
+    "User Layer 16",
+    "User Layer 17",
+    "User Layer 18",
+    "User Layer 19",
+    "User Layer 20",
+    "User Layer 21",
+    "User Layer 22",
+    "User Layer 23",
+    "User Layer 24",
+    "User Layer 25",
+    "User Layer 26",
+    "User Layer 27",
+    "User Layer 28",
+    "User Layer 29",
+    "User Layer 30",
+    "User Layer 31",
+    "User Layer 8",
+    "User Layer 9",
+    "m_SortingLayers[0].locked",
+    "m_SortingLayers[0].userID",
+    "tags[1]"
+   ],
+   "value_diffs": [
+    {
+     "build": 1,
+     "field": "tags.#len",
+     "source": 2,
+     "where": "TagManager"
+    }
+   ]
+  },
+  "TimeManager": {
+   "fields_only_in_build": 0,
+   "fields_only_in_source": 0,
+   "only_in_build_names": [],
+   "only_in_source_names": [],
+   "value_diffs": []
+  }
+ }
+}

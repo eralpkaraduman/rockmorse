@@ -1,0 +1,30 @@
+{
+ "file": "UnityConnectSettings.asset",
+ "objects": [
+  {
+   "fields": {
+    "CrashReportingSettings": {
+     "m_Enabled": false,
+     "m_EventUrl": "https://perf-events.cloud.unity3d.com/api/events/crashes"
+    },
+    "UnityAnalyticsSettings": {
+     "m_Enabled": false,
+     "m_InitializeOnStartup": true,
+     "m_TestConfigUrl": "",
+     "m_TestEventUrl": "",
+     "m_TestMode": false
+    },
+    "UnityPurchasingSettings": {
+     "m_Enabled": false,
+     "m_TestMode": false
+    },
+    "m_Enabled": false,
+    "m_ObjectHideFlags": 0,
+    "m_TestConfigUrl": "",
+    "m_TestEventUrl": "",
+    "m_TestMode": false
+   },
+   "type": "UnityConnectSettings"
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "alignment": 0,
+ "alphaIsTransparency": 1,
+ "aniso": -1,
+ "file": "Sprites/idle/bis_dude_idle_paranoid_Animation 1_03.png",
+ "filterMode": 0,
+ "filterModeName": "point",
+ "guid": "4a34ffa520de74a2f9b8e36e9a764e9c",
+ "height": 32,
+ "isReadable": 0,
+ "maxTextureSize": 64,
+ "meta": {
+  "alignment": 0,
+  "alphaIsTransparency": 1,
+  "buildTargetSettings": [],
+  "bumpmap": {
+   "convertToNormalMap": 0,
+   "externalNormalMap": 0,
+   "heightScale": 0.25,
+   "normalMapFilter": 0
+  },
+  "compressionQuality": 50,
+  "fileIDToRecycleName": {
+   "21300000": "bis_dude_idle_paranoid_Animation 1_03"
+  },
+  "generateCubemap": 0,
+  "grayScaleToAlpha": 0,
+  "isReadable": 0,
+  "lightmap": 0,
+  "maxTextureSize": 64,
+  "mipmaps": {
+   "borderMipMap": 0,
+   "correctGamma": 0,
+   "enableMipMap": 0,
+   "fadeOut": 0,
+   "linearTexture": 0,
+   "mipMapFadeDistanceEnd": 3,
+   "mipMapFadeDistanceStart": 1,
+   "mipMapMode": 0
+  },
+  "nPOTScale": 0,
+  "seamlessCubemap": 0,
+  "serializedVersion": 2,
+  "spriteBorder": {
+   "w": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  "spriteExtrude": 1,
+  "spriteMeshType": 1,
+  "spriteMode": 1,
+  "spritePackingTag": null,
+  "spritePivot": {
+   "x": 0.5,
+   "y": 0.5
+  },
+  "spritePixelsToUnits": 100,
+  "spriteSheet": {
+   "sprites": []
+  },
+  "textureFormat": -3,
+  "textureSettings": {
+   "aniso": -1,
+   "filterMode": 0,
+   "mipBias": -1,
+   "wrapMode": -1
+  },
+  "textureType": 8,
+  "userData": null
+ },
+ "mipmaps": 0,
+ "npotScale": 0,
+ "pixelsPerUnit": 100,
+ "spriteBorder": {
+  "w": 0,
+  "x": 0,
+  "y": 0,
+  "z": 0
+ },
+ "spriteExtrude": 1,
+ "spriteMeshType": 1,
+ "spriteMode": 1,
+ "spritePackingTag": null,
+ "spritePivot": {
+  "x": 0.5,
+  "y": 0.5
+ },
+ "sprites": [
+  {
+   "alignment": 0,
+   "h": 32,
+   "name": "bis_dude_idle_paranoid_Animation 1_03",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "size_world": [
+    0.16,
+    0.32
+   ],
+   "w": 16,
+   "x": 0,
+   "y": 0
+  }
+ ],
+ "textureFormat": -3,
+ "textureType": 8,
+ "width": 16,
+ "wrapMode": -1
+}

@@ -1,0 +1,5401 @@
+{
+ "file": "Scenes/Game.unity",
+ "gameobjects": [
+  {
+   "active": true,
+   "children": [
+    "Level/rockDestructionEffect",
+    "Level/letters"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Level/rockDestructionEffect:Transform",
+       "@Level/letters:Transform"
+      ],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": -4.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 7
+     },
+     "id": 157070994,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "currentLevel": -1,
+      "currentQuestion": "We cant hear you,are you ok? We will think of a solution, calm down and wait   for our response.",
+      "gap": {
+       "x": 1.0,
+       "y": 3.0
+      },
+      "letterContainer": "@Level/letters:Transform",
+      "letterPrefab": "Prefabs/LetterPrefab.prefab#Transform:LetterPrefab",
+      "levelsAsset": "Levels/levels.json",
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/LevelLoader.cs",
+      "morseTextAsset": "Levels/morsecodes.json",
+      "placeholderPrefab": "Prefabs/RockPlaceholderPrefab.prefab#Transform:RockPlaceholderPrefab",
+      "rockDragger": "@Player:RockDragger",
+      "rockGenerator": "@Rocks:RockGenerator",
+      "sentenceSize": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "visibiltyIndicator": null
+     },
+     "id": 157070993,
+     "key": "LevelLoader",
+     "script": "LevelLoader",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 157070992,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Level",
+   "parent": null,
+   "path": "Level",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -4.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -4.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": false,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Level:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": "@PrefabInstance#1865022231",
+      "m_PrefabParentObject": "Standard Assets/Particles/Misc/Fireworks.prefab#400000",
+      "m_RootOrder": 0
+     },
+     "id": 1112786719,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "Simulate in Worldspace?": true,
+      "angularVelocity": 0.0,
+      "emitterVelocityScale": 0.05,
+      "localVelocity": {
+       "x": 0.0,
+       "y": 3.0,
+       "z": 0.0
+      },
+      "m_Ellipsoid": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_Emit": true,
+      "m_Enabled": true,
+      "m_MinEmitterRange": 0.0,
+      "m_ObjectHideFlags": 0,
+      "m_OneShot": true,
+      "m_PrefabInternal": "@PrefabInstance#1865022231",
+      "m_PrefabParentObject": "Standard Assets/Particles/Misc/Fireworks.prefab#1500000",
+      "maxEmission": 200.0,
+      "maxEnergy": 2.0,
+      "maxSize": 1.0,
+      "minEmission": 75.0,
+      "minEnergy": 0.5,
+      "minSize": 0.1,
+      "rndAngularVelocity": 0.0,
+      "rndRotation": false,
+      "rndVelocity": {
+       "x": 5.0,
+       "y": 5.0,
+       "z": 5.0
+      },
+      "tangentVelocity": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "worldVelocity": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     "id": 1112786722,
+     "key": "EllipsoidParticleEmitter",
+     "type": "EllipsoidParticleEmitter"
+    },
+    {
+     "fields": {
+      "Does Animate Color?": true,
+      "autodestruct": false,
+      "colorAnimation[0]": {
+       "a": 10,
+       "b": 255,
+       "g": 245,
+       "r": 0,
+       "rgba": 184546560
+      },
+      "colorAnimation[1]": {
+       "a": 180,
+       "b": 0,
+       "g": 255,
+       "r": 237,
+       "rgba": 3019964397
+      },
+      "colorAnimation[2]": {
+       "a": 255,
+       "b": 255,
+       "g": 41,
+       "r": 0,
+       "rgba": 4294912256
+      },
+      "colorAnimation[3]": {
+       "a": 255,
+       "b": 0,
+       "g": 0,
+       "r": 255,
+       "rgba": 4278190335
+      },
+      "colorAnimation[4]": {
+       "a": 10,
+       "b": 255,
+       "g": 255,
+       "r": 255,
+       "rgba": 184549375
+      },
+      "damping": 1.0,
+      "force": {
+       "x": 0.0,
+       "y": -5.0,
+       "z": 0.0
+      },
+      "localRotationAxis": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": "@PrefabInstance#1865022231",
+      "m_PrefabParentObject": "Standard Assets/Particles/Misc/Fireworks.prefab#1200000",
+      "rndForce": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "sizeGrow": -0.35757372,
+      "stopSimulation": false,
+      "worldRotationAxis": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     "id": 1112786721,
+     "key": "ParticleAnimator",
+     "type": "ParticleAnimator"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "UV Animation": {
+       "cycles": 1.0,
+       "x Tile": 1,
+       "y Tile": 1
+      },
+      "m_CameraVelocityScale": 0.0,
+      "m_CastShadows": true,
+      "m_Enabled": true,
+      "m_LengthScale": 2.0,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "Standard Assets/Particles/Sources/Materials/Fairy Dust.mat"
+      ],
+      "m_MaxParticleSize": 0.25,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": "@PrefabInstance#1865022231",
+      "m_PrefabParentObject": "Standard Assets/Particles/Misc/Fireworks.prefab#2600000",
+      "m_ReceiveShadows": true,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_StaticBatchRoot": null,
+      "m_StretchParticles": 0,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false,
+      "m_VelocityScale": 0.0
+     },
+     "id": 1112786720,
+     "key": "ParticleRenderer",
+     "type": "ParticleRenderer"
+    }
+   ],
+   "id": 1112786718,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "rockDestructionEffect",
+   "parent": "Level",
+   "path": "Level/rockDestructionEffect",
+   "prefab_source": "Standard Assets/Particles/Misc/Fireworks.prefab#100000",
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -4.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Level:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": -25.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 1
+     },
+     "id": 490737072,
+     "key": "Transform",
+     "type": "Transform"
+    }
+   ],
+   "id": 490737071,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "letters",
+   "parent": "Level",
+   "path": "Level/letters",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -25.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -29.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "Mars/solCounter"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Mars/solCounter:Transform"
+      ],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 4
+     },
+     "id": 208080086,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "currentSol": 0,
+      "darkness": 0.0,
+      "earth": "@Earth:Earth",
+      "hoursUntilNextSol": 0.0,
+      "isEarthVisible": 0,
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/Mars.cs",
+      "numTilesX": 66,
+      "numTilesY": 44,
+      "percentTimeLeftForNextSol": 0.0,
+      "rockGenerator": "@Rocks:RockGenerator",
+      "rover": "@Rover/RoverBody:Rover",
+      "roverScreen": "@RoverScreen:RoverScreen",
+      "secondsSpent": 0.0,
+      "secondsUntilNextSol": 0.0,
+      "solCounterText": "@Mars/solCounter:GUIText",
+      "sprites": [
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_1",
+       "Sprites/ground/marsTiles.png#marsTiles_2",
+       "Sprites/ground/marsTiles.png#marsTiles_2",
+       "Sprites/ground/marsTiles.png#marsTiles_0"
+      ],
+      "tileSize": 5.0,
+      "tileTemplate": "Sprites/ground/MarsTile.prefab#Transform:MarsTile",
+      "timeFrozen": 0,
+      "timeScale": 2000.0,
+      "worldBunds": {
+       "height": 0.0,
+       "width": 0.0,
+       "x": 0.0,
+       "y": 0.0
+      }
+     },
+     "id": 208080085,
+     "key": "Mars",
+     "script": "Mars",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 208080084,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Mars",
+   "parent": null,
+   "path": "Mars",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Mars:Transform",
+      "m_LocalPosition": {
+       "x": 0.5,
+       "y": 0.2,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 1683944225,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_Alignment": 1,
+      "m_Anchor": 4,
+      "m_Color": {
+       "a": 49,
+       "b": 255,
+       "g": 255,
+       "r": 255,
+       "rgba": 838860799
+      },
+      "m_Enabled": 0,
+      "m_Font": "Joystix/joystix monospace.ttf",
+      "m_FontSize": 30,
+      "m_FontStyle": 0,
+      "m_LineSpacing": 1.0,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_PixelCorrect": true,
+      "m_PixelOffset": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RichText": true,
+      "m_TabSize": 4.0,
+      "m_Text": "SOL 1"
+     },
+     "id": 1683944226,
+     "key": "GUIText",
+     "type": "GUIText"
+    }
+   ],
+   "id": 1683944224,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "solCounter",
+   "parent": "Mars",
+   "path": "Mars/solCounter",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.5,
+     "y": 0.2,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.5,
+     "y": 0.2,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "RoverScreen/screenGUIText"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@RoverScreen/screenGUIText:Transform"
+      ],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.5,
+       "y": 0.5,
+       "z": -30.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 1
+     },
+     "id": 538726107,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_BottomBorder": 0,
+      "m_Color": {
+       "a": 0.5,
+       "b": 0.5,
+       "g": 0.5,
+       "r": 0.5
+      },
+      "m_Enabled": 0,
+      "m_LeftBorder": 0,
+      "m_ObjectHideFlags": 0,
+      "m_PixelInset": {
+       "height": 0.0,
+       "width": -220.0,
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RightBorder": 0,
+      "m_Texture": "Sprites/bis_screen_v2.png",
+      "m_TopBorder": 0
+     },
+     "id": 538726106,
+     "key": "GUITexture",
+     "type": "GUITexture"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "earth": "@Earth:Earth",
+      "levelLoader": "@Level:LevelLoader",
+      "lifeSupport": 0,
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/RoverScreen.cs",
+      "mars": "@Mars:Mars",
+      "screenGUIText": "@RoverScreen/screenGUIText:GUIText",
+      "startingLifeSupport": 14,
+      "visibilityIndicator": "@Earth/visibiltyIndicator:GUIText"
+     },
+     "id": 538726108,
+     "key": "RoverScreen",
+     "script": "RoverScreen",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 538726105,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "RoverScreen",
+   "parent": null,
+   "path": "RoverScreen",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.5,
+     "y": 0.5,
+     "z": -30.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.5,
+     "y": 0.5,
+     "z": -30.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@RoverScreen:Transform",
+      "m_LocalPosition": {
+       "x": -0.43,
+       "y": 0.41000003,
+       "z": 30.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 53178640,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_Alignment": 0,
+      "m_Anchor": 0,
+      "m_Color": {
+       "a": 255,
+       "b": 26,
+       "g": 208,
+       "r": 47,
+       "rgba": 4279947311
+      },
+      "m_Enabled": 0,
+      "m_Font": "Joystix/joystix monospace.ttf",
+      "m_FontSize": 13,
+      "m_FontStyle": 0,
+      "m_LineSpacing": 1.0,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_PixelCorrect": true,
+      "m_PixelOffset": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RichText": true,
+      "m_TabSize": 4.0,
+      "m_Text": ""
+     },
+     "id": 53178639,
+     "key": "GUIText",
+     "type": "GUIText"
+    }
+   ],
+   "id": 53178638,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "screenGUIText",
+   "parent": "RoverScreen",
+   "path": "RoverScreen/screenGUIText",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": -0.43,
+     "y": 0.41000003,
+     "z": 30.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.06999999,
+     "y": 0.91,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "Main Camera/cutscenes",
+    "Main Camera/nightosphere",
+    "Main Camera/CameraFocus"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Main Camera/cutscenes:Transform",
+       "@Main Camera/nightosphere:Transform",
+       "@Main Camera/CameraFocus:Transform"
+      ],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": -1000.0,
+       "y": -1000.0,
+       "z": -30.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 3
+     },
+     "id": 1304491303,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "far clip plane": 40.0,
+      "field of view": 60.0,
+      "m_BackGroundColor": {
+       "a": 0.019607844,
+       "b": 0.20392157,
+       "g": 0.29803923,
+       "r": 0.40784314
+      },
+      "m_ClearFlags": 1,
+      "m_CullingMask": {
+       "m_Bits": 4294967295
+      },
+      "m_Depth": -1.0,
+      "m_Enabled": 1,
+      "m_HDR": false,
+      "m_NormalizedViewPortRect": {
+       "height": 1.0,
+       "width": 1.0,
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_OcclusionCulling": true,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RenderingPath": 0,
+      "m_StereoConvergence": 10.0,
+      "m_StereoSeparation": 0.022,
+      "m_TargetDisplay": 0,
+      "m_TargetTexture": null,
+      "near clip plane": 0.3,
+      "orthographic": true,
+      "orthographic size": 3.6
+     },
+     "id": 1304491302,
+     "key": "Camera",
+     "type": "Camera"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 1304491301,
+     "key": "GUILayer",
+     "type": "GUILayer"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 1304491300,
+     "key": "FlareLayer",
+     "type": "FlareLayer"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "levelLoader": "@Level:LevelLoader",
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/CamerFocusSwitcher.cs",
+      "mars": "@Mars:Mars",
+      "nightosphere": "@Main Camera/nightosphere:MeshRenderer",
+      "playerIsInRover": 0,
+      "playerTransform": "@Player:Transform",
+      "positionTarget": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "roverForcusTarget": "@Rover/roverFocusTarget:Transform"
+     },
+     "id": 1304491299,
+     "key": "CamerFocusSwitcher",
+     "script": "CamerFocusSwitcher",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 1304491298,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Main Camera",
+   "parent": null,
+   "path": "Main Camera",
+   "prefab_source": null,
+   "tag": "MainCamera",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -30.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -30.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "Main Camera/cutscenes/spr_couldNotDecode",
+    "Main Camera/cutscenes/spr_newMessage",
+    "Main Camera/cutscenes/spr_couldDecode",
+    "Main Camera/cutscenes/spr_tutorial"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Main Camera/cutscenes/spr_couldNotDecode:Transform",
+       "@Main Camera/cutscenes/spr_newMessage:Transform",
+       "@Main Camera/cutscenes/spr_couldDecode:Transform",
+       "@Main Camera/cutscenes/spr_tutorial:Transform"
+      ],
+      "m_Father": "@Main Camera:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.7,
+       "y": 1.7,
+       "z": 1.7
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 1977614526,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/CutsSceneScaleFixer.cs"
+     },
+     "id": 1977614527,
+     "key": "CutsSceneScaleFixer",
+     "script": "CutsSceneScaleFixer",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 1977614525,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "cutscenes",
+   "parent": "Main Camera",
+   "path": "Main Camera/cutscenes",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 1.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.7,
+     "y": 1.7,
+     "z": 1.7
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -29.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.7,
+     "y": 1.7,
+     "z": 1.7
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Main Camera/cutscenes:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 223732928,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": false,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/Cutscenes/bis_cutscene_v1_1.png#bis_cutscene_v1_1",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 223732927,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    }
+   ],
+   "id": 223732926,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "spr_couldNotDecode",
+   "parent": "Main Camera/cutscenes",
+   "path": "Main Camera/cutscenes/spr_couldNotDecode",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -29.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.7,
+     "y": 1.7,
+     "z": 1.7
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Main Camera/cutscenes:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 1
+     },
+     "id": 1591836267,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": false,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/Cutscenes/bis_cutscene_v1_3.png#bis_cutscene_v1_3",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 1591836268,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    }
+   ],
+   "id": 1591836266,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "spr_newMessage",
+   "parent": "Main Camera/cutscenes",
+   "path": "Main Camera/cutscenes/spr_newMessage",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -29.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.7,
+     "y": 1.7,
+     "z": 1.7
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Main Camera/cutscenes:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 2
+     },
+     "id": 1701732019,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": false,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/Cutscenes/bis_cutscene_v1_2.png#bis_cutscene_v1_2",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 1701732020,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    }
+   ],
+   "id": 1701732018,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "spr_couldDecode",
+   "parent": "Main Camera/cutscenes",
+   "path": "Main Camera/cutscenes/spr_couldDecode",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -29.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.7,
+     "y": 1.7,
+     "z": 1.7
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Main Camera/cutscenes:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 3
+     },
+     "id": 2064010545,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": false,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/Slides/rm_tutorial_v4_3.png#rm_tutorial_v4_3",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 2064010546,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    }
+   ],
+   "id": 2064010544,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "spr_tutorial",
+   "parent": "Main Camera/cutscenes",
+   "path": "Main Camera/cutscenes/spr_tutorial",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -29.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.7,
+     "y": 1.7,
+     "z": 1.7
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Main Camera:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 18.0
+      },
+      "m_LocalRotation": {
+       "w": 0.7071067,
+       "x": -0.7071068,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 6.0,
+       "y": 1.0,
+       "z": 6.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 1
+     },
+     "id": 1939513892,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "fields": {
+      "m_Mesh": "builtin:library/unity default resources#10209",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 1939513895,
+     "key": "MeshFilter",
+     "type": "MeshFilter"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_Convex": false,
+      "m_Enabled": true,
+      "m_IsTrigger": false,
+      "m_Material": null,
+      "m_Mesh": "builtin:library/unity default resources#10209",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_SmoothSphereCollisions": false
+     },
+     "id": 1939513894,
+     "key": "MeshCollider",
+     "type": "MeshCollider"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_CastShadows": true,
+      "m_Enabled": true,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "Materials/nightMat.mat"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": true,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 1939513893,
+     "key": "MeshRenderer",
+     "type": "MeshRenderer"
+    }
+   ],
+   "id": 1939513891,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "nightosphere",
+   "parent": "Main Camera",
+   "path": "Main Camera/nightosphere",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     270.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 18.0
+    },
+    "local_rotation": {
+     "w": 0.7071067,
+     "x": -0.7071068,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 6.0,
+     "y": 1.0,
+     "z": 6.0
+    },
+    "world_euler": [
+     270.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -12.0
+    },
+    "world_rotation": {
+     "w": 0.7071067,
+     "x": -0.7071068,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 6.0,
+     "y": 1.0,
+     "z": 6.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Main Camera:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 2
+     },
+     "id": 1590918985,
+     "key": "Transform",
+     "type": "Transform"
+    }
+   ],
+   "id": 1590918984,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "CameraFocus",
+   "parent": "Main Camera",
+   "path": "Main Camera/CameraFocus",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": -30.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 9
+     },
+     "id": 1497780048,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": false,
+      "MaxDistance": 500.0,
+      "MinDistance": 1.0,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 128,
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_Pitch": 1.0,
+      "m_PlayOnAwake": true,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Volume": 1.0,
+      "m_audioClip": "8BitSounds/Menu4.wav",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 0,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 1497780047,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 1497780046,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Menu4",
+   "parent": null,
+   "path": "Menu4",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": -0.633234,
+       "y": -3.2340147,
+       "z": -5.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 4.5,
+       "y": 4.5,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": "@PrefabInstance#215568265",
+      "m_PrefabParentObject": "Prefabs/RockDragTarget.prefab#Transform:RockDragTarget",
+      "m_RootOrder": 5
+     },
+     "id": 1570077841,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 0.3529412,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": false,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": "@PrefabInstance#215568265",
+      "m_PrefabParentObject": "Prefabs/RockDragTarget.prefab#SpriteRenderer:RockDragTarget",
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/rockDragTarget.png#rockDragTarget",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 1570077840,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "dashTarget": "Sprites/rockDragTarget_dash.png#rockDragTarget_dash",
+      "dotTarget": "Sprites/rockDragTarget.png#rockDragTarget",
+      "isDash": 0,
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": "@PrefabInstance#215568265",
+      "m_PrefabParentObject": "Prefabs/RockDragTarget.prefab#MonoBehaviour:RockDragTarget",
+      "m_Script": "Scripts/SnapToTarget.cs",
+      "target": null
+     },
+     "id": 1570077839,
+     "key": "SnapToTarget",
+     "script": "SnapToTarget",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 1570077838,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "RockDragTarget",
+   "parent": null,
+   "path": "RockDragTarget",
+   "prefab_source": "Prefabs/RockDragTarget.prefab#GameObject:RockDragTarget",
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": -0.633234,
+     "y": -3.2340147,
+     "z": -5.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 4.5,
+     "y": 4.5,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -0.633234,
+     "y": -3.2340147,
+     "z": -5.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 4.5,
+     "y": 4.5,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "Earth/visibiltyIndicator"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Earth/visibiltyIndicator:Transform"
+      ],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 1570850862,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "couldDecode": "@Main Camera/cutscenes/spr_couldDecode:SpriteRenderer",
+      "couldNotDecode": "@Main Camera/cutscenes/spr_couldNotDecode:SpriteRenderer",
+      "debugForceNextLevel": -1,
+      "focusSwitcher": "@Main Camera:CamerFocusSwitcher",
+      "levelLoader": "@Level:LevelLoader",
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/Earth.cs",
+      "mars": "@Mars:Mars",
+      "maxMessageSoundVolume": 0.3,
+      "missionUpdateIndicator": "@Rover/updatesIndicator:SpriteRenderer",
+      "newMessage": "@Main Camera/cutscenes/spr_newMessage:SpriteRenderer",
+      "rocket": null,
+      "rocketPrefab": "Prefabs/RocketPrefab.prefab#Transform:RocketPrefab",
+      "roverNewMessageSound": "@Rover:AudioSource",
+      "roverScreen": "@RoverScreen:RoverScreen",
+      "telemetryDelay": 1.8,
+      "testIgnoreRoverEnterance": 0,
+      "tutorial": "@Main Camera/cutscenes/spr_tutorial:SpriteRenderer"
+     },
+     "id": 1570850863,
+     "key": "Earth",
+     "script": "Earth",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 1570850861,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Earth",
+   "parent": null,
+   "path": "Earth",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Earth:Transform",
+      "m_LocalPosition": {
+       "x": 0.7,
+       "y": 0.99,
+       "z": -25.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 462592991,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_Alignment": 2,
+      "m_Anchor": 0,
+      "m_Color": {
+       "a": 134,
+       "b": 255,
+       "g": 255,
+       "r": 255,
+       "rgba": 2264924159
+      },
+      "m_Enabled": 0,
+      "m_Font": "Joystix/joystix monospace.ttf",
+      "m_FontSize": 11,
+      "m_FontStyle": 0,
+      "m_LineSpacing": 1.0,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_PixelCorrect": true,
+      "m_PixelOffset": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RichText": true,
+      "m_TabSize": 4.0,
+      "m_Text": "WAIT FOR DAYLIGHT IN"
+     },
+     "id": 462592992,
+     "key": "GUIText",
+     "type": "GUIText"
+    }
+   ],
+   "id": 462592990,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "visibiltyIndicator",
+   "parent": "Earth",
+   "path": "Earth/visibiltyIndicator",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.7,
+     "y": 0.99,
+     "z": -25.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.7,
+     "y": 0.99,
+     "z": -25.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": -3.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 6
+     },
+     "id": 1665750465,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/RockGenerator.cs",
+      "numRocks": 100,
+      "rockPrefab": "Prefabs/RockPrefab.prefab#Transform:RockPrefab",
+      "rockShatterAnimationPrefab": "Prefabs/RockShatterPrefab.prefab#Transform:RockShatterPrefab",
+      "rocks": []
+     },
+     "id": 1665750466,
+     "key": "RockGenerator",
+     "script": "RockGenerator",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 1665750464,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Rocks",
+   "parent": null,
+   "path": "Rocks",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -3.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -3.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "Player/pivot",
+    "Player/footsteps"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Player/pivot:Transform",
+       "@Player/footsteps:Transform"
+      ],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 6.56,
+       "y": 2.35,
+       "z": -1.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 5.0,
+       "y": 5.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 8
+     },
+     "id": 2094756901,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "animator": "@Player:Animator",
+      "audioListener": "@Player/pivot:Transform",
+      "footStepsSFX": "@Player/footsteps:AudioSource",
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/TopDownControls.cs",
+      "mars": "@Mars:Mars"
+     },
+     "id": 2094756902,
+     "key": "TopDownControls",
+     "script": "TopDownControls",
+     "type": "MonoBehaviour"
+    },
+    {
+     "fields": {
+      "m_AngularDrag": 0.05,
+      "m_CollisionDetection": 0,
+      "m_FixedAngle": true,
+      "m_GravityScale": 0.0,
+      "m_Interpolate": 0,
+      "m_IsKinematic": false,
+      "m_LinearDrag": 0.0,
+      "m_Mass": 1.0,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_SleepingMode": 1
+     },
+     "id": 2094756903,
+     "key": "Rigidbody2D",
+     "type": "Rigidbody2D"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "activeJoint": null,
+      "dragTargetIndicator": "@RockDragTarget:SnapToTarget",
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/RockDragger.cs",
+      "strainSFX": "@Player:AudioSource"
+     },
+     "id": 2094756906,
+     "key": "RockDragger",
+     "script": "RockDragger",
+     "type": "MonoBehaviour"
+    },
+    {
+     "derived": {
+      "offset_world": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "radius_world": 1.0,
+      "world_scale_xy": [
+       5.0,
+       5.0
+      ]
+     },
+     "enabled": true,
+     "fields": {
+      "m_Center": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_Enabled": 1,
+      "m_IsTrigger": true,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Radius": 0.2
+     },
+     "id": 2094756905,
+     "key": "CircleCollider2D",
+     "type": "CircleCollider2D"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": false,
+      "MaxDistance": 500.0,
+      "MinDistance": 1.0,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 128,
+      "m_Enabled": 0,
+      "m_ObjectHideFlags": 0,
+      "m_Pitch": 1.0,
+      "m_PlayOnAwake": false,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.027,
+      "m_audioClip": "Sounds/player_strain.mp3",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 0,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 2094756907,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_AllowConstantClipSamplingOptimization": true,
+      "m_ApplyRootMotion": true,
+      "m_Avatar": null,
+      "m_Controller": "Sprites/run/Player.controller",
+      "m_CullingMode": 0,
+      "m_Enabled": 1,
+      "m_HasTransformHierarchy": true,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_UpdateMode": 0
+     },
+     "id": 2094756909,
+     "key": "Animator",
+     "type": "Animator"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": true,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/run/bis_dude_ani_Animation 1_3.png#bis_dude_ani_Animation 1_3",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 2094756900,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    },
+    {
+     "derived": {
+      "height_world": 1.1410187,
+      "offset_world": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "paths": [
+       {
+        "convex": false,
+        "piece_point_counts": [
+         3,
+         5,
+         4
+        ],
+        "pieces": [
+         [
+          [
+           0.26370382,
+           0.172637
+          ],
+          [
+           0.2981739,
+           0.6014235
+          ],
+          [
+           -0.10289574,
+           0.5982547
+          ]
+         ],
+         [
+          [
+           0.28063393,
+           -0.0668699
+          ],
+          [
+           -0.12010214,
+           0.235328
+          ],
+          [
+           -0.25481036,
+           -0.0852673
+          ],
+          [
+           -0.20309907,
+           -0.53813076
+          ],
+          [
+           0.18139964,
+           -0.5395952
+          ]
+         ],
+         [
+          [
+           -0.10289574,
+           0.5982547
+          ],
+          [
+           -0.12010214,
+           0.235328
+          ],
+          [
+           0.28063393,
+           -0.0668699
+          ],
+          [
+           0.26370382,
+           0.172637
+          ]
+         ]
+        ],
+        "scaled_points": [
+         [
+          -0.10289574,
+          0.5982547
+         ],
+         [
+          -0.12010214,
+          0.235328
+         ],
+         [
+          -0.25481036,
+          -0.0852673
+         ],
+         [
+          -0.20309907,
+          -0.53813076
+         ],
+         [
+          0.18139964,
+          -0.5395952
+         ],
+         [
+          0.28063393,
+          -0.0668699
+         ],
+         [
+          0.26370382,
+          0.172637
+         ],
+         [
+          0.2981739,
+          0.6014235
+         ]
+        ],
+        "source_points": 8
+       }
+      ],
+      "piece_total": 3,
+      "world_scale_xy": [
+       5.0,
+       5.0
+      ]
+     },
+     "enabled": true,
+     "fields": {
+      "m_Enabled": 1,
+      "m_IsTrigger": false,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_Poly": {
+       "m_Paths": [
+        [
+         {
+          "x": -0.020579148,
+          "y": 0.11965094
+         },
+         {
+          "x": -0.024020428,
+          "y": 0.0470656
+         },
+         {
+          "x": -0.05096207,
+          "y": -0.01705346
+         },
+         {
+          "x": -0.040619813,
+          "y": -0.107626155
+         },
+         {
+          "x": 0.036279928,
+          "y": -0.10791904
+         },
+         {
+          "x": 0.056126785,
+          "y": -0.01337398
+         },
+         {
+          "x": 0.052740764,
+          "y": 0.0345274
+         },
+         {
+          "x": 0.059634782,
+          "y": 0.1202847
+         }
+        ]
+       ]
+      },
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 2094756910,
+     "key": "PolygonCollider2D",
+     "type": "PolygonCollider2D"
+    }
+   ],
+   "id": 2094756899,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Player",
+   "parent": null,
+   "path": "Player",
+   "prefab_source": null,
+   "tag": "Player",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 6.56,
+     "y": 2.35,
+     "z": -1.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 6.56,
+     "y": 2.35,
+     "z": -1.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "Player/pivot/audioListener",
+    "Player/pivot/Sci-fi_AmbienceLoop1"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Player/pivot/audioListener:Transform",
+       "@Player/pivot/Sci-fi_AmbienceLoop1:Transform"
+      ],
+      "m_Father": "@Player:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": -1.6292068e-07,
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 0.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 2101302169,
+     "key": "Transform",
+     "type": "Transform"
+    }
+   ],
+   "id": 2101302168,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "pivot",
+   "parent": "Player",
+   "path": "Player/pivot",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     180.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": -1.6292068e-07,
+     "x": 0.0,
+     "y": 1.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 0.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     180.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 6.56,
+     "y": 2.35,
+     "z": -1.0
+    },
+    "world_rotation": {
+     "w": -1.6292068e-07,
+     "x": 0.0,
+     "y": 1.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 0.0,
+     "y": 5.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Player/pivot:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 480372300,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 480372301,
+     "key": "AudioListener",
+     "type": "AudioListener"
+    }
+   ],
+   "id": 480372299,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "audioListener",
+   "parent": "Player/pivot",
+   "path": "Player/pivot/audioListener",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     180.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 6.56,
+     "y": 2.35,
+     "z": -1.0
+    },
+    "world_rotation": {
+     "w": -1.6292068e-07,
+     "x": 0.0,
+     "y": 1.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 0.0,
+     "y": 5.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Player/pivot:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 1
+     },
+     "id": 869506478,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": true,
+      "MaxDistance": 500.0,
+      "MinDistance": 2.7832656,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 100,
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_Pitch": 1.0,
+      "m_PlayOnAwake": true,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.354,
+      "m_audioClip": "Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 0,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 869506479,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 869506477,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Sci-fi_AmbienceLoop1",
+   "parent": "Player/pivot",
+   "path": "Player/pivot/Sci-fi_AmbienceLoop1",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_euler": [
+     0.0,
+     180.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 6.56,
+     "y": 2.35,
+     "z": -1.0
+    },
+    "world_rotation": {
+     "w": -1.6292068e-07,
+     "x": 0.0,
+     "y": 1.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Player:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 0.2,
+       "y": 0.2,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 1
+     },
+     "id": 1616973617,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": true,
+      "MaxDistance": 500.0,
+      "MinDistance": 1.0,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 128,
+      "m_Enabled": 0,
+      "m_ObjectHideFlags": 0,
+      "m_Pitch": 1.0,
+      "m_PlayOnAwake": true,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.05,
+      "m_audioClip": "Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 0,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 1616973618,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 1616973616,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "footsteps",
+   "parent": "Player",
+   "path": "Player/footsteps",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 1.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 0.2,
+     "y": 0.2,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 6.56,
+     "y": 2.35,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "Rover/Reverb",
+    "Rover/RoverBody",
+    "Rover/bis_rover_v2_roof",
+    "Rover/rockRepeller",
+    "Rover/roverFocusTarget",
+    "Rover/playerInsideRoverTrigger",
+    "Rover/updatesIndicator"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Rover/Reverb:Transform",
+       "@Rover/RoverBody:Transform",
+       "@Rover/bis_rover_v2_roof:Transform",
+       "@Rover/rockRepeller:Transform",
+       "@Rover/roverFocusTarget:Transform",
+       "@Rover/playerInsideRoverTrigger:Transform",
+       "@Rover/updatesIndicator:Transform"
+      ],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 9.3,
+       "y": 4.5,
+       "z": -0.5
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 2
+     },
+     "id": 2107792433,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": true,
+      "MaxDistance": 25.0,
+      "MinDistance": 0.0,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 128,
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_Pitch": 0.95,
+      "m_PlayOnAwake": true,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.0,
+      "m_audioClip": "Sounds/newMessage.mp3",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 1,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 2107792434,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 2107792432,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Rover",
+   "parent": null,
+   "path": "Rover",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 9.3,
+     "y": 4.5,
+     "z": -0.5
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 9.3,
+     "y": 4.5,
+     "z": -0.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Rover:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 110349781,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_DecayHFRatio": 0.14,
+      "m_DecayTime": 2.81,
+      "m_Density": 60.0,
+      "m_Diffusion": 80.0,
+      "m_Enabled": 1,
+      "m_HFReference": 5000.0,
+      "m_LFReference": 250.0,
+      "m_MaxDistance": 2.0,
+      "m_MinDistance": 1.3,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Reflections": 429,
+      "m_ReflectionsDelay": 0.014,
+      "m_Reverb": 1023,
+      "m_ReverbDelay": 0.021,
+      "m_ReverbPreset": 22,
+      "m_Room": -1000,
+      "m_RoomHF": -1000,
+      "m_RoomLF": 0,
+      "m_RoomRolloffFactor": 0.0
+     },
+     "id": 110349782,
+     "key": "AudioReverbZone",
+     "type": "AudioReverbZone"
+    }
+   ],
+   "id": 110349780,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "Reverb",
+   "parent": "Rover",
+   "path": "Rover/Reverb",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 9.3,
+     "y": 4.5,
+     "z": -0.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Rover:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 5.0,
+       "y": 5.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 1
+     },
+     "id": 1426256124,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": true,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/bis_rover_v2.png#bis_rover_v2",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 1426256123,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    },
+    {
+     "fields": {
+      "m_AngularDrag": 0.05,
+      "m_CollisionDetection": 0,
+      "m_FixedAngle": false,
+      "m_GravityScale": 0.0,
+      "m_Interpolate": 0,
+      "m_IsKinematic": true,
+      "m_LinearDrag": 0.0,
+      "m_Mass": 1.0,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_SleepingMode": 1
+     },
+     "id": 1426256125,
+     "key": "Rigidbody2D",
+     "type": "Rigidbody2D"
+    },
+    {
+     "derived": {
+      "offset_world": {
+       "x": -0.15,
+       "y": 0.33193734
+      },
+      "size_world": {
+       "x": 1.25,
+       "y": 1.3361268
+      },
+      "world_scale_xy": [
+       5.0,
+       5.0
+      ]
+     },
+     "enabled": true,
+     "fields": {
+      "m_Center": {
+       "x": -0.03,
+       "y": 0.06638747
+      },
+      "m_Enabled": 1,
+      "m_IsTrigger": true,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Size": {
+       "x": 0.25,
+       "y": 0.26722535
+      }
+     },
+     "id": 1426256127,
+     "key": "BoxCollider2D",
+     "type": "BoxCollider2D"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/Rover.cs",
+      "roof": "@Rover/bis_rover_v2_roof:SpriteRenderer"
+     },
+     "id": 1426256126,
+     "key": "Rover",
+     "script": "Rover",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 1426256122,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "RoverBody",
+   "parent": "Rover",
+   "path": "Rover/RoverBody",
+   "prefab_source": null,
+   "tag": "Rover",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 9.3,
+     "y": 4.5,
+     "z": -0.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Rover:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": -8.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 5.0,
+       "y": 5.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 2
+     },
+     "id": 1085434320,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": false,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/bis_rover_v2_roof.png#bis_rover_v2_roof",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 1085434319,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    },
+    {
+     "fields": {
+      "m_AngularDrag": 0.05,
+      "m_CollisionDetection": 0,
+      "m_FixedAngle": false,
+      "m_GravityScale": 0.0,
+      "m_Interpolate": 0,
+      "m_IsKinematic": true,
+      "m_LinearDrag": 0.0,
+      "m_Mass": 1.0,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_SleepingMode": 1
+     },
+     "id": 1085434322,
+     "key": "Rigidbody2D",
+     "type": "Rigidbody2D"
+    },
+    {
+     "derived": {
+      "height_world": 4.0788136,
+      "offset_world": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "paths": [
+       {
+        "convex": false,
+        "piece_point_counts": [
+         3,
+         3,
+         3,
+         4,
+         4,
+         4,
+         5
+        ],
+        "pieces": [
+         [
+          [
+           -1.7697941,
+           0.14230728
+          ],
+          [
+           -1.734161,
+           -0.33880424
+          ],
+          [
+           -1.3619213,
+           0.29726315
+          ]
+         ],
+         [
+          [
+           0.76312834,
+           -0.0429883
+          ],
+          [
+           -0.5218239,
+           -1.5081396
+          ],
+          [
+           0.5707693,
+           -0.9778543
+          ]
+         ],
+         [
+          [
+           0.023524286,
+           1.2660065
+          ],
+          [
+           0.76312834,
+           -0.0429883
+          ],
+          [
+           1.3300076,
+           1.609528
+          ]
+         ],
+         [
+          [
+           1.3300076,
+           1.609528
+          ],
+          [
+           -0.44478896,
+           2.3009639
+          ],
+          [
+           -1.7045093,
+           0.8588309
+          ],
+          [
+           0.023524286,
+           1.2660065
+          ]
+         ],
+         [
+          [
+           0.5707693,
+           -0.9778543
+          ],
+          [
+           1.7779083,
+           -0.30007935
+          ],
+          [
+           1.3300076,
+           1.609528
+          ],
+          [
+           0.76312834,
+           -0.0429883
+          ]
+         ],
+         [
+          [
+           -1.7045093,
+           0.8588309
+          ],
+          [
+           -1.7697941,
+           0.14230728
+          ],
+          [
+           -1.3619213,
+           0.29726315
+          ],
+          [
+           0.023524286,
+           1.2660065
+          ]
+         ],
+         [
+          [
+           -0.7467442,
+           -1.6981117
+          ],
+          [
+           -0.5218239,
+           -1.5081396
+          ],
+          [
+           0.76312834,
+           -0.0429883
+          ],
+          [
+           -0.59378815,
+           -1.0352497
+          ],
+          [
+           -1.1022644,
+           -1.7778496
+          ]
+         ]
+        ],
+        "scaled_points": [
+         [
+          1.3300076,
+          1.609528
+         ],
+         [
+          -0.44478896,
+          2.3009639
+         ],
+         [
+          -1.7045093,
+          0.8588309
+         ],
+         [
+          -1.7697941,
+          0.14230728
+         ],
+         [
+          -1.734161,
+          -0.33880424
+         ],
+         [
+          -1.3619213,
+          0.29726315
+         ],
+         [
+          0.023524286,
+          1.2660065
+         ],
+         [
+          0.76312834,
+          -0.0429883
+         ],
+         [
+          -0.59378815,
+          -1.0352497
+         ],
+         [
+          -1.1022644,
+          -1.7778496
+         ],
+         [
+          -0.7467442,
+          -1.6981117
+         ],
+         [
+          -0.5218239,
+          -1.5081396
+         ],
+         [
+          0.5707693,
+          -0.9778543
+         ],
+         [
+          1.7779083,
+          -0.30007935
+         ]
+        ],
+        "source_points": 14
+       }
+      ],
+      "piece_total": 7,
+      "world_scale_xy": [
+       5.0,
+       5.0
+      ]
+     },
+     "enabled": true,
+     "fields": {
+      "m_Enabled": 1,
+      "m_IsTrigger": false,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_Poly": {
+       "m_Paths": [
+        [
+         {
+          "x": 0.26600152,
+          "y": 0.3219056
+         },
+         {
+          "x": -0.08895779,
+          "y": 0.46019277
+         },
+         {
+          "x": -0.34090185,
+          "y": 0.17176619
+         },
+         {
+          "x": -0.35395882,
+          "y": 0.028461456
+         },
+         {
+          "x": -0.3468322,
+          "y": -0.06776085
+         },
+         {
+          "x": -0.27238426,
+          "y": 0.05945263
+         },
+         {
+          "x": 0.0047048572,
+          "y": 0.2532013
+         },
+         {
+          "x": 0.15262567,
+          "y": -0.00859766
+         },
+         {
+          "x": -0.11875763,
+          "y": -0.20704995
+         },
+         {
+          "x": -0.22045289,
+          "y": -0.3555699
+         },
+         {
+          "x": -0.14934884,
+          "y": -0.33962232
+         },
+         {
+          "x": -0.104364775,
+          "y": -0.30162793
+         },
+         {
+          "x": 0.11415386,
+          "y": -0.19557086
+         },
+         {
+          "x": 0.35558167,
+          "y": -0.06001587
+         }
+        ]
+       ]
+      },
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null
+     },
+     "id": 1085434321,
+     "key": "PolygonCollider2D",
+     "type": "PolygonCollider2D"
+    }
+   ],
+   "id": 1085434318,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "bis_rover_v2_roof",
+   "parent": "Rover",
+   "path": "Rover/bis_rover_v2_roof",
+   "prefab_source": null,
+   "tag": "Rover",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": -8.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 9.3,
+     "y": 4.5,
+     "z": -8.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Rover:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 3
+     },
+     "id": 715010211,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "derived": {
+      "offset_world": {
+       "x": -0.15,
+       "y": -0.06
+      },
+      "radius_world": 3.29,
+      "world_scale_xy": [
+       1.0,
+       1.0
+      ]
+     },
+     "enabled": true,
+     "fields": {
+      "m_Center": {
+       "x": -0.15,
+       "y": -0.06
+      },
+      "m_Enabled": 1,
+      "m_IsTrigger": true,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Radius": 3.29
+     },
+     "id": 715010210,
+     "key": "CircleCollider2D",
+     "type": "CircleCollider2D"
+    }
+   ],
+   "id": 715010209,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "rockRepeller",
+   "parent": "Rover",
+   "path": "Rover/rockRepeller",
+   "prefab_source": null,
+   "tag": "Rover",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 9.3,
+     "y": 4.5,
+     "z": -0.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Rover:Transform",
+      "m_LocalPosition": {
+       "x": -4.54,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 4
+     },
+     "id": 1907662735,
+     "key": "Transform",
+     "type": "Transform"
+    }
+   ],
+   "id": 1907662734,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "roverFocusTarget",
+   "parent": "Rover",
+   "path": "Rover/roverFocusTarget",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": -4.54,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 4.76,
+     "y": 4.5,
+     "z": -0.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [
+    "Rover/playerInsideRoverTrigger/chatter"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@Rover/playerInsideRoverTrigger/chatter:Transform"
+      ],
+      "m_Father": "@Rover:Transform",
+      "m_LocalPosition": {
+       "x": -0.37023544,
+       "y": 0.011456966,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 5.0,
+       "y": 5.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 5
+     },
+     "id": 1974419696,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "derived": {
+      "offset_world": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "radius_world": 0.6,
+      "world_scale_xy": [
+       5.0,
+       5.0
+      ]
+     },
+     "enabled": true,
+     "fields": {
+      "m_Center": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_Enabled": 1,
+      "m_IsTrigger": true,
+      "m_Material": null,
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Radius": 0.12
+     },
+     "id": 1974419697,
+     "key": "CircleCollider2D",
+     "type": "CircleCollider2D"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "audioSource": "@Rover/playerInsideRoverTrigger:AudioSource",
+      "focusSwitcher": "@Main Camera:CamerFocusSwitcher",
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/RoverInsideTrigger.cs",
+      "mars": "@Mars:Mars",
+      "roverScreen": "@RoverScreen:RoverScreen",
+      "setOffPitch": 0.9,
+      "setOnPitch": 0.6
+     },
+     "id": 1974419698,
+     "key": "RoverInsideTrigger",
+     "script": "RoverInsideTrigger",
+     "type": "MonoBehaviour"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": false,
+      "MaxDistance": 500.0,
+      "MinDistance": 1.0,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 107,
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_Pitch": -0.88,
+      "m_PlayOnAwake": false,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.143,
+      "m_audioClip": "8BitSounds/Menu1.wav",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 1,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 1974419699,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 1974419695,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "playerInsideRoverTrigger",
+   "parent": "Rover",
+   "path": "Rover/playerInsideRoverTrigger",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": -0.37023544,
+     "y": 0.011456966,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 8.929765,
+     "y": 4.511457,
+     "z": -0.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Rover/playerInsideRoverTrigger:Transform",
+      "m_LocalPosition": {
+       "x": 0.051401712,
+       "y": 0.051401902,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 1368093040,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": true,
+      "MaxDistance": 4.6,
+      "MinDistance": 0.42,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 128,
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 0,
+      "m_Pitch": 1.0,
+      "m_PlayOnAwake": true,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.288,
+      "m_audioClip": "Sounds/static.mp3",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 1,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.44702774
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 1368093041,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 1368093039,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "chatter",
+   "parent": "Rover/playerInsideRoverTrigger",
+   "path": "Rover/playerInsideRoverTrigger/chatter",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.051401712,
+     "y": 0.051401902,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 9.186773,
+     "y": 4.7684665,
+     "z": -0.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@Rover:Transform",
+      "m_LocalPosition": {
+       "x": -1.180396,
+       "y": -1.043988,
+       "z": -20.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 2.0,
+       "y": 2.0,
+       "z": 2.0
+      },
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 6
+     },
+     "id": 333011226,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": true,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 0,
+      "m_PrefabInternal": null,
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/bis_exclamation_v2_2.png#bis_exclamation_v2_2",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 333011227,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    }
+   ],
+   "id": 333011225,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "updatesIndicator",
+   "parent": "Rover",
+   "path": "Rover/updatesIndicator",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": -1.180396,
+     "y": -1.043988,
+     "z": -20.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 2.0,
+     "y": 2.0,
+     "z": 2.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 8.119604,
+     "y": 3.456012,
+     "z": -20.5
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 2.0,
+     "y": 2.0,
+     "z": 2.0
+    }
+   }
+  }
+ ],
+ "scene_settings": {
+  "HaloManager": {
+   "m_ObjectHideFlags": 0
+  },
+  "LightmapSettings": {
+   "m_BakedColorSpace": 0,
+   "m_LightProbes": null,
+   "m_LightmapEditorSettings": {
+    "m_AOAmount": 0.0,
+    "m_AOContrast": 1.0,
+    "m_AOMaxDistance": 0.1,
+    "m_BounceBoost": 1.0,
+    "m_BounceIntensity": 1.0,
+    "m_Bounces": 1,
+    "m_FinalGatherContrastThreshold": 0.05,
+    "m_FinalGatherGradientThreshold": 0.0,
+    "m_FinalGatherInterpolationPoints": 15,
+    "m_FinalGatherRays": 1000,
+    "m_LODSurfaceMappingDistance": 1.0,
+    "m_LastUsedResolution": 0.0,
+    "m_LockAtlas": false,
+    "m_Padding": 0,
+    "m_Quality": 0,
+    "m_Resolution": 50.0,
+    "m_SkyLightColor": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 0.93,
+     "r": 0.86
+    },
+    "m_SkyLightIntensity": 0.0,
+    "m_TextureCompression": false,
+    "m_TextureHeight": 1024,
+    "m_TextureWidth": 1024
+   },
+   "m_Lightmaps": [],
+   "m_LightmapsMode": 1,
+   "m_ObjectHideFlags": 0,
+   "m_UseDualLightmapsInForward": false
+  },
+  "NavMeshSettings": {
+   "m_BuildSettings": {
+    "accuratePlacement": false,
+    "agentClimb": 0.4,
+    "agentHeight": 2.0,
+    "agentRadius": 0.5,
+    "agentSlope": 45.0,
+    "heightInaccuracy": 10.0,
+    "ledgeDropHeight": 0.0,
+    "maxJumpAcrossDistance": 0.0,
+    "minRegionArea": 2.0,
+    "widthInaccuracy": 16.666666
+   },
+   "m_NavMesh": null,
+   "m_ObjectHideFlags": 0
+  },
+  "OcclusionCullingSettings": {
+   "m_ObjectHideFlags": 0,
+   "m_OcclusionBakeSettings": {
+    "backfaceThreshold": 100.0,
+    "smallestHole": 0.25,
+    "smallestOccluder": 5.0
+   },
+   "m_PVSData": [],
+   "m_PVSObjectsArray": [],
+   "m_PVSPortalsArray": []
+  },
+  "RenderSettings": {
+   "m_AmbientLight": {
+    "a": 1.0,
+    "b": 0.49264705,
+    "g": 0.6710954,
+    "r": 1.0
+   },
+   "m_FlareFadeSpeed": 3.0,
+   "m_FlareStrength": 1.0,
+   "m_Fog": false,
+   "m_FogColor": {
+    "a": 1.0,
+    "b": 0.5,
+    "g": 0.5,
+    "r": 0.5
+   },
+   "m_FogDensity": 0.01,
+   "m_FogMode": 3,
+   "m_HaloStrength": 0.5,
+   "m_HaloTexture": null,
+   "m_LinearFogEnd": 300.0,
+   "m_LinearFogStart": 0.0,
+   "m_ObjectHideFlags": 0,
+   "m_SkyboxMaterial": null,
+   "m_SpotCookie": null
+  }
+ },
+ "unity_serialized_version": "4.6.1f1"
+}

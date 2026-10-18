@@ -1,0 +1,300 @@
+{
+ "file": "Prefabs/RockPrefab.prefab",
+ "gameobjects": [
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": -0.6340349,
+       "y": -3.2376328,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 4.5,
+       "y": 4.5,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 400000,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": true,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "Sprites/cutout.mat"
+      ],
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": "Sprites/bis_rock_dark_v3.png#bis_rock_dark_v3",
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 21200000,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    },
+    {
+     "derived": {
+      "offset_world": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "radius_world": 0.2475,
+      "world_scale_xy": [
+       4.5,
+       4.5
+      ]
+     },
+     "enabled": true,
+     "fields": {
+      "m_Center": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_Enabled": 1,
+      "m_IsTrigger": false,
+      "m_Material": null,
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_Radius": 0.055
+     },
+     "id": 5800000,
+     "key": "CircleCollider2D",
+     "type": "CircleCollider2D"
+    },
+    {
+     "fields": {
+      "m_AngularDrag": 12.0,
+      "m_CollisionDetection": 0,
+      "m_FixedAngle": false,
+      "m_GravityScale": 0.0,
+      "m_Interpolate": 0,
+      "m_IsKinematic": false,
+      "m_LinearDrag": 12.0,
+      "m_Mass": 12.0,
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_SleepingMode": 1
+     },
+     "id": 5000000,
+     "key": "Rigidbody2D",
+     "type": "Rigidbody2D"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "darkSprite": "Sprites/bis_rock_dark_v3.png#bis_rock_dark_v3",
+      "generator": null,
+      "lightSprite": "Sprites/bis_rock_light_v3.png#bis_rock_light_v3",
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/Rock.cs",
+      "rockShadowPrefab": "Prefabs/RockShadowPrefab.prefab#Transform:RockShadowPrefab",
+      "shadow": null
+     },
+     "id": 11400000,
+     "key": "Rock",
+     "script": "Rock",
+     "type": "MonoBehaviour"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_Anchor": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_CollideConnected": false,
+      "m_ConnectedAnchor": {
+       "x": 0.0,
+       "y": 0.0
+      },
+      "m_ConnectedRigidBody": null,
+      "m_Distance": 0.55,
+      "m_Enabled": 0,
+      "m_MaxDistanceOnly": false,
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null
+     },
+     "id": 23200000,
+     "key": "DistanceJoint2D",
+     "type": "DistanceJoint2D"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": true,
+      "MaxDistance": 10.0,
+      "MinDistance": 0.9042225,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 186,
+      "m_Enabled": 0,
+      "m_ObjectHideFlags": 1,
+      "m_Pitch": 0.45,
+      "m_PlayOnAwake": true,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.158,
+      "m_audioClip": "Sounds/drag.mp3",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": -1.0994112,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": -1.0994112,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 2,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.21388888
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 8200000,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 100000,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "RockPrefab",
+   "parent": null,
+   "path": "RockPrefab",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": -0.6340349,
+     "y": -3.2376328,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 4.5,
+     "y": 4.5,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -0.6340349,
+     "y": -3.2376328,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 4.5,
+     "y": 4.5,
+     "z": 1.0
+    }
+   }
+  }
+ ],
+ "scene_settings": {},
+ "unity_serialized_version": "4.5.2f1"
+}

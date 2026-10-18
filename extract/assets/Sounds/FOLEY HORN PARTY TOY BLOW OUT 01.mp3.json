@@ -1,0 +1,22 @@
+{
+ "bytes": 37616,
+ "file": "Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.mp3",
+ "forceToMono": 0,
+ "format": 0,
+ "guid": "216b180551db746e3a0728bebe2b3561",
+ "import": {
+  "3D": 0,
+  "forceToMono": 0,
+  "format": 0,
+  "loopable": 0,
+  "quality": 0.5,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": false,
+ "loopable": 0,
+ "quality": 0.5,
+ "stream": 1
+}

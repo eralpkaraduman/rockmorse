@@ -1,0 +1,460 @@
+{
+ "file": "Prefabs/RockShatterPrefab.prefab",
+ "gameobjects": [
+  {
+   "active": true,
+   "children": [
+    "RockShatterPrefab/large flames"
+   ],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [
+       "@RockShatterPrefab/large flames:Transform"
+      ],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": -1000.0,
+       "y": -1000.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 400002,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "detachChildren": 0,
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_Script": "Standard Assets/Particles/Legacy Particles/TimedObjectDestructor.js",
+      "timeOut": 2.0
+     },
+     "id": 11400000,
+     "key": "TimedObjectDestructor",
+     "script": "TimedObjectDestructor",
+     "type": "MonoBehaviour"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "BypassEffects": false,
+      "BypassListenerEffects": false,
+      "BypassReverbZones": false,
+      "DopplerLevel": 1.0,
+      "Loop": false,
+      "MaxDistance": 3.0,
+      "MinDistance": 0.2,
+      "Mute": false,
+      "Pan2D": 0.0,
+      "Priority": 128,
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 1,
+      "m_Pitch": 1.0,
+      "m_PlayOnAwake": true,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_Volume": 0.963,
+      "m_audioClip": "8BitSounds/Explosion1.wav",
+      "panLevelCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": -1.0714285,
+         "tangentMode": 0,
+         "time": 0.07227415,
+         "value": 1.0
+        },
+        {
+         "inSlope": -1.0714285,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 1.0,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "rolloffMode": 2,
+      "spreadCustomCurve": {
+       "m_Curve": [
+        {
+         "inSlope": 0.0,
+         "outSlope": 0.0,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 0.21388888
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     },
+     "id": 8200000,
+     "key": "AudioSource",
+     "type": "AudioSource"
+    }
+   ],
+   "id": 100002,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "RockShatterPrefab",
+   "parent": null,
+   "path": "RockShatterPrefab",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": "@RockShatterPrefab:Transform",
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      },
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 400000,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "Simulate in Worldspace?": true,
+      "angularVelocity": 0.0,
+      "emitterVelocityScale": 0.0,
+      "localVelocity": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_Ellipsoid": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_Emit": true,
+      "m_Enabled": true,
+      "m_MinEmitterRange": 60.0,
+      "m_ObjectHideFlags": 1,
+      "m_OneShot": false,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "maxEmission": 100.0,
+      "maxEnergy": 0.4,
+      "maxSize": 0.35,
+      "minEmission": 100.0,
+      "minEnergy": 0.1,
+      "minSize": 0.05,
+      "rndAngularVelocity": 0.0,
+      "rndRotation": true,
+      "rndVelocity": {
+       "x": 5.0,
+       "y": 5.0,
+       "z": 5.0
+      },
+      "tangentVelocity": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "worldVelocity": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     "id": 1500000,
+     "key": "EllipsoidParticleEmitter",
+     "type": "EllipsoidParticleEmitter"
+    },
+    {
+     "fields": {
+      "Does Animate Color?": true,
+      "autodestruct": true,
+      "colorAnimation[0]": {
+       "a": 255,
+       "b": 0,
+       "g": 0,
+       "r": 0,
+       "rgba": 4278190080
+      },
+      "colorAnimation[1]": {
+       "a": 255,
+       "b": 38,
+       "g": 75,
+       "r": 112,
+       "rgba": 4280699760
+      },
+      "colorAnimation[2]": {
+       "a": 163,
+       "b": 0,
+       "g": 14,
+       "r": 29,
+       "rgba": 2734689821
+      },
+      "colorAnimation[3]": {
+       "a": 230,
+       "b": 0,
+       "g": 0,
+       "r": 0,
+       "rgba": 3858759680
+      },
+      "colorAnimation[4]": {
+       "a": 255,
+       "b": 0,
+       "g": 0,
+       "r": 0,
+       "rgba": 4278190080
+      },
+      "damping": 0.1,
+      "force": {
+       "x": 0.0,
+       "y": -1.0,
+       "z": 0.0
+      },
+      "localRotationAxis": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "rndForce": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "sizeGrow": 0.0,
+      "stopSimulation": false,
+      "worldRotationAxis": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     "id": 1200000,
+     "key": "ParticleAnimator",
+     "type": "ParticleAnimator"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "UV Animation": {
+       "cycles": 1.0,
+       "x Tile": 1,
+       "y Tile": 1
+      },
+      "m_CameraVelocityScale": 0.0,
+      "m_CastShadows": true,
+      "m_Enabled": true,
+      "m_LengthScale": 0.1,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "Standard Assets/Particles/Sources/Materials/Fire Smoke.mat"
+      ],
+      "m_MaxParticleSize": 1.0,
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": true,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_StaticBatchRoot": null,
+      "m_StretchParticles": 0,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false,
+      "m_VelocityScale": 0.0
+     },
+     "id": 2600000,
+     "key": "ParticleRenderer",
+     "type": "ParticleRenderer"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_AnimatePhysics": false,
+      "m_Animation": "Standard Assets/Particles/Sources/Animations/Stop Emitting ,5 sec.anim",
+      "m_Animations": [
+       null,
+       "Standard Assets/Particles/Sources/Animations/Stop Emitting ,5 sec.anim"
+      ],
+      "m_CullingType": 0,
+      "m_Enabled": 1,
+      "m_ObjectHideFlags": 1,
+      "m_PlayAutomatically": true,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_WrapMode": 0
+     },
+     "id": 11100000,
+     "key": "Animation",
+     "type": "Animation"
+    }
+   ],
+   "id": 100000,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "large flames",
+   "parent": "RockShatterPrefab",
+   "path": "RockShatterPrefab/large flames",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": -1000.0,
+     "y": -1000.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 1.0,
+     "y": 1.0,
+     "z": 1.0
+    }
+   }
+  }
+ ],
+ "scene_settings": {},
+ "unity_serialized_version": "4.5.2f1"
+}

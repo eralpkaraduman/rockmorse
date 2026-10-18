@@ -1,0 +1,41 @@
+{
+ "file": "EditorBuildSettings.asset",
+ "objects": [
+  {
+   "fields": {
+    "m_ObjectHideFlags": 0,
+    "m_Scenes": [
+     {
+      "enabled": true,
+      "path": "Assets/Scenes/Intro.unity"
+     },
+     {
+      "enabled": true,
+      "path": "Assets/Scenes/Title.unity"
+     },
+     {
+      "enabled": true,
+      "path": "Assets/Scenes/Story1.unity"
+     },
+     {
+      "enabled": true,
+      "path": "Assets/Scenes/Story2.unity"
+     },
+     {
+      "enabled": true,
+      "path": "Assets/Scenes/Game.unity"
+     },
+     {
+      "enabled": true,
+      "path": "Assets/Scenes/Death.unity"
+     },
+     {
+      "enabled": true,
+      "path": "Assets/Scenes/Win.unity"
+     }
+    ]
+   },
+   "type": "EditorBuildSettings"
+  }
+ ]
+}

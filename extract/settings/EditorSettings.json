@@ -1,0 +1,17 @@
+{
+ "file": "EditorSettings.asset",
+ "objects": [
+  {
+   "fields": {
+    "m_DefaultBehaviorMode": 1,
+    "m_ExternalVersionControlSupport": "Visible Meta Files",
+    "m_ObjectHideFlags": 0,
+    "m_SerializationMode": 0,
+    "m_SpritePackerMode": 2,
+    "m_WebSecurityEmulationEnabled": 0,
+    "m_WebSecurityEmulationHostUrl": "http://superdamage.com/mygame.unity3d"
+   },
+   "type": "EditorSettings"
+  }
+ ]
+}

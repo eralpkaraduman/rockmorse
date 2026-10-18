@@ -1,0 +1,151 @@
+{
+ "file": "Standard Assets/Particles/Sources/Materials/Fire Smoke.mat",
+ "objects": [
+  {
+   "fields": {
+    "m_CustomRenderQueue": -1,
+    "m_Name": "Fire Smoke",
+    "m_ObjectHideFlags": 0,
+    "m_PrefabInternal": null,
+    "m_PrefabParentObject": null,
+    "m_SavedProperties": {
+     "m_Colors": [
+      [
+       {
+        "name": "_Color"
+       },
+       {
+        "a": 0.41960785,
+        "b": 1.0,
+        "g": 1.0,
+        "r": 1.0
+       }
+      ],
+      [
+       {
+        "name": "_TintColor"
+       },
+       {
+        "a": 1.0,
+        "b": 1.0,
+        "g": 1.0,
+        "r": 1.0
+       }
+      ],
+      [
+       {
+        "name": "_EmisColor"
+       },
+       {
+        "a": 0.0,
+        "b": 0.0,
+        "g": 0.0,
+        "r": 0.0
+       }
+      ],
+      [
+       {
+        "name": "_color"
+       },
+       {
+        "a": 1.0,
+        "b": 0.0,
+        "g": 0.0,
+        "r": 0.5
+       }
+      ]
+     ],
+     "m_Floats": [
+      [
+       {
+        "name": "_InvFade"
+       },
+       1.0
+      ]
+     ],
+     "m_TexEnvs": [
+      [
+       {
+        "name": "_MainTex"
+       },
+       {
+        "m_Offset": {
+         "x": 0.0,
+         "y": 0.0
+        },
+        "m_Scale": {
+         "x": 1.0,
+         "y": 1.0
+        },
+        "m_Texture": "Sprites/bis_rock_dark_v3.png"
+       }
+      ],
+      [
+       {
+        "name": "_AlphaTex"
+       },
+       {
+        "m_Offset": {
+         "x": 0.0,
+         "y": 0.0
+        },
+        "m_Scale": {
+         "x": 1.0,
+         "y": 1.0
+        },
+        "m_Texture": "Standard Assets/Particles/Sources/Textures/smoketest2.psd"
+       }
+      ]
+     ]
+    },
+    "m_Shader": "builtin:resources/unity_builtin_extra#30",
+    "m_ShaderKeywords": []
+   },
+   "id": 2100000,
+   "type": "Material"
+  },
+  {
+   "fields": {},
+   "id": 2100001,
+   "type": "EditorExtensionImpl"
+  }
+ ],
+ "summary": {
+  "colors": {
+   "_Color": {
+    "a": 0.41960785,
+    "b": 1.0,
+    "g": 1.0,
+    "r": 1.0
+   },
+   "_EmisColor": {
+    "a": 0.0,
+    "b": 0.0,
+    "g": 0.0,
+    "r": 0.0
+   },
+   "_TintColor": {
+    "a": 1.0,
+    "b": 1.0,
+    "g": 1.0,
+    "r": 1.0
+   },
+   "_color": {
+    "a": 1.0,
+    "b": 0.0,
+    "g": 0.0,
+    "r": 0.5
+   }
+  },
+  "floats": {
+   "_InvFade": 1.0
+  },
+  "keywords": [],
+  "name": "Fire Smoke",
+  "shader": "builtin:resources/unity_builtin_extra#30",
+  "textures": {
+   "_AlphaTex": "Standard Assets/Particles/Sources/Textures/smoketest2.psd",
+   "_MainTex": "Sprites/bis_rock_dark_v3.png"
+  }
+ }
+}

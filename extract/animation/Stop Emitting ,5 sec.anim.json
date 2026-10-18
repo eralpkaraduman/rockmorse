@@ -1,0 +1,141 @@
+{
+ "file": "Standard Assets/Particles/Sources/Animations/Stop Emitting ,5 sec.anim",
+ "objects": [
+  {
+   "fields": {
+    "m_Compressed": false,
+    "m_CompressedRotationCurves": [],
+    "m_EditorCurves": [],
+    "m_EulerEditorCurves": [],
+    "m_Events": [],
+    "m_ExtensionPtr": null,
+    "m_FloatCurves": [
+     {
+      "attribute": "m_Emit",
+      "classID": 15,
+      "curve": {
+       "m_Curve": [
+        {
+         "inSlope": -1.9999995,
+         "outSlope": -1.9999995,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": -1.9999995,
+         "outSlope": -1.9999995,
+         "tangentMode": 0,
+         "time": 0.5000001,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      },
+      "path": "",
+      "script": null
+     }
+    ],
+    "m_Name": "Stop Emitting ,5 sec",
+    "m_ObjectHideFlags": 0,
+    "m_PositionCurves": [],
+    "m_RotationCurves": [],
+    "m_SampleRate": 60.0,
+    "m_ScaleCurves": [],
+    "m_WrapMode": 0
+   },
+   "id": 7400000,
+   "type": "AnimationClip"
+  },
+  {
+   "fields": {
+    "m_ClassID": 15,
+    "m_Curves": [
+     {
+      "attributeName": "m_Emit",
+      "byteOffset": 229,
+      "curve": {
+       "m_Curve": [
+        {
+         "inSlope": -1.9999995,
+         "outSlope": -1.9999995,
+         "tangentMode": 0,
+         "time": 0.0,
+         "value": 1.0
+        },
+        {
+         "inSlope": -1.9999995,
+         "outSlope": -1.9999995,
+         "tangentMode": 0,
+         "time": 0.5000001,
+         "value": 0.0
+        }
+       ],
+       "m_PostInfinity": 2,
+       "m_PreInfinity": 2
+      }
+     }
+    ],
+    "m_ExtensionPtr": "@EditorExtensionImpl#11800001",
+    "m_Name": "",
+    "m_ObjectHideFlags": 1
+   },
+   "id": 11800000,
+   "type": "NewAnimationTrack"
+  },
+  {
+   "fields": {
+    "gFlattenedTypeTree": [],
+    "m_DataTemplate": null,
+    "m_Object": "@NewAnimationTrack#11800000",
+    "m_OverrideVariable": {
+     "bitCount": 0,
+     "bitblocks": ""
+    },
+    "m_TemplateFather": null
+   },
+   "id": 11800001,
+   "type": "EditorExtensionImpl"
+  }
+ ],
+ "summary": {
+  "events": [],
+  "float_curves": [
+   {
+    "attribute": "m_Emit",
+    "classID": 15,
+    "curve": {
+     "m_Curve": [
+      {
+       "inSlope": -1.9999995,
+       "outSlope": -1.9999995,
+       "tangentMode": 0,
+       "time": 0.0,
+       "value": 1.0
+      },
+      {
+       "inSlope": -1.9999995,
+       "outSlope": -1.9999995,
+       "tangentMode": 0,
+       "time": 0.5000001,
+       "value": 0.0
+      }
+     ],
+     "m_PostInfinity": 2,
+     "m_PreInfinity": 2
+    },
+    "path": "",
+    "script": null
+   }
+  ],
+  "key_count": 0,
+  "keys": [],
+  "loop_time": null,
+  "name": "Stop Emitting ,5 sec",
+  "sample_rate": 60.0,
+  "start_time": null,
+  "stop_time": null,
+  "wrap_mode": 0
+ }
+}

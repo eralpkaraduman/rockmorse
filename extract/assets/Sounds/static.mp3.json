@@ -1,0 +1,22 @@
+{
+ "bytes": 61029,
+ "file": "Sounds/static.mp3",
+ "forceToMono": 0,
+ "format": 0,
+ "guid": "6bf21fdcc9eca415595fd3f1c9382559",
+ "import": {
+  "3D": 1,
+  "forceToMono": 0,
+  "format": 0,
+  "loopable": 0,
+  "quality": -1,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": true,
+ "loopable": 0,
+ "quality": -1,
+ "stream": 1
+}

@@ -1,0 +1,22 @@
+{
+ "bytes": 28966,
+ "file": "Sounds/newMessage.mp3",
+ "forceToMono": 0,
+ "format": 0,
+ "guid": "2f628378290274a2e84762bd40f48583",
+ "import": {
+  "3D": 1,
+  "forceToMono": 0,
+  "format": 0,
+  "loopable": 0,
+  "quality": -1,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": true,
+ "loopable": 0,
+ "quality": -1,
+ "stream": 1
+}

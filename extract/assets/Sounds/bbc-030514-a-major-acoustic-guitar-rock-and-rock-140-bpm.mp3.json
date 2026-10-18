@@ -1,0 +1,22 @@
+{
+ "bytes": 49431,
+ "file": "Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.mp3",
+ "forceToMono": 0,
+ "format": 0,
+ "guid": "521b33ca721c34fe5a0b7f93590f8a23",
+ "import": {
+  "3D": 0,
+  "forceToMono": 0,
+  "format": 0,
+  "loopable": 0,
+  "quality": 0.5,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": false,
+ "loopable": 0,
+ "quality": 0.5,
+ "stream": 1
+}

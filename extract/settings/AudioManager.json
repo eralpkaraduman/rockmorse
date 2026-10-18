@@ -1,0 +1,18 @@
+{
+ "file": "AudioManager.asset",
+ "objects": [
+  {
+   "fields": {
+    "Default Speaker Mode": 2,
+    "Doppler Factor": 1.0,
+    "Rolloff Scale": 1.0,
+    "m_DSPBufferSize": 0,
+    "m_DisableAudio": false,
+    "m_ObjectHideFlags": 0,
+    "m_SpeedOfSound": 347.0,
+    "m_Volume": 1.0
+   },
+   "type": "AudioManager"
+  }
+ ]
+}

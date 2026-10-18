@@ -1,0 +1,132 @@
+{
+ "file": "Sprites/ground/MarsTile.prefab",
+ "gameobjects": [
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 5.0,
+       "y": 5.0,
+       "z": 5.0
+      },
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 400000,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Color": {
+       "a": 1.0,
+       "b": 1.0,
+       "g": 1.0,
+       "r": 1.0
+      },
+      "m_Enabled": true,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "builtin:library/unity default resources#Sprites-Default (Material)"
+      ],
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_Sprite": null,
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 21200000,
+     "key": "SpriteRenderer",
+     "type": "SpriteRenderer"
+    }
+   ],
+   "id": 100000,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "MarsTile",
+   "parent": null,
+   "path": "MarsTile",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 5.0
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 5.0,
+     "y": 5.0,
+     "z": 5.0
+    }
+   }
+  }
+ ],
+ "scene_settings": {},
+ "unity_serialized_version": "4.5.2f1"
+}

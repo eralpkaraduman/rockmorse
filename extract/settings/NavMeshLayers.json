@@ -1,0 +1,171 @@
+{
+ "file": "NavMeshLayers.asset",
+ "objects": [
+  {
+   "fields": {
+    "Built-in Layer 0": {
+     "cost": 1.0,
+     "editType": 2,
+     "name": "Default"
+    },
+    "Built-in Layer 1": {
+     "cost": 1.0,
+     "editType": 0,
+     "name": "Not Walkable"
+    },
+    "Built-in Layer 2": {
+     "cost": 2.0,
+     "editType": 2,
+     "name": "Jump"
+    },
+    "User Layer 0": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 1": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 10": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 11": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 12": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 13": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 14": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 15": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 16": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 17": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 18": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 19": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 2": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 20": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 21": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 22": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 23": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 24": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 25": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 26": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 27": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 28": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 3": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 4": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 5": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 6": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 7": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 8": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "User Layer 9": {
+     "cost": 1.0,
+     "editType": 3,
+     "name": ""
+    },
+    "m_ObjectHideFlags": 0
+   },
+   "type": "NavMeshProjectSettings"
+  }
+ ]
+}

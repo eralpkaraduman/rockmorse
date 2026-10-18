@@ -1,0 +1,12 @@
+{
+ "file": "ClusterInputManager.asset",
+ "objects": [
+  {
+   "fields": {
+    "m_Inputs": [],
+    "m_ObjectHideFlags": 0
+   },
+   "type": "ClusterInputManager"
+  }
+ ]
+}

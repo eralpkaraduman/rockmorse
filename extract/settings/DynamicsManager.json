@@ -1,0 +1,61 @@
+{
+ "file": "DynamicsManager.asset",
+ "objects": [
+  {
+   "fields": {
+    "m_BounceThreshold": 2.0,
+    "m_DefaultMaterial": {
+     "m_FileID": 0,
+     "m_PathID": 0
+    },
+    "m_Gravity": {
+     "x": 0.0,
+     "y": -9.81,
+     "z": 0.0
+    },
+    "m_LayerCollisionMatrix": [
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295,
+     4294967295
+    ],
+    "m_MaxAngularVelocity": 7.0,
+    "m_MinPenetrationForPenalty": 0.01,
+    "m_ObjectHideFlags": 0,
+    "m_RaycastsHitTriggers": true,
+    "m_SleepAngularVelocity": 0.14,
+    "m_SleepVelocity": 0.15,
+    "m_SolverIterationCount": 6
+   },
+   "type": "PhysicsManager"
+  }
+ ]
+}

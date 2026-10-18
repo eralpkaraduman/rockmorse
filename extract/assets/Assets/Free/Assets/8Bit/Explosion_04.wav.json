@@ -1,0 +1,22 @@
+{
+ "bytes": 75452,
+ "file": "Assets/Free/Assets/8Bit/Explosion_04.wav",
+ "forceToMono": 0,
+ "format": -1,
+ "guid": "4a46782b6a4544fa089a35523f50e2a0",
+ "import": {
+  "3D": 0,
+  "forceToMono": 0,
+  "format": -1,
+  "loopable": 0,
+  "quality": 0.5,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": false,
+ "loopable": 0,
+ "quality": 0.5,
+ "stream": 1
+}

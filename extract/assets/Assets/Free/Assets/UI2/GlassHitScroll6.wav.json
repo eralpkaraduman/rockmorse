@@ -1,0 +1,22 @@
+{
+ "bytes": 31552,
+ "file": "Assets/Free/Assets/UI2/GlassHitScroll6.wav",
+ "forceToMono": 0,
+ "format": -1,
+ "guid": "8904096a3646d43fd88ea2a4d254fa10",
+ "import": {
+  "3D": 0,
+  "forceToMono": 0,
+  "format": -1,
+  "loopable": 0,
+  "quality": 0.5,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": false,
+ "loopable": 0,
+ "quality": 0.5,
+ "stream": 1
+}

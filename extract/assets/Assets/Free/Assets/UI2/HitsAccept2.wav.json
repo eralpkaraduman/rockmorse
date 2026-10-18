@@ -1,0 +1,22 @@
+{
+ "bytes": 107704,
+ "file": "Assets/Free/Assets/UI2/HitsAccept2.wav",
+ "forceToMono": 0,
+ "format": -1,
+ "guid": "bc3f79aa976ad4b4db5b175e859e4592",
+ "import": {
+  "3D": 0,
+  "forceToMono": 0,
+  "format": -1,
+  "loopable": 0,
+  "quality": 0.5,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": false,
+ "loopable": 0,
+ "quality": 0.5,
+ "stream": 1
+}

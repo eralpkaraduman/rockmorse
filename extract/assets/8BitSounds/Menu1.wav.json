@@ -1,0 +1,22 @@
+{
+ "bytes": 7862,
+ "file": "8BitSounds/Menu1.wav",
+ "forceToMono": 0,
+ "format": -1,
+ "guid": "4ed821b835a2bd54c9b92658cdb7fede",
+ "import": {
+  "3D": 1,
+  "forceToMono": 0,
+  "format": -1,
+  "loopable": 0,
+  "quality": 0.5,
+  "serializedVersion": 4,
+  "stream": 1,
+  "useHardware": 0,
+  "userData": null
+ },
+ "is_3d": true,
+ "loopable": 0,
+ "quality": 0.5,
+ "stream": 1
+}

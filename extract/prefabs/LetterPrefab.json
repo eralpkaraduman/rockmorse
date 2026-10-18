@@ -1,0 +1,170 @@
+{
+ "file": "Prefabs/LetterPrefab.prefab",
+ "gameobjects": [
+  {
+   "active": true,
+   "children": [],
+   "components": [
+    {
+     "fields": {
+      "m_Children": [],
+      "m_Father": null,
+      "m_LocalPosition": {
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalRotation": {
+       "w": 1.0,
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "m_LocalScale": {
+       "x": 0.1,
+       "y": 0.1,
+       "z": 0.1
+      },
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_RootOrder": 0
+     },
+     "id": 400000,
+     "key": "Transform",
+     "type": "Transform"
+    },
+    {
+     "enabled": false,
+     "fields": {
+      "m_CastShadows": false,
+      "m_Enabled": false,
+      "m_LightProbeAnchor": null,
+      "m_LightmapIndex": 255,
+      "m_LightmapTilingOffset": {
+       "w": 0.0,
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "m_Materials": [
+       "Joystix/joystix monospace.ttf"
+      ],
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_ReceiveShadows": false,
+      "m_ScaleInLightmap": 1.0,
+      "m_SortingLayerID": 0,
+      "m_SortingOrder": 0,
+      "m_StaticBatchRoot": null,
+      "m_SubsetIndices": [],
+      "m_UseLightProbes": false
+     },
+     "id": 2300000,
+     "key": "MeshRenderer",
+     "type": "MeshRenderer"
+    },
+    {
+     "fields": {
+      "m_Alignment": 1,
+      "m_Anchor": 4,
+      "m_CharacterSize": 1.0,
+      "m_Color": {
+       "a": 128,
+       "b": 255,
+       "g": 255,
+       "r": 255,
+       "rgba": 2164260863
+      },
+      "m_Font": "Joystix/joystix monospace.ttf",
+      "m_FontSize": 200,
+      "m_FontStyle": 0,
+      "m_LineSpacing": 1.0,
+      "m_ObjectHideFlags": 1,
+      "m_OffsetZ": 0.0,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_RichText": true,
+      "m_TabSize": 4.0,
+      "m_Text": "A"
+     },
+     "id": 10200000,
+     "key": "TextMesh",
+     "type": "TextMesh"
+    },
+    {
+     "enabled": true,
+     "fields": {
+      "m_EditorClassIdentifier": "",
+      "m_EditorHideFlags": 0,
+      "m_Enabled": 1,
+      "m_Name": "",
+      "m_ObjectHideFlags": 1,
+      "m_PrefabInternal": "@PrefabInstance#100100000",
+      "m_PrefabParentObject": null,
+      "m_Script": "Scripts/Rocket.cs"
+     },
+     "id": 11400000,
+     "key": "Rocket",
+     "script": "Rocket",
+     "type": "MonoBehaviour"
+    }
+   ],
+   "id": 100000,
+   "layer": 0,
+   "layer_name": "Default",
+   "name": "LetterPrefab",
+   "parent": null,
+   "path": "LetterPrefab",
+   "prefab_source": null,
+   "tag": "Untagged",
+   "transform": {
+    "local_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "local_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "local_scale": {
+     "x": 0.1,
+     "y": 0.1,
+     "z": 0.1
+    },
+    "world_euler": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "world_position": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_rotation": {
+     "w": 1.0,
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "world_scale": {
+     "x": 0.1,
+     "y": 0.1,
+     "z": 0.1
+    }
+   }
+  }
+ ],
+ "scene_settings": {},
+ "unity_serialized_version": "4.5.2f1"
+}
