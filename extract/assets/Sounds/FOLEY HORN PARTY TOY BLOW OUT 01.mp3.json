@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets6.assets",
+  "channels": 2,
+  "compression": "Vorbis",
+  "frames": 103680,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "FOLEY HORN PARTY TOY BLOW OUT 01",
+  "path_id": 3,
+  "resource": "sharedassets6.resource",
+  "sample_rate": 44100,
+  "seconds": 2.351020336151123,
+  "stored_bytes": 15328
+ },
  "bytes": 37616,
  "file": "Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.mp3",
  "forceToMono": 0,
@@ -17,6 +32,25 @@
  },
  "is_3d": false,
  "loopable": 0,
+ "port_data_chunk_bytes": 414720,
+ "port_file": "Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.wav",
+ "port_file_bytes": 414764,
+ "port_file_origin": "build",
  "quality": 0.5,
+ "sample_rate_differs": false,
+ "seconds_build": 2.351,
+ "seconds_difference": 0.0,
+ "seconds_source": 2.351,
+ "source": {
+  "audio_starts_at": 0,
+  "bitrate_kbps": 128,
+  "channels": 2,
+  "container": "mp3",
+  "file_bytes": 37616,
+  "sample_rate": 44100,
+  "samples_per_frame": 1152,
+  "seconds": 2.351,
+  "seconds_from": "file size / bitrate (constant bitrate estimate)"
+ },
  "stream": 1
 }

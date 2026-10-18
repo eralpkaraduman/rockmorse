@@ -1,0 +1,1304 @@
+{
+ "counts": {
+  "Scripts/CamerFocusSwitcher.cs": 4,
+  "Scripts/CameraFollowBounds.cs": 5,
+  "Scripts/CutsSceneScaleFixer.cs": 2,
+  "Scripts/Earth.cs": 17,
+  "Scripts/EndGame.cs": 2,
+  "Scripts/GUITextButton.cs": 1,
+  "Scripts/InsideRocketTrigger.cs": 6,
+  "Scripts/Intro.cs": 0,
+  "Scripts/LevelLoader.cs": 23,
+  "Scripts/Mars.cs": 11,
+  "Scripts/Morse.cs": 0,
+  "Scripts/NextSceneOnSpace.cs": 1,
+  "Scripts/Rock.cs": 14,
+  "Scripts/RockDragger.cs": 8,
+  "Scripts/RockGenerator.cs": 2,
+  "Scripts/RockPlaceholder.cs": 8,
+  "Scripts/Rocket.cs": 2,
+  "Scripts/Rover.cs": 4,
+  "Scripts/RoverInsideTrigger.cs": 3,
+  "Scripts/RoverScreen.cs": 12,
+  "Scripts/SnapToTarget.cs": 3,
+  "Scripts/Title.cs": 2,
+  "Scripts/TopDownControls.cs": 2,
+  "Scripts/VisibleOnTrigger.cs": 4,
+  "Standard Assets/Particles/Legacy Particles/TimedObjectDestructor.js": 0
+ },
+ "files": {
+  "Scripts/CamerFocusSwitcher.cs": [
+   {
+    "enclosing_member": "CamerFocusSwitcher.positionTarget",
+    "end_line": 11,
+    "kind": "line",
+    "line": 11,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//public Transform focusTransform;"
+   },
+   {
+    "enclosing_member": "CamerFocusSwitcher.Start",
+    "end_line": 29,
+    "kind": "line",
+    "line": 29,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "CamerFocusSwitcher.Start",
+    "end_line": 35,
+    "kind": "line",
+    "line": 35,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//follower.target = focusTransform;"
+   },
+   {
+    "enclosing_member": "CamerFocusSwitcher.Update",
+    "end_line": 61,
+    "kind": "line",
+    "line": 61,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// set nightosphere"
+   }
+  ],
+  "Scripts/CameraFollowBounds.cs": [
+   {
+    "enclosing_member": "CameraFollowBounds.Start",
+    "end_line": 15,
+    "kind": "line",
+    "line": 15,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//private SpriteRenderer spriteBounds;"
+   },
+   {
+    "enclosing_member": "CameraFollowBounds.Start",
+    "end_line": 17,
+    "kind": "line",
+    "line": 17,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "CameraFollowBounds.Start",
+    "end_line": 29,
+    "kind": "block",
+    "line": 22,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*\n\t\tspriteBounds = GameObject.Find(\"1 - Background\").GetComponentInChildren<SpriteRenderer>();\n\t\ttarget = GameObject.FindWithTag(\"Player\").transform;\n\t\tleftBound = (float)(horzExtent - spriteBounds.sprite.bounds.size.x / 2.0f);\n\t\trightBound = (float)(spriteBounds.sprite.bounds.size.x / 2.0f - horzExtent);\n\t\tbottomBound = (float)(vertExtent - spriteBounds.sprite.bounds.size.y / 2.0f);\n\t\ttopBound = (float)(spriteBounds.sprite.bounds.size.y  / 2.0f - vertExtent);\n\t\t*/"
+   },
+   {
+    "enclosing_member": "CameraFollowBounds.Start",
+    "end_line": 36,
+    "kind": "block",
+    "line": 31,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*\n\t\tleftBound = - mars.worldBunds.width/2;\n\t\ttopBound = mars.worldBunds.y - mars.worldBunds.height/2;\n\t\trightBound = mars.worldBunds.x + mars.worldBunds.width/2;\n\t\tbottomBound = mars.worldBunds.y + mars.worldBunds.height/2;\n\t\t*/"
+   },
+   {
+    "enclosing_member": "CameraFollowBounds.Update",
+    "end_line": 43,
+    "kind": "line",
+    "line": 43,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   }
+  ],
+  "Scripts/CutsSceneScaleFixer.cs": [
+   {
+    "enclosing_member": "CutsSceneScaleFixer.Start",
+    "end_line": 9,
+    "kind": "line",
+    "line": 9,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "CutsSceneScaleFixer.LateUpdate",
+    "end_line": 15,
+    "kind": "line",
+    "line": 15,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   }
+  ],
+  "Scripts/Earth.cs": [
+   {
+    "enclosing_member": "Earth.telemetryDelay",
+    "end_line": 23,
+    "kind": "line",
+    "line": 23,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//private float tryToDecodeTime = Mathf.Infinity;"
+   },
+   {
+    "enclosing_member": "Earth.willLoadNewLevel",
+    "end_line": 27,
+    "kind": "line",
+    "line": 27,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// should enter rover, wont decode as message is old"
+   },
+   {
+    "enclosing_member": "Earth.Start",
+    "end_line": 53,
+    "kind": "line",
+    "line": 53,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "Earth.Update",
+    "end_line": 92,
+    "kind": "line",
+    "line": 92,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// can decode"
+   },
+   {
+    "enclosing_member": "Earth.Update",
+    "end_line": 96,
+    "kind": "line",
+    "line": 96,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//Debug.Log(\"not decoding\");"
+   },
+   {
+    "enclosing_member": "Earth.Update",
+    "end_line": 109,
+    "kind": "line",
+    "line": 109,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// resume"
+   },
+   {
+    "enclosing_member": "Earth.Update",
+    "end_line": 115,
+    "kind": "line",
+    "line": 115,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// animate"
+   },
+   {
+    "enclosing_member": "Earth.decode",
+    "end_line": 127,
+    "kind": "line",
+    "line": 127,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// first level"
+   },
+   {
+    "enclosing_member": "Earth.decode",
+    "end_line": 130,
+    "kind": "line",
+    "line": 130,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//onNewMessage();"
+   },
+   {
+    "enclosing_member": "Earth.decode",
+    "end_line": 132,
+    "kind": "line",
+    "line": 132,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// first level"
+   },
+   {
+    "enclosing_member": "Earth.decode",
+    "end_line": 135,
+    "kind": "line",
+    "line": 135,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//onNewMessage();"
+   },
+   {
+    "enclosing_member": "Earth.decode",
+    "end_line": 145,
+    "kind": "block",
+    "line": 143,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*else if(decoded == false){\n\t\t\tshowCutscene(couldNotDecode);\n\t\t}*/"
+   },
+   {
+    "enclosing_member": "Earth.onNewMessage",
+    "end_line": 174,
+    "kind": "line",
+    "line": 174,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//newMessage.enabled = true;"
+   },
+   {
+    "enclosing_member": "Earth.showCutscene",
+    "end_line": 190,
+    "kind": "line",
+    "line": 190,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// pause"
+   },
+   {
+    "enclosing_member": "Earth.playerIsInRover",
+    "end_line": 197,
+    "kind": "line",
+    "line": 197,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// test level progression by uncommenting this"
+   },
+   {
+    "enclosing_member": "Earth.playerIsInRover",
+    "end_line": 206,
+    "kind": "line",
+    "line": 206,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//decoding = true;"
+   },
+   {
+    "enclosing_member": "Earth.playerIsInRover",
+    "end_line": 207,
+    "kind": "line",
+    "line": 207,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//Debug.Log(\"set true2\");"
+   }
+  ],
+  "Scripts/EndGame.cs": [
+   {
+    "enclosing_member": "EndGame.Start",
+    "end_line": 9,
+    "kind": "line",
+    "line": 9,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "EndGame.Update",
+    "end_line": 14,
+    "kind": "line",
+    "line": 14,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   }
+  ],
+  "Scripts/GUITextButton.cs": [
+   {
+    "enclosing_member": "GUITextButton.OnMouseUp",
+    "end_line": 14,
+    "kind": "line",
+    "line": 14,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "//http://docs.unity3d.com/ScriptReference/MonoBehaviour.html"
+   }
+  ],
+  "Scripts/InsideRocketTrigger.cs": [
+   {
+    "enclosing_member": "InsideRocketTrigger.Start",
+    "end_line": 6,
+    "kind": "line",
+    "line": 6,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "InsideRocketTrigger.Update",
+    "end_line": 11,
+    "kind": "line",
+    "line": 11,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   },
+   {
+    "enclosing_member": "InsideRocketTrigger.OnTriggerEnter2D",
+    "end_line": 22,
+    "kind": "line",
+    "line": 22,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//this.transform.GetComponent<Rocket> ().playerJustGitInRocket ();"
+   },
+   {
+    "enclosing_member": "InsideRocketTrigger.OnTriggerEnter2D",
+    "end_line": 23,
+    "kind": "line",
+    "line": 23,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//focusSwitcher.playerIsInRover = true;"
+   },
+   {
+    "enclosing_member": "InsideRocketTrigger.OnTriggerEnter2D",
+    "end_line": 24,
+    "kind": "line",
+    "line": 24,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//roverScreen.setOn(true);"
+   },
+   {
+    "enclosing_member": "InsideRocketTrigger.OnTriggerEnter2D",
+    "end_line": 35,
+    "kind": "block",
+    "line": 27,
+    "looks_like_commented_out_code": true,
+    "position": "after",
+    "text": "/*\n\tvoid OnTriggerExit2D(Collider2D o){\n\t\t\n\t\tif (o.tag == \"Player\") {\n\t\t\tfocusSwitcher.playerIsInRover = false;\n\t\t\troverScreen.setOn(false);\n\t\t}\n\t}\n\t*/"
+   }
+  ],
+  "Scripts/Intro.cs": [],
+  "Scripts/LevelLoader.cs": [
+   {
+    "enclosing_member": "LevelLoader.morseTextAsset",
+    "end_line": 16,
+    "kind": "line",
+    "line": 16,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//public TextAsset[] levelAssets;"
+   },
+   {
+    "enclosing_member": "LevelLoader.letterPrefab",
+    "end_line": 39,
+    "kind": "line",
+    "line": 39,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//private Vector3 letterContainerInitialPos;"
+   },
+   {
+    "enclosing_member": "LevelLoader.currentQuestion",
+    "end_line": 46,
+    "kind": "line",
+    "line": 46,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "//decoded"
+   },
+   {
+    "enclosing_member": "LevelLoader.currentQuestion",
+    "end_line": 53,
+    "kind": "block",
+    "line": 47,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "/*\n\tprivate int decoded_wordIndex = 0;\n\tprivate int decoded_letterIndex = 0;\n\tprivate int decoded_letterSize = 0;\n\tprivate int decoded_totalChars = 0;\n\tprivate float decoded_totalLetterX = 0;\n\t*/"
+   },
+   {
+    "enclosing_member": "LevelLoader.currentQuestion",
+    "end_line": 54,
+    "kind": "line",
+    "line": 54,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//private List<Transform> decoded_letters = new List<Transform> ();"
+   },
+   {
+    "enclosing_member": "LevelLoader.Start",
+    "end_line": 64,
+    "kind": "line",
+    "line": 64,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//nextLevel ();"
+   },
+   {
+    "enclosing_member": "LevelLoader.Start",
+    "end_line": 65,
+    "kind": "line",
+    "line": 65,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//letterContainerInitialPos = letterContainer.transform.position;"
+   },
+   {
+    "enclosing_member": "LevelLoader.nextLevel",
+    "end_line": 68,
+    "kind": "line",
+    "line": 68,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// pass -1 for normal progression"
+   },
+   {
+    "enclosing_member": "LevelLoader.destroyCurrentLevel",
+    "end_line": 90,
+    "kind": "line",
+    "line": 90,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//rockGenerator.replace(ph.snappedRock);"
+   },
+   {
+    "enclosing_member": "LevelLoader.destroyCurrentLevel",
+    "end_line": 97,
+    "kind": "line",
+    "line": 97,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// clear decoded letters"
+   },
+   {
+    "enclosing_member": "LevelLoader.destroyCurrentLevel",
+    "end_line": 111,
+    "kind": "block",
+    "line": 98,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*\n\t\tdecoded_wordIndex = 0;\n\t\tdecoded_letterIndex = 0;\n\t\tdecoded_letterSize = 0;\n\t\tdecoded_totalChars = 0;\n\t\tdecoded_totalLetterX = 0;\n\n\t\tforeach(Transform letterTransform in decoded_letters ){\n\t\t\tDestroy(letterTransform.gameObject);\n\t\t}\n\n\t\tdecoded_letters = new List<Transform> ();\n\t\tletterContainer.transform.position = letterContainerInitialPos;\n\t\t*/"
+   },
+   {
+    "enclosing_member": "LevelLoader.renderLevel",
+    "end_line": 114,
+    "kind": "line",
+    "line": 114,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// returns true if there are more levels"
+   },
+   {
+    "enclosing_member": "LevelLoader.renderLevel",
+    "end_line": 138,
+    "kind": "line",
+    "line": 138,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// no more levels"
+   },
+   {
+    "enclosing_member": "LevelLoader.renderLevel",
+    "end_line": 145,
+    "kind": "line",
+    "line": 145,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//int decodedLetterIndex = 0;"
+   },
+   {
+    "enclosing_member": "LevelLoader.renderLevel",
+    "end_line": 157,
+    "kind": "line",
+    "line": 157,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//Debug.Log(\"LT \"+a[w]);"
+   },
+   {
+    "enclosing_member": "LevelLoader.renderLevel",
+    "end_line": 171,
+    "kind": "line",
+    "line": 171,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//addLastLetter ();"
+   },
+   {
+    "enclosing_member": "LevelLoader.renderLevel",
+    "end_line": 176,
+    "kind": "line",
+    "line": 176,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//timeMarkJustRendered = Time.time;"
+   },
+   {
+    "enclosing_member": "LevelLoader.beginNewLine",
+    "end_line": 208,
+    "kind": "line",
+    "line": 208,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//setDecodedNewLine ();"
+   },
+   {
+    "enclosing_member": "LevelLoader.putPlaceholder",
+    "end_line": 218,
+    "kind": "line",
+    "line": 218,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//setDecodedNextLetter(isGap);"
+   },
+   {
+    "enclosing_member": "LevelLoader.printDecodedAnswerLetters",
+    "end_line": 291,
+    "kind": "block",
+    "line": 233,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "/*\n\tprivate void setDecodedNextLetter(bool ended){\n\n\t\tdecoded_letterSize++;\n\n\t\tif(ended){\n\t\t\tchar c = currentAnswer[decoded_letterIndex];\n\t\t\tputLetter(c,decoded_letterSize-1);\n\t\t\tdecoded_letterSize =0;\n\t\t\tdecoded_letterIndex++;\n\t\t}\n\n\t}\n\n\tprivate void setDecodedNewLine(){\n\t\tdecoded_wordIndex++;\n\t\t//decoded_letterIndex = 0;\n\t\tdecoded_totalLetterX = 0;\n\t}\n\n\tprivate void addLastLetter(){\n\t\tsetDecodedNextLetter (true);\n\n\t\tVector3 pos = letterContainer.position;\n\t\tpos.x = -sentenceSize.x / 2;\n\t\tpos.y += (gap.y)/2;\n\t\tletterContainer.position = pos;\n\t}\n\n\tprivate void putLetter(char l,int size){\n\n\t\tDebug.Log (decoded_totalLetterX);\n\n\t\tDebug.Log (\"l \"+l+\n\t\t           \" u:\"+decoded_letterIndex+\n\t\t           \" v: \"+decoded_wordIndex+\n\t\t           \" s\"+decoded_letterSize);\n\n\t\tVector3 letterPos = letterContainer.transform.position;\n\n\t\t//float letterSize = 1;\n\t\tfloat letterWidth = (decoded_letterSize-1)*gap.x;\n\n\t\tTransform letterTransform = Instantiate (letterPrefab, letterPos, Quaternion.identity) as Transform;\n\t\tletterTransform.parent = letterContainer;\n\t\tTextMesh tm = letterTransform.GetComponent<TextMesh>() as TextMesh;\n\t\ttm.text = \"\"+l;\n\t\tletterPos.x = decoded_totalLetterX + (letterWidth/2);\n\t\tletterPos.y = - decoded_wordIndex * gap.y;\n\t\tletterTransform.position = letterPos;\n\n\t\tdecoded_letters.Add (letterTransform);\n\n\t\tdecoded_totalLetterX += (letterWidth + gap.x);\n\n\t\tdecoded_totalChars++;\n\t}\n\n\t*/"
+   },
+   {
+    "enclosing_member": "LevelLoader.printDecodedAnswerLetters",
+    "end_line": 312,
+    "kind": "line",
+    "line": 312,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//float xStart = ((line.Length + (line.Length - 1)) * gap.x) / 2;"
+   },
+   {
+    "enclosing_member": "LevelLoader.printDecodedAnswerLetters",
+    "end_line": 313,
+    "kind": "line",
+    "line": 313,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//letterPos.x = xStart;"
+   },
+   {
+    "enclosing_member": "LevelLoader.printDecodedAnswerLetters",
+    "end_line": 318,
+    "kind": "line",
+    "line": 318,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// add gaps to letters"
+   }
+  ],
+  "Scripts/Mars.cs": [
+   {
+    "enclosing_member": "Mars.U",
+    "end_line": 14,
+    "kind": "line",
+    "line": 14,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "//X"
+   },
+   {
+    "enclosing_member": "Mars.V",
+    "end_line": 15,
+    "kind": "line",
+    "line": 15,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "//Y"
+   },
+   {
+    "enclosing_member": "Mars.Start",
+    "end_line": 67,
+    "kind": "line",
+    "line": 67,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// time offset "
+   },
+   {
+    "enclosing_member": "Mars.Start",
+    "end_line": 68,
+    "kind": "line",
+    "line": 68,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//timeOffset = SOL_IN_SECONDS/4; // daybreak"
+   },
+   {
+    "enclosing_member": "Mars.Start",
+    "end_line": 96,
+    "kind": "line",
+    "line": 96,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//ThreadStart job = new ThreadStart (GenerateJob);"
+   },
+   {
+    "enclosing_member": "Mars.Start",
+    "end_line": 97,
+    "kind": "line",
+    "line": 97,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//Thread thread = new Thread (job);"
+   },
+   {
+    "enclosing_member": "Mars.Start",
+    "end_line": 98,
+    "kind": "line",
+    "line": 98,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//thread.Start ();"
+   },
+   {
+    "enclosing_member": "Mars.GenerateJob",
+    "end_line": 113,
+    "kind": "line",
+    "line": 113,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//Debug.Log(100-(gen/genTotal*100));"
+   },
+   {
+    "enclosing_member": "Mars.Update",
+    "end_line": 142,
+    "kind": "line",
+    "line": 142,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// when game resets, time adds up so i had to subtract scene starting time"
+   },
+   {
+    "enclosing_member": "Mars.newSol",
+    "end_line": 175,
+    "kind": "line",
+    "line": 175,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//Color c = solCounterText.color;"
+   },
+   {
+    "enclosing_member": "Mars.newSol",
+    "end_line": 176,
+    "kind": "line",
+    "line": 176,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//c.a = 1;"
+   }
+  ],
+  "Scripts/Morse.cs": [],
+  "Scripts/NextSceneOnSpace.cs": [
+   {
+    "enclosing_member": "NextSceneOnSpace.Start",
+    "end_line": 11,
+    "kind": "line",
+    "line": 11,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   }
+  ],
+  "Scripts/Rock.cs": [
+   {
+    "enclosing_member": "Rock.Start",
+    "end_line": 31,
+    "kind": "line",
+    "line": 31,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "Rock.Start",
+    "end_line": 36,
+    "kind": "line",
+    "line": 36,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//isDragTarget (false);"
+   },
+   {
+    "enclosing_member": "Rock.Update",
+    "end_line": 43,
+    "kind": "block",
+    "line": 39,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "/*\n\tpublic void isDragTarget(bool value){\n\t\ttargetIndicatorSpriteRenderer.enabled = value;\n\t}\n\t*/"
+   },
+   {
+    "enclosing_member": "Rock.Update",
+    "end_line": 49,
+    "kind": "block",
+    "line": 45,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "/*\n\tpublic void setFixed(bool isFixed){\n\t\ttransform.rigidbody2D.isKinematic = isFixed;\n\t}\n\t*/"
+   },
+   {
+    "enclosing_member": "Rock.Update",
+    "end_line": 51,
+    "kind": "line",
+    "line": 51,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   },
+   {
+    "enclosing_member": "Rock.Update",
+    "end_line": 66,
+    "kind": "line",
+    "line": 66,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//t = Mathf.Max(hVelocity,vVelocity);"
+   },
+   {
+    "enclosing_member": "Rock.OnCollisionEnter2D",
+    "end_line": 90,
+    "kind": "block",
+    "line": 85,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*\n\t\tif ( == \"Rover\") {\n\t\t\tDebug.Log(\"rv\");\n\t\t\trenderer.enabled = false;\n\t\t}\n\t\t*/"
+   },
+   {
+    "enclosing_member": "Rock.OnTriggerEnter2D",
+    "end_line": 114,
+    "kind": "block",
+    "line": 109,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*\n\t\tif ( == \"Rover\") {\n\t\t\tDebug.Log(\"rv\");\n\t\t\trenderer.enabled = false;\n\t\t}\n\t\t*/"
+   },
+   {
+    "enclosing_member": "Rock.relocate",
+    "end_line": 135,
+    "kind": "line",
+    "line": 135,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//this.transform.position = rg.randomPositon();"
+   },
+   {
+    "enclosing_member": "Rock.relocate",
+    "end_line": 137,
+    "kind": "line",
+    "line": 137,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//float forceX = -transform.rigidbody2D.velocity.x*2;"
+   },
+   {
+    "enclosing_member": "Rock.relocate",
+    "end_line": 138,
+    "kind": "line",
+    "line": 138,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//float forceY = -transform.rigidbody2D.velocity.y*2;"
+   },
+   {
+    "enclosing_member": "Rock.relocate",
+    "end_line": 140,
+    "kind": "line",
+    "line": 140,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//transform.rigidbody2D.AddTorque (-forceX*20);"
+   },
+   {
+    "enclosing_member": "Rock.relocate",
+    "end_line": 141,
+    "kind": "line",
+    "line": 141,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//transform.rigidbody2D.AddForce (new Vector2 (forceX,forceY));"
+   },
+   {
+    "enclosing_member": "Rock.relocate",
+    "end_line": 142,
+    "kind": "line",
+    "line": 142,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//transform.rigidbody2D.velocity = new Vector2 (forceX,forceY);"
+   }
+  ],
+  "Scripts/RockDragger.cs": [
+   {
+    "enclosing_member": "RockDragger.Start",
+    "end_line": 16,
+    "kind": "line",
+    "line": 16,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "RockDragger.Update",
+    "end_line": 21,
+    "kind": "line",
+    "line": 21,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   },
+   {
+    "enclosing_member": "RockDragger.startPulling",
+    "end_line": 81,
+    "kind": "line",
+    "line": 81,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//pullCandidate.transform.GetComponent<Rock> ().setFixed(false);"
+   },
+   {
+    "enclosing_member": "RockDragger.OnTriggerEnter2D",
+    "end_line": 118,
+    "kind": "block",
+    "line": 99,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*\n\t\t\tif(pullCandidate!=null){\n\n\n\t\t\t\tVector2 oldc_pos = pullCandidate.transform.position;\n\t\t\t\tVector2 player_pos = transform.position;\n\t\t\t\tVector2 newc_pos = o.transform.position;\n\n\t\t\t\tfloat d1 = Vector2.Distance(oldc_pos,player_pos);\n\t\t\t\tfloat d2 = Vector2.Distance(newc_pos,player_pos);\n\n\t\t\t\tif(d1<d2){\n\t\t\t\t\tpullCandidate = o;\n\t\t\t\t}\n\n\n\t\t\t}else{\n\t\t\t\tpullCandidate = o;\n\t\t\t}\n\t\t\t*/"
+   },
+   {
+    "enclosing_member": "RockDragger.OnTriggerEnter2D",
+    "end_line": 120,
+    "kind": "line",
+    "line": 120,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//pullCandidate = o;"
+   },
+   {
+    "enclosing_member": "RockDragger.OnTriggerEnter2D",
+    "end_line": 121,
+    "kind": "line",
+    "line": 121,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//swapDragTarget(r);"
+   },
+   {
+    "enclosing_member": "RockDragger.releaseIfDragging",
+    "end_line": 137,
+    "kind": "block",
+    "line": 127,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "/*\n\tvoid swapDragTarget(Rock r){\n\t\tr.isDragTarget(true);\n\t\tif(pullCandidate!=null){\n\t\t\tRock r_old = pullCandidate.transform.GetComponent<Rock> ();\n\t\t\tDebug.Log(\"unselect\");\n\t\t\tr_old.isDragTarget(false);\n\t\t}\n\n\t}\n\t*/"
+   },
+   {
+    "enclosing_member": "RockDragger.OnTriggerExit2D",
+    "end_line": 154,
+    "kind": "block",
+    "line": 150,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*\n\t\tif(pullCandidate == o){\n\t\t\tpullCandidate = null;\n\t\t}\n\t\t*/"
+   }
+  ],
+  "Scripts/RockGenerator.cs": [
+   {
+    "enclosing_member": "RockGenerator.Start",
+    "end_line": 17,
+    "kind": "line",
+    "line": 17,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "RockGenerator.Update",
+    "end_line": 72,
+    "kind": "line",
+    "line": 72,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   }
+  ],
+  "Scripts/RockPlaceholder.cs": [
+   {
+    "enclosing_member": "RockPlaceholder.rocks",
+    "end_line": 20,
+    "kind": "line",
+    "line": 20,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//public LevelLoader levelLoader;"
+   },
+   {
+    "enclosing_member": "RockPlaceholder.Start",
+    "end_line": 26,
+    "kind": "line",
+    "line": 26,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "RockPlaceholder.Update",
+    "end_line": 33,
+    "kind": "line",
+    "line": 33,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   },
+   {
+    "enclosing_member": "RockPlaceholder.OnTriggerEnter2D",
+    "end_line": 56,
+    "kind": "line",
+    "line": 56,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// clear it"
+   },
+   {
+    "enclosing_member": "RockPlaceholder.isCorrect",
+    "end_line": 78,
+    "kind": "line",
+    "line": 78,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//SpriteRenderer spriteRenderer = transform.GetComponent (\"SpriteRenderer\") as SpriteRenderer;"
+   },
+   {
+    "enclosing_member": "RockPlaceholder.snap",
+    "end_line": 86,
+    "kind": "line",
+    "line": 86,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//rockDragger.releaseIfDragging (r.transform);"
+   },
+   {
+    "enclosing_member": "RockPlaceholder.snap",
+    "end_line": 95,
+    "kind": "block",
+    "line": 88,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "/*\n\t\tVector3 pos = r.transform.position;\n\t\tpos.x = transform.position.x;\n\t\tpos.y = transform.position.y;\n\t\tsnappedRock.transform.position = pos;\n\t\tsnappedRock.transform.rotation = Quaternion.identity;\n\t\t//snappedRock.setFixed(true);\n\t\t*/"
+   },
+   {
+    "enclosing_member": "RockPlaceholder.OnTriggerExit2D",
+    "end_line": 103,
+    "kind": "line",
+    "line": 103,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//snappedRock.setFixed(false);"
+   }
+  ],
+  "Scripts/Rocket.cs": [
+   {
+    "enclosing_member": "Rocket.Start",
+    "end_line": 9,
+    "kind": "line",
+    "line": 9,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "Rocket.Update",
+    "end_line": 14,
+    "kind": "line",
+    "line": 14,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   }
+  ],
+  "Scripts/Rover.cs": [
+   {
+    "enclosing_member": "Rover.Start",
+    "end_line": 8,
+    "kind": "line",
+    "line": 8,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "Rover.Update",
+    "end_line": 13,
+    "kind": "line",
+    "line": 13,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   },
+   {
+    "enclosing_member": "Rover.OnTriggerEnter2D",
+    "end_line": 22,
+    "kind": "line",
+    "line": 22,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//focusSwitcher.playerIsInRover = true;"
+   },
+   {
+    "enclosing_member": "Rover.OnTriggerExit2D",
+    "end_line": 31,
+    "kind": "line",
+    "line": 31,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//focusSwitcher.playerIsInRover = false;"
+   }
+  ],
+  "Scripts/RoverInsideTrigger.cs": [
+   {
+    "enclosing_member": "RoverInsideTrigger.Start",
+    "end_line": 15,
+    "kind": "line",
+    "line": 15,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "RoverInsideTrigger.Start",
+    "end_line": 17,
+    "kind": "line",
+    "line": 17,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//audioSource = GetComponent<AudioSource> ();"
+   },
+   {
+    "enclosing_member": "RoverInsideTrigger.Update",
+    "end_line": 21,
+    "kind": "line",
+    "line": 21,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   }
+  ],
+  "Scripts/RoverScreen.cs": [
+   {
+    "enclosing_member": "RoverScreen.maxCharsPerLine",
+    "end_line": 10,
+    "kind": "line",
+    "line": 10,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//public string question = \"\";"
+   },
+   {
+    "enclosing_member": "RoverScreen.Start",
+    "end_line": 28,
+    "kind": "line",
+    "line": 28,
+    "looks_like_commented_out_code": true,
+    "position": "before",
+    "text": "//private bool powerOn;"
+   },
+   {
+    "enclosing_member": "RoverScreen.Start",
+    "end_line": 29,
+    "kind": "line",
+    "line": 29,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "RoverScreen.Start",
+    "end_line": 34,
+    "kind": "line",
+    "line": 34,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "// for past day (spends immediately)"
+   },
+   {
+    "enclosing_member": "RoverScreen.printScreen",
+    "end_line": 75,
+    "kind": "line",
+    "line": 75,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// print print seperator"
+   },
+   {
+    "enclosing_member": "RoverScreen.printScreen",
+    "end_line": 78,
+    "kind": "line",
+    "line": 78,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// gap"
+   },
+   {
+    "enclosing_member": "RoverScreen.printScreen",
+    "end_line": 80,
+    "kind": "line",
+    "line": 80,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// print life support"
+   },
+   {
+    "enclosing_member": "RoverScreen.printScreen",
+    "end_line": 85,
+    "kind": "line",
+    "line": 85,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// print life support"
+   },
+   {
+    "enclosing_member": "RoverScreen.printScreen",
+    "end_line": 92,
+    "kind": "line",
+    "line": 92,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// satelite imagery coverage"
+   },
+   {
+    "enclosing_member": "RoverScreen.Update",
+    "end_line": 103,
+    "kind": "line",
+    "line": 103,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   },
+   {
+    "enclosing_member": "RoverScreen.Update",
+    "end_line": 109,
+    "kind": "line",
+    "line": 109,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//Debug.Log (\"cs \"+mars.currentSol);"
+   },
+   {
+    "enclosing_member": "RoverScreen.Update",
+    "end_line": 111,
+    "kind": "line",
+    "line": 111,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// dies when next hungry not when it diminishes"
+   }
+  ],
+  "Scripts/SnapToTarget.cs": [
+   {
+    "enclosing_member": "SnapToTarget.Start",
+    "end_line": 14,
+    "kind": "line",
+    "line": 14,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "SnapToTarget.Update",
+    "end_line": 19,
+    "kind": "line",
+    "line": 19,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   },
+   {
+    "enclosing_member": "SnapToTarget.Update",
+    "end_line": 38,
+    "kind": "line",
+    "line": 38,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//enabled = false;"
+   }
+  ],
+  "Scripts/Title.cs": [
+   {
+    "enclosing_member": "Title.Start",
+    "end_line": 10,
+    "kind": "line",
+    "line": 10,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "Title.Update",
+    "end_line": 30,
+    "kind": "line",
+    "line": 30,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   }
+  ],
+  "Scripts/TopDownControls.cs": [
+   {
+    "enclosing_member": "TopDownControls.walkSpeed",
+    "end_line": 6,
+    "kind": "line",
+    "line": 6,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Normal Movements Variables"
+   },
+   {
+    "enclosing_member": "TopDownControls.FixedUpdate",
+    "end_line": 42,
+    "kind": "line",
+    "line": 42,
+    "looks_like_commented_out_code": false,
+    "position": "inside",
+    "text": "// Move senteces"
+   }
+  ],
+  "Scripts/VisibleOnTrigger.cs": [
+   {
+    "enclosing_member": "VisibleOnTrigger.Start",
+    "end_line": 8,
+    "kind": "line",
+    "line": 8,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Use this for initialization"
+   },
+   {
+    "enclosing_member": "VisibleOnTrigger.Update",
+    "end_line": 13,
+    "kind": "line",
+    "line": 13,
+    "looks_like_commented_out_code": false,
+    "position": "before",
+    "text": "// Update is called once per frame"
+   },
+   {
+    "enclosing_member": "VisibleOnTrigger.OnTriggerEnter2D",
+    "end_line": 22,
+    "kind": "line",
+    "line": 22,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//focusSwitcher.playerIsInRover = true;"
+   },
+   {
+    "enclosing_member": "VisibleOnTrigger.OnTriggerExit2D",
+    "end_line": 31,
+    "kind": "line",
+    "line": 31,
+    "looks_like_commented_out_code": true,
+    "position": "inside",
+    "text": "//focusSwitcher.playerIsInRover = false;"
+   }
+  ],
+  "Standard Assets/Particles/Legacy Particles/TimedObjectDestructor.js": []
+ },
+ "note": "Every comment of the 24 game scripts and TimedObjectDestructor.js, verbatim (spelling not fixed). Line endings are normalised to \\n. text includes the // or /* */ marks. kind is line or block. enclosing_member is Class.member: the member the comment is in (position inside), or the next member (before), or the last member (after). looks_like_commented_out_code is a rough guess. Third-party code (iTween, JSONObject, other Standard Assets) is not included.",
+ "total": 136
+}

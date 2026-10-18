@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets5.assets",
+  "channels": 2,
+  "compression": "Vorbis",
+  "frames": 812160,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "Victory_-arewhyae-8093_hifi",
+  "path_id": 3,
+  "resource": "sharedassets5.resource",
+  "sample_rate": 44100,
+  "seconds": 18.41632652282715,
+  "stored_bytes": 94880
+ },
  "bytes": 294788,
  "file": "Sounds/Victory_-arewhyae-8093_hifi.mp3",
  "forceToMono": 0,
@@ -17,6 +32,26 @@
  },
  "is_3d": false,
  "loopable": 0,
+ "port_data_chunk_bytes": 3248640,
+ "port_file": "Sounds/Victory_-arewhyae-8093_hifi.wav",
+ "port_file_bytes": 3248684,
+ "port_file_origin": "build",
  "quality": -0.0549999997,
+ "sample_rate_differs": false,
+ "seconds_build": 18.4163,
+ "seconds_difference": 0.0261,
+ "seconds_source": 18.3902,
+ "source": {
+  "audio_starts_at": 0,
+  "bitrate_kbps": 128,
+  "channels": 2,
+  "container": "mp3",
+  "file_bytes": 294788,
+  "frames_in_header": 704,
+  "sample_rate": 44100,
+  "samples_per_frame": 1152,
+  "seconds": 18.3902,
+  "seconds_from": "Xing/Info frame count"
+ },
  "stream": 1
 }

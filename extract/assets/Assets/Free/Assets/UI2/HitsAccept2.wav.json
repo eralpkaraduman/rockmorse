@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets1.assets",
+  "channels": 2,
+  "compression": "PCM",
+  "frames": 26874,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "HitsAccept2",
+  "path_id": 5,
+  "resource": "sharedassets1.resource",
+  "sample_rate": 48000,
+  "seconds": 0.5598750114440918,
+  "stored_bytes": 107648
+ },
  "bytes": 107704,
  "file": "Assets/Free/Assets/UI2/HitsAccept2.wav",
  "forceToMono": 0,
@@ -17,6 +32,25 @@
  },
  "is_3d": false,
  "loopable": 0,
+ "port_data_chunk_bytes": 107496,
+ "port_file": "Assets/Free/Assets/UI2/HitsAccept2.wav",
+ "port_file_bytes": 107704,
+ "port_file_origin": "source",
  "quality": 0.5,
+ "sample_rate_differs": false,
+ "seconds_build": 0.5599,
+ "seconds_difference": -0.0,
+ "seconds_source": 0.5599,
+ "source": {
+  "bits_per_sample": 16,
+  "channels": 2,
+  "container": "wav",
+  "file_bytes": 107704,
+  "format_tag": 1,
+  "frames": 26874,
+  "sample_rate": 48000,
+  "seconds": 0.5599,
+  "seconds_from": "data chunk size / frame size"
+ },
  "stream": 1
 }

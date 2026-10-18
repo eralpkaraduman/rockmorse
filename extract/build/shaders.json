@@ -1,0 +1,697 @@
+{
+ "materials": [
+  {
+   "build_file": "globalgamemanagers.assets",
+   "colors": {
+    "_Color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    }
+   },
+   "custom_render_queue": -1,
+   "floats": {
+    "PixelSnap": 0.0
+   },
+   "keywords": "",
+   "name": "Sprites-Default",
+   "path_id": 2,
+   "shader": [
+    "resources/unity_builtin_extra",
+    10753
+   ],
+   "textures": {
+    "_MainTex": null
+   }
+  },
+  {
+   "build_file": "sharedassets1.assets",
+   "colors": {
+    "_Color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    }
+   },
+   "custom_render_queue": -1,
+   "floats": {},
+   "keywords": "",
+   "name": "Font Material",
+   "path_id": 2,
+   "shader": [
+    "library/unity default resources",
+    10101
+   ],
+   "textures": {
+    "_MainTex": [
+     "sharedassets1.assets",
+     3
+    ]
+   }
+  },
+  {
+   "build_file": "sharedassets4.assets",
+   "colors": {
+    "_Color": {
+     "a": 0.21568628,
+     "b": 0.0,
+     "g": 0.0,
+     "r": 0.0
+    },
+    "_Emission": {
+     "a": 0.0,
+     "b": 0.0,
+     "g": 0.0,
+     "r": 0.0
+    },
+    "_SpecColor": {
+     "a": 0.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    }
+   },
+   "custom_render_queue": -1,
+   "floats": {
+    "_Cutoff": 0.5,
+    "_Shininess": 0.7
+   },
+   "keywords": "",
+   "name": "nightMat",
+   "path_id": 2,
+   "shader": [
+    "sharedassets4.assets",
+    61
+   ],
+   "textures": {
+    "_MainTex": null
+   }
+  },
+  {
+   "build_file": "sharedassets4.assets",
+   "colors": {
+    "_Color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    }
+   },
+   "custom_render_queue": -1,
+   "floats": {
+    "PixelSnap": 0.0,
+    "_Cutoff": 0.5
+   },
+   "keywords": "",
+   "name": "cutout",
+   "path_id": 3,
+   "shader": [
+    "resources/unity_builtin_extra",
+    10753
+   ],
+   "textures": {
+    "_MainTex": null
+   }
+  },
+  {
+   "build_file": "sharedassets4.assets",
+   "colors": {
+    "_Color": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "_TintColor": {
+     "a": 0.5,
+     "b": 0.5,
+     "g": 0.5,
+     "r": 0.5
+    }
+   },
+   "custom_render_queue": -1,
+   "floats": {
+    "_InvFade": 1.0
+   },
+   "keywords": "",
+   "name": "Fairy Dust",
+   "path_id": 4,
+   "shader": [
+    "sharedassets4.assets",
+    63
+   ],
+   "textures": {
+    "_MainTex": [
+     "sharedassets4.assets",
+     35
+    ]
+   }
+  },
+  {
+   "build_file": "sharedassets4.assets",
+   "colors": {
+    "_Color": {
+     "a": 0.41960785,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "_EmisColor": {
+     "a": 0.0,
+     "b": 0.0,
+     "g": 0.0,
+     "r": 0.0
+    },
+    "_TintColor": {
+     "a": 1.0,
+     "b": 1.0,
+     "g": 1.0,
+     "r": 1.0
+    },
+    "_color": {
+     "a": 1.0,
+     "b": 0.0,
+     "g": 0.0,
+     "r": 0.5
+    }
+   },
+   "custom_render_queue": -1,
+   "floats": {
+    "_InvFade": 1.0
+   },
+   "keywords": "",
+   "name": "Fire Smoke",
+   "path_id": 5,
+   "shader": [
+    "sharedassets4.assets",
+    61
+   ],
+   "textures": {
+    "_MainTex": [
+     "sharedassets4.assets",
+     36
+    ]
+   }
+  }
+ ],
+ "note": "The source scenes name built-in shaders by Unity 4 ids (resources/unity_builtin_extra#30, library/unity default resources#10753). The build resolves them to the shaders listed here. The build wins.",
+ "shaders": [
+  {
+   "asset_name": "Font",
+   "baked": true,
+   "build_file": "library/unity default resources",
+   "dependencies": [],
+   "fallback": null,
+   "lod": null,
+   "passes": [
+    {
+     "name": null,
+     "state": {
+      "Blend": "SrcAlpha OneMinusSrcAlpha",
+      "Cull": "Off",
+      "ZTest": "Always",
+      "ZWrite": "Off"
+     },
+     "tags": {
+      "IGNOREPROJECTOR": "true",
+      "PreviewType": "Plane",
+      "QUEUE": "Transparent",
+      "RenderType": "Transparent"
+     }
+    }
+   ],
+   "path_id": 10101,
+   "programs": {
+    "first_opengl_program": "#version 120\n\n#ifdef VERTEX\n\nuniform vec4 _MainTex_ST;\nuniform vec4 _Color;\nvarying vec4 xlv_COLOR;\nvarying vec2 xlv_TEXCOORD0;\nvoid main ()\n{\n  vec4 tmpvar_1;\n  tmpvar_1.w = 1.0;\n  tmpvar_1.xyz = gl_Vertex.xyz;\n  gl_Position = (gl_ModelViewProjectionMatrix * tmpvar_1);\n  xlv_COLOR = (gl_Color * _Color);\n  xlv_TEXCOORD0 = ((gl_MultiTexCoord0.xy * _MainTex_ST.xy) + _MainTex_ST.zw);\n}\n\n\n#endif\n#ifdef FRAGMENT\nuniform sampler2D _MainTex;\nvarying vec4 xlv_COLOR;\nvarying vec2 xlv_TEXCOORD0;\nvoid main ()\n{\n  vec4 col_1;\n  col_1.xyz = xlv_COLOR.xyz;\n  col_1.w = (xlv_COLOR.w * texture2D (_MainTex, xlv_TEXCOORD0).w);\n  gl_FragData[0] = col_1;\n}\n\n\n#endif",
+    "names_found": [
+     "_Color",
+     "_MainTex",
+     "_MainTex_ST",
+     "_glesColor",
+     "_glesMultiTexCoord0",
+     "gl_Color",
+     "gl_MultiTexCoord0",
+     "glstate_matrix_mvp",
+     "in_COLOR0",
+     "in_POSITION0",
+     "in_TEXCOORD0",
+     "unity_ObjectToWorld",
+     "unity_StereoEyeIndex",
+     "unity_StereoMatrixVP"
+    ],
+    "program_text_bytes": 9472,
+    "program_text_md5": "94bf85b24c0c3609555620d1c4ef5bb1",
+    "samples_main_tex": true,
+    "uses_ambient_sh": false,
+    "uses_normal": false,
+    "uses_scene_lights": false,
+    "uses_vertex_colour": true
+   },
+   "properties": [
+    {
+     "default": "\"white\" { }",
+     "label": "Font Texture",
+     "name": "_MainTex",
+     "type": "2D"
+    },
+    {
+     "default": "(1.000000,1.000000,1.000000,1.000000)",
+     "label": "Text Color",
+     "name": "_Color",
+     "type": "Color"
+    }
+   ],
+   "queue": "Transparent",
+   "queue_number": 3000,
+   "shader_name": "GUI/Text Shader",
+   "subshader_count": 1,
+   "subshader_state": {},
+   "subshader_tags": {
+    "IGNOREPROJECTOR": "true",
+    "PreviewType": "Plane",
+    "QUEUE": "Transparent",
+    "RenderType": "Transparent"
+   },
+   "summary": {
+    "ambient_from_spherical_harmonics": false,
+    "blend_per_pass": [
+     "SrcAlpha OneMinusSrcAlpha"
+    ],
+    "colour_mask_per_pass": [
+     null
+    ],
+    "cull_per_pass": [
+     "Off"
+    ],
+    "lit_by_scene_lights": false,
+    "premultiplied_alpha": [
+     false
+    ],
+    "queue": "Transparent",
+    "queue_number": 3000,
+    "uses_vertex_colour": true,
+    "ztest_per_pass": [
+     "Always"
+    ],
+    "zwrite_per_pass": [
+     "Off"
+    ]
+   }
+  },
+  {
+   "asset_name": "Sprites-Default",
+   "baked": true,
+   "build_file": "resources/unity_builtin_extra",
+   "dependencies": [],
+   "fallback": null,
+   "lod": null,
+   "passes": [
+    {
+     "name": null,
+     "state": {
+      "Blend": "One OneMinusSrcAlpha",
+      "Cull": "Off",
+      "ZWrite": "Off"
+     },
+     "tags": {
+      "CanUseSpriteAtlas": "true",
+      "IGNOREPROJECTOR": "true",
+      "PreviewType": "Plane",
+      "QUEUE": "Transparent",
+      "RenderType": "Transparent"
+     }
+    }
+   ],
+   "path_id": 10753,
+   "programs": {
+    "first_opengl_program": "#version 120\n\n#ifdef VERTEX\nuniform vec4 _ScreenParams;\n\nuniform vec4 _Color;\nvarying vec4 xlv_COLOR;\nvarying vec2 xlv_TEXCOORD0;\nvoid main ()\n{\n  vec4 tmpvar_1;\n  vec4 tmpvar_2;\n  tmpvar_2.w = 1.0;\n  tmpvar_2.xyz = gl_Vertex.xyz;\n  tmpvar_1 = (gl_ModelViewProjectionMatrix * tmpvar_2);\n  vec4 pos_3;\n  pos_3.zw = tmpvar_1.zw;\n  vec2 tmpvar_4;\n  tmpvar_4 = (_ScreenParams.xy * 0.5);\n  pos_3.xy = ((floor(\n    (((tmpvar_1.xy / tmpvar_1.w) * tmpvar_4) + vec2(0.5, 0.5))\n  ) / tmpvar_4) * tmpvar_1.w);\n  gl_Position = pos_3;\n  xlv_COLOR = (gl_Color * _Color);\n  xlv_TEXCOORD0 = gl_MultiTexCoord0.xy;\n}\n\n\n#endif\n#ifdef FRAGMENT\nuniform sampler2D _MainTex;\nvarying vec4 xlv_COLOR;\nvarying vec2 xlv_TEXCOORD0;\nvoid main ()\n{\n  vec4 c_1;\n  vec4 tmpvar_2;\n  tmpvar_2 = (texture2D (_MainTex, xlv_TEXCOORD0) * xlv_COLOR);\n  c_1.w = tmpvar_2.w;\n  c_1.xyz = (tmpvar_2.xyz * tmpvar_2.w);\n  gl_FragData[0] = c_1;\n}\n\n\n#endif",
+    "names_found": [
+     "_Color",
+     "_MainTex",
+     "_glesColor",
+     "_glesMultiTexCoord0",
+     "gl_Color",
+     "gl_MultiTexCoord0",
+     "glstate_matrix_mvp",
+     "in_COLOR0",
+     "in_POSITION0",
+     "in_TEXCOORD0"
+    ],
+    "program_text_bytes": 19868,
+    "program_text_md5": "86d77df3288a272df21a0157777c1467",
+    "samples_main_tex": true,
+    "uses_ambient_sh": false,
+    "uses_normal": false,
+    "uses_scene_lights": false,
+    "uses_vertex_colour": true
+   },
+   "properties": [
+    {
+     "default": "\"white\" { }",
+     "label": "Sprite Texture",
+     "name": "_MainTex",
+     "type": "2D"
+    },
+    {
+     "default": "(1.000000,1.000000,1.000000,1.000000)",
+     "label": "Tint",
+     "name": "_Color",
+     "type": "Color"
+    },
+    {
+     "default": "0.000000",
+     "label": "Pixel snap",
+     "name": "PixelSnap",
+     "type": "Float"
+    }
+   ],
+   "queue": "Transparent",
+   "queue_number": 3000,
+   "shader_name": "Sprites/Default",
+   "subshader_count": 1,
+   "subshader_state": {},
+   "subshader_tags": {
+    "CanUseSpriteAtlas": "true",
+    "IGNOREPROJECTOR": "true",
+    "PreviewType": "Plane",
+    "QUEUE": "Transparent",
+    "RenderType": "Transparent"
+   },
+   "summary": {
+    "ambient_from_spherical_harmonics": false,
+    "blend_per_pass": [
+     "One OneMinusSrcAlpha"
+    ],
+    "colour_mask_per_pass": [
+     null
+    ],
+    "cull_per_pass": [
+     "Off"
+    ],
+    "lit_by_scene_lights": false,
+    "premultiplied_alpha": [
+     true
+    ],
+    "queue": "Transparent",
+    "queue_number": 3000,
+    "uses_vertex_colour": true,
+    "ztest_per_pass": [
+     null
+    ],
+    "zwrite_per_pass": [
+     "Off"
+    ]
+   }
+  },
+  {
+   "asset_name": "Alpha-Diffuse",
+   "baked": true,
+   "build_file": "sharedassets4.assets",
+   "dependencies": [
+    [
+     "sharedassets4.assets",
+     62
+    ]
+   ],
+   "fallback": "Legacy Shaders/Transparent/VertexLit",
+   "lod": 200,
+   "passes": [
+    {
+     "name": "FORWARD",
+     "state": {
+      "Blend": "SrcAlpha OneMinusSrcAlpha",
+      "ColorMask": "RGB",
+      "ZWrite": "Off"
+     },
+     "tags": {
+      "IGNOREPROJECTOR": "true",
+      "LIGHTMODE": "ForwardBase",
+      "QUEUE": "Transparent",
+      "RenderType": "Transparent"
+     }
+    },
+    {
+     "name": "FORWARD",
+     "state": {
+      "Blend": "SrcAlpha One",
+      "ColorMask": "RGB",
+      "ZWrite": "Off"
+     },
+     "tags": {
+      "IGNOREPROJECTOR": "true",
+      "LIGHTMODE": "ForwardAdd",
+      "QUEUE": "Transparent",
+      "RenderType": "Transparent"
+     }
+    }
+   ],
+   "path_id": 61,
+   "programs": {
+    "first_opengl_program": "#version 120\n\n#ifdef VERTEX\n\nuniform mat4 unity_ObjectToWorld;\nuniform mat4 unity_WorldToObject;\nuniform vec4 _MainTex_ST;\nvarying vec2 xlv_TEXCOORD0;\nvarying vec3 xlv_TEXCOORD1;\nvarying vec3 xlv_TEXCOORD2;\nvoid main ()\n{\n  vec4 tmpvar_1;\n  tmpvar_1.w = 1.0;\n  tmpvar_1.xyz = gl_Vertex.xyz;\n  vec4 v_2;\n  v_2.x = unity_WorldToObject[0].x;\n  v_2.y = unity_WorldToObject[1].x;\n  v_2.z = unity_WorldToObject[2].x;\n  v_2.w = unity_WorldToObject[3].x;\n  vec4 v_3;\n  v_3.x = unity_WorldToObject[0].y;\n  v_3.y = unity_WorldToObject[1].y;\n  v_3.z = unity_WorldToObject[2].y;\n  v_3.w = unity_WorldToObject[3].y;\n  vec4 v_4;\n  v_4.x = unity_WorldToObject[0].z;\n  v_4.y = unity_WorldToObject[1].z;\n  v_4.z = unity_WorldToObject[2].z;\n  v_4.w = unity_WorldToObject[3].z;\n  gl_Position = (gl_ModelViewProjectionMatrix * tmpvar_1);\n  xlv_TEXCOORD0 = ((gl_MultiTexCoord0.xy * _MainTex_ST.xy) + _MainTex_ST.zw);\n  xlv_TEXCOORD1 = normalize(((\n    (v_2.xyz * gl_Normal.x)\n   + \n    (v_3.xyz * gl_Normal.y)\n  ) + (v_4.xyz * gl_Normal.z)));\n  xlv_TEXCOORD2 = (unity_ObjectToWorld * gl_Vertex).xyz;\n}\n\n\n#endif\n#ifdef FRAGMENT\nuniform vec4 _WorldSpaceLightPos0;\nuniform vec4 _LightColor0;\nuniform sampler2D _LightTexture0;\nuniform mat4 unity_WorldToLight;\nuniform sampler2D _LightTextureB0;\nuniform sampler2D _MainTex;\nuniform vec4 _Color;\nvarying vec2 xlv_TEXCOORD0;\nvarying vec3 xlv_TEXCOORD1;\nvarying vec3 xlv_TEXCOORD2;\nvoid main ()\n{\n  vec4 tmpvar_1;\n  tmpvar_1 = (texture2D (_MainTex, xlv_TEXCOORD0) * _Color);\n  vec4 tmpvar_2;\n  tmpvar_2.w = 1.0;\n  tmpvar_2.xyz = xlv_TEXCOORD2;\n  vec4 tmpvar_3;\n  tmpvar_3 = (unity_WorldToLight * tmpvar_2);\n  vec4 c_4;\n  vec4 c_5;\n  c_5.xyz = ((tmpvar_1.xyz * (_LightColor0.xyz * \n    ((float((tmpvar_3.z > 0.0)) * texture2D (_LightTexture0, ((tmpvar_3.xy / tmpvar_3.w) + 0.5)).w) * texture2D (_LightTextureB0, vec2(dot (tmpvar_3.xyz, tmpvar_3.xyz))).w)\n  )) * max (0.0, dot (xlv_TEXCOORD1, \n    normalize((_WorldSpaceLightPos0.xyz - xlv_TEXCOORD2))\n  )));\n  c_5.w = tmpvar_1.w;\n  c_4.w = c_5.w;\n  c_4.xyz = c_5.xyz;\n  gl_FragData[0] = c_4;\n}\n\n\n#endif",
+    "names_found": [
+     "_Color",
+     "_LightColor0",
+     "_LightTexture0",
+     "_LightTextureB0",
+     "_MainTex",
+     "_MainTex_ST",
+     "_WorldSpaceLightPos0",
+     "_glesMultiTexCoord0",
+     "_glesNormal",
+     "_mtlsmp__LightTexture0",
+     "_mtlsmp__LightTextureB0",
+     "gl_MultiTexCoord0",
+     "gl_Normal",
+     "glstate_matrix_mvp",
+     "in_NORMAL0",
+     "in_POSITION0",
+     "in_TEXCOORD0",
+     "unity_4LightAtten0",
+     "unity_4LightPosX0",
+     "unity_4LightPosY0",
+     "unity_4LightPosZ0",
+     "unity_ColorSpaceLuminance",
+     "unity_LightColor",
+     "unity_ObjectToWorld",
+     "unity_SHAb",
+     "unity_SHAg",
+     "unity_SHAr",
+     "unity_SHBb",
+     "unity_SHBg",
+     "unity_SHBr",
+     "unity_SHC",
+     "unity_WorldToLight",
+     "unity_WorldToObject"
+    ],
+    "program_text_bytes": 80612,
+    "program_text_md5": "e0b260b5be56aa339de87bbcbaa6d2ba",
+    "samples_main_tex": true,
+    "uses_ambient_sh": true,
+    "uses_normal": true,
+    "uses_scene_lights": true,
+    "uses_vertex_colour": false
+   },
+   "properties": [
+    {
+     "default": "(1.000000,1.000000,1.000000,1.000000)",
+     "label": "Main Color",
+     "name": "_Color",
+     "type": "Color"
+    },
+    {
+     "default": "\"white\" { }",
+     "label": "Base (RGB) Trans (A)",
+     "name": "_MainTex",
+     "type": "2D"
+    }
+   ],
+   "queue": "Transparent",
+   "queue_number": 3000,
+   "shader_name": "Legacy Shaders/Transparent/Diffuse",
+   "subshader_count": 1,
+   "subshader_state": {},
+   "subshader_tags": {
+    "IGNOREPROJECTOR": "true",
+    "QUEUE": "Transparent",
+    "RenderType": "Transparent"
+   },
+   "summary": {
+    "ambient_from_spherical_harmonics": true,
+    "blend_per_pass": [
+     "SrcAlpha OneMinusSrcAlpha",
+     "SrcAlpha One"
+    ],
+    "colour_mask_per_pass": [
+     "RGB",
+     "RGB"
+    ],
+    "cull_per_pass": [
+     null,
+     null
+    ],
+    "lit_by_scene_lights": true,
+    "premultiplied_alpha": [
+     false,
+     false
+    ],
+    "queue": "Transparent",
+    "queue_number": 3000,
+    "uses_vertex_colour": false,
+    "ztest_per_pass": [
+     null,
+     null
+    ],
+    "zwrite_per_pass": [
+     "Off",
+     "Off"
+    ]
+   }
+  },
+  {
+   "asset_name": "Particle Add",
+   "baked": true,
+   "build_file": "sharedassets4.assets",
+   "dependencies": [],
+   "fallback": null,
+   "lod": null,
+   "passes": [
+    {
+     "name": null,
+     "state": {
+      "Blend": "SrcAlpha One",
+      "ColorMask": "RGB",
+      "Cull": "Off",
+      "ZWrite": "Off"
+     },
+     "tags": {
+      "IGNOREPROJECTOR": "true",
+      "PreviewType": "Plane",
+      "QUEUE": "Transparent",
+      "RenderType": "Transparent"
+     }
+    }
+   ],
+   "path_id": 63,
+   "programs": {
+    "first_opengl_program": "#version 120\n\n#ifdef VERTEX\n\nuniform vec4 _MainTex_ST;\nvarying vec4 xlv_COLOR;\nvarying vec2 xlv_TEXCOORD0;\nvoid main ()\n{\n  vec4 tmpvar_1;\n  tmpvar_1.w = 1.0;\n  tmpvar_1.xyz = gl_Vertex.xyz;\n  gl_Position = (gl_ModelViewProjectionMatrix * tmpvar_1);\n  xlv_COLOR = gl_Color;\n  xlv_TEXCOORD0 = ((gl_MultiTexCoord0.xy * _MainTex_ST.xy) + _MainTex_ST.zw);\n}\n\n\n#endif\n#ifdef FRAGMENT\nuniform sampler2D _MainTex;\nuniform vec4 _TintColor;\nvarying vec4 xlv_COLOR;\nvarying vec2 xlv_TEXCOORD0;\nvoid main ()\n{\n  gl_FragData[0] = ((2.0 * xlv_COLOR) * (_TintColor * texture2D (_MainTex, xlv_TEXCOORD0)));\n}\n\n\n#endif",
+    "names_found": [
+     "_MainTex",
+     "_MainTex_ST",
+     "_TintColor",
+     "_glesColor",
+     "_glesMultiTexCoord0",
+     "gl_Color",
+     "gl_MultiTexCoord0",
+     "glstate_matrix_modelview0",
+     "glstate_matrix_mvp",
+     "in_COLOR0",
+     "in_POSITION0",
+     "in_TEXCOORD0"
+    ],
+    "program_text_bytes": 12108,
+    "program_text_md5": "8491ba0382903f02830a90fcc91375d1",
+    "samples_main_tex": true,
+    "uses_ambient_sh": false,
+    "uses_normal": false,
+    "uses_scene_lights": false,
+    "uses_vertex_colour": true
+   },
+   "properties": [
+    {
+     "default": "(0.500000,0.500000,0.500000,0.500000)",
+     "label": "Tint Color",
+     "name": "_TintColor",
+     "type": "Color"
+    },
+    {
+     "default": "\"white\" { }",
+     "label": "Particle Texture",
+     "name": "_MainTex",
+     "type": "2D"
+    },
+    {
+     "default": "1.000000",
+     "label": "Soft Particles Factor",
+     "name": "_InvFade",
+     "type": "Range(0.010000,3.000000)"
+    }
+   ],
+   "queue": "Transparent",
+   "queue_number": 3000,
+   "shader_name": "Particles/Additive",
+   "subshader_count": 1,
+   "subshader_state": {},
+   "subshader_tags": {
+    "IGNOREPROJECTOR": "true",
+    "PreviewType": "Plane",
+    "QUEUE": "Transparent",
+    "RenderType": "Transparent"
+   },
+   "summary": {
+    "ambient_from_spherical_harmonics": false,
+    "blend_per_pass": [
+     "SrcAlpha One"
+    ],
+    "colour_mask_per_pass": [
+     "RGB"
+    ],
+    "cull_per_pass": [
+     "Off"
+    ],
+    "lit_by_scene_lights": false,
+    "premultiplied_alpha": [
+     false
+    ],
+    "queue": "Transparent",
+    "queue_number": 3000,
+    "uses_vertex_colour": true,
+    "ztest_per_pass": [
+     null
+    ],
+    "zwrite_per_pass": [
+     "Off"
+    ]
+   }
+  }
+ ],
+ "source_to_build": [
+  {
+   "build_shader": [
+    "sharedassets4.assets",
+    61
+   ],
+   "build_shader_name": "Legacy Shaders/Transparent/Diffuse",
+   "material": "Fire Smoke",
+   "source_shader_ref": "builtin:resources/unity_builtin_extra#30"
+  },
+  {
+   "build_shader": [
+    "resources/unity_builtin_extra",
+    10753
+   ],
+   "build_shader_name": "Sprites/Default",
+   "material": "cutout",
+   "source_shader_ref": "builtin:library/unity default resources#10753"
+  },
+  {
+   "build_shader": [
+    "sharedassets4.assets",
+    61
+   ],
+   "build_shader_name": "Legacy Shaders/Transparent/Diffuse",
+   "material": "nightMat",
+   "source_shader_ref": "builtin:resources/unity_builtin_extra#30"
+  },
+  {
+   "build_shader": [
+    "resources/unity_builtin_extra",
+    10753
+   ],
+   "build_shader_name": "Sprites/Default",
+   "material": "Sprites-Default",
+   "source_shader_ref": "builtin:library/unity default resources#Sprites-Default (Material)"
+  }
+ ]
+}

@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets4.assets",
+  "channels": 1,
+  "compression": "PCM",
+  "frames": 28468,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "Footstep_Gravel_1",
+  "path_id": 75,
+  "resource": "sharedassets4.resource",
+  "sample_rate": 48000,
+  "seconds": 0.5930833220481873,
+  "stored_bytes": 57056
+ },
  "bytes": 58168,
  "file": "Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav",
  "forceToMono": 0,
@@ -17,6 +32,25 @@
  },
  "is_3d": true,
  "loopable": 0,
+ "port_data_chunk_bytes": 56936,
+ "port_file": "Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav",
+ "port_file_bytes": 58168,
+ "port_file_origin": "source",
  "quality": -1,
+ "sample_rate_differs": false,
+ "seconds_build": 0.5931,
+ "seconds_difference": -0.0,
+ "seconds_source": 0.5931,
+ "source": {
+  "bits_per_sample": 16,
+  "channels": 1,
+  "container": "wav",
+  "file_bytes": 58168,
+  "format_tag": 1,
+  "frames": 28468,
+  "sample_rate": 48000,
+  "seconds": 0.5931,
+  "seconds_from": "data chunk size / frame size"
+ },
  "stream": 1
 }

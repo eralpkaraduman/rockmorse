@@ -1145,6 +1145,24 @@
   "Scripts/VisibleOnTrigger.cs",
   "Standard Assets/Particles/Legacy Particles/TimedObjectDestructor.js"
  ],
+ "sound_port_files": {
+  "8BitSounds/Explosion1.wav": "8BitSounds/Explosion1.wav",
+  "8BitSounds/Menu1.wav": "8BitSounds/Menu1.wav",
+  "8BitSounds/Menu4.wav": "8BitSounds/Menu4.wav",
+  "Assets/Free/Assets/8Bit/Explosion_04.wav": "Assets/Free/Assets/8Bit/Explosion_04.wav",
+  "Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav": "Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav",
+  "Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav": "Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav",
+  "Assets/Free/Assets/UI2/GlassHitScroll6.wav": "Assets/Free/Assets/UI2/GlassHitScroll6.wav",
+  "Assets/Free/Assets/UI2/HitsAccept2.wav": "Assets/Free/Assets/UI2/HitsAccept2.wav",
+  "Sounds/Arcade_S-wwwbeat-8526_hifi.mp3": "Sounds/Arcade_S-wwwbeat-8526_hifi.wav",
+  "Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.mp3": "Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.wav",
+  "Sounds/Victory_-arewhyae-8093_hifi.mp3": "Sounds/Victory_-arewhyae-8093_hifi.wav",
+  "Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.mp3": "Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.wav",
+  "Sounds/drag.mp3": "Sounds/drag.wav",
+  "Sounds/newMessage.mp3": "Sounds/newMessage.wav",
+  "Sounds/player_strain.mp3": "Sounds/player_strain.wav",
+  "Sounds/static.mp3": "Sounds/static.wav"
+ },
  "standard_assets_prefabs_not_dumped": [
   "Standard Assets/Character Controllers/3rd Person Controller.prefab",
   "Standard Assets/Character Controllers/First Person Controller.prefab",

@@ -1,6 +1,26 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets2.assets",
+  "channels": 2,
+  "compression": "PCM",
+  "frames": 81416,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "Menu4",
+  "path_id": 3,
+  "resource": "sharedassets2.resource",
+  "sample_rate": 44100,
+  "seconds": 1.846167802810669,
+  "stored_bytes": 325792
+ },
  "bytes": 651506,
  "file": "8BitSounds/Menu4.wav",
+ "float_to_16_bit": {
+  "max_abs_difference_lsb": 1,
+  "samples": 162832,
+  "samples_that_differ": 73363
+ },
  "forceToMono": 0,
  "format": -1,
  "guid": "148c1f19262745e4eb796bd2f208bdf5",
@@ -17,6 +37,25 @@
  },
  "is_3d": false,
  "loopable": 0,
+ "port_data_chunk_bytes": 325664,
+ "port_file": "8BitSounds/Menu4.wav",
+ "port_file_bytes": 325708,
+ "port_file_origin": "build",
  "quality": 0.5,
+ "sample_rate_differs": false,
+ "seconds_build": 1.8462,
+ "seconds_difference": -0.0,
+ "seconds_source": 1.8462,
+ "source": {
+  "bits_per_sample": 32,
+  "channels": 2,
+  "container": "wav",
+  "file_bytes": 651506,
+  "format_tag": 3,
+  "frames": 81416,
+  "sample_rate": 44100,
+  "seconds": 1.8462,
+  "seconds_from": "data chunk size / frame size"
+ },
  "stream": 1
 }

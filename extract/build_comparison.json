@@ -63,7 +63,13 @@
      "load_type": 1,
      "stream": null
     },
-    "diffs": [],
+    "diffs": [
+     {
+      "build": 1.8024489879608154,
+      "field": "length",
+      "source": 1.7763
+     }
+    ],
     "name": "newMessage"
    },
    {
@@ -173,7 +179,13 @@
      "load_type": 1,
      "stream": null
     },
-    "diffs": [],
+    "diffs": [
+     {
+      "build": 0.6008163094520569,
+      "field": "length",
+      "source": 0.5747
+     }
+    ],
     "name": "Arcade_S-wwwbeat-8526_hifi"
    },
    {
@@ -186,7 +198,13 @@
      "load_type": 1,
      "stream": null
     },
-    "diffs": [],
+    "diffs": [
+     {
+      "build": 18.41632652282715,
+      "field": "length",
+      "source": 18.3902
+     }
+    ],
     "name": "Victory_-arewhyae-8093_hifi"
    },
    {
@@ -212,7 +230,13 @@
      "load_type": 1,
      "stream": null
     },
-    "diffs": [],
+    "diffs": [
+     {
+      "build": 3.5280001163482666,
+      "field": "length",
+      "source": 3.5387
+     }
+    ],
     "name": "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm"
    }
   ],

@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets4.assets",
+  "channels": 2,
+  "compression": "PCM",
+  "frames": 5540443,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "Sci-fi_AmbienceLoop1",
+  "path_id": 77,
+  "resource": "sharedassets4.resource",
+  "sample_rate": 48000,
+  "seconds": 115.42589569091797,
+  "stored_bytes": 22161920
+ },
  "bytes": 22162928,
  "file": "Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav",
  "forceToMono": 0,
@@ -17,6 +32,25 @@
  },
  "is_3d": true,
  "loopable": 0,
+ "port_data_chunk_bytes": 22161772,
+ "port_file": "Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav",
+ "port_file_bytes": 22162928,
+ "port_file_origin": "source",
  "quality": 0.5,
+ "sample_rate_differs": false,
+ "seconds_build": 115.4259,
+ "seconds_difference": -0.0,
+ "seconds_source": 115.4259,
+ "source": {
+  "bits_per_sample": 16,
+  "channels": 2,
+  "container": "wav",
+  "file_bytes": 22162928,
+  "format_tag": 1,
+  "frames": 5540443,
+  "sample_rate": 48000,
+  "seconds": 115.4259,
+  "seconds_from": "data chunk size / frame size"
+ },
  "stream": 1
 }

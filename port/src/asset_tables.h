@@ -261,8 +261,12 @@ static const SpriteInfo SPRITES[SPR_COUNT] = {
     { "superdamage", IMG_SUPERDAMAGE, 0, 0, 0, 254, 360, 0.5f, 0.5f, 100.0f, 2.54f, 3.6f },
 };
 
-/* Sounds. Source: extract/assets/<path>.json. is_3d is the importer's 3D flag. */
-typedef struct { const char *path; int is_3d; } SoundInfo;
+/* Sounds. Source: extract/assets/<path>.json. path is the file the port loads, a 16 bit PCM WAV under
+   port/assets. For 7 clips it is the source WAV (same PCM as the 2016 build). For the 8 MP3 clips and for
+   Menu4.wav it is the build's own decoded audio (the build re-encoded the MP3 files to Vorbis, so its
+   lengths differ from the MP3 files). channels, sample_rate and frames are the build's: length in seconds
+   is frames / sample_rate. is_3d is the importer's 3D flag. The dump holds the source length as well. */
+typedef struct { const char *path; int is_3d; int channels; int sample_rate; int frames; } SoundInfo;
 enum {
     SND_EXPLOSION1,
     SND_MENU1,
@@ -283,22 +287,22 @@ enum {
     SND_COUNT
 };
 static const SoundInfo SOUNDS[SND_COUNT] = {
-    { "8BitSounds/Explosion1.wav", 1 }, /* SND_EXPLOSION1 */
-    { "8BitSounds/Menu1.wav", 1 }, /* SND_MENU1 */
-    { "8BitSounds/Menu4.wav", 0 }, /* SND_MENU4 */
-    { "Assets/Free/Assets/8Bit/Explosion_04.wav", 0 }, /* SND_EXPLOSION_04 */
-    { "Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav", 1 }, /* SND_FOOTSTEP_GRAVEL_1 */
-    { "Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav", 1 }, /* SND_SCI_FI_AMBIENCELOOP1 */
-    { "Assets/Free/Assets/UI2/GlassHitScroll6.wav", 0 }, /* SND_GLASSHITSCROLL6 */
-    { "Assets/Free/Assets/UI2/HitsAccept2.wav", 0 }, /* SND_HITSACCEPT2 */
-    { "Sounds/Arcade_S-wwwbeat-8526_hifi.mp3", 0 }, /* SND_ARCADE_S_WWWBEAT_8526_HIFI */
-    { "Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.mp3", 0 }, /* SND_FOLEY_HORN_PARTY_TOY_BLOW_OUT_01 */
-    { "Sounds/Victory_-arewhyae-8093_hifi.mp3", 0 }, /* SND_VICTORY_AREWHYAE_8093_HIFI */
-    { "Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.mp3", 0 }, /* SND_BBC_030514_A_MAJOR_ACOUSTIC_GUITAR_ROCK_AND_ROCK_140_BPM */
-    { "Sounds/drag.mp3", 1 }, /* SND_DRAG */
-    { "Sounds/newMessage.mp3", 1 }, /* SND_NEWMESSAGE */
-    { "Sounds/player_strain.mp3", 1 }, /* SND_PLAYER_STRAIN */
-    { "Sounds/static.mp3", 1 }, /* SND_STATIC */
+    { "8BitSounds/Explosion1.wav", 1, 1, 44100, 23632 }, /* SND_EXPLOSION1, source file */
+    { "8BitSounds/Menu1.wav", 1, 1, 44100, 3909 }, /* SND_MENU1, source file */
+    { "8BitSounds/Menu4.wav", 0, 2, 44100, 81416 }, /* SND_MENU4, from the build */
+    { "Assets/Free/Assets/8Bit/Explosion_04.wav", 0, 1, 48000, 35070 }, /* SND_EXPLOSION_04, source file */
+    { "Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav", 1, 1, 48000, 28468 }, /* SND_FOOTSTEP_GRAVEL_1, source file */
+    { "Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav", 1, 2, 48000, 5540443 }, /* SND_SCI_FI_AMBIENCELOOP1, source file */
+    { "Assets/Free/Assets/UI2/GlassHitScroll6.wav", 0, 2, 48000, 7836 }, /* SND_GLASSHITSCROLL6, source file */
+    { "Assets/Free/Assets/UI2/HitsAccept2.wav", 0, 2, 48000, 26874 }, /* SND_HITSACCEPT2, source file */
+    { "Sounds/Arcade_S-wwwbeat-8526_hifi.wav", 0, 1, 44100, 26496 }, /* SND_ARCADE_S_WWWBEAT_8526_HIFI, from the build */
+    { "Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.wav", 0, 2, 44100, 103680 }, /* SND_FOLEY_HORN_PARTY_TOY_BLOW_OUT_01, from the build */
+    { "Sounds/Victory_-arewhyae-8093_hifi.wav", 0, 2, 44100, 812160 }, /* SND_VICTORY_AREWHYAE_8093_HIFI, from the build */
+    { "Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.wav", 0, 2, 32000, 112896 }, /* SND_BBC_030514_A_MAJOR_ACOUSTIC_GUITAR_ROCK_AND_ROCK_140_BPM, from the build */
+    { "Sounds/drag.wav", 1, 2, 44100, 33408 }, /* SND_DRAG, from the build */
+    { "Sounds/newMessage.wav", 1, 2, 44100, 79488 }, /* SND_NEWMESSAGE, from the build */
+    { "Sounds/player_strain.wav", 1, 2, 44100, 65664 }, /* SND_PLAYER_STRAIN, from the build */
+    { "Sounds/static.wav", 1, 1, 11000, 163213 }, /* SND_STATIC, from the build */
 };
 
 /* Fonts. */

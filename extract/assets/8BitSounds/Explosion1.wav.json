@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets4.assets",
+  "channels": 1,
+  "compression": "PCM",
+  "frames": 23632,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "Explosion1",
+  "path_id": 74,
+  "resource": "sharedassets4.resource",
+  "sample_rate": 44100,
+  "seconds": 0.5358729958534241,
+  "stored_bytes": 47392
+ },
  "bytes": 47308,
  "file": "8BitSounds/Explosion1.wav",
  "forceToMono": 0,
@@ -17,6 +32,25 @@
  },
  "is_3d": true,
  "loopable": 0,
+ "port_data_chunk_bytes": 47264,
+ "port_file": "8BitSounds/Explosion1.wav",
+ "port_file_bytes": 47308,
+ "port_file_origin": "source",
  "quality": -1,
+ "sample_rate_differs": false,
+ "seconds_build": 0.5359,
+ "seconds_difference": -0.0,
+ "seconds_source": 0.5359,
+ "source": {
+  "bits_per_sample": 16,
+  "channels": 1,
+  "container": "wav",
+  "file_bytes": 47308,
+  "format_tag": 1,
+  "frames": 23632,
+  "sample_rate": 44100,
+  "seconds": 0.5359,
+  "seconds_from": "data chunk size / frame size"
+ },
  "stream": 1
 }

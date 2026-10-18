@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets4.assets",
+  "channels": 2,
+  "compression": "Vorbis",
+  "frames": 79488,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "newMessage",
+  "path_id": 70,
+  "resource": "sharedassets4.resource",
+  "sample_rate": 44100,
+  "seconds": 1.8024489879608154,
+  "stored_bytes": 10752
+ },
  "bytes": 28966,
  "file": "Sounds/newMessage.mp3",
  "forceToMono": 0,
@@ -17,6 +32,26 @@
  },
  "is_3d": true,
  "loopable": 0,
+ "port_data_chunk_bytes": 317952,
+ "port_file": "Sounds/newMessage.wav",
+ "port_file_bytes": 317996,
+ "port_file_origin": "build",
  "quality": -1,
+ "sample_rate_differs": false,
+ "seconds_build": 1.8024,
+ "seconds_difference": 0.0261,
+ "seconds_source": 1.7763,
+ "source": {
+  "audio_starts_at": 0,
+  "bitrate_kbps": 128,
+  "channels": 2,
+  "container": "mp3",
+  "file_bytes": 28966,
+  "frames_in_header": 68,
+  "sample_rate": 44100,
+  "samples_per_frame": 1152,
+  "seconds": 1.7763,
+  "seconds_from": "Xing/Info frame count"
+ },
  "stream": 1
 }

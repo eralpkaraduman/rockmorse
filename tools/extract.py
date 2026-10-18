@@ -2,9 +2,12 @@
 """Extract the Rockmorse Unity project into readable JSON, a C header and a trimmed asset folder.
 
 Usage (from the repo root):
-    python -I tools/extract.py /path/to/LD48-Unity
+    python -I tools/extract.py /path/to/LD48-Unity /path/to/RockMorse.app/Contents/Resources/Data
 
-The script reads the Unity project (read-only) with UnityPy and writes:
+The first argument is the Unity project, the second the Data folder of the 2016 Mac build. Both are read-only.
+The build is the faithful reference for the audio the port plays (the build re-encoded 8 MP3 files),
+and the source of the shader, material and font facts. Build reading is in tools/build_extract.py.
+The script reads them with UnityPy and writes:
     extract/scenes/<Scene>.json        every GameObject of the 7 scenes
     extract/prefabs/<Prefab>.json      every GameObject of the prefabs
     extract/animation/*.json           animation clips and the animator controller
@@ -12,9 +15,11 @@ The script reads the Unity project (read-only) with UnityPy and writes:
     extract/settings/*.json            ProjectSettings assets (plus derived files)
     extract/assets/*.json              import settings from every used .meta file
     extract/derived/*.json             polygon pieces, layer matrix, used-asset list
+    extract/build/*.json               shaders, materials and the Font object of the 2016 build, audio clip facts
     port/src/values.h                  C constants from ONE table (build_values below)
     port/src/tables.h                  levels.json and morsecodes.json as C tables
-    port/assets/...                    the asset files the game really uses
+    port/src/code_constants.h          strings and numbers that live only in the C# code (CODE_CONSTANTS below)
+    port/assets/...                    the asset files the game really uses (sounds: see audio_port_file)
 
 The output is deterministic: sorted keys, stable ordering, no timestamps.
 The asserts check the facts the port relies on, so never run it with -O. A changed input fails loudly.
@@ -30,9 +35,12 @@ import struct
 import subprocess
 import sys
 import tempfile
+import array
+from bisect import bisect_right
 
-
-import UnityPy
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # python -I does not add the script folder
+import build_extract  # noqa: E402  (reads the 2016 Mac build)
+import UnityPy  # noqa: E402
 from PIL import Image  # comes with UnityPy
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -741,18 +749,128 @@ def texture_info(proj, rel):
     return info
 
 
-def audio_info(proj, rel):
+_MP3_BITRATES = {1: [0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320],  # MPEG 1 layer 3, kbit/s
+                 2: [0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160]}  # MPEG 2 and 2.5 layer 3
+_MP3_RATES = {3: [44100, 48000, 32000], 2: [22050, 24000, 16000], 0: [11025, 12000, 8000]}  # by version bits
+
+
+def mp3_source(raw):
+    """Length of an MP3 file as its header says. Layer 3 only (all eight game files are).
+    The Xing or Info frame count when there is one, else the size of the audio divided by the bitrate
+    (a constant bitrate estimate). Returns a dict without sample data."""
+    p = 0
+    if raw[:3] == b"ID3":  # skip the ID3v2 tag: 10 byte header, synchsafe size
+        p = 10 + ((raw[6] << 21) | (raw[7] << 14) | (raw[8] << 7) | raw[9])
+    while not (raw[p] == 0xFF and raw[p + 1] & 0xE0 == 0xE0 and (raw[p + 1] >> 1) & 3 == 1 and raw[p + 2] >> 4 not in (0, 15)):
+        p += 1
+        assert p < len(raw) - 4, "no MP3 frame found"
+    ver, prot = (raw[p + 1] >> 3) & 3, raw[p + 1] & 1
+    assert ver in _MP3_RATES, "reserved MPEG version"
+    mpeg1 = ver == 3
+    kbps = _MP3_BITRATES[1 if mpeg1 else 2][raw[p + 2] >> 4]
+    rate = _MP3_RATES[ver][(raw[p + 2] >> 2) & 3]
+    mono = (raw[p + 3] >> 6) & 3 == 3
+    spf = 1152 if mpeg1 else 576
+    side = (17 if mono else 32) if mpeg1 else (9 if mono else 17)
+    tag = p + 4 + (0 if prot else 2) + side
+    out = {"container": "mp3", "channels": 1 if mono else 2, "sample_rate": rate, "bitrate_kbps": kbps,
+           "samples_per_frame": spf, "audio_starts_at": p, "file_bytes": len(raw)}
+    if raw[tag:tag + 4] in (b"Xing", b"Info") and struct.unpack_from(">I", raw, tag + 4)[0] & 1:
+        frames = struct.unpack_from(">I", raw, tag + 8)[0]
+        out.update({"seconds": round(frames * spf / rate, 4), "seconds_from": "Xing/Info frame count",
+                    "frames_in_header": frames})
+    else:
+        out.update({"seconds": round((len(raw) - p) * 8 / (kbps * 1000), 4),
+                    "seconds_from": "file size / bitrate (constant bitrate estimate)"})
+    return out
+
+
+def wav_source(raw):
+    """Facts about a WAVE file: format, channels, rate, bits, frames and the PCM bytes (key "pcm")."""
+    fmt, data = build_extract.wav_parts(raw)
+    tag, ch, rate, _, align, bits = fmt
+    assert len(data) % align == 0
+    return {"container": "wav", "format_tag": tag, "channels": ch, "sample_rate": rate, "bits_per_sample": bits,
+            "frames": len(data) // align, "seconds": round(len(data) // align / rate, 4),
+            "seconds_from": "data chunk size / frame size", "file_bytes": len(raw), "pcm": data}
+
+
+def audio_info(proj, rel, clips):
+    """Import settings plus the source file's own length and the build's decoded clip.
+    clips: the AudioClips of the build by name (build_extract.audio_clips)."""
     m = proj.meta[rel]
     ai = m["AudioImporter"]
-    return {"file": rel, "guid": m["guid"], "bytes": os.path.getsize(os.path.join(proj.assets, rel)), "import": ai,
+    with open(os.path.join(proj.assets, rel), "rb") as fh:
+        raw = fh.read()
+    src = wav_source(raw) if rel.lower().endswith(".wav") else mp3_source(raw)
+    clip = clips[stem(rel)]
+    # The port plays the build's audio. The source WAV is kept only when its PCM is the same as the build's.
+    same = (src["container"] == "wav" and src["format_tag"] == 1 and src["bits_per_sample"] == 16
+            and src["channels"] == clip["channels"] and src["sample_rate"] == clip["sample_rate"]
+            and src["pcm"] == clip["pcm"])
+    port_rel = rel if same else os.path.splitext(rel)[0] + ".wav"
+    port_bytes = raw if same else clip["wav"]
+    info = {"file": rel, "guid": m["guid"], "bytes": len(raw), "import": ai,
             "is_3d": bool(ai.get("3D")), "stream": ai.get("stream"), "format": ai.get("format"),
-            "quality": ai.get("quality"), "forceToMono": ai.get("forceToMono"), "loopable": ai.get("loopable")}
+            "quality": ai.get("quality"), "forceToMono": ai.get("forceToMono"), "loopable": ai.get("loopable"),
+            "source": {k: v for k, v in src.items() if k != "pcm"},
+            "build": {k: v for k, v in clip.items() if k not in ("pcm", "wav")},
+            "port_file": port_rel, "port_file_origin": "source" if same else "build",
+            "port_file_bytes": len(port_bytes), "port_data_chunk_bytes": len(clip["pcm"])}
+    info["seconds_source"] = src["seconds"]
+    info["seconds_build"] = round(clip["seconds"], 4)
+    info["seconds_difference"] = round(clip["seconds"] - src["seconds"], 4)
+    info["sample_rate_differs"] = src["sample_rate"] != clip["sample_rate"]
+    if src["container"] == "wav" and not same and src["format_tag"] == 3:  # float source, 16 bit build
+        assert src["bits_per_sample"] == 32 and src["frames"] == clip["frames"]
+        f, i = array.array("f"), array.array("h")
+        f.frombytes(src["pcm"])
+        i.frombytes(clip["pcm"])
+        diffs = [abs(int(round(x * 32768)) - y) for x, y in zip(f, i)]
+        info["float_to_16_bit"] = {"max_abs_difference_lsb": max(diffs), "samples_that_differ": sum(1 for d in diffs if d),
+                                  "samples": len(diffs)}
+        assert max(diffs) <= 1, "the build's Menu4 is not the 16 bit form of the source"
+    return info, port_bytes
 
 
 def font_info(proj, rel):
     m = proj.meta[rel]
-    return {"file": rel, "guid": m["guid"], "bytes": os.path.getsize(os.path.join(proj.assets, rel)),
-            "import": m["TrueTypeFontImporter"]}
+    path = os.path.join(proj.assets, rel)
+    return {"file": rel, "guid": m["guid"], "bytes": os.path.getsize(path),
+            "import": m["TrueTypeFontImporter"], "ttf": ttf_metrics(path)}
+
+
+def ttf_metrics(path):
+    """Vertical metrics and advance widths from the TrueType tables head, hhea, hmtx, OS/2 (standard library only).
+    Values are in font units. unitsPerEm says how many units one em is."""
+    with open(path, "rb") as fh:
+        b = fh.read()
+    n = struct.unpack_from(">H", b, 4)[0]
+    tab = {}
+    for i in range(n):
+        tag, _, off, ln = struct.unpack_from(">4sIII", b, 12 + 16 * i)
+        tab[tag.decode("latin1")] = (off, ln)
+    head, hhea, hmtx = tab["head"][0], tab["hhea"][0], tab["hmtx"][0]
+    upem = struct.unpack_from(">H", b, head + 18)[0]
+    asc, desc, gap, adv_max = struct.unpack_from(">hhhH", b, hhea + 4)
+    nh = struct.unpack_from(">H", b, hhea + 34)[0]
+    adv = [struct.unpack_from(">H", b, hmtx + 4 * k)[0] for k in range(nh)]
+    nglyphs = struct.unpack_from(">H", b, tab["maxp"][0] + 4)[0]
+    widths = sorted(set(a for a in adv if a))
+    assert len(widths) == 1, "not a monospace font: the non-zero advance widths are %s" % widths
+    out = {"unitsPerEm": upem, "hhea_ascent": asc, "hhea_descent": desc, "hhea_lineGap": gap,
+           "hhea_advanceWidthMax": adv_max, "numberOfHMetrics": nh, "glyphs": nglyphs,
+           "advance_width": widths[0],
+           "glyphs_with_advance_zero": sum(1 for a in adv if a == 0)}
+    assert nh == nglyphs, "hmtx does not cover every glyph"
+    if "OS/2" in tab:
+        o = tab["OS/2"][0]
+        out["os2_version"] = struct.unpack_from(">H", b, o)[0]
+        out["os2_xAvgCharWidth"] = struct.unpack_from(">h", b, o + 2)[0]
+        out["os2_typoAscender"], out["os2_typoDescender"], out["os2_typoLineGap"] = struct.unpack_from(">hhh", b, o + 68)
+        out["os2_winAscent"], out["os2_winDescent"] = struct.unpack_from(">HH", b, o + 74)
+    out["line_height_units"] = asc - desc + gap
+    return out
 
 
 def scan_refs(obj, known, hits):
@@ -1440,12 +1558,19 @@ imgs, snds, fonts, clips, controller, path):
     out.append("};\n\n")
     # sounds
     snd_names = {s["file"]: "SND_" + c_ident(stem(s["file"])) for s in snds}
-    out.append("/* Sounds. Source: extract/assets/<path>.json. is_3d is the importer's 3D flag. */\n")
-    out.append("typedef struct { const char *path; int is_3d; } SoundInfo;\n")
+    out.append("/* Sounds. Source: extract/assets/<path>.json. path is the file the port loads, a 16 bit PCM WAV under\n"
+               "   port/assets. For 7 clips it is the source WAV (same PCM as the 2016 build). For the 8 MP3 clips and for\n"
+               "   Menu4.wav it is the build's own decoded audio (the build re-encoded the MP3 files to Vorbis, so its\n"
+               "   lengths differ from the MP3 files). channels, sample_rate and frames are the build's: length in seconds\n"
+               "   is frames / sample_rate. is_3d is the importer's 3D flag. The dump holds the source length as well. */\n")
+    out.append("typedef struct { const char *path; int is_3d; int channels; int sample_rate; int frames; } SoundInfo;\n")
     out.append("enum {\n" + "".join("    %s,\n" % snd_names[s["file"]] for s in snds) + "    SND_COUNT\n};\n")
     out.append("static const SoundInfo SOUNDS[SND_COUNT] = {\n")
     for s in snds:
-        out.append("    { %s, %d }, /* %s */\n" % (c_str(s["file"]), 1 if s["is_3d"] else 0, snd_names[s["file"]]))
+        b = s["build"]
+        out.append("    { %s, %d, %d, %d, %d }, /* %s, %s */\n" % (
+            c_str(s["port_file"]), 1 if s["is_3d"] else 0, b["channels"], b["sample_rate"], b["frames"],
+            snd_names[s["file"]], "source file" if s["port_file_origin"] == "source" else "from the build"))
         refmap[s["file"]] = snd_names[s["file"]]
     out.append("};\n\n")
     # fonts
@@ -1489,6 +1614,462 @@ imgs, snds, fonts, clips, controller, path):
 
 
 # --------------------------------------------------------------------------
+# code-only constants (port/src/code_constants.h)
+#
+# Strings and numbers that live only in the C# code, not in the scenes. One row per constant:
+#   K(C name, file under Assets/, line or tuple of lines, the literal exactly as written, occurrence, note)
+# `occurrence` picks the n-th token with that text when a line holds it twice. Each row is checked against the
+# source: the literal must be a token of that line. Then every string literal and every number other than the
+# plain ints 0, 1 and 2 in the game code must be in a row or on a line in CODE_IGNORED (with the reason), so a new
+# or moved literal fails loudly. Plain 0, 1, 2 are loop starts, "is zero" tests and halves. Where one of them
+# is a real value (a volume, a scene index, a Morse code) it has a row.
+# --------------------------------------------------------------------------
+
+def K(name, file, lines, literal, occ=0, note=""):
+    return (name, file, lines if isinstance(lines, tuple) else (lines,), literal, occ, note)
+
+
+CODE_CONSTANTS = [
+    # CamerFocusSwitcher.cs
+    K("FOCUS_SWITCHER_KEY_OVERVIEW", "Scripts/CamerFocusSwitcher.cs", 46, '"m"', note="Input.GetKey name, held to see the whole level"),
+    K("FOCUS_SWITCHER_SPEED_OVERVIEW", "Scripts/CamerFocusSwitcher.cs", 49, "1.0f", note="iTween.MoveUpdate time argument"),
+    K("FOCUS_SWITCHER_SPEED_ROVER", "Scripts/CamerFocusSwitcher.cs", 53, "1.0f"),
+    K("FOCUS_SWITCHER_SPEED_PLAYER", "Scripts/CamerFocusSwitcher.cs", 56, "0.2f"),
+    K("NIGHT_OVERLAY_DARKNESS_FACTOR", "Scripts/CamerFocusSwitcher.cs", 63, "0.85f", note="target alpha = darkness * this"),
+    K("NIGHT_OVERLAY_EASE_DIVISOR", "Scripts/CamerFocusSwitcher.cs", 63, "5", note="alpha moves 1/5 of the way per frame"),
+    K("FOCUS_SWITCHER_SIZE_EASE_DIVISOR", "Scripts/CamerFocusSwitcher.cs", 71, "10", note="camera size moves 1/10 of the way per frame"),
+    K("FOCUS_SWITCHER_OVERVIEW_MIN_RATIO", "Scripts/CamerFocusSwitcher.cs", 106, "0.9f"),
+    # Earth.cs
+    K("EARTH_DECODED_MESSAGE_DISPLAY_DURATION", "Scripts/Earth.cs", 35, "2.0f"),
+    K("EARTH_INDICATOR_START_ALPHA", "Scripts/Earth.cs", 56, "0"),
+    K("EARTH_START_AUDIO_VOLUME", "Scripts/Earth.cs", 60, "1", note="AudioListener.volume in Start"),
+    K("EARTH_RESUME_TIME_SCALE", "Scripts/Earth.cs", 109, "1.0f"),
+    K("EARTH_RESUME_AUDIO_VOLUME", "Scripts/Earth.cs", 110, "1.0f"),
+    K("EARTH_MESSAGE_SOUND_VOLUME_IDLE", "Scripts/Earth.cs", 114, "0", note="rover message sound volume while no level waits"),
+    K("EARTH_INDICATOR_FADE_RATE", "Scripts/Earth.cs", 117, "1.2f", note="alpha per second"),
+    K("EARTH_INDICATOR_ALPHA_WRAP", "Scripts/Earth.cs", 118, "1", note="alpha at or above this goes back to the next row"),
+    K("EARTH_INDICATOR_ALPHA_AFTER_WRAP", "Scripts/Earth.cs", 118, "0"),
+    K("EARTH_PAUSE_TIME_SCALE", "Scripts/Earth.cs", 190, "0.0f"),
+    K("EARTH_PAUSE_AUDIO_VOLUME", "Scripts/Earth.cs", 191, "0.0f"),
+    K("EARTH_FORCE_NEXT_LEVEL_NONE", "Scripts/Earth.cs", 200, "-1"),
+    # EndGame.cs, NextSceneOnSpace.cs, Intro.cs, Title.cs, Rocket.cs
+    K("END_SCREEN_DURATION", "Scripts/EndGame.cs", 7, "5"),
+    K("END_SCREEN_KEY_DISMISS", "Scripts/EndGame.cs", 21, '"space"'),
+    K("END_SCREEN_MOUSE_BUTTON", "Scripts/EndGame.cs", 21, "0", note="left button"),
+    K("END_SCREEN_NEXT_SCENE_INDEX", "Scripts/EndGame.cs", 28, "0", note="build index 0 is Intro"),
+    K("NEXT_SCENE_KEY_DISMISS", "Scripts/NextSceneOnSpace.cs", 22, '"space"'),
+    K("NEXT_SCENE_MOUSE_BUTTON", "Scripts/NextSceneOnSpace.cs", 22, "0", note="left button"),
+    K("INTRO_DURATION", "Scripts/Intro.cs", 7, "2.0f"),
+    K("INTRO_LOGO_DELAY_DOUBLE", "Scripts/Intro.cs", 18, "0.1",
+      note="a double in the C# source: the test is introDuration <= (dur - 0.1) done in double precision"),
+    K("INTRO_NEXT_SCENE", "Scripts/Intro.cs", 23, '"Title"'),
+    K("TITLE_SITE_URL", "Scripts/Title.cs", 22, '@"http://superdamage.com"'),
+    K("TITLE_PLAY_NEXT_SCENE", "Scripts/Title.cs", 27, '"Story1"'),
+    K("ROCKET_WIN_SCENE", "Scripts/Rocket.cs", 21, '"Win"'),
+    # LevelLoader.cs
+    K("LEVEL_LOADER_JSON_KEY_QUESTION", "Scripts/LevelLoader.cs", 123, '"question"'),
+    K("LEVEL_LOADER_JSON_KEY_DECODED", "Scripts/LevelLoader.cs", (124, 126), '"decoded"'),
+    K("LEVEL_LOADER_PLACEHOLDER_COMPONENT", "Scripts/LevelLoader.cs", 224, '"RockPlaceholder"', note="GetComponent by name"),
+    K("LEVEL_LOADER_WORD_SEPARATOR", "Scripts/LevelLoader.cs", 301, "' '", note="Split(' ')"),
+    K("LEVEL_LOADER_DECODED_Y_OFFSET", "Scripts/LevelLoader.cs", 303, "-1.394218f"),
+    K("LEVEL_LOADER_LETTER_SEPARATOR", "Scripts/LevelLoader.cs", 324, '" "', note="appended after every letter, so each line of decoded text ends with a space"),
+    K("LEVEL_LOADER_LETTERS_ALPHA_CORRECT", "Scripts/LevelLoader.cs", 342, "0.5f"),
+    K("LEVEL_LOADER_LETTERS_ALPHA_WRONG", "Scripts/LevelLoader.cs", 342, "0.06f"),
+    # Mars.cs
+    K("MARS_SOL_HOURS_BASE", "Scripts/Mars.cs", 31, "24", note="SOL_IN_HOURS = 24 * 1.027f"),
+    K("MARS_SOL_HOURS_FACTOR", "Scripts/Mars.cs", 31, "1.027f"),
+    K("MARS_SOL_COUNTER_DURATION", "Scripts/Mars.cs", 56, "3.0f"),
+    K("MARS_MINUTES_PER_HOUR", "Scripts/Mars.cs", 65, "60", 0, "SOL_IN_SECONDS = SOL_IN_HOURS * 60 * 60"),
+    K("MARS_SECONDS_PER_MINUTE", "Scripts/Mars.cs", 65, "60", 1),
+    K("MARS_TIME_OFFSET", "Scripts/Mars.cs", 69, "0.0f"),
+    K("MARS_TILE_SPRITE_COMPONENT", "Scripts/Mars.cs", 118, '"SpriteRenderer"'),
+    K("MARS_TILE_CODE_SCALE_Z", "Scripts/Mars.cs", 123, "1", note="Mars sets the tile scale to (tileSize, tileSize, 1), so z is 1 and not the prefab 5"),
+    K("MARS_SOL_COUNTER_PREFIX", "Scripts/Mars.cs", 158, '"SOL "', note="text is PREFIX + currentSol + NEWLINE + lifeSupport + SUFFIX"),
+    K("MARS_SOL_COUNTER_NEWLINE", "Scripts/Mars.cs", 158, '"\\n"'),
+    K("MARS_SOL_COUNTER_SUFFIX", "Scripts/Mars.cs", 158, '" LEFT"', note="leading space"),
+    K("MARS_DARKNESS_OFFSET", "Scripts/Mars.cs", 161, "0.5f", 0, "darkness = abs(((1 - left) - OFFSET) / DIVISOR)"),
+    K("MARS_DARKNESS_DIVISOR", "Scripts/Mars.cs", 161, "0.5f", 1),
+    K("MARS_EARTH_VISIBLE_MAX_DARKNESS_DOUBLE", "Scripts/Mars.cs", 162, "0.5", note="a double in the C# source"),
+    # Morse.cs
+    K("MORSE_CODE_GAP", "Scripts/Morse.cs", 11, "0"),
+    K("MORSE_CODE_DOT", "Scripts/Morse.cs", 12, "1"),
+    K("MORSE_CODE_DASH", "Scripts/Morse.cs", 13, "2"),
+    K("MORSE_CHAR_DOT_UNUSED", "Scripts/Morse.cs", 15, "1", note="field char_dot, never read"),
+    K("MORSE_CHAR_DASH_UNUSED", "Scripts/Morse.cs", 16, "2", note="field char_dash, never read"),
+    K("MORSE_FIELD_CHAR", "Scripts/Morse.cs", 18, "0", note="index of the primary character in a morsecodes.json row"),
+    K("MORSE_FIELD_ALT", "Scripts/Morse.cs", 19, "1"),
+    K("MORSE_FIELD_CODE", "Scripts/Morse.cs", 20, "2"),
+    K("MORSE_WORD_SEPARATOR", "Scripts/Morse.cs", 35, "' '", note="Split(' ')"),
+    K("MORSE_TEXT_DASH", "Scripts/Morse.cs", 83, '"-"'),
+    K("MORSE_TEXT_DOT", "Scripts/Morse.cs", 84, '"."'),
+    # Rock.cs, RockDragger.cs, RockGenerator.cs, RockPlaceholder.cs
+    K("ROCK_SFX_MIN_VELOCITY", "Scripts/Rock.cs", 15, "0.2f"),
+    K("ROCK_SPRITE_COMPONENT", "Scripts/Rock.cs", 24, '@"SpriteRenderer"'),
+    K("ROCK_AUDIO_COMPONENT", "Scripts/Rock.cs", 33, '"AudioSource"'),
+    K("ROCK_TORQUE_FACTOR", "Scripts/Rock.cs", 67, "13", note="AddTorque(-t * 13)"),
+    K("ROCK_SHADOW_OFFSET_Y", "Scripts/Rock.cs", 74, "0.3f", note="subtracted from the rock y"),
+    K("ROCK_SHADOW_Z", "Scripts/Rock.cs", 75, "-0.6f"),
+    K("ROCK_REPELLER_TAG", "Scripts/Rock.cs", (82, 94, 100, 106), '"Rover"'),
+    K("ROCK_DRAGGER_KEY_PULL", "Scripts/RockDragger.cs", (26, 36), '"space"'),
+    K("ROCK_GENERATOR_COLOUR_RANGE_MIN", "Scripts/RockGenerator.cs", 29, "0", 0, "Random.Range(MIN, MAX) == DARK_WHEN, int version: MAX is exclusive"),
+    K("ROCK_GENERATOR_COLOUR_RANGE_MAX", "Scripts/RockGenerator.cs", 29, "2"),
+    K("ROCK_GENERATOR_DARK_WHEN", "Scripts/RockGenerator.cs", 29, "0", 1),
+    K("ROCK_GENERATOR_SPAWN_FRACTION", "Scripts/RockGenerator.cs", (53, 54), "0.5f", note="half width and height of the world times this"),
+    K("PLACEHOLDER_CLEAR_TIME", "Scripts/RockPlaceholder.cs", 24, "0.6f"),
+    K("PLACEHOLDER_SPRITE_COMPONENT", "Scripts/RockPlaceholder.cs", 48, '"SpriteRenderer"'),
+    # trigger tags
+    K("ROVER_TRIGGER_PLAYER_TAG", "Scripts/Rover.cs", (20, 29), '"Player"'),
+    K("ROVER_INSIDE_PLAYER_TAG", "Scripts/RoverInsideTrigger.cs", (28, 44), '"Player"'),
+    K("ROCKET_INSIDE_PLAYER_TAG", "Scripts/InsideRocketTrigger.cs", 18, '"Player"'),
+    K("VISIBLE_ON_TRIGGER_PLAYER_TAG", "Scripts/VisibleOnTrigger.cs", (20, 29), '"Player"'),
+    # RoverScreen.cs
+    K("ROVER_SCREEN_MAX_CHARS_PER_LINE", "Scripts/RoverScreen.cs", 12, "31"),
+    K("ROVER_SCREEN_LINE_CAPACITY", "Scripts/RoverScreen.cs", 17, "12"),
+    K("ROVER_SCREEN_LIFE_SUPPORT_BONUS", "Scripts/RoverScreen.cs", 34, "1", note="startingLifeSupport += 1"),
+    K("ROVER_SCREEN_HEADER", "Scripts/RoverScreen.cs", 44, '"EARTH:\\n"'),
+    K("ROVER_SCREEN_HEADER_RULE", "Scripts/RoverScreen.cs", 45, '"------\\n"'),
+    K("ROVER_SCREEN_HEADER_LINES", "Scripts/RoverScreen.cs", 52, "3", note="lineCount starts at 3: the two header lines count, plus one"),
+    K("ROVER_SCREEN_NEWLINE", "Scripts/RoverScreen.cs", (57, 71, 78), '"\\n"'),
+    K("ROVER_SCREEN_SEPARATOR", "Scripts/RoverScreen.cs", 76, '"\\n_______________________________"', note="newline and 31 underscores"),
+    K("ROVER_SCREEN_PAD_WIDTH", "Scripts/RoverScreen.cs", (82, 88, 89, 97), "2"),
+    K("ROVER_SCREEN_PAD", "Scripts/RoverScreen.cs", (82, 88, 89, 97), '"0"'),
+    K("ROVER_SCREEN_LIFE_SUPPORT_LABEL", "Scripts/RoverScreen.cs", 83, '"\\nLIFE SUPPORT LEFT:      "', note="six spaces after the colon"),
+    K("ROVER_SCREEN_LIFE_SUPPORT_UNIT", "Scripts/RoverScreen.cs", 83, '" SOLS"', note="leading space"),
+    K("ROVER_SCREEN_MINUTES_DIVISOR", "Scripts/RoverScreen.cs", 87, "60", 0, "(int)((secondsUntilNextSol / DIVISOR) % MODULUS)"),
+    K("ROVER_SCREEN_MINUTES_MODULUS", "Scripts/RoverScreen.cs", 87, "60", 1),
+    K("ROVER_SCREEN_HOURS_LABEL", "Scripts/RoverScreen.cs", 90, '"\\nHOURS UNTIL NEXT SOL:     "', note="five spaces after the colon"),
+    K("ROVER_SCREEN_TIME_COLON", "Scripts/RoverScreen.cs", 90, '":"'),
+    K("ROVER_SCREEN_COVERAGE_LABEL", "Scripts/RoverScreen.cs", 93, '"\\nSATELITE IMAGERY COVERAGE:  "', note="two spaces after the colon, spelling as in the source"),
+    K("ROVER_SCREEN_COVERAGE_YES", "Scripts/RoverScreen.cs", 93, '"YES"'),
+    K("ROVER_SCREEN_COVERAGE_NO", "Scripts/RoverScreen.cs", 93, '" NO"', note="leading space, so YES and NO end at the same column"),
+    K("ROVER_SCREEN_VISIBILITY_OFFSET", "Scripts/RoverScreen.cs", 96, "0.5f", 0, "round((1 - darkness + OFFSET) * PERCENT)"),
+    K("ROVER_SCREEN_VISIBILITY_PERCENT", "Scripts/RoverScreen.cs", 96, "100"),
+    K("ROVER_SCREEN_VISIBILITY_PREFIX", "Scripts/RoverScreen.cs", 98, '"VISIBILITY IS TOO LOW\\n"'),
+    K("ROVER_SCREEN_VISIBILITY_SUFFIX", "Scripts/RoverScreen.cs", 98, '"%, WAIT FOR SOL"'),
+    K("ROVER_SCREEN_DEATH_THRESHOLD", "Scripts/RoverScreen.cs", 111, "-1", note="dies when lifeSupport <= this"),
+    K("ROVER_SCREEN_DEATH_SCENE", "Scripts/RoverScreen.cs", 113, '"Death"'),
+    # TopDownControls.cs
+    K("PLAYER_SFX_MIN_VELOCITY", "Scripts/TopDownControls.cs", 14, "0.5f"),
+    K("PLAYER_AGILITY", "Scripts/TopDownControls.cs", 26, "10f"),
+    K("PLAYER_SPEED", "Scripts/TopDownControls.cs", 27, "10f"),
+    K("PLAYER_AGILITY_DIVISOR", "Scripts/TopDownControls.cs", 29, "5", note="walkSpeed = Speed + Agility / 5"),
+    K("PLAYER_WALK_SPEED_FACTOR", "Scripts/TopDownControls.cs", 32, "0.6f"),
+    K("PLAYER_AXIS_HORIZONTAL", "Scripts/TopDownControls.cs", 43, '"Horizontal"'),
+    K("PLAYER_AXIS_VERTICAL", "Scripts/TopDownControls.cs", 44, '"Vertical"'),
+    K("PLAYER_VELOCITY_LERP_T", "Scripts/TopDownControls.cs", (43, 44), "0.8f", note="Mathf.Lerp(0, axis * speed, T)"),
+    K("PLAYER_DRAGGER_COMPONENT", "Scripts/TopDownControls.cs", 47, '"RockDragger"'),
+    K("PLAYER_FOOTSTEP_PITCH_DRAGGING", "Scripts/TopDownControls.cs", 49, "0.9f"),
+    K("PLAYER_FOOTSTEP_PITCH_WALKING", "Scripts/TopDownControls.cs", 52, "1.9f"),
+    K("PLAYER_FACING_LEFT_MAX_VELOCITY_X", "Scripts/TopDownControls.cs", 64, "0", 0, "facing left when velocityX <= this"),
+    K("PLAYER_Y_WHEN_FACING_LEFT", "Scripts/TopDownControls.cs", 64, "180", note="written into the quaternion y component, not an angle"),
+    K("PLAYER_Y_WHEN_FACING_RIGHT", "Scripts/TopDownControls.cs", 64, "0", 1),
+    K("PLAYER_LISTENER_Y_WHEN_FACING_LEFT", "Scripts/TopDownControls.cs", 68, "0", 1),
+    K("PLAYER_LISTENER_Y_WHEN_FACING_RIGHT", "Scripts/TopDownControls.cs", 68, "180"),
+    K("PLAYER_ANIM_DRAG", "Scripts/TopDownControls.cs", 72, '"drag"'),
+    K("PLAYER_ANIM_RUN", "Scripts/TopDownControls.cs", 72, '"run"'),
+    K("PLAYER_ANIM_IDLE", "Scripts/TopDownControls.cs", 78, '"idle"'),
+    K("PLAYER_CLAMP_MARGIN_X", "Scripts/TopDownControls.cs", 82, "0.5f"),
+    K("PLAYER_CLAMP_MARGIN_Y", "Scripts/TopDownControls.cs", 83, "0.8f"),
+    # third party code the game calls
+    K("ITWEEN_UPDATE_TIME_PERCENTAGE", "iTween/Plugins/iTween.cs", 199, ".05f", note="MoveUpdate smooth time = time argument * this"),
+    K("TIMED_DESTRUCTOR_METHOD", "Standard Assets/Particles/Legacy Particles/TimedObjectDestructor.js", 6, '"DestroyNow"', note="Invoke(name, timeOut)"),
+]
+
+# Lines whose literals are deliberately not constants, with the reason.
+_DEFAULT = "script field default; the scene value (in values.h) replaces it"
+_STATE = "initial value of runtime state"
+_DEBUG = "feeds only a Debug.Log string"
+CODE_IGNORED = {
+    ("Scripts/Earth.cs", 21): _DEFAULT, ("Scripts/Earth.cs", 25): _DEFAULT, ("Scripts/Earth.cs", 39): _DEFAULT,
+    ("Scripts/LevelLoader.cs", 9): _DEFAULT, ("Scripts/LevelLoader.cs", 28): _DEFAULT,
+    ("Scripts/LevelLoader.cs", 165): _DEBUG, ("Scripts/LevelLoader.cs", 364): _DEBUG,
+    ("Scripts/Mars.cs", 9): _DEFAULT, ("Scripts/Mars.cs", 11): _DEFAULT, ("Scripts/Mars.cs", 12): _DEFAULT,
+    ("Scripts/Mars.cs", 43): _STATE,
+    ("Scripts/NextSceneOnSpace.cs", 7): _DEFAULT, ("Scripts/RockGenerator.cs", 8): _DEFAULT,
+    ("Scripts/RoverInsideTrigger.cs", 10): _DEFAULT, ("Scripts/RoverInsideTrigger.cs", 11): _DEFAULT,
+    ("Scripts/RoverScreen.cs", 14): _DEFAULT,
+    ("Standard Assets/Particles/Legacy Particles/TimedObjectDestructor.js", 1): _DEFAULT,
+}
+_CODE_TOK = re.compile(r'@"(?:[^"]|"")*"|"(?:[^"\\\n]|\\.)*"|\'(?:[^\'\\\n]|\\.)\'|(?<![\w.])(\d+\.\d*[fFdD]?|\.\d+[fFdD]?|\d+[fFdD]?)(?![\w.])')
+_SIMPLE_INTS = {"0", "1", "2"}
+
+
+def code_lines(proj, rel):
+    """Lines of a source file with comments removed (string contents kept). Index 0 is line 1."""
+    with open(os.path.join(proj.assets, rel), encoding="utf-8-sig", newline="") as fh:
+        text = fh.read().replace("\r\n", "\n")
+    comments, _ = scan_source(text)
+    out, last = [], 0
+    for a, b, _kind in comments:
+        out.append(text[last:a] + "".join(c if c == "\n" else " " for c in text[a:b]))
+        last = b
+    out.append(text[last:])
+    return "".join(out).split("\n")
+
+
+def line_tokens(line):
+    """Literal tokens of one line in order: strings, chars and numbers. A unary minus stays with its number."""
+    toks = []
+    for m in _CODE_TOK.finditer(line):
+        t = m.group(0)
+        if m.group(1) is not None:
+            before = line[:m.start()].rstrip()
+            if before.endswith("-") and not re.search(r"[\w)\]]$", before[:-1].rstrip()):
+                t = "-" + t
+        toks.append(t)
+    return toks
+
+
+def literal_value(tok):
+    """(kind, value) of a C# literal token: kind is string, char, int, float or double."""
+    if tok.startswith('@"'):
+        return "string", tok[2:-1].replace('""', '"')
+    if tok.startswith('"') or tok.startswith("'"):
+        body, esc, out, i = tok[1:-1], {"n": "\n", "t": "\t", "r": "\r", "0": "\0", "\\": "\\", '"': '"', "'": "'"}, "", 0
+        while i < len(body):
+            if body[i] == "\\":
+                assert body[i + 1] in esc, "escape in " + tok
+                out += esc[body[i + 1]]
+                i += 2
+            else:
+                out += body[i]
+                i += 1
+        return ("char" if tok[0] == "'" else "string"), out
+    neg = tok.startswith("-")
+    t = tok.lstrip("-")
+    suffix = t[-1] if t[-1] in "fFdD" else ""
+    num = t[:-1] if suffix else t
+    if suffix in ("f", "F"):
+        return "float", (-1 if neg else 1) * f32_bits(float(num))
+    if suffix in ("d", "D") or "." in num:
+        return "double", (-1 if neg else 1) * float(num)
+    return "int", (-1 if neg else 1) * int(num)
+
+
+def c_code_literal(tok):
+    kind, v = literal_value(tok)
+    if kind == "string":
+        return c_str(v)
+    if kind == "char":
+        return "'%s'" % (v if v not in "\\'" else "\\" + v)
+    if kind == "int":
+        return str(v)
+    if kind == "float":
+        return c_float(v)
+    return repr(v) if "." in repr(v) or "e" in repr(v) else repr(v) + ".0"
+
+
+def write_code_constants(proj, path):
+    cache = {}
+
+    def lines_of(rel):
+        if rel not in cache:
+            cache[rel] = code_lines(proj, rel)
+        return cache[rel]
+    names = [r[0] for r in CODE_CONSTANTS]
+    assert len(set(names)) == len(names), "duplicate name in CODE_CONSTANTS"
+    covered = set()  # (file, line, token, occurrence)
+    out = [HEADER_NOTE, "#ifndef ROCKMORSE_CODE_CONSTANTS_H\n#define ROCKMORSE_CODE_CONSTANTS_H\n\n",
+           "/* Strings and numbers that exist only in the C# code. Each comment gives <file under Assets/>:<line>.\n"
+           "   tools/extract.py checks every row against the source, so a moved or edited literal stops the build.\n"
+           "   A literal marked double is a double in C#; the C value has no f suffix. Plain ints 0, 1 and 2 that are\n"
+           "   loop starts, zero tests and halves have no row. Key codes (H, Escape, P, Space, C, LeftShift) are\n"
+           "   enum names in the C# code, not literals, and are listed in INVENTORY.md. Script field defaults that a scene\n"
+           "   value replaces are in values.h, not here. */\n\n"]
+    for name, rel, lines, lit, occ, note in CODE_CONSTANTS:
+        ls = lines_of(rel)
+        for ln in lines:
+            toks = line_tokens(ls[ln - 1])
+            assert toks.count(lit) > occ, "%s:%d: literal %s (occurrence %d) not found; the line has %s" % (rel, ln, lit, occ, toks)
+            covered.add((rel, ln, lit, occ))
+        out.append("/* %s:%s%s */\n#define %s %s\n" % (
+            rel, ",".join(str(x) for x in lines), (" " + note) if note else "", name, c_code_literal(lit)))
+    # completeness: no uncovered literal in the game code
+    files = comment_sources(proj)  # the game scripts and the .js; iTween rows are checked row by row only
+    files = [f for f in files if f != "Scripts/CameraFollowBounds.cs"]  # attached to nothing
+    missing = []
+    for rel in files:
+        ls = lines_of(rel)
+        for i, line in enumerate(ls, 1):
+            if "Debug.Log" in line or (rel, i) in CODE_IGNORED:
+                continue
+            seen = {}
+            for t in line_tokens(line):
+                occ = seen.get(t, 0)
+                seen[t] = occ + 1
+                if t in ('""',) or t in _SIMPLE_INTS:
+                    continue
+                if (rel, i, t, occ) not in covered:
+                    missing.append("%s:%d %s" % (rel, i, t))
+    assert not missing, "literals without a row in CODE_CONSTANTS or CODE_IGNORED: %s" % missing
+    for (rel, ln), why in CODE_IGNORED.items():  # an ignore for a line that has no literal is stale
+        assert line_tokens(lines_of(rel)[ln - 1]), "stale CODE_IGNORED %s:%d" % (rel, ln)
+    out.append("\n#endif\n")
+    write_header(path, out)
+
+
+# --------------------------------------------------------------------------
+# source comments, kept for history (extract/source_comments.json)
+# --------------------------------------------------------------------------
+
+JS_DESTRUCTOR = "Standard Assets/Particles/Legacy Particles/TimedObjectDestructor.js"
+_COMMENT_RX = re.compile(r'@"(?:[^"]|"")*"|"(?:[^"\\\n]|\\.)*"|\'(?:[^\'\\\n]|\\.)\'|//[^\n]*|/\*[\s\S]*?\*/')
+
+
+def comment_sources(proj):
+    """Relative paths (to Assets) of the files whose comments are kept: all game scripts and TimedObjectDestructor.js.
+    Third-party code (iTween, JSONObject, other Standard Assets) is left out."""
+    names = sorted(f for f in os.listdir(os.path.join(proj.assets, "Scripts")) if f.endswith(".cs"))
+    assert len(names) == 24, "expected 24 game scripts, found %d" % len(names)
+    return ["Scripts/" + n for n in names] + [JS_DESTRUCTOR]
+
+
+def scan_source(text):
+    """Walk C# or UnityScript text once. Returns (comments, code) where comments are
+    (start offset, end offset, kind) and code is the text with comments and string/char contents blanked
+    (same length, newlines kept) so braces and identifiers can be read safely."""
+    comments, code, i, n = [], list(text), 0, len(text)
+
+    def blank(a, b):
+        for k in range(a, b):
+            if code[k] != "\n":
+                code[k] = " "
+    while i < n:
+        c = text[i]
+        if c == "/" and text[i:i + 2] == "//":
+            j = text.find("\n", i)
+            j = n if j < 0 else j
+            comments.append((i, j, "line"))
+            blank(i, j)
+            i = j
+        elif c == "/" and text[i:i + 2] == "/*":
+            j = text.index("*/", i + 2) + 2
+            comments.append((i, j, "block"))
+            blank(i, j)
+            i = j
+        elif c == '@' and text[i:i + 2] == '@"':
+            j = i + 2
+            while True:
+                if text[j] == '"':
+                    if text[j:j + 2] == '""':
+                        j += 2
+                        continue
+                    break
+                j += 1
+            blank(i + 2, j)
+            i = j + 1
+        elif c in '"\'':
+            j = i + 1
+            while text[j] != c:
+                assert text[j] != "\n", "unterminated literal"
+                j += 2 if text[j] == "\\" else 1
+            blank(i + 1, j)
+            i = j + 1
+        else:
+            i += 1
+    return comments, "".join(code)
+
+
+def members_of(code, base_depth, default_class):
+    """[(start line, end line, "Class.member")] for the members at brace depth base_depth of blanked code."""
+    line_of = []
+    ln = 1
+    for ch in code:
+        line_of.append(ln)
+        ln += ch == "\n"
+    out, depth, cls, start, stmt_start = [], 0, default_class, None, 0
+    i = 0
+    while i < len(code):
+        ch = code[i]
+        if depth == base_depth and start is None and not ch.isspace() and ch not in "{};":
+            start = i
+        if ch == "{":
+            if depth == base_depth - 1 and base_depth == 1:  # class header
+                m = re.search(r"\bclass\s+(\w+)", code[stmt_start:i])
+                if m:
+                    cls = m.group(1)
+                start = None
+                stmt_start = i + 1
+            elif depth == base_depth and start is not None:
+                head = re.sub(r"\[[^\]]*\]", " ", code[start:i])
+                m = re.search(r"(\w+)\s*\(", head) or re.search(r"(\w+)\s*$", head.strip())
+                m2 = re.search(r"(?:function|var)\s+(\w+)", head)
+                name = (m2 or m).group(1) if (m2 or m) else "?"
+                out.append([line_of[start], None, "%s.%s" % (cls, name)])
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == base_depth and out and out[-1][1] is None:
+                out[-1][1] = line_of[i]
+                start = None
+            elif depth == base_depth - 1:
+                start, stmt_start = None, i + 1
+        elif ch == ";" and depth == base_depth and start is not None:
+            head = re.sub(r"\[[^\]]*\]", " ", code[start:i])
+            head = head.split("=")[0]
+            m = re.search(r"(\w+)\s*$", head.strip())
+            out.append([line_of[start], line_of[i], "%s.%s" % (cls, m.group(1) if m else "?")])
+            start = None
+        i += 1
+    assert all(o[1] is not None for o in out), "unclosed member"
+    return out
+
+
+def extract_comments(proj, path):
+    result, counts = {}, {}
+    for rel in comment_sources(proj):
+        with open(os.path.join(proj.assets, rel), encoding="utf-8-sig", newline="") as fh:
+            text = fh.read().replace("\r\n", "\n")
+        comments, code = scan_source(text)
+        # independent count: one regex pass that skips string and char literals
+        rx_count = sum(1 for m in _COMMENT_RX.finditer(text) if m.group(0).startswith(("//", "/*")))
+        assert rx_count == len(comments), "%s: %d comments by scan, %d by regex" % (rel, len(comments), rx_count)
+        cls = os.path.splitext(os.path.basename(rel))[0]
+        js = rel.endswith(".js")
+        mem = members_of(code, 0 if js else 1, cls)
+        line_start = [0]
+        for m in re.finditer("\n", text):
+            line_start.append(m.end())
+
+        def line_at(off):
+            return bisect_right(line_start, off)
+        rows = []
+        for a, b, kind in comments:
+            l1, l2 = line_at(a), line_at(b - 1) if b > a else line_at(a)
+            inside = [m for m in mem if m[0] <= l1 and l2 <= m[1]]
+            if inside:
+                owner, rel_pos = inside[-1][2], "inside"
+            else:
+                after = [m for m in mem if m[0] > l2]
+                before = [m for m in mem if m[1] < l1]
+                if after:
+                    owner, rel_pos = after[0][2], "before"
+                elif before:
+                    owner, rel_pos = before[-1][2], "after"
+                else:
+                    owner, rel_pos = cls, "class"
+            body = text[a:b]
+            looks_like_code = bool(re.search(r"[;{}]\s*$|\w\s*=[^=]|\w+\s*\(.*\)", body.lstrip("/* ").strip()))
+            rows.append({"line": l1, "end_line": l2, "kind": kind, "text": body,
+                         "enclosing_member": owner, "position": rel_pos, "looks_like_commented_out_code": looks_like_code})
+        result[rel] = rows
+        counts[rel] = len(rows)
+    return result, counts
+
+
+def write_source_comments(proj, ext):
+    files, counts = extract_comments(proj, None)
+    write_json(os.path.join(ext, "source_comments.json"), {
+        "note": ("Every comment of the 24 game scripts and TimedObjectDestructor.js, verbatim (spelling not fixed). "
+                 "Line endings are normalised to \\n. text includes the // or /* */ marks. kind is line or block. "
+                 "enclosing_member is Class.member: the member the comment is in (position inside), or the next member "
+                 "(before), or the last member (after). looks_like_commented_out_code is a rough guess. "
+                 "Third-party code (iTween, JSONObject, other Standard Assets) is not included."),
+        "counts": counts, "total": sum(counts.values()), "files": files})
+    return counts
+
+
+# --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
 
@@ -1501,7 +2082,7 @@ GAMEOBJECTS = {"Intro": 3, "Title": 8, "Story1": 3, "Story2": 3, "Game": 34, "De
 PIECES = {("scenes/Game.json", "Player"): [3, 5, 4],
           ("scenes/Game.json", "Rover/bis_rover_v2_roof"): [3, 3, 3, 4, 4, 4, 5],
           ("prefabs/RocketPrefab.json", "RocketPrefab/RocketBody"): [3, 3, 3, 7, 5, 4, 6]}
-WIPED = ("scenes", "prefabs", "animation", "materials", "settings", "assets", "derived")  # subfolders of extract/
+WIPED = ("scenes", "prefabs", "animation", "materials", "settings", "assets", "derived", "build")  # subfolders of extract/
 SUMMARIES = {".mat": material_summary, ".anim": clip_summary, ".controller": controller_summary}
 
 
@@ -1540,11 +2121,14 @@ def check_dumps(dumps_data):
     assert build == SCENES, "build order is %s" % build
 
 
-def check_headers(port_src, dumps):
+def check_headers(port_src, dumps, snd_infos):
     """Compile a small program against the headers and compare what it prints with the dumps."""
-    prog = ('#include <stdio.h>\n#include "values.h"\n#include "tables.h"\nint main(void) {\n'
-            '    printf("%.9g %.9g %.9g\\n%s\\n%s\\n", (double)ROCK_POS_X, (double)LENGTH_UNITS_PER_METER,\n'
-            '           (double)PLAYER_BODY_PIECES_POINTS[0], SOUNDS[ROVER_CHATTER_CLIP].path, LEVELS[1].decoded);\n'
+    chatter = [i for i in snd_infos if stem(i["file"]) == "static"][0]
+    prog = ('#include <stdio.h>\n#include "values.h"\n#include "tables.h"\n#include "code_constants.h"\nint main(void) {\n'
+            '    printf("%.9g %.9g %.9g\\n%s\\n%s\\n%d %d\\n[%s]\\n", (double)ROCK_POS_X, (double)LENGTH_UNITS_PER_METER,\n'
+            '           (double)PLAYER_BODY_PIECES_POINTS[0], SOUNDS[ROVER_CHATTER_CLIP].path, LEVELS[1].decoded,\n'
+            '           SOUNDS[ROVER_CHATTER_CLIP].sample_rate, SOUNDS[ROVER_CHATTER_CLIP].frames,\n'
+            '           ROVER_SCREEN_COVERAGE_NO);\n'
             '    return 0;\n}\n')
     with tempfile.TemporaryDirectory() as tmp:
         src, exe = os.path.join(tmp, "t.c"), os.path.join(tmp, "t")
@@ -1557,8 +2141,10 @@ def check_headers(port_src, dumps):
             dumps.get(G + "#Player:PolygonCollider2D:derived.height_world"),
             dumps.get(G + "#Player:PolygonCollider2D:derived.paths[0].pieces")[0][0][0]]
     assert [f32_bits(float(x)) for x in out[0].split()] == [f32_bits(w) for w in want], out[0]
-    assert out[1] == dumps.get(G + "#Rover/playerInsideRoverTrigger/chatter:AudioSource:m_audioClip"), out[1]
+    assert out[1] == chatter["port_file"], out[1]  # the port loads the build's WAV, not the .mp3 named in the scene
     assert out[2] == "DENY", out[2]  # the answer of level 2 in levels.json
+    assert out[3] == "%d %d" % (chatter["build"]["sample_rate"], chatter["build"]["frames"]) == "11000 163213", out[3]
+    assert out[4] == "[ NO]", out[4]  # the leading space of " NO" survives
 
 
 def check_assets(images, sounds, fonts, img_infos):
@@ -1568,6 +2154,101 @@ def check_assets(images, sounds, fonts, img_infos):
             assert s["w"] > 0 and s["h"] > 0 and s["x"] >= 0 and s["y"] >= 0, (i["file"], s["name"])
             assert s["x"] + s["w"] <= i["width"] and s["y"] + s["h"] <= i["height"], \
                 "sprite %s#%s lies outside its texture" % (i["file"], s["name"])
+
+
+# Sounds whose file in port/assets comes from the 2016 build and not from the source project. The 8 MP3 files were
+# re-encoded to Vorbis by the build, so their decoded length and rate differ. Menu4.wav is a 32 bit float WAV in the
+# source and 16 bit PCM in the build (every sample within 1 of the source). A drift here fails loudly.
+PORT_FILE_FROM_BUILD = {"Arcade_S-wwwbeat-8526_hifi", "FOLEY HORN PARTY TOY BLOW OUT 01", "Menu4", "Victory_-arewhyae-8093_hifi",
+                        "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm", "drag", "newMessage", "player_strain",
+                        "static"}
+# The lengths that differ most, as the build decodes them: (frames, sample rate)
+BUILD_AUDIO_FACTS = {"newMessage": (79488, 44100), "Arcade_S-wwwbeat-8526_hifi": (26496, 44100),
+                     "Victory_-arewhyae-8093_hifi": (812160, 44100),
+                     "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm": (112896, 32000), "static": (163213, 11000)}
+
+
+def check_audio(snd_infos, clips):
+    names = {stem(i["file"]) for i in snd_infos}
+    assert names == set(clips), "build clips and used sounds differ: %s" % sorted(names ^ set(clips))
+    assert {stem(i["file"]) for i in snd_infos if i["port_file_origin"] == "build"} == PORT_FILE_FROM_BUILD
+    assert {stem(i["file"]) for i in snd_infos if i["file"].endswith(".mp3")} <= PORT_FILE_FROM_BUILD
+    for n, (frames, rate) in BUILD_AUDIO_FACTS.items():
+        assert (clips[n]["frames"], clips[n]["sample_rate"]) == (frames, rate), n
+    for i in snd_infos:  # read the written file back
+        with open(os.path.join(REPO, "port", "assets", i["port_file"]), "rb") as fh:
+            raw = fh.read()
+        fmt, data = build_extract.wav_parts(raw)
+        c = clips[stem(i["file"])]
+        assert fmt[0] == 1 and fmt[5] == 16 and data == c["pcm"], i["port_file"]
+        assert (fmt[1], fmt[2], len(data) // fmt[4]) == (c["channels"], c["sample_rate"], c["frames"]), i["port_file"]
+        assert i["port_file"].endswith(".wav")
+
+
+def dump_build(build, clips, snd_infos, fnt_infos, ext):
+    """extract/build/*.json: facts that exist only in the 2016 build (audio, shaders, materials, font, colour space)."""
+    out = os.path.join(ext, "build")
+    rows = []
+    for i in sorted(snd_infos, key=lambda x: x["file"]):
+        b, sr = i["build"], i["source"]
+        rows.append({"source_file": i["file"], "port_file": i["port_file"], "port_file_origin": i["port_file_origin"],
+                     "source_container": sr["container"], "source_channels": sr["channels"], "source_sample_rate": sr["sample_rate"],
+                     "source_seconds": sr["seconds"], "source_seconds_from": sr["seconds_from"],
+                     "build_compression": b["compression"], "build_channels": b["channels"], "build_sample_rate": b["sample_rate"],
+                     "build_frames": b["frames"], "build_seconds": i["seconds_build"],
+                     "seconds_difference": i["seconds_difference"], "sample_rate_differs": i["sample_rate_differs"],
+                     "build_file": "%s#%d" % (b["build_file"], b["path_id"]), "build_stored_bytes": b["stored_bytes"]})
+    write_json(os.path.join(out, "audio.json"), {
+        "note": "Every AudioClip of the 2016 Mac build, decoded to 16 bit PCM by UnityPy (FMOD). The port plays these.",
+        "clips": clips_clean(rows)})
+    sm = build_extract.shaders_and_materials(build)
+    d = Dumps(ext)
+    src_mats = {"nightMat": "materials/nightMat.mat.json", "cutout": "materials/cutout.mat.json",
+                "Fire Smoke": "materials/Fire Smoke.mat.json"}
+    mats = {m["name"]: m for m in sm["materials"]}
+    links = []
+    for name, rel in sorted(src_mats.items()):
+        sm_src = d.load(rel)["summary"]
+        m = mats[name]
+        for k, v in sm_src["colors"].items():  # same colours on both sides, so the shader link is the right material
+            if k in m["colors"]:
+                assert all(abs(v[c] - m["colors"][k][c]) < 1e-6 for c in "rgba"), (name, k)
+        links.append({"material": name, "source_shader_ref": sm_src["shader"], "build_shader": m["shader"],
+                      "build_shader_name": [s["shader_name"] for s in sm["shaders"] if [s["build_file"], s["path_id"]] == m["shader"]][0]})
+    links.append({"material": "Sprites-Default",
+                  "source_shader_ref": "builtin:library/unity default resources#Sprites-Default (Material)",
+                  "build_shader": mats["Sprites-Default"]["shader"],
+                  "build_shader_name": [s["shader_name"] for s in sm["shaders"] if [s["build_file"], s["path_id"]] == mats["Sprites-Default"]["shader"]][0]})
+    sm["source_to_build"] = links
+    sm["note"] = ("The source scenes name built-in shaders by Unity 4 ids (resources/unity_builtin_extra#30, "
+                  "library/unity default resources#10753). The build resolves them to the shaders listed here. The build wins.")
+    write_json(os.path.join(out, "shaders.json"), clean(sm))
+    ttf = fnt_infos[0]["ttf"]
+    f = build_extract.font_object(build, open(os.path.join(REPO, "port", "assets", fnt_infos[0]["file"]), "rb").read())
+    size, upem = f["m_FontSize"], ttf["unitsPerEm"]
+    assert f["font_data_is_project_ttf"] and f["dynamic"]
+    assert abs(f["m_Ascent"] - ttf["hhea_ascent"] * size / upem) < 1e-3, "Unity's ascent is not hhea ascent at the font size"
+    assert abs(f["m_Descent"] - ttf["hhea_descent"] * size / upem) < 1e-3
+    assert abs(f["m_LineSpacing"] - ttf["line_height_units"] * size / upem) < 1e-3
+    write_json(os.path.join(out, "font.json"), clean({
+        "note": "Font object of the 2016 build (sharedassets1.assets), the TTF metrics, and the same numbers at the font size.",
+        "build_font": f, "ttf": ttf, "import": fnt_infos[0]["import"],
+        "ttf_scaled_to_font_size": {"size": size, "ascent": ttf["hhea_ascent"] * size / upem,
+                                    "descent": ttf["hhea_descent"] * size / upem,
+                                    "line_height": ttf["line_height_units"] * size / upem,
+                                    "advance_width": ttf["advance_width"] * size / upem}}))
+    gm = [o for o in build.files["globalgamemanagers"].objects.values() if o.type.name == "PlayerSettings"]
+    assert len(gm) == 1
+    cs = gm[0].read_typetree(check_read=False)["m_ActiveColorSpace"]
+    src_cs = d.get("settings/ProjectSettings.json#m_ActiveColorSpace")
+    assert cs == src_cs == 0, "colour space is not Gamma"
+    write_json(os.path.join(out, "color_space.json"), {
+        "m_ActiveColorSpace": cs, "name": "Gamma", "note": "0 is Gamma, 1 is Linear. Same value in the project and the build.",
+        "source": "settings/ProjectSettings.json#m_ActiveColorSpace", "build": "globalgamemanagers PlayerSettings"})
+
+
+def clips_clean(rows):
+    return clean(rows)
 
 
 def check_tables(levels, morse):
@@ -1582,9 +2263,11 @@ def check_tables(levels, morse):
 
 
 def main():
-    if len(sys.argv) != 2:
-        sys.exit("usage: python -I tools/extract.py <path to Unity project>")
+    if len(sys.argv) != 3:
+        sys.exit("usage: python -I tools/extract.py <path to Unity project> <Data folder of the Mac build>")
     proj = Project(sys.argv[1])
+    build = build_extract.Build(sys.argv[2])
+    clips = build_extract.audio_clips(build)
     ext = os.path.join(REPO, "extract")
     port_src = os.path.join(REPO, "port", "src")
     port_assets = os.path.join(REPO, "port", "assets")
@@ -1675,17 +2358,25 @@ def main():
     fonts = [a for a in used if a.lower().endswith(FONT_EXT)]
     code_files = [a for a in used if a.lower().endswith(SCRIPT_EXT)]
     img_infos = [texture_info(proj, a) for a in images]
-    snd_infos = [audio_info(proj, a) for a in sounds]
+    audio = [audio_info(proj, a, clips) for a in sounds]
+    snd_infos = [i for i, _ in audio]
     fnt_infos = [font_info(proj, a) for a in fonts]
     for info in img_infos + snd_infos + fnt_infos:
         write_json(os.path.join(ext, "assets", info["file"] + ".json"), info)
 
-    # --- copy used files
-    for a in images + sounds + fonts:
+    # --- copy used files. Sounds: the source WAV or the build's decoded WAV (audio_info decides)
+    for a in images + fonts:
         dst = os.path.join(port_assets, a)
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copyfile(os.path.join(proj.assets, a), dst)
+    for info, data in audio:
+        dst = os.path.join(port_assets, info["port_file"])
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        with open(dst, "wb") as fh:
+            fh.write(data)
     check_assets(images, sounds, fonts, img_infos)
+    check_audio(snd_infos, clips)
+    dump_build(build, clips, snd_infos, fnt_infos, ext)
 
     # --- animation clips and controller for the C tables
     ctrl_dump = next(d for k, d in asset_dumps.items() if k.endswith(".controller.json"))
@@ -1718,7 +2409,9 @@ def main():
         morse = re.findall(r'\[\s*"((?:[^"\\]|\\.)*)"\s*,\s*"((?:[^"\\]|\\.)*)"\s*,\s*"((?:[^"\\]|\\.)*)"\s*\]', fh.read())
     check_tables(levels, morse)
     write_tables_h(levels, morse, os.path.join(port_src, "tables.h"))
-    check_headers(port_src, Dumps(ext))
+    comment_counts = write_source_comments(proj, ext)
+    write_code_constants(proj, os.path.join(port_src, "code_constants.h"))
+    check_headers(port_src, Dumps(ext), snd_infos)
 
     # --- derived files
     matrix = Dumps(ext).get("settings/Physics2DSettings.json#m_LayerCollisionMatrix")
@@ -1746,6 +2439,7 @@ def main():
                 if f not in copied and not f.startswith(("Scenes/", "ProjectSettings/")) and not f.endswith(SCRIPT_EXT)]
     write_json(os.path.join(ext, "derived", "used_assets.json"), {
         "copied_images": images, "copied_sounds": sounds, "copied_fonts": fonts,
+        "sound_port_files": {i["file"]: i["port_file"] for i in snd_infos},
         "converted_to_c_tables": converted, "dumped_to_json": dumped,
         "scripts_referenced_by_scenes_or_prefabs": code_files,
         "scripts_in_project": [f for f in all_files if f.endswith(SCRIPT_EXT)],

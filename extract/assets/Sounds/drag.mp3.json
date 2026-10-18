@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets4.assets",
+  "channels": 2,
+  "compression": "Vorbis",
+  "frames": 33408,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "drag",
+  "path_id": 71,
+  "resource": "sharedassets4.resource",
+  "sample_rate": 44100,
+  "seconds": 0.7575510144233704,
+  "stored_bytes": 4384
+ },
  "bytes": 10600,
  "file": "Sounds/drag.mp3",
  "forceToMono": 0,
@@ -17,6 +32,26 @@
  },
  "is_3d": true,
  "loopable": 0,
+ "port_data_chunk_bytes": 133632,
+ "port_file": "Sounds/drag.wav",
+ "port_file_bytes": 133676,
+ "port_file_origin": "build",
  "quality": 0.0450000018,
+ "sample_rate_differs": false,
+ "seconds_build": 0.7576,
+ "seconds_difference": -0.0,
+ "seconds_source": 0.7576,
+ "source": {
+  "audio_starts_at": 42,
+  "bitrate_kbps": 128,
+  "channels": 2,
+  "container": "mp3",
+  "file_bytes": 10600,
+  "frames_in_header": 29,
+  "sample_rate": 44100,
+  "samples_per_frame": 1152,
+  "seconds": 0.7576,
+  "seconds_from": "Xing/Info frame count"
+ },
  "stream": 1
 }

@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets4.assets",
+  "channels": 1,
+  "compression": "Vorbis",
+  "frames": 163213,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "static",
+  "path_id": 73,
+  "resource": "sharedassets4.resource",
+  "sample_rate": 11000,
+  "seconds": 14.837545394897461,
+  "stored_bytes": 40608
+ },
  "bytes": 61029,
  "file": "Sounds/static.mp3",
  "forceToMono": 0,
@@ -17,6 +32,25 @@
  },
  "is_3d": true,
  "loopable": 0,
+ "port_data_chunk_bytes": 326426,
+ "port_file": "Sounds/static.wav",
+ "port_file_bytes": 326470,
+ "port_file_origin": "build",
  "quality": -1,
+ "sample_rate_differs": true,
+ "seconds_build": 14.8375,
+ "seconds_difference": 0.0,
+ "seconds_source": 14.8375,
+ "source": {
+  "audio_starts_at": 1679,
+  "bitrate_kbps": 32,
+  "channels": 1,
+  "container": "mp3",
+  "file_bytes": 61029,
+  "sample_rate": 11025,
+  "samples_per_frame": 576,
+  "seconds": 14.8375,
+  "seconds_from": "file size / bitrate (constant bitrate estimate)"
+ },
  "stream": 1
 }

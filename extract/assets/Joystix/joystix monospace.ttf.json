@@ -14,5 +14,24 @@
   "serializedVersion": 2,
   "use2xBehaviour": 0,
   "userData": null
+ },
+ "ttf": {
+  "advance_width": 828,
+  "glyphs": 390,
+  "glyphs_with_advance_zero": 1,
+  "hhea_advanceWidthMax": 828,
+  "hhea_ascent": 1001,
+  "hhea_descent": -199,
+  "hhea_lineGap": 0,
+  "line_height_units": 1200,
+  "numberOfHMetrics": 390,
+  "os2_typoAscender": 801,
+  "os2_typoDescender": -199,
+  "os2_typoLineGap": 200,
+  "os2_version": 3,
+  "os2_winAscent": 1001,
+  "os2_winDescent": 199,
+  "os2_xAvgCharWidth": 828,
+  "unitsPerEm": 1000
  }
 }

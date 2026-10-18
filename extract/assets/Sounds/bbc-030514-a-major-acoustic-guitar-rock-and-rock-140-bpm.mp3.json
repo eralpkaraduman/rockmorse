@@ -1,4 +1,19 @@
 {
+ "build": {
+  "bits_per_sample": 16,
+  "build_file": "sharedassets6.assets",
+  "channels": 2,
+  "compression": "Vorbis",
+  "frames": 112896,
+  "is_3d": null,
+  "load_type": 1,
+  "name": "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm",
+  "path_id": 4,
+  "resource": "sharedassets6.resource",
+  "sample_rate": 32000,
+  "seconds": 3.5280001163482666,
+  "stored_bytes": 20704
+ },
  "bytes": 49431,
  "file": "Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.mp3",
  "forceToMono": 0,
@@ -17,6 +32,25 @@
  },
  "is_3d": false,
  "loopable": 0,
+ "port_data_chunk_bytes": 451584,
+ "port_file": "Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.wav",
+ "port_file_bytes": 451628,
+ "port_file_origin": "build",
  "quality": 0.5,
+ "sample_rate_differs": false,
+ "seconds_build": 3.528,
+ "seconds_difference": -0.0107,
+ "seconds_source": 3.5387,
+ "source": {
+  "audio_starts_at": 6967,
+  "bitrate_kbps": 96,
+  "channels": 2,
+  "container": "mp3",
+  "file_bytes": 49431,
+  "sample_rate": 32000,
+  "samples_per_frame": 1152,
+  "seconds": 3.5387,
+  "seconds_from": "file size / bitrate (constant bitrate estimate)"
+ },
  "stream": 1
 }

@@ -8,6 +8,7 @@ How to read the citations:
 - `scenes/Game.json#Player:Rigidbody2D:m_Mass` is a value in the dumps under `extract/`. The dump path is `<file>#<GameObject path>:<component>:<field>`.
 - `VALUE_NAME` in capitals is a constant in `port/src/values.h`. Its comment names the same dump path.
 - "The build" means the 2016 Mac and WebGL builds. "The source" means the Unity project.
+- `extract/build/` holds facts that exist only in the 2016 Mac build: `audio.json`, `shaders.json`, `font.json`, `color_space.json`. `extract/source_comments.json` holds every comment of the game scripts, verbatim. `port/src/code_constants.h` holds the strings and numbers that live only in the C# code. `tools/build_extract.py` reads the build for `tools/extract.py`.
 
 Facts that came from the dumps, not from reading code, are in tables. Facts I could not confirm are marked "unverified".
 
@@ -50,7 +51,7 @@ The spatial blend rule is the one real behaviour difference. In Unity 4 a clip p
 
 ### Assembly-CSharp.dll against the C# source
 
-No decompiler is installed (`ilspycmd`, `monodis`, `dotnet`, `mono` are all missing), and I did not download one. `tools/compare_build.py` reads the .NET metadata in pure Python.
+The logic check is done and is in `extract/decompile_check.md`. `ilspycmd` decompiled the three game DLLs and `tools/decompile_check.py` compared the result with the source. All 24 scripts MATCH. So do `TimedObjectDestructor.js` and the iTween and JSON code the game calls. The decompiled code is in `extract/decompiled/`. This section keeps the earlier metadata check. `tools/compare_build.py` still runs it, and it reads the .NET metadata in pure Python.
 
 What was checked, for all 24 scripts:
 
@@ -59,7 +60,7 @@ What was checked, for all 24 scripts:
 - Every number in the source appears as a constant in the method bodies, after walking the IL byte code. 15 scripts match exactly. The other 9 differ only in ways the compiler explains: an int literal that became a float constant (`/5` is 5.0, `* 13` is 13.0, `dismissDuration = 5` is 5.0), constants the compiler folded (`24 * 1.027f` is 24.648), a minus sign moved into the constant (`-0.6f`, `-1.394218f`), key codes (`KeyCode.C` 99, `LeftShift` 304, `Space` 32, `H` 104, `P` 112, `Escape` 27), `Mathf.Infinity`, and the array sizes of `string.Concat` calls (4 and 5, my reading).
 - The 25th script, `TimedObjectDestructor.js`, is UnityScript and is not in `Assembly-CSharp.dll`. Its two fields decode correctly from the bytes (`timeOut` 2.0, `detachChildren` false).
 
-What could not be checked: that the method logic is the same. The DLL holds IL, and without a decompiler I cannot compare it with the C# line by line. A reading of the constants, strings and member names found no difference. If step 5 or 6 shows a behaviour that the source cannot explain, decompile `Assembly-CSharp.dll` then.
+The method logic is covered by the decompile check (`extract/decompile_check.md`). Nothing is left unchecked in the game scripts.
 
 ## 2. Scripts
 
@@ -237,7 +238,7 @@ What it does:
 
 1. The trigger circle of the player (radius 1.0) adds a Rock collider to `pullCandidates` on enter and removes it on exit. Candidates are added without a duplicate check.
 2. Every `Update`: `pullCandidate` = closest live candidate (`:51`). Destroyed ones read as null and are skipped.
-3. Space down: if there is a candidate and no active joint, `startPulling` (`:71`). It sets the rock's joint `connectedBody` to the Player body, stores it as `activeJoint`, enables it, plays the strain sound.
+3. Space down: if there is a candidate and no active joint, `startPulling` (`:71`). It sets the rock's joint `connectedBody` to the Player body, stores it as `activeJoint`, enables it, plays the strain sound (`RockDragger.cs:79`). That sound is probably silent. The Player's AudioSource is disabled in the scene (`scenes/Game.json#Player:AudioSource:m_Enabled` is 0) and no script enables it (`TopDownControls` only switches the footsteps source). `Play()` on a disabled source most likely plays nothing in Unity 5.4. To be confirmed on the reference build (section 11).
 4. Space up: if a joint is active, `release` (`:84`). It disables the joint, clears `connectedBody`, clears `activeJoint`, sets the player velocity to zero.
 5. The drag target marker follows the active rock, else the candidate, else nothing (`:42` to `:48`).
 6. `releaseIfDragging` (`:139`) has no caller.
@@ -414,6 +415,131 @@ Not attached anywhere (`CameraFollowBounds.cs`, 63 lines). Leave it out.
 - iTween (`Assets/iTween/Plugins/iTween.cs`, 7,500 lines): one call, `iTween.MoveUpdate(GameObject, Vector3, float)` at `CamerFocusSwitcher.cs:70`. It builds a Hashtable and calls the 2-argument overload (`iTween.cs:5205`). The math is in section 2.9. The Rigidbody branch (`:5280`) does not apply: the camera has no 3D Rigidbody.
 - JSONObject (`Assets/JSON/JSONObject.cs`): used at `LevelLoader.cs:116` (`new JSONObject(text).list`, `["question"].str`) and `Morse.cs:23`, `:72`. Quirk: string values are cut out of the text with `Substring` and not unescaped (`JSONObject.cs:262`). So in `morsecodes.json` the alternate character of `DOUBLE_QUOTE` is the two characters `\"` and a real quote can never be encoded. The port tables keep this (`tables.h`).
 
+### 2.21 UnityEngine code the port must copy
+
+Source of the text: `ilspycmd` 11.1.0.9782 decompiling `RockMorse.app/Contents/Resources/Data/Managed/UnityEngine.dll` (the Unity 5.4.3f1 Mac build). Command: `DOTNET_ROOT=/opt/homebrew/opt/dotnet/libexec ilspycmd -t UnityEngine.Mathf -o <dir> UnityEngine.dll`. The code below is quoted from that output without change (only the leading tab removed). Full output: `extract/decompiled/UnityEngine/Mathf.cs`, `Vector2.cs` and `Random.cs`. Only methods that the game or the iTween code it calls reaches are quoted. Doc comments and attributes other than the two `[ExcludeFromDocs]`/`[DefaultValue]` ones are left out here.
+
+`Mathf.SmoothDamp`, reached from `iTween.MoveUpdate` (`iTween.cs:5256` to `:5258`, called as `Mathf.SmoothDamp(current, target, ref velocity, time)` for x, y and z with a fresh `velocity` of 0 each call). The four-argument overload runs, which calls the six-argument one. The five-argument overload is not reached.
+
+```csharp
+[ExcludeFromDocs]
+public static float SmoothDamp(float current, float target, ref float currentVelocity, float smoothTime)
+{
+	float deltaTime = Time.deltaTime;
+	float maxSpeed = float.PositiveInfinity;
+	return SmoothDamp(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
+}
+
+public static float SmoothDamp(float current, float target, ref float currentVelocity, float smoothTime, [DefaultValue("Mathf.Infinity")] float maxSpeed, [DefaultValue("Time.deltaTime")] float deltaTime)
+{
+	smoothTime = Max(0.0001f, smoothTime);
+	float num = 2f / smoothTime;
+	float num2 = num * deltaTime;
+	float num3 = 1f / (1f + num2 + 0.48f * num2 * num2 + 0.235f * num2 * num2 * num2);
+	float value = current - target;
+	float num4 = target;
+	float num5 = maxSpeed * smoothTime;
+	value = Clamp(value, 0f - num5, num5);
+	target = current - value;
+	float num6 = (currentVelocity + num * value) * deltaTime;
+	currentVelocity = (currentVelocity - num * num6) * num3;
+	float num7 = target + (value + num6) * num3;
+	if (num4 - current > 0f == num7 > num4)
+	{
+		num7 = num4;
+		currentVelocity = (num7 - num4) / deltaTime;
+	}
+	return num7;
+}
+```
+
+Notes on this code:
+
+- `smoothTime` is `speed * 0.05` (0.01 or 0.05 s), see 2.9. The `Max(0.0001f, ...)` guard never triggers.
+- `maxSpeed` is `float.PositiveInfinity`, so `num5` is infinity and `Clamp` leaves `value` unchanged.
+- At `deltaTime` 0: `num2` is 0, `num3` is 1, `num6` is 0, so the result is `target + value`, which is `current`. The camera does not move. If `current` equals `target` exactly, the last `if` fires and `currentVelocity` becomes 0/0 = NaN. The game throws that velocity away, so it has no effect.
+- Computed in float32 throughout. The port should use `float` and the same order of operations. A fused multiply-add (FMA) can change the last bit, so compile with `-ffp-contract=off`.
+
+Other `Mathf` and `Vector2` code the game reaches. Call sites: `Lerp` `TopDownControls.cs:43` and `:44` (t is 0.8, so the result is `0.8 * a`), `Clamp` `TopDownControls.cs:85`, `:86`, `CamerFocusSwitcher.cs:95`, `:96`, `Max` `LevelLoader.cs:203`, `CamerFocusSwitcher.cs:106`, `Abs` `Mars.cs:161`, `TopDownControls.cs:58`, `Rock.cs:57`, `Round` `Mars.cs:120`, `RoverScreen.cs:96`, `Ceil` `Mars.cs:156`, `Vector2.Distance` `RockDragger.cs:61`, `:107`, `:108`. `Mathf.Infinity` is `float.PositiveInfinity` (`Earth.cs:17`, `:31`, `:100`, `RockDragger.cs:53`).
+
+```csharp
+public static float Lerp(float a, float b, float t)
+{
+	return a + (b - a) * Clamp01(t);
+}
+
+public static float Clamp01(float value)
+{
+	if (value < 0f)
+	{
+		return 0f;
+	}
+	if (value > 1f)
+	{
+		return 1f;
+	}
+	return value;
+}
+
+public static float Clamp(float value, float min, float max)
+{
+	if (value < min)
+	{
+		value = min;
+	}
+	else if (value > max)
+	{
+		value = max;
+	}
+	return value;
+}
+
+public static float Max(float a, float b)
+{
+	return (!(a > b)) ? b : a;
+}
+
+public static float Abs(float f)
+{
+	return Math.Abs(f);
+}
+
+public static float Round(float f)
+{
+	return (float)Math.Round(f);
+}
+
+public static float Ceil(float f)
+{
+	return (float)Math.Ceiling(f);
+}
+```
+
+```csharp
+public static float Distance(Vector2 a, Vector2 b)
+{
+	return (a - b).magnitude;
+}
+
+public static Vector2 operator -(Vector2 a, Vector2 b)
+{
+	return new Vector2(a.x - b.x, a.y - b.y);
+}
+
+public static implicit operator Vector2(Vector3 v)
+{
+	return new Vector2(v.x, v.y);
+}
+
+public float magnitude => Mathf.Sqrt(x * x + y * y);
+```
+
+- `Mathf.Round` is `Math.Round(double)` with the default rounding, which is half to even: 0.5 gives 0, 1.5 gives 2, 2.5 gives 2. In C use `nearbyintf` with the default rounding mode, or `rintf`.
+- `Vector2 pos = transform.position` (`RockDragger.cs:59`, `:60`, `:103` to `:105`) drops z, so `Distance` is the distance in the xy plane.
+- `Random.Range(int, int)` and `Random.Range(float, float)` are not managed code (`Random.cs`: `RandomRangeInt` and `Range(float, float)` are `extern`). The int version has an exclusive upper bound and the float version an inclusive one (the doc comments in `Random.cs`). The generator itself is native, so the port cannot copy its number stream.
+- `Color.red` is (1, 0, 0, 1) and `Color.white` is (1, 1, 1, 1) (`GUITextButton.cs:9`, `:10`).
+
+
 ## 3. Scenes
 
 Build order (`settings/EditorBuildSettings.json`): 0 Intro, 1 Title, 2 Story1, 3 Story2, 4 Game, 5 Death, 6 Win. Window 660 x 440, not resizable, not full screen (`WINDOW_WIDTH`, `WINDOW_HEIGHT`).
@@ -474,17 +600,17 @@ Active at the start: everything except `Level/rockDestructionEffect`. Nothing in
     - `spr_newMessage` world pos (-1000, -1000, -29) scale (1.7, 1.7) SpriteRenderer[bis_cutscene_v1_3, order 0, off]
     - `spr_couldDecode` world pos (-1000, -1000, -29) scale (1.7, 1.7) SpriteRenderer[bis_cutscene_v1_2, order 0, off]
     - `spr_tutorial` world pos (-1000, -1000, -29) scale (1.7, 1.7) SpriteRenderer[rm_tutorial_v4_3, order 0, off]
-  - `nightosphere` world pos (-1000, -1000, -12) scale (6, 1) rot z 180 MeshFilter; MeshCollider; MeshRenderer
+  - `nightosphere` world pos (-1000, -1000, -12) scale (6, 1, 6) rot euler (270, 0, 0) MeshFilter; MeshCollider; MeshRenderer
   - `CameraFocus` world pos (-1000, -1000, -30) scale (1, 1) 
 - `Menu4` world pos (0, 0, 0) scale (1, 1) AudioSource[Menu4.wav, vol 1, pitch 1, play on awake, on]
 - `RockDragTarget` world pos (-0.633234, -3.23401, -5) scale (4.5, 4.5) SpriteRenderer[rockDragTarget, order 0, off color(1,1,1,0.352941)]; SnapToTarget
 - `Earth` world pos (0, 0, 0) scale (1, 1) Earth
   - `visibiltyIndicator` world pos (0.7, 0.99, -25) scale (1, 1) GUIText["WAIT FOR DAYLIGHT IN", size 11, anchor 0, align 2, rgba 255,255,255,134, off]
 - `Rocks` world pos (0, 0, -3) scale (1, 1) RockGenerator
-- `Player` tag Player world pos (6.56, 2.35, -1) scale (5, 5) TopDownControls; Rigidbody2D[mass 1, drag 0/0.05, dynamic, fixed angle]; RockDragger; CircleCollider2D[r 0.2, trigger]; AudioSource[player_strain.mp3, vol 0.027, pitch 1, off]; Animator; SpriteRenderer[bis_dude_ani_Animation 1_3, order 0, on]; PolygonCollider2D[8 points, solid, 3 pieces]
-  - `pivot` world pos (6.56, 2.35, -1) scale (0, 5) rot z 0 
-    - `audioListener` world pos (6.56, 2.35, -1) scale (0, 5) rot z 0 AudioListener
-    - `Sci-fi_AmbienceLoop1` world pos (6.56, 2.35, -1) scale (0, 0) rot z 0 AudioSource[Sci-fi_AmbienceLoop1.wav, vol 0.354, pitch 1, loop, play on awake, on]
+- `Player` tag Player world pos (6.56, 2.35, -1) scale (5, 5) TopDownControls; Rigidbody2D[mass 1, drag 0/0.05, dynamic, fixed angle]; RockDragger; CircleCollider2D[r 0.2, trigger]; AudioSource[player_strain.mp3, vol 0.027, pitch 1, off, probably silent: see 2.5]; Animator; SpriteRenderer[bis_dude_ani_Animation 1_3, order 0, on]; PolygonCollider2D[8 points, solid, 3 pieces]
+  - `pivot` world pos (6.56, 2.35, -1) scale (0, 5) rot Y 180 (local euler (0, 180, 0))
+    - `audioListener` world pos (6.56, 2.35, -1) scale (0, 5) rot Y 180 (world; local euler 0) AudioListener
+    - `Sci-fi_AmbienceLoop1` world pos (6.56, 2.35, -1) scale (0, 0) rot Y 180 (world; local euler 0) AudioSource[Sci-fi_AmbienceLoop1.wav, vol 0.354, pitch 1, loop, play on awake, on]
   - `footsteps` world pos (6.56, 2.35, 0) scale (1, 1) AudioSource[Footstep_Gravel_1.wav, vol 0.05, pitch 1, loop, play on awake, off]
 - `Rover` world pos (9.3, 4.5, -0.5) scale (1, 1) AudioSource[newMessage.mp3, vol 0, pitch 0.95, loop, play on awake, on]
   - `Reverb` world pos (9.3, 4.5, -0.5) scale (1, 1) AudioReverbZone
@@ -519,13 +645,13 @@ Positions in a prefab are its saved ones. `Instantiate(prefab, position, rotatio
 
 Rock (dark or light by script). Root saved position irrelevant.
 
-- `RockPrefab` world pos (-0.634035, -3.23763, 0) scale (4.5, 4.5) SpriteRenderer[bis_rock_dark_v3, order 0, on material cutout.mat]; CircleCollider2D[r 0.055, solid]; Rigidbody2D[mass 12, drag 12/12, dynamic]; Rock; DistanceJoint2D[distance 0.55, disabled]; AudioSource[drag.mp3, vol 0.158, pitch 0.45, loop, play on awake, off]
+- `RockPrefab` world pos (-0.634035, -3.23763, 0) scale (4.5, 4.5) SpriteRenderer[bis_rock_dark_v3, order 0, on material cutout.mat (built-in `Sprites/Default`, alpha blended, section 7.5)]; CircleCollider2D[r 0.055, solid]; Rigidbody2D[mass 12, drag 12/12, dynamic]; Rock; DistanceJoint2D[distance 0.55, disabled]; AudioSource[drag.mp3, vol 0.158, pitch 0.45, loop, play on awake, off]
 
 ### RockShadowPrefab
 
 Rock shadow, a sibling of its rock.
 
-- `RockShadowPrefab` world pos (0, 0, 0) scale (5, 5) SpriteRenderer[bis_shadow_v1, order 0, on material cutout.mat]
+- `RockShadowPrefab` world pos (0, 0, 0) scale (5, 5) SpriteRenderer[bis_shadow_v1, order 0, on material cutout.mat (built-in `Sprites/Default`, alpha blended, section 7.5)]
 
 ### RockPlaceholderPrefab
 
@@ -657,7 +783,7 @@ Every collider is on layer 0, so every pair below is live. The rule in Unity 2D:
 
 Because the roof polygon and the repeller circle are both tagged `Rover`, a rock that reaches the roof usually has crossed the repeller first. The repeller has radius 3.29 around the rover centre (offset (-0.15, -0.06)), while the roof is about 3.5 units wide. So rocks are removed before they touch the roof, unless they are dragged in.
 
-Unverified, measure on the reference build:
+Unverified, measure on the reference build (the full list is section 11):
 
 1. Trigger-versus-trigger overlaps. The Player's trigger circle against `playerInsideRoverTrigger` (static trigger) and against placeholders is the only way the large circle can switch the rover screen on. The plan says Unity fires these. I have no measurement.
 2. Whether Unity 5.4 sends `OnTriggerExit2D` when a rock inside a placeholder is destroyed.
@@ -668,7 +794,7 @@ Unverified, measure on the reference build:
 
 ### 6.1 Sprites and textures
 
-All images are point filtered, no mip maps, wrap clamp, 100 pixels per unit. The effective pivot is the sprite alignment, not the stored pivot: the three `marsTiles` slices store pivot (0, 0) but their alignment is Center, so the effective pivot is (0.5, 0.5). The build agrees (checked for all 56 sprites). `sprite.bounds.size.x` of a tile is 16 / 100 = 0.16. Sheet slice coordinates start at the bottom left, as in Unity. `asset_tables.h` also holds `y_from_top`.
+All images are point filtered, except `superdamage.png` and `rm_tutorial_v4_2.png`. Their `.meta` filter mode is -1 (not set), and the build's Texture2D has filter mode 1 (bilinear) for both (`extract/build_comparison.json`, `BUILD_FILTER_MODE` in `tools/extract.py`). No mip maps, wrap clamp (also for those two: the build has wrap mode 1), 100 pixels per unit. The effective pivot is the sprite alignment, not the stored pivot: the three `marsTiles` slices store pivot (0, 0) but their alignment is Center, so the effective pivot is (0.5, 0.5). The build agrees (checked for all 56 sprites). `sprite.bounds.size.x` of a tile is 16 / 100 = 0.16. Sheet slice coordinates start at the bottom left, as in Unity. `asset_tables.h` also holds `y_from_top`.
 
 The 3 tutorial images, `death.png`, `win.png`, `bis_screen_v2.png` are used as GUITexture only (no sprite).
 
@@ -685,14 +811,14 @@ The 3 tutorial images, `death.png`, `win.png`, `bis_screen_v2.png` are used as G
 | `Sprites/bis_shadow_v1.png` | 16x16 | 100 | point | 0.5,0.5 | single | prefabs/RockShadowPrefab.json |
 | `Sprites/rockDragTarget.png` | 24x24 | 100 | point | 0.5,0.5 | single | prefabs/RockDragTarget.json, scenes/Game.json |
 | `Sprites/rockDragTarget_dash.png` | 24x24 | 100 | point | 0.5,0.5 | single | prefabs/RockDragTarget.json, scenes/Game.json |
-| `Sprites/superdamage.png` | 254x360 | 100 | None | 0.5,0.5 | single | scenes/Intro.json |
+| `Sprites/superdamage.png` | 254x360 | 100 | bilinear (build) | 0.5,0.5 | single | scenes/Intro.json |
 | `Sprites/Cutscenes/bis_cutscene_v1_1.png` | 660x440 | 100 | point | 0.5,0.5 | single | scenes/Game.json |
 | `Sprites/Cutscenes/bis_cutscene_v1_2.png` | 660x440 | 100 | point | 0.5,0.5 | single | scenes/Game.json |
 | `Sprites/Cutscenes/bis_cutscene_v1_3.png` | 660x440 | 100 | point | 0.5,0.5 | single | scenes/Game.json |
 | `Sprites/Cutscenes/death.png` | 660x440 | 100 | point | 0.5,0.5 | single | scenes/Death.json |
 | `Sprites/Cutscenes/win.png` | 660x440 | 100 | point | 0.5,0.5 | single | scenes/Win.json |
 | `Sprites/Slides/rm_tutorial_v4_1.png` | 660x440 | 100 | point | 0.5,0.5 | single | scenes/Story1.json |
-| `Sprites/Slides/rm_tutorial_v4_2.png` | 660x440 | 100 | None | 0.5,0.5 | single | scenes/Story2.json |
+| `Sprites/Slides/rm_tutorial_v4_2.png` | 660x440 | 100 | bilinear (build) | 0.5,0.5 | single | scenes/Story2.json |
 | `Sprites/Slides/rm_tutorial_v4_3.png` | 660x440 | 100 | point | 0.5,0.5 | single | scenes/Game.json |
 | `Sprites/ground/marsTiles.png` | 48x16 | 100 | point | 0.5,0.5 | marsTiles_0@0,0 16x16, marsTiles_1@16,0 16x16, marsTiles_2@32,0 16x16 | scenes/Game.json |
 | `Sprites/idle/bis_dude_idle_paranoid_Animation 1_00.png` | 16x32 | 100 | point | 0.5,0.5 | single | animation/idle.anim.json |
@@ -738,34 +864,36 @@ Animation frames (`Sprites/idle`, `run`, `pull`) are single 16 x 32 sprites, one
 
 ### 6.2 Sound
 
-16 sound files are used. The files and their importer flags:
+16 sound files are used. The build is the reference for what the port plays. Eight MP3 files were re-encoded to Vorbis by the build (Unity 5 import), so their decoded length differs from the MP3 file. `seconds (build)` below is the length the build plays (frames / rate, `extract/build/audio.json`). The source length is in the note, and in `extract/assets/<path>.json` under `source` and `build`.
 
-| File | container | ch | rate | bits | seconds | importer 3D | stream | format | note |
+Layout in `port/assets` and why. Every sound is a 16 bit PCM WAV at its source path, with the extension changed to `.wav` when the source was an MP3. For 7 clips the file is the source WAV, because its PCM is byte for byte the build's PCM. For `Menu4.wav` (a 32 bit float WAV in the source) and for the 8 MP3 clips it is the build's own decoded audio, exported with UnityPy (FMOD). I chose WAV beside the source path because the port needs no MP3 or Vorbis decoder, the file names stay predictable, and the original MP3 files stay in the Unity project. `asset_tables.h` points at these files (`SOUNDS[].path`) and holds the build's channels, rate and frame count. Three MP3 files decode to exactly one MPEG frame (1152 samples, 0.0261 s) more than their Xing frame count says: `newMessage`, `Arcade_S`, `Victory_`. `static` plays at 11000 Hz in the build and not 11025 Hz, which is 0.23% slower than the file header says.
+
+| File | container | ch | rate | bits | seconds (build) | importer 3D | stream | format | note |
 |---|---|---|---|---|---|---|---|---|---|
-| `8BitSounds/Explosion1.wav` | wav | 1 | 44100 | 16 | 0.536 | True | 1 | -1 | exact |
-| `8BitSounds/Menu1.wav` | wav | 1 | 44100 | 16 | 0.089 | True | 1 | -1 | exact |
-| `8BitSounds/Menu4.wav` | wav | 2 | 44100 | 32 | 1.846 | False | 1 | -1 | exact |
-| `Assets/Free/Assets/8Bit/Explosion_04.wav` | wav | 1 | 48000 | 16 | 0.731 | False | 1 | -1 | exact |
-| `Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav` | wav | 1 | 48000 | 16 | 0.593 | True | 1 | -1 | exact |
-| `Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav` | wav | 2 | 48000 | 16 | 115.426 | True | 1 | -1 | exact |
-| `Assets/Free/Assets/UI2/GlassHitScroll6.wav` | wav | 2 | 48000 | 16 | 0.163 | False | 1 | -1 | exact |
-| `Assets/Free/Assets/UI2/HitsAccept2.wav` | wav | 2 | 48000 | 16 | 0.56 | False | 1 | -1 | exact |
-| `Sounds/Arcade_S-wwwbeat-8526_hifi.mp3` | mp3 | 1 | 44100 | - | 0.575 | False | 1 | 0 | Xing/Info frame count |
-| `Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.mp3` | mp3 | 2 | 44100 | - | 2.351 | False | 1 | 0 | file size / bitrate (CBR estimate) |
-| `Sounds/Victory_-arewhyae-8093_hifi.mp3` | mp3 | 2 | 44100 | - | 18.39 | False | 1 | 0 | Xing/Info frame count |
-| `Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.mp3` | mp3 | 2 | 32000 | - | 3.539 | False | 1 | 0 | file size / bitrate (CBR estimate) |
-| `Sounds/drag.mp3` | mp3 | 2 | 44100 | - | 0.758 | True | 1 | 0 | Xing/Info frame count |
-| `Sounds/newMessage.mp3` | mp3 | 2 | 44100 | - | 1.776 | True | 1 | 0 | Xing/Info frame count |
-| `Sounds/player_strain.mp3` | mp3 | 2 | 44100 | - | 1.489 | True | 1 | 0 | Xing/Info frame count |
-| `Sounds/static.mp3` | mp3 | 1 | 11025 | - | 14.838 | True | 1 | 0 | file size / bitrate (CBR estimate) |
+| `8BitSounds/Explosion1.wav` | wav | 1 | 44100 | 16 | 0.5359 | True | 1 | -1 | exact, the source file is kept |
+| `8BitSounds/Menu1.wav` | wav | 1 | 44100 | 16 | 0.0886 | True | 1 | -1 | exact, the source file is kept |
+| `8BitSounds/Menu4.wav` | wav | 2 | 44100 | 32 (float) in the source, 16 in the build | 1.8462 | False | 1 | -1 | same frames as the source. The source is 32 bit float, the build 16 bit, every sample within 1. Port file is the build's: `8BitSounds/Menu4.wav` |
+| `Assets/Free/Assets/8Bit/Explosion_04.wav` | wav | 1 | 48000 | 16 | 0.7306 | False | 1 | -1 | exact, the source file is kept |
+| `Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav` | wav | 1 | 48000 | 16 | 0.5931 | True | 1 | -1 | exact, the source file is kept |
+| `Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav` | wav | 2 | 48000 | 16 | 115.4259 | True | 1 | -1 | exact, the source file is kept |
+| `Assets/Free/Assets/UI2/GlassHitScroll6.wav` | wav | 2 | 48000 | 16 | 0.1632 | False | 1 | -1 | exact, the source file is kept |
+| `Assets/Free/Assets/UI2/HitsAccept2.wav` | wav | 2 | 48000 | 16 | 0.5599 | False | 1 | -1 | exact, the source file is kept |
+| `Sounds/Arcade_S-wwwbeat-8526_hifi.mp3` | mp3 (Vorbis in the build) | 1 | 44100 | 16 (decoded) | 0.6008 | False | 1 | 0 | source mp3 0.5747 s (Xing/Info frame count). Port file `Sounds/Arcade_S-wwwbeat-8526_hifi.wav` from the build, 26496 frames |
+| `Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.mp3` | mp3 (Vorbis in the build) | 2 | 44100 | 16 (decoded) | 2.351 | False | 1 | 0 | source mp3 2.351 s (size / bitrate estimate), same as the build. Port file `Sounds/FOLEY HORN PARTY TOY BLOW OUT 01.wav` from the build, 103680 frames |
+| `Sounds/Victory_-arewhyae-8093_hifi.mp3` | mp3 (Vorbis in the build) | 2 | 44100 | 16 (decoded) | 18.4163 | False | 1 | 0 | source mp3 18.3902 s (Xing/Info frame count). Port file `Sounds/Victory_-arewhyae-8093_hifi.wav` from the build, 812160 frames |
+| `Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.mp3` | mp3 (Vorbis in the build) | 2 | 32000 | 16 (decoded) | 3.528 | False | 1 | 0 | source mp3 3.5387 s (size / bitrate estimate). Port file `Sounds/bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm.wav` from the build, 112896 frames |
+| `Sounds/drag.mp3` | mp3 (Vorbis in the build) | 2 | 44100 | 16 (decoded) | 0.7576 | True | 1 | 0 | source mp3 0.7576 s (Xing/Info frame count), same as the build. Port file `Sounds/drag.wav` from the build, 33408 frames |
+| `Sounds/newMessage.mp3` | mp3 (Vorbis in the build) | 2 | 44100 | 16 (decoded) | 1.8024 | True | 1 | 0 | source mp3 1.7763 s (Xing/Info frame count). Port file `Sounds/newMessage.wav` from the build, 79488 frames |
+| `Sounds/player_strain.mp3` | mp3 (Vorbis in the build) | 2 | 44100 | 16 (decoded) | 1.489 | True | 1 | 0 | source mp3 1.489 s (Xing/Info frame count), same as the build. Port file `Sounds/player_strain.wav` from the build, 65664 frames |
+| `Sounds/static.mp3` | mp3 (Vorbis in the build) | 1 | 11000 (source 11025) | 16 (decoded) | 14.8375 | True | 1 | 0 | source mp3 14.8375 s (size / bitrate estimate), same as the build. Port file `Sounds/static.wav` from the build, 163213 frames |
 
-The 18 AudioSources. "Spatial blend" and "reverb mix" are the values in the build. Distances are in world units. Rolloff: log is Unity's logarithmic curve (volume = min distance / distance, 1 inside the min distance), linear goes from 1 at min distance to 0 at max distance, custom uses the AudioSource's own curve (rock drag and shatter: from 1 at 0 to 0 at 1 of the range, `ROCK_DRAG_ROLLOFF_CURVE`, `SHATTER_SOUND_ROLLOFF_CURVE`). Doppler is 1 everywhere, priorities are listed. Pitch of the rover enter sound is negative (-0.88), which plays the clip backwards in Unity 5 (unverified). The scripts change it to 0.6 or 0.9 before each play.
+The 18 AudioSources. "Spatial blend" and "reverb mix" are the values in the build. Distances are in world units. Rolloff: log is Unity's logarithmic curve (volume = min distance / distance, 1 inside the min distance), linear goes from 1 at min distance to 0 at max distance, custom uses the AudioSource's own curve (rock drag and shatter: from 1 at 0 to 0 at 1 of the range, `ROCK_DRAG_ROLLOFF_CURVE`, `SHATTER_SOUND_ROLLOFF_CURVE`). Doppler is 1 everywhere, priorities are listed. The scene pitch of the rover enter sound is -0.88. It never plays: the script overwrites the pitch before every `Play()` (`RoverInsideTrigger.cs:31` and `:52`), to 0.6 or 0.9.
 
 | Where | Clip | vol | pitch | loop | on awake | enabled | min/max dist | rolloff | clip 3D flag | spatial blend (build) | reverb mix (build) | spread | priority |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | scenes/Death `Victory_-arewhyae-8093_hifi` | `Sounds/Victory_-arewhyae-8093_hifi.mp3` | 0.35 | 1 | no | yes | on | 1/500 | log | no | 0 | 0 | 0 | 128 |
 | scenes/Game `Menu4` | `8BitSounds/Menu4.wav` | 1 | 1 | no | yes | on | 1/500 | log | no | 0 | 0 | 0 | 128 |
-| scenes/Game `Player` | `Sounds/player_strain.mp3` | 0.027 | 1 | no | no | off | 1/500 | log | yes | 1 | 1 | 0 | 128 |
+| scenes/Game `Player` | `Sounds/player_strain.mp3` (probably silent: disabled, see 2.5) | 0.027 | 1 | no | no | off | 1/500 | log | yes | 1 | 1 | 0 | 128 |
 | scenes/Game `Player/pivot/Sci-fi_AmbienceLoop1` | `Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav` | 0.354 | 1 | yes | yes | on | 2.78327/500 | log | yes | 1 | 1 | 0 | 100 |
 | scenes/Game `Player/footsteps` | `Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav` | 0.05 | 1 | yes | yes | off | 1/500 | log | yes | 1 | 1 | 0 | 128 |
 | scenes/Game `Rover` | `Sounds/newMessage.mp3` | 0 | 0.95 | yes | yes | on | 0/25 | linear | yes | 1 | 1 | 1 | 128 |
@@ -784,11 +912,26 @@ The 18 AudioSources. "Spatial blend" and "reverb mix" are the values in the buil
 
 The only AudioListener in the Game scene is `Player/pivot/audioListener`. Master volume 1, speed of sound 347, doppler factor 1, rolloff scale 1 (`AUDIO_*`). `AudioListener.volume` is a global and survives scene loads.
 
-Reverb zones (3D sources have reverb mix 1): `Rover/Reverb` and `RocketPrefab/Reverb`, preset 22, min distance 1.3, max distance 2, room -1000, room HF -1000, decay time 2.81, decay HF ratio 0.14, reflections 429 at 0.014 s, reverb 1023 at 0.021 s, HF reference 5000, LF reference 250, diffusion 80, density 60 (`ROVER_REVERB_*`, `ROCKET_REVERB_*`). Each zone is tiny and sits at the vehicle. Only the player's own 3D sounds (footsteps, strain, ambience, enter sound) and the chatter can be inside it.
+Reverb zones (3D sources have reverb mix 1): `Rover/Reverb` and `RocketPrefab/Reverb`, preset 22, min distance 1.3, max distance 2, room -1000, room HF -1000, decay time 2.81, decay HF ratio 0.14, reflections 429 at 0.014 s, reverb 1023 at 0.021 s, HF reference 5000, LF reference 250, diffusion 80, density 60 (`ROVER_REVERB_*`, `ROCKET_REVERB_*`). Each zone is tiny and sits at the vehicle. An AudioReverbZone acts on the listener position, not on each source. While the listener is inside the zone, every 3D source with reverb zone mix 1 is affected, wherever that source is. The listener is `Player/pivot/audioListener`, so the reverb is heard only while the player is within the zone (reverb at full strength inside min distance 1.3, fading out to max distance 2). The rover chatter, the new-message beep, rock drag and shatter sounds are affected during that time, and so are the player's own 3D sounds. How Unity blends and renders the reverb is in section 11.
 
 ### 6.3 Fonts
 
-One font: `Joystix/joystix monospace.ttf`, importer font size 16, character spacing 1, padding 0. Used by every GUIText (sizes 11, 12, 13, 17, 30, 40, 50) and by the TextMesh letters (size 200, scale 0.1). The 29 fonts in `Computer Pack` are not used.
+One font: `Joystix/joystix monospace.ttf` (57,596 bytes). The build embeds the same bytes (`extract/build/font.json`, `font_data_is_project_ttf`). The importer says font size 16, character spacing 1, padding 0. Used by every GUIText (sizes 11, 12, 13, 17, 30, 40, 50) and by the TextMesh letters (size 200, scale 0.1). The 29 fonts in `Computer Pack` are not used.
+
+Metrics (dump: `extract/assets/Joystix/joystix monospace.ttf.json#ttf` and `extract/build/font.json`):
+
+| Source | Value |
+|---|---|
+| TTF unitsPerEm | 1000 |
+| TTF hhea ascent, descent, line gap | 1001, -199, 0 |
+| TTF advance width | 828 for every glyph except one with 0 (390 glyphs, monospace) |
+| TTF OS/2 typo ascender, descender, line gap | 801, -199, 200 (not used by Unity, see below) |
+| TTF OS/2 win ascent, descent | 1001, 199 |
+| Build Font object (`sharedassets1.assets#6`) | font size 16, ascent 16.016, descent -3.184, line spacing 19.2 |
+| Build Font character spacing, padding, tracking | 0, 1, 1.0 |
+| Build Font dynamic | yes: convert case -2, no character rects, no kerning values |
+
+At size 16 the TTF gives ascent 1001 x 16 / 1000 = 16.016, descent -3.184, line height 1200 x 16 / 1000 = 19.2 and advance width 13.248. The build's numbers are the hhea values scaled to the font size. The OS/2 values do not appear. The build Font reports character spacing 0, so the importer's "character spacing 1" is not a spacing of one pixel. It shows up as `m_Tracking` 1.0, which is a multiplier (my reading, unverified). Because the font is dynamic, Unity rasterises glyphs from the TTF at the size of each GUIText and TextMesh. The port must do the same, with these metrics.
 
 ### 6.4 Animation
 
@@ -813,7 +956,7 @@ Only one live emitter: `RockShatterPrefab/large flames` (Unity legacy particle s
 | Emitter | ellipsoid, not one-shot, emit starts true, 100 particles per second (min and max), energy 0.1 to 0.4 s, size 0.05 to 0.35, ellipsoid size 0, random velocity (5, 5, 5), emitter velocity scale 0, local, world and tangent velocity 0, random rotation on, simulate in world space |
 | Animator | animate colour on, 5 colour keys (`SHATTER_ANIM_COLOR_0` to `_4`), damping 0.1, force (0, -1, 0), random force 0, size grow 0, autodestruct on |
 | Renderer | length scale 0.1, max particle size 1, no stretch, UV tile 1 x 1, material `Fire Smoke` |
-| Material | shader `Alpha-Diffuse` (Legacy Shaders / Transparent / Diffuse, lit by the scene's ambient light), `_Color` (1, 1, 1, 0.42), main texture `Sprites/bis_rock_dark_v3.png`. The source also names `smoketest2.psd` as `_AlphaTex`. The build's material has no such slot, so the file is not copied |
+| Material | shader `Alpha-Diffuse` (`Legacy Shaders/Transparent/Diffuse`): alpha blend `SrcAlpha OneMinusSrcAlpha`, ZWrite off, queue Transparent (3000). Lit: the programs read the scene lights and the ambient light. It does not read the vertex colour, so the colour keys of the particle animator do not tint the particles (section 7.5, evidence in `extract/build/shaders.json`). `_Color` (1, 1, 1, 0.42), main texture `Sprites/bis_rock_dark_v3.png`. The source also names `smoketest2.psd` as `_AlphaTex`. The build's material has no such slot, so the file is not copied |
 | Lifetime | the emitter stops after 0.5 s (animation). The root object is destroyed after 2.0 s (`TimedObjectDestructor`). The root also plays `Explosion1.wav` |
 
 The Game scene also holds `Level/rockDestructionEffect`, inactive and never enabled by any script. Leave it out.
@@ -822,7 +965,7 @@ The Game scene also holds `Level/rockDestructionEffect`, inactive and never enab
 
 ### 7.1 Camera and window
 
-Orthographic, size 3.6 in Game (5 in other scenes). That is 7.2 world units over 440 pixels: 61.1 pixels per unit. Aspect = `Screen.width / Screen.height` = 1.5. The scripts read the live screen size (`CamerFocusSwitcher.cs:86`), so the port must pass the real window size. Background is a solid colour (clear flags 1). Quality "Fastest": no vsync, no anti-aliasing, no shadows, no pixel lights (`QUALITY_*`).
+Orthographic, size 3.6 in Game (5 in other scenes). That is 7.2 world units over 440 pixels: 61.1 pixels per unit. Aspect = `Screen.width / Screen.height` = 1.5. The scripts read the live screen size (`CamerFocusSwitcher.cs:86`), so the port must pass the real window size. Colour space is Gamma: `extract/settings/ProjectSettings.json#m_ActiveColorSpace` is 0, and the build agrees (`extract/build/color_space.json`). Colours, textures and blending use the raw 0..1 values. No sRGB to linear conversion applies. Background is a solid colour (clear flags 1). Quality "Fastest": no vsync, no anti-aliasing, no shadows, no pixel lights (`QUALITY_*`).
 
 ### 7.2 Draw order
 
@@ -838,7 +981,7 @@ All SpriteRenderers have sorting order 0 and all use sorting layer Default. Unit
 | -4 | placeholders |
 | -5 | drag target marker |
 | -8.5 | rover roof, rocket cover (shown only near) |
-| -12 | night overlay (a 60 x 60 plane child of the camera, material `nightMat`, shader Alpha-Diffuse, colour (0, 0, 0, alpha)) |
+| -12 | night overlay (a 60 x 60 plane child of the camera, material `nightMat`, shader Alpha-Diffuse: alpha blend `SrcAlpha OneMinusSrcAlpha`, ZWrite off, queue Transparent 3000, section 7.5. Colour (0, 0, 0, alpha), so the lighting term is black and only the alpha matters) |
 | -20.5 | update indicator over the rover |
 | -29 | decoded letters (TextMesh), cutscene images |
 
@@ -869,6 +1012,24 @@ TextMesh letters (`LetterPrefab`): font size 200, character size 1, object scale
 ### 7.4 Input
 
 `settings/InputManager.json` axes in use: `Horizontal` (negative left, positive right, alt negative a, alt positive d) and `Vertical` (down, up, s, w). Both keyboard axes: sensitivity 3, gravity 3, dead 0.001, snap on, no invert (`INPUT_KEY_*`). The joystick axes of the same names: sensitivity 1, dead 0.19, vertical inverted, joystick 0 (`INPUT_STICK_*`). Direct key reads: Space (down, up), M (held), H, Escape, P, C and LeftShift (down), left mouse (down).
+
+### 7.5 Shaders
+
+Source: `extract/build/shaders.json` (parsed Shader objects and Materials of the 2016 build, with the first desktop OpenGL program of each shader as evidence). The build is the reference. The source scenes name the built-in shaders by Unity 4 ids (`resources/unity_builtin_extra#30` for `nightMat` and `Fire Smoke`, `library/unity default resources#10753` for `cutout`, `#10754` for the `Sprites-Default` material). The build resolves them as in the table. The ids differ from the ones in the source, so look them up in the build.
+
+| Shader | Where in the build | Used by | Blend | ZWrite | Queue | Lighting | Vertex colour |
+|---|---|---|---|---|---|---|---|
+| `Sprites/Default` (asset name `Sprites-Default`) | `resources/unity_builtin_extra#10753` | every SpriteRenderer (`Sprites-Default` material, `globalgamemanagers.assets#2`) and `cutout.mat` (rocks, rock shadows) | `One OneMinusSrcAlpha`, premultiplied: the fragment multiplies rgb by alpha | off (Cull off) | Transparent 3000 | none | yes: output = texture x vertex colour x `_Color` |
+| `Legacy Shaders/Transparent/Diffuse` (asset name `Alpha-Diffuse`) | `sharedassets4.assets#61` | `nightMat.mat` (night overlay), `Fire Smoke.mat` (shatter particles) | `SrcAlpha OneMinusSrcAlpha` (forward base pass), `SrcAlpha One` (forward add pass), colour mask RGB | off | Transparent 3000 | lit: scene lights (Lambert) and ambient light from spherical harmonics | no |
+| `GUI/Text Shader` | `library/unity default resources#10101` | GUIText and TextMesh (the font material) | `SrcAlpha OneMinusSrcAlpha` | off (ZTest always, Cull off) | Transparent 3000 | none | yes: text colour |
+| `Particles/Additive` (asset name `Particle Add`) | `sharedassets4.assets#63` | `Fairy Dust.mat`, used only by the inactive `Level/rockDestructionEffect` | `SrcAlpha One` | off | Transparent 3000 | none | yes |
+
+What follows from the data:
+
+- `cutout.mat` is not an alpha-test material. It uses `Sprites/Default`, which has no `_Cutoff` property. The `_Cutoff` 0.5 and `PixelSnap` 0 in the material do nothing. Pixel snap is off (no `PIXELSNAP_ON` keyword).
+- The night overlay's material is `Alpha-Diffuse` with `_Color` (0, 0, 0, alpha) and no texture. The lighting term multiplies black, so the output is black with the alpha of `_Color` (the texture is the default white). It is drawn in the Transparent queue with ZWrite off.
+- The shatter particles use the same shader. Its programs do not read the vertex colour (no `gl_Color` or `COLOR0` input in any of its programs). The legacy particle renderer writes the particle colour into the vertex colour, so the five colour keys of the particle animator probably have no visible effect here. The colour comes from `_Color` (1, 1, 1, 0.42) and the rock texture, multiplied by the light on the surface. The ambient light of the scene is (1, 0.671, 0.493), so the lit result is tinted. This is derived from the shader text, not measured (section 11).
+- Evidence: `extract/build/shaders.json#shaders[*].programs` lists the attribute and uniform names found in the compiled programs, and `first_opengl_program` holds the first program as text.
 
 ## 8. Engine features the port must cover
 
@@ -922,14 +1083,33 @@ TextMesh letters (`LetterPrefab`): font size 200, character size 1, object scale
 15. **Layer matrix.** Everything is on layer 0 and everything collides. The plan does not say this. No layer logic is needed.
 16. **The UI sprite `RockDragTarget` is not a prefab in the build.** Only the scene instance matters. The prefab's colour alpha (0.627) differs from the scene's (0.353). The scene value is used.
 17. **GUITexture sizes.** Four full-screen images use scale 0 and pixel inset 660 x 440. The rover screen uses scale 1 with inset width -220. The plan says only "GUITexture for the rover screen background".
-18. **Hard-coded values that are not in the scene.** These live only in code and must be copied with a comment: `SOL_IN_HOURS` 24.648, solCounter duration 3 s, decoded message duration 2 s, Rock `sfxMinVelocity` 0.2 and torque factor 13, drag shadow offset (0, -0.3, -0.6), footstep threshold 0.5 and pitches 0.9 and 1.9, walk speed 7.2 with factor 0.8, player clamp margins 0.5 and 0.8, rock spawn range 0.5, camera ease factors 0.1 and 0.2 and speeds 0.2 and 1.0, night factor 0.85 and ease 0.2, the cheat key, the 31 character line width, 12 line capacity, `yStart` offset -1.394218, indicator fade 1.2, placeholder clear time 0.6, intro 2.0 and 0.1, end screens 5 s.
+18. **Hard-coded values that are not in the scene.** These live only in code and must be copied with a comment: `SOL_IN_HOURS` 24.648, solCounter duration 3 s, decoded message duration 2 s, Rock `sfxMinVelocity` 0.2 and torque factor 13, drag shadow offset (0, -0.3, -0.6), footstep threshold 0.5 and pitches 0.9 and 1.9, walk speed 7.2 with factor 0.8, player clamp margins 0.5 and 0.8, rock spawn range 0.5, camera ease factors 0.1 and 0.2 and speeds 0.2 and 1.0, night factor 0.85 and ease 0.2, the cheat key, the 31 character line width, 12 line capacity, `yStart` offset -1.394218, indicator fade 1.2, placeholder clear time 0.6, intro 2.0 and 0.1, end screens 5 s. Every one of them, and every other string and number that lives only in the code, is in `port/src/code_constants.h` with its file and line. `tools/extract.py` checks each against the source.
 19. **Update order (plan 6.3, item 10).** Confirmed: no execution order is set anywhere. Also `RoverScreen.Start` calls `printScreen` once, which reads `mars.hoursUntilNextSol` before `Mars.Update` ran. The first text has zeros in those fields. It is overwritten in the first `Update`.
 20. **Build facts the plan said were unconfirmed.** The Mac build is Unity 5.4.3f1, x86_64. The WebGL build is IL2CPP-style (no managed DLL) and holds identical gameplay data. Both builds' project settings: 660 x 440, not resizable, run in background off, Unity splash on.
 
 ## 10. Not extracted, and open questions
 
-- Unity engine behaviour that the data cannot show: GetAxis smoothing curve, 3D audio attenuation curves, reverb output, GUIText layout metrics, shader maths for Alpha-Diffuse. Measure these on the Mac build (plan section 9).
-- IL logic of `Assembly-CSharp.dll` (section 1).
+- Unity engine behaviour that the data cannot show is listed in section 11. Measure it on the Mac build (plan section 9). The shader programs are not engine behaviour. They are in `extract/build/shaders.json` (section 7.5).
+- IL logic of `Assembly-CSharp.dll`: done. See `extract/decompile_check.md` (all 24 scripts MATCH).
 - `smoketest2.psd` is not copied. It is only named by a material slot that the shader does not have. `Standard Assets` prefabs other than the ones listed are not dumped.
 - The `.meta` file of the font has no per-size data. Unity renders GUIText from the TTF at the size given by the GUIText.
 - Unused assets and why: `extract/derived/used_assets.json` (`excluded`, 152 files).
+
+## 11. Engine behaviour to measure
+
+The data cannot show these. Measure each on the reference build before relying on the port's behaviour. One line each, with the source line that depends on it.
+
+- Trigger against trigger overlaps (the Player trigger circle against `playerInsideRoverTrigger` and placeholders): `RoverInsideTrigger.cs:26`, `RockPlaceholder.cs:52`, `RockDragger.cs:93`.
+- Whether an exit event fires when a rock is destroyed while inside a placeholder: `RockPlaceholder.cs:98`, `Rock.cs:130`, `RockGenerator.cs:66`.
+- The player's colliders after the raw quaternion Y flip (180 or 0 written into `rotation.y`): `TopDownControls.cs:63` to `:69`.
+- Rock spin, rock drag and the player's speed with a rock on the joint: `Rock.cs:67`, `RockDragger.cs:71` to `:80`.
+- `GetAxis` smoothing, including its value after the pause at timeScale 0: `TopDownControls.cs:43`, `:44`, `Earth.cs:190`.
+- 3D audio: rolloff, spread, doppler and reverb output of the zones. The -0.88 pitch of the rover enter sound never plays, because the pitch is overwritten before `Play()`: `RoverInsideTrigger.cs:31` and `:52`.
+- GUIText, TextMesh and GUITexture layout (anchor, alignment, line spacing, pixel inset, scale 0 and negative inset) and the mouse hit rectangles: `Mars.cs:158`, `RoverScreen.cs:107`, `GUITextButton.cs:15` to `:30`, `LevelLoader.cs:319` to `:324`.
+- `Play()` on a disabled AudioSource, and what re-enabling does (the strain sound is probably silent): `RockDragger.cs:79`, `Rock.cs:60`, `:70`, `TopDownControls.cs:61`, `:76`.
+- Legacy particle semantics: the threshold of the `m_Emit` curve, whether damping is per frame or per second, the range of the random velocity including z, size units, colour keys against the shader (the shader ignores vertex colour, section 7.5) and draw order: `RockGenerator.cs:64`.
+- Sleeping rocks against new triggers: `Rock.cs:99` to `:108`, `RockPlaceholder.cs:52`.
+- `Animator.Play` every fixed update, and the pose at the start: `TopDownControls.cs:72`, `:78`.
+- A scene change cutting audio, and `Time.time` inside physics callbacks: `RoverScreen.cs:113`, `Rocket.cs:21`, `EndGame.cs:28`, `RockPlaceholder.cs:56`.
+- Equal-z draw ties (all ground tiles at z 0, rocks at z -3): `Mars.cs:112`, `RockGenerator.cs:58`.
+- The first-frame `deltaTime`: `Mars.cs:143`, `:150`, `Earth.cs:117`, `Intro.cs:17`.

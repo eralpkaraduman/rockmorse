@@ -1,0 +1,67 @@
+{
+ "build_font": {
+  "build_file": "sharedassets1.assets",
+  "character_rects": 0,
+  "dynamic": true,
+  "font_data_bytes": 57596,
+  "font_data_is_project_ttf": true,
+  "kerning_values": 0,
+  "m_Ascent": 16.016,
+  "m_AsciiStartOffset": 0,
+  "m_CharacterPadding": 1,
+  "m_CharacterSpacing": 0,
+  "m_ConvertCase": -2,
+  "m_DefaultStyle": 0,
+  "m_Descent": -3.184,
+  "m_FontNames": [
+   "Joystix"
+  ],
+  "m_FontRenderingMode": 0,
+  "m_FontSize": 16.0,
+  "m_LineSpacing": 19.2,
+  "m_Name": "joystix monospace",
+  "m_PixelScale": 0.1,
+  "m_Tracking": 1.0,
+  "path_id": 6
+ },
+ "import": {
+  "characterPadding": 0,
+  "characterSpacing": 1,
+  "customCharacters": null,
+  "fontNames": [],
+  "fontRenderingMode": 0,
+  "fontSize": 16,
+  "forceTextureCase": -2,
+  "includeFontData": 1,
+  "serializedVersion": 2,
+  "use2xBehaviour": 0,
+  "userData": null
+ },
+ "note": "Font object of the 2016 build (sharedassets1.assets), the TTF metrics, and the same numbers at the font size.",
+ "ttf": {
+  "advance_width": 828,
+  "glyphs": 390,
+  "glyphs_with_advance_zero": 1,
+  "hhea_advanceWidthMax": 828,
+  "hhea_ascent": 1001,
+  "hhea_descent": -199,
+  "hhea_lineGap": 0,
+  "line_height_units": 1200,
+  "numberOfHMetrics": 390,
+  "os2_typoAscender": 801,
+  "os2_typoDescender": -199,
+  "os2_typoLineGap": 200,
+  "os2_version": 3,
+  "os2_winAscent": 1001,
+  "os2_winDescent": 199,
+  "os2_xAvgCharWidth": 828,
+  "unitsPerEm": 1000
+ },
+ "ttf_scaled_to_font_size": {
+  "advance_width": 13.248,
+  "ascent": 16.016,
+  "descent": -3.184,
+  "line_height": 19.2,
+  "size": 16.0
+ }
+}

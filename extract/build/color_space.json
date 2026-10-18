@@ -1,0 +1,7 @@
+{
+ "build": "globalgamemanagers PlayerSettings",
+ "m_ActiveColorSpace": 0,
+ "name": "Gamma",
+ "note": "0 is Gamma, 1 is Linear. Same value in the project and the build.",
+ "source": "settings/ProjectSettings.json#m_ActiveColorSpace"
+}

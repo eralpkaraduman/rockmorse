@@ -600,14 +600,15 @@ def compare_assets(env, files):
                 is3d = d.get("m_3D")
                 if is3d is not None and bool(is3d) != bool(meta["is_3d"]):
                     bad.append({"field": "3D", "source": meta["is_3d"], "build": bool(is3d)})
-                if d.get("m_Channels") and meta.get("channels") and d["m_Channels"] != meta["channels"]:
-                    bad.append({"field": "channels", "source": meta["channels"], "build": d["m_Channels"]})
+                srcinfo = meta.get("source") or {}  # the source file's own facts, written by tools/extract.py
+                if d.get("m_Channels") and srcinfo.get("channels") and d["m_Channels"] != srcinfo["channels"]:
+                    bad.append({"field": "channels", "source": srcinfo["channels"], "build": d["m_Channels"]})
                 fr = d.get("m_Frequency")
-                if fr and meta.get("sample_rate") and fr != meta["sample_rate"]:
-                    bad.append({"field": "sample_rate", "source": meta["sample_rate"], "build": fr})
+                if fr and srcinfo.get("sample_rate") and fr != srcinfo["sample_rate"]:
+                    bad.append({"field": "sample_rate", "source": srcinfo["sample_rate"], "build": fr})
                 ln = d.get("m_Length")
-                if ln and meta.get("seconds") and abs(ln - meta["seconds"]) > 0.05:
-                    bad.append({"field": "length", "source": meta["seconds"], "build": ln})
+                if ln and srcinfo.get("seconds") and abs(ln - srcinfo["seconds"]) > 0.005:  # one MPEG frame is 0.026
+                    bad.append({"field": "length", "source": srcinfo["seconds"], "build": ln})
                 res["audio"].append({"name": d["m_Name"], "build": {"3D": is3d, "channels": d.get("m_Channels"),
                                      "frequency": fr, "length": ln, "compression": d.get("m_CompressionFormat"),
                                      "load_type": d.get("m_LoadType"), "stream": d.get("m_Stream")}, "diffs": bad})
