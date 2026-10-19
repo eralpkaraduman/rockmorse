@@ -121,6 +121,32 @@
 .tc-dpad-row .tc-left { grid-area: 1 / 1; }
 .tc-dpad-row .tc-right { grid-area: 1 / 3; }
 
+/* The thumb stick, in the D-pad's 3x3 square: a round base with a knob that
+   follows the thumb (touch-controls.js moves it). */
+.tc-stick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(3 * var(--tc-cell));
+  height: calc(3 * var(--tc-cell));
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-sizing: border-box;
+}
+.tc-knob {
+  width: 42%;
+  height: 42%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+}
+.tc-stick.tc-pressed .tc-knob { background: rgba(255, 255, 255, 0.55); }
+.tc-overlay .tc-stick { background: rgba(0, 0, 0, 0.3); border-color: rgba(255, 255, 255, 0.6); opacity: 0.45; }
+.tc-overlay .tc-stick.tc-pressed { opacity: 0.85; }
+
 /* Round buttons set on a diagonal, the first one lower, like a handheld. */
 .tc-actions {
   display: flex;

@@ -8,6 +8,7 @@
 //     canvas: document.getElementById('canvas'),
 //     frame: document.getElementById('frame'),   // the canvas's parent; the bar goes under the canvas
 //     dpad: { left: 263, right: 262, up: 265, down: 264 },  // key codes; leave a direction out to hide it
+//     stick: true,                               // optional: a thumb stick in place of the D-pad's arrows
 //     buttons: [ { label: 'X', caption: 'Jump', key: 88 }, ... ],
 //     onKey: function (key, down) { ... },       // called when a button goes down or up
 //     tapClicks: true,                           // optional: a tap on the game is a mouse click
@@ -52,12 +53,22 @@
     var bar = el('div', 'tc-bar', host);
     var dpadKeys = options.dpad || {};
     var dpad = el('div', 'tc-dpad', bar);
-    // Without up and down, the D-pad is a single compact row.
-    if (dpadKeys.up == null && dpadKeys.down == null) dpad.classList.add('tc-dpad-row');
-    var arrows = { up: '▲', left: '◀', right: '▶', down: '▼' };
-    Object.keys(arrows).forEach(function (dir) {
-      if (dpadKeys[dir] != null) addButton(dpad, 'tc-' + dir, dpadKeys[dir], arrows[dir], dir);
-    });
+    var knob = null;
+    if (options.stick) {
+      // A thumb stick in the D-pad's place. It sends the same arrow keys,
+      // two at once on a diagonal.
+      dpad.classList.add('tc-stick');
+      dpad.setAttribute('role', 'group');
+      dpad.setAttribute('aria-label', 'stick');
+      knob = el('div', 'tc-knob', dpad);
+    } else {
+      // Without up and down, the D-pad is a single compact row.
+      if (dpadKeys.up == null && dpadKeys.down == null) dpad.classList.add('tc-dpad-row');
+      var arrows = { up: '▲', left: '◀', right: '▶', down: '▼' };
+      Object.keys(arrows).forEach(function (dir) {
+        if (dpadKeys[dir] != null) addButton(dpad, 'tc-' + dir, dpadKeys[dir], arrows[dir], dir);
+      });
+    }
     var actions = el('div', 'tc-actions', bar);
     // Three or more round buttons are made smaller, so they fit beside a
     // full D-pad on a phone.
@@ -66,14 +77,38 @@
       addButton(actions, 'tc-round', b.key, b.label, b.caption);
     });
 
-    // Which key each finger is on, and how many fingers hold each key.
+    // Which keys each finger holds, and how many fingers hold each key.
     var fingers = new Map();
     var holds = new Map();
+    var stickFinger = null;
 
-    function keyAt(x, y) {
+    function keysAt(x, y) {
       var target = document.elementFromPoint(x, y);
       var button = target && target.closest('[data-key]');
-      return button && bar.contains(button) ? Number(button.dataset.key) : null;
+      return button && bar.contains(button) ? [Number(button.dataset.key)] : [];
+    }
+
+    // The stick's keys for a finger at x, y. The knob follows the finger up
+    // to the edge of the base. Near the centre nothing is pressed. Further
+    // out, each of the 8 directions covers 45 degrees: an axis counts when
+    // the finger is more than 22.5 degrees towards it.
+    var STICK_DEAD_ZONE = 0.25;               // of the base's radius
+    var STICK_AXIS = Math.sin(Math.PI / 8);   // sin 22.5 degrees
+    function stickKeys(x, y) {
+      var r = dpad.getBoundingClientRect();
+      var radius = r.width / 2;
+      var dx = x - (r.left + radius), dy = y - (r.top + r.height / 2);
+      var dist = Math.hypot(dx, dy);
+      var travel = radius - knob.offsetWidth / 2;
+      var scale = dist > travel ? travel / dist : 1;
+      knob.style.transform = 'translate(' + dx * scale + 'px, ' + dy * scale + 'px)';
+      if (dist < radius * STICK_DEAD_ZONE) return [];
+      var keys = [], axis = dist * STICK_AXIS;
+      if (dx > axis && dpadKeys.right != null) keys.push(dpadKeys.right);
+      if (dx < -axis && dpadKeys.left != null) keys.push(dpadKeys.left);
+      if (dy > axis && dpadKeys.down != null) keys.push(dpadKeys.down);
+      if (dy < -axis && dpadKeys.up != null) keys.push(dpadKeys.up);
+      return keys;
     }
 
     function setPressed(key, down) {
@@ -83,34 +118,50 @@
       options.onKey(key, down);
     }
 
-    function move(id, key) {
-      var old = fingers.has(id) ? fingers.get(id) : null;
-      if (old === key) return;
-      if (old !== null) {
-        var left = holds.get(old) - 1;
-        holds.set(old, left);
-        if (left === 0) setPressed(old, false);
-      }
-      if (key !== null) {
+    function move(id, keys) {
+      var old = fingers.get(id) || [];
+      old.forEach(function (key) {
+        if (keys.indexOf(key) >= 0) return;
+        var left = holds.get(key) - 1;
+        holds.set(key, left);
+        if (left === 0) setPressed(key, false);
+      });
+      keys.forEach(function (key) {
+        if (old.indexOf(key) >= 0) return;
         var count = (holds.get(key) || 0) + 1;
         holds.set(key, count);
         if (count === 1) setPressed(key, true);
-      }
-      fingers.set(id, key);
+      });
+      fingers.set(id, keys);
     }
 
     function lift(id) {
-      move(id, null);
+      move(id, []);
       fingers.delete(id);
+      if (id === stickFinger) {
+        stickFinger = null;
+        dpad.classList.remove('tc-pressed');
+        knob.style.transform = '';
+      }
+    }
+
+    // A finger that lands on the stick steers it until it lifts, even when
+    // it slides off the base. Other fingers press the buttons under them.
+    function keysFor(e) {
+      return e.pointerId === stickFinger ? stickKeys(e.clientX, e.clientY) : keysAt(e.clientX, e.clientY);
     }
 
     bar.addEventListener('pointerdown', function (e) {
       e.preventDefault();
       bar.setPointerCapture(e.pointerId); // keep getting this finger's events off the bar
-      move(e.pointerId, keyAt(e.clientX, e.clientY));
+      if (knob && stickFinger === null && dpad.contains(e.target)) {
+        stickFinger = e.pointerId;
+        dpad.classList.add('tc-pressed');
+      }
+      move(e.pointerId, keysFor(e));
     });
     bar.addEventListener('pointermove', function (e) {
-      if (fingers.has(e.pointerId)) move(e.pointerId, keyAt(e.clientX, e.clientY));
+      if (fingers.has(e.pointerId)) move(e.pointerId, keysFor(e));
     });
     bar.addEventListener('pointerup', function (e) { lift(e.pointerId); });
     bar.addEventListener('pointercancel', function (e) { lift(e.pointerId); });
