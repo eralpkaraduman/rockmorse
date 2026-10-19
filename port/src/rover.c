@@ -10,15 +10,6 @@ SpriteRenderer missionUpdateIndicator;
 static AudioSource enterSound; // playerInsideRoverTrigger's AudioSource
 static AudioSource chatter;    // playerInsideRoverTrigger/chatter, the radio static
 
-// The chatter's world position is not in values.h yet. These are the
-// dump's values, scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:
-// @transform:world_position, used until extract.py adds the row (step 10).
-#ifndef ROVER_CHATTER_POS_X
-#define ROVER_CHATTER_POS_X 9.186773f
-#define ROVER_CHATTER_POS_Y 4.7684665f
-#define ROVER_CHATTER_POS_Z -0.5f
-#endif
-
 // RoverInsideTrigger.cs fields.
 static float setOnPitch;
 static float setOffPitch;
@@ -67,7 +58,7 @@ void rover_start(void)
     physics_circle(body, (Collider){OWNER_ROVER_REPELLER, 0, ROCK_REPELLER_TAG, ROCK_REPELLER_IS_TRIGGER},
                    (b2Vec2){ROCK_REPELLER_OFFSET_WORLD_X, ROCK_REPELLER_OFFSET_WORLD_Y}, ROCK_REPELLER_RADIUS_WORLD);
     body = physics_body(b2_staticBody, (b2Vec2){ROVER_INSIDE_TRIGGER_POS_X, ROVER_INSIDE_TRIGGER_POS_Y}, 0, 0, 0, false);
-    physics_circle(body, (Collider){OWNER_ROVER_INSIDE, 0, TAG_UNTAGGED, ROVER_INSIDE_TRIGGER_IS_TRIGGER},
+    physics_circle(body, (Collider){OWNER_ROVER_INSIDE, 0, ROVER_INSIDE_TRIGGER_TAG, ROVER_INSIDE_TRIGGER_IS_TRIGGER},
                    (b2Vec2){ROVER_INSIDE_TRIGGER_OFFSET_WORLD_X, ROVER_INSIDE_TRIGGER_OFFSET_WORLD_Y},
                    ROVER_INSIDE_TRIGGER_RADIUS_WORLD);
 }

@@ -10,10 +10,6 @@
 #include "physics.h"
 #include "code_constants.h"
 
-// Unity's tag for a GameObject without one. The inside triggers of the
-// rover and the rocket, rocks and placeholders have it.
-#define TAG_UNTAGGED "Untagged"
-
 // Builds a SpriteRenderer from a values.h prefix, e.g. SPRITE_RENDERER(ROVER_BODY).
 #define SPRITE_RENDERER(p) ((SpriteRenderer){ \
     .transform = {.position = {p##_POS_X, p##_POS_Y, p##_POS_Z}, .scale = {p##_SCALE_X, p##_SCALE_Y, p##_SCALE_Z}}, \

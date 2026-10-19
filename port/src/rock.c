@@ -6,7 +6,7 @@
 Rock rocks[MAX_ROCKS];
 
 // Rigidbody2D.AddTorque takes Unity's torque, which Box2D gets as it is.
-// ponytail: step 4 of the plan checks the spin against the reference.
+// Step 4 of the plan checked the spin against the reference, and it matches.
 #define UNITY_TORQUE_TO_BOX2D 1.0f
 
 Rock *rock_get(RockRef ref)
@@ -69,7 +69,7 @@ Rock *rock_instantiate(Vector3 position)
     *r = (Rock){.alive = true, .generation = generation};
     r->body = physics_body(b2_dynamicBody, (b2Vec2){position.x, position.y}, ROCK_RB_LINEAR_DRAG,
                            ROCK_RB_ANGULAR_DRAG, ROCK_RB_GRAVITY_SCALE, ROCK_RB_FIXED_ANGLE);
-    r->collider = physics_circle(r->body, (Collider){OWNER_ROCK, slot, TAG_UNTAGGED, ROCK_IS_TRIGGER},
+    r->collider = physics_circle(r->body, (Collider){OWNER_ROCK, slot, ROCK_TAG, ROCK_IS_TRIGGER},
                                  (b2Vec2){ROCK_OFFSET_WORLD_X, ROCK_OFFSET_WORLD_Y}, ROCK_RADIUS_WORLD);
     physics_set_mass(r->body, ROCK_RB_MASS);
     r->renderer = SPRITE_RENDERER(ROCK);

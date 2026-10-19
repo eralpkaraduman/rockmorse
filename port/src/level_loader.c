@@ -7,10 +7,6 @@
 
 LevelLoader levelLoader;
 
-// m_PixelScale of the Joystix font in the 2016 build, from
-// extract/build/font.json. values.h does not hold it yet.
-#define JOYSTIX_PIXEL_SCALE 0.1f
-
 // LevelLoader.cs private fields.
 static float U;
 static float V;

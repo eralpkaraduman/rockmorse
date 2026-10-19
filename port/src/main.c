@@ -85,6 +85,8 @@ int main(void)
     SetConfigFlags(FLAG_WINDOW_HIGHDPI | FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
 #endif
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, PRODUCT_NAME);
+    // Without a display there is no window to draw in. Stop cleanly.
+    if (!IsWindowReady()) return 1;
     // Escape toggles the tutorial, as in the original, so it must not
     // close the window, which is raylib's default.
     SetExitKey(KEY_NULL);

@@ -965,6 +965,8 @@ class Dumps:
         d = self.load(rel)
         if rel.startswith(("scenes/", "prefabs/")):
             go, comp, field = rest.split(":", 2)
+            if go == "scene_settings":
+                return get_path(d["scene_settings"][comp], field)
             [node] = [n for n in d["gameobjects"] if n["path"] == go]
             if comp == "@node":
                 return get_path(node, field)
@@ -1005,351 +1007,629 @@ def dump_settings(folder, outdir):
 #     Component key "@transform" reads the computed local/world transform,
 #     "@node" reads the GameObject (tag, layer, active). A field path starting with
 #     "derived." reads the world-scaled values added by this script.
+#   scenes/<Scene>.json#scene_settings:<Settings object>:<field path>, e.g. RenderSettings
 #   settings/<Name>.json#<field path>, materials/<Name>.json#<path>, animation/...
 # --------------------------------------------------------------------------
 
-G = "scenes/Game.json"
-
-
-def tr(p, f, go, euler=False):
-    rows = [(p + "_POS", "%s#%s:@transform:world_position" % (f, go)),
-            (p + "_SCALE", "%s#%s:@transform:world_scale" % (f, go))]
-    if euler:
-        rows.append((p + "_EULER", "%s#%s:@transform:world_euler" % (f, go)))
-    return rows
-
-
-def local_tr(p, f, go):
-    return [(p + "_LOCAL_POS", "%s#%s:@transform:local_position" % (f, go)),
-            (p + "_LOCAL_SCALE", "%s#%s:@transform:local_scale" % (f, go))]
-
-
-def audio(p, f, go, curve=False):
-    """AudioSource rows. The _SPATIAL_BLEND and _REVERB_ZONE_MIX rows follow the 2016 Unity 5.4.3 build."""
-    c = "%s#%s:AudioSource:" % (f, go)
-    rows = [(p + "_CLIP", c + "m_audioClip"), (p + "_VOLUME", c + "m_Volume"), (p + "_PITCH", c + "m_Pitch"),
-            (p + "_LOOP", c + "Loop"), (p + "_PLAY_ON_AWAKE", c + "m_PlayOnAwake"), (p + "_ENABLED", c + "m_Enabled"),
-            (p + "_MIN_DISTANCE", c + "MinDistance"), (p + "_MAX_DISTANCE", c + "MaxDistance"),
-            (p + "_ROLLOFF_MODE", c + "rolloffMode"), (p + "_PAN2D", c + "Pan2D"),
-            (p + "_PRIORITY", c + "Priority"), (p + "_DOPPLER", c + "DopplerLevel"),
-            (p + "_MUTE", c + "Mute"), (p + "_SPREAD", c + "spreadCustomCurve.m_Curve[0].value"),
-            (p + "_PAN_LEVEL_IN_SOURCE_SCENE", c + "panLevelCustomCurve.m_Curve[0].value"),
-            (p + "_SPATIAL_BLEND", "derived:spatial_blend|%s#%s" % (f, go)),
-            (p + "_REVERB_ZONE_MIX", "derived:reverb_zone_mix|%s#%s" % (f, go))]
-    if curve:
-        rows.append((p + "_ROLLOFF_CURVE", c + "rolloffCustomCurve.m_Curve"))
-    return rows
-
-
-
-def rigid(p, f, go):
-    c = "%s#%s:Rigidbody2D:" % (f, go)
-    return [(p + "_MASS", c + "m_Mass"), (p + "_LINEAR_DRAG", c + "m_LinearDrag"),
-            (p + "_ANGULAR_DRAG", c + "m_AngularDrag"), (p + "_GRAVITY_SCALE", c + "m_GravityScale"),
-            (p + "_FIXED_ANGLE", c + "m_FixedAngle"), (p + "_KINEMATIC", c + "m_IsKinematic"),
-            (p + "_SLEEPING_MODE", c + "m_SleepingMode"), (p + "_INTERPOLATE", c + "m_Interpolate"),
-            (p + "_COLLISION_DETECTION", c + "m_CollisionDetection")]
-
-
-def circle(p, f, go):
-    c = "%s#%s:CircleCollider2D:" % (f, go)
-    return [(p + "_RADIUS", c + "m_Radius"), (p + "_CENTER", c + "m_Center"), (p + "_IS_TRIGGER", c + "m_IsTrigger"),
-            (p + "_RADIUS_WORLD", c + "derived.radius_world"), (p + "_OFFSET_WORLD", c + "derived.offset_world")]
-
-
-def box(p, f, go):
-    c = "%s#%s:BoxCollider2D:" % (f, go)
-    return [(p + "_SIZE", c + "m_Size"), (p + "_CENTER", c + "m_Center"), (p + "_IS_TRIGGER", c + "m_IsTrigger"),
-            (p + "_SIZE_WORLD", c + "derived.size_world"), (p + "_OFFSET_WORLD", c + "derived.offset_world")]
-
-
-def poly(p, f, go):
-    c = "%s#%s:PolygonCollider2D:" % (f, go)
-    return [(p + "_IS_TRIGGER", c + "m_IsTrigger"), (p + "_SOURCE_POINT_COUNT", c + "derived.paths[0].source_points"),
-            (p + "_PIECES", c + "derived.paths[0].pieces")]
-
-
-def sprite(p, f, go):
-    c = "%s#%s:SpriteRenderer:" % (f, go)
-    return [(p + "_SPRITE", c + "m_Sprite"), (p + "_COLOR", c + "m_Color"), (p + "_SORTING_ORDER", c + "m_SortingOrder"),
-            (p + "_ENABLED", c + "m_Enabled")]
-
-
-def guitext(p, f, go):
-    c = "%s#%s:GUIText:" % (f, go)
-    return [(p + "_TEXT", c + "m_Text"), (p + "_FONT", c + "m_Font"), (p + "_FONT_SIZE", c + "m_FontSize"),
-            (p + "_FONT_STYLE", c + "m_FontStyle"), (p + "_ANCHOR", c + "m_Anchor"), (p + "_ALIGNMENT", c + "m_Alignment"),
-            (p + "_COLOR", c + "m_Color"), (p + "_LINE_SPACING", c + "m_LineSpacing"),
-            (p + "_PIXEL_OFFSET", c + "m_PixelOffset"), (p + "_ENABLED", c + "m_Enabled"),
-            (p + "_TAB_SIZE", c + "m_TabSize"), (p + "_PIXEL_CORRECT", c + "m_PixelCorrect"),
-            (p + "_VIEWPORT_POS", "%s#%s:@transform:world_position" % (f, go))]
-
-
-def guitex(p, f, go):
-    c = "%s#%s:GUITexture:" % (f, go)
-    return [(p + "_TEXTURE", c + "m_Texture"), (p + "_COLOR", c + "m_Color"), (p + "_PIXEL_INSET", c + "m_PixelInset"),
-            (p + "_ENABLED", c + "m_Enabled"), (p + "_VIEWPORT_POS", "%s#%s:@transform:world_position" % (f, go))]
-
-
-def camera(p, f, go="Main Camera"):
-    c = "%s#%s:Camera:" % (f, go)
-    return [(p + "_ORTHO_SIZE", c + "orthographic size"), (p + "_ORTHOGRAPHIC", c + "orthographic"),
-            (p + "_BACKGROUND", c + "m_BackGroundColor"), (p + "_CLEAR_FLAGS", c + "m_ClearFlags"),
-            (p + "_NEAR", c + "near clip plane"), (p + "_FAR", c + "far clip plane"),
-            (p + "_VIEWPORT_RECT", c + "m_NormalizedViewPortRect"), (p + "_DEPTH", c + "m_Depth")] + \
-        tr(p, f, go)
-
-
-def emitter(p, f, go):
-    e = "%s#%s:EllipsoidParticleEmitter:" % (f, go)
-    a = "%s#%s:ParticleAnimator:" % (f, go)
-    r = "%s#%s:ParticleRenderer:" % (f, go)
-    rows = [(p + "_" + n, e + k) for n, k in [
-        ("EMIT", "m_Emit"), ("ONE_SHOT", "m_OneShot"), ("MIN_EMISSION", "minEmission"), ("MAX_EMISSION", "maxEmission"),
-        ("MIN_ENERGY", "minEnergy"), ("MAX_ENERGY", "maxEnergy"), ("MIN_SIZE", "minSize"), ("MAX_SIZE", "maxSize"),
-        ("WORLD_SPACE", "Simulate in Worldspace?"), ("EMITTER_VELOCITY_SCALE", "emitterVelocityScale"),
-        ("LOCAL_VELOCITY", "localVelocity"), ("WORLD_VELOCITY", "worldVelocity"), ("RND_VELOCITY", "rndVelocity"),
-        ("TANGENT_VELOCITY", "tangentVelocity"), ("ELLIPSOID", "m_Ellipsoid"), ("MIN_EMITTER_RANGE", "m_MinEmitterRange"),
-        ("RND_ROTATION", "rndRotation"), ("ANGULAR_VELOCITY", "angularVelocity"),
-        ("RND_ANGULAR_VELOCITY", "rndAngularVelocity")]]
-    rows += [(p + "_ANIM_" + n, a + k) for n, k in [
-        ("ANIMATE_COLOR", "Does Animate Color?"), ("AUTODESTRUCT", "autodestruct"), ("DAMPING", "damping"),
-        ("FORCE", "force"), ("RND_FORCE", "rndForce"), ("SIZE_GROW", "sizeGrow"),
-        ("COLOR_0", "colorAnimation[0]"), ("COLOR_1", "colorAnimation[1]"), ("COLOR_2", "colorAnimation[2]"),
-        ("COLOR_3", "colorAnimation[3]"), ("COLOR_4", "colorAnimation[4]"),
-        ("LOCAL_ROTATION_AXIS", "localRotationAxis"), ("WORLD_ROTATION_AXIS", "worldRotationAxis")]]
-    rows += [(p + "_RENDER_" + n, r + k) for n, k in [
-        ("LENGTH_SCALE", "m_LengthScale"), ("MAX_PARTICLE_SIZE", "m_MaxParticleSize"),
-        ("STRETCH", "m_StretchParticles"), ("VELOCITY_SCALE", "m_VelocityScale"),
-        ("CAMERA_VELOCITY_SCALE", "m_CameraVelocityScale"), ("MATERIAL", "m_Materials[0]"),
-        ("UV_ANIMATION", "UV Animation")]]
-    return rows
-
-
-def reverb(p, f, go):
-    c = "%s#%s:AudioReverbZone:" % (f, go)
-    return [(p + "_" + n, c + k) for n, k in [
-        ("PRESET", "m_ReverbPreset"), ("MIN_DISTANCE", "m_MinDistance"), ("MAX_DISTANCE", "m_MaxDistance"),
-        ("ROOM", "m_Room"), ("ROOM_HF", "m_RoomHF"), ("ROOM_LF", "m_RoomLF"), ("DECAY_TIME", "m_DecayTime"),
-        ("DECAY_HF_RATIO", "m_DecayHFRatio"), ("REFLECTIONS", "m_Reflections"),
-        ("REFLECTIONS_DELAY", "m_ReflectionsDelay"), ("REVERB", "m_Reverb"), ("REVERB_DELAY", "m_ReverbDelay"),
-        ("HF_REFERENCE", "m_HFReference"), ("LF_REFERENCE", "m_LFReference"), ("DIFFUSION", "m_Diffusion"),
-        ("DENSITY", "m_Density"), ("ROLLOFF_FACTOR", "m_RoomRolloffFactor"), ("ENABLED", "m_Enabled")]]
-
-
-def input_axis(p, idx):
-    c = "settings/InputManager.json#m_Axes[%d]." % idx
-    return [(p + "_" + n, c + k) for n, k in [
-        ("SENSITIVITY", "sensitivity"), ("GRAVITY", "gravity"), ("DEAD", "dead"), ("SNAP", "snap"),
-        ("INVERT", "invert"), ("TYPE", "type"), ("AXIS", "axis"), ("JOY_NUM", "joyNum"),
-        ("POSITIVE_BUTTON", "positiveButton"), ("NEGATIVE_BUTTON", "negativeButton"),
-        ("ALT_POSITIVE_BUTTON", "altPositiveButton"), ("ALT_NEGATIVE_BUTTON", "altNegativeButton")]]
-
 
 def build_values():
-    R = []
-    # ---- project, time, physics, audio, quality, input
-    R += [("WINDOW_WIDTH", "settings/ProjectSettings.json#defaultScreenWidth"),
-          ("WINDOW_HEIGHT", "settings/ProjectSettings.json#defaultScreenHeight"),
-          ("WINDOW_WIDTH_WEB", "settings/ProjectSettings.json#defaultScreenWidthWeb"),
-          ("WINDOW_HEIGHT_WEB", "settings/ProjectSettings.json#defaultScreenHeightWeb"),
-          ("WINDOW_RESIZABLE", "settings/ProjectSettings.json#resizableWindow"),
-          ("WINDOW_DEFAULT_FULLSCREEN", "settings/ProjectSettings.json#defaultIsFullScreen"),
-          ("RUN_IN_BACKGROUND", "settings/ProjectSettings.json#runInBackground"),
-          ("PRODUCT_NAME", "settings/ProjectSettings.json#productName"),
-          ("COMPANY_NAME", "settings/ProjectSettings.json#companyName"),
-          ("SHOW_UNITY_SPLASH", "settings/ProjectSettings.json#m_ShowUnitySplashScreen"),
-          ("FIXED_TIMESTEP", "settings/TimeManager.json#Fixed Timestep"),
-          ("MAX_ALLOWED_TIMESTEP", "settings/TimeManager.json#Maximum Allowed Timestep"),
-          ("TIME_SCALE_START", "settings/TimeManager.json#m_TimeScale"),
-          ("PHYSICS_GRAVITY", "settings/Physics2DSettings.json#m_Gravity"),
-          ("PHYSICS_VELOCITY_ITERATIONS", "settings/Physics2DSettings.json#m_VelocityIterations"),
-          ("PHYSICS_POSITION_ITERATIONS", "settings/Physics2DSettings.json#m_PositionIterations"),
-          ("PHYSICS_VELOCITY_THRESHOLD", "settings/Physics2DSettings.json#m_VelocityThreshold"),
-          ("PHYSICS_MAX_LINEAR_CORRECTION", "settings/Physics2DSettings.json#m_MaxLinearCorrection"),
-          ("PHYSICS_MAX_ANGULAR_CORRECTION", "settings/Physics2DSettings.json#m_MaxAngularCorrection"),
-          ("PHYSICS_MAX_TRANSLATION_SPEED", "settings/Physics2DSettings.json#m_MaxTranslationSpeed"),
-          ("PHYSICS_MAX_ROTATION_SPEED", "settings/Physics2DSettings.json#m_MaxRotationSpeed"),
-          ("PHYSICS_BAUMGARTE_SCALE", "settings/Physics2DSettings.json#m_BaumgarteScale"),
-          ("PHYSICS_BAUMGARTE_TOI_SCALE", "settings/Physics2DSettings.json#m_BaumgarteTimeOfImpactScale"),
-          ("PHYSICS_TIME_TO_SLEEP", "settings/Physics2DSettings.json#m_TimeToSleep"),
-          ("PHYSICS_LINEAR_SLEEP_TOLERANCE", "settings/Physics2DSettings.json#m_LinearSleepTolerance"),
-          ("PHYSICS_ANGULAR_SLEEP_TOLERANCE", "settings/Physics2DSettings.json#m_AngularSleepTolerance"),
-          ("PHYSICS_RAYCASTS_HIT_TRIGGERS", "settings/Physics2DSettings.json#m_RaycastsHitTriggers"),
-          ("AUDIO_MASTER_VOLUME", "settings/AudioManager.json#m_Volume"),
-          ("AUDIO_SPEED_OF_SOUND", "settings/AudioManager.json#m_SpeedOfSound"),
-          ("AUDIO_DOPPLER_FACTOR", "settings/AudioManager.json#Doppler Factor"),
-          ("AUDIO_ROLLOFF_SCALE", "settings/AudioManager.json#Rolloff Scale"),
-          ("QUALITY_CURRENT_INDEX", "settings/QualitySettings.json#m_CurrentQuality"),
-          ("QUALITY_NAME", "settings/QualitySettings.json#m_QualitySettings[0].name"),
-          ("QUALITY_VSYNC_COUNT", "settings/QualitySettings.json#m_QualitySettings[0].vSyncCount"),
-          ("QUALITY_ANTI_ALIASING", "settings/QualitySettings.json#m_QualitySettings[0].antiAliasing")]
-    R += input_axis("INPUT_KEY_HORIZONTAL", 0) + input_axis("INPUT_KEY_VERTICAL", 1)
-    R += input_axis("INPUT_STICK_HORIZONTAL", 9) + input_axis("INPUT_STICK_VERTICAL", 10)
-
-    # ---- Intro
-    I = "scenes/Intro.json"
-    R += camera("INTRO_CAMERA", I) + tr("INTRO_LOGO", I, "superdamage") + sprite("INTRO_LOGO", I, "superdamage")
-    R += audio("INTRO_SOUND", I, "Explosion_04")
-
-    # ---- Title
-    T = "scenes/Title.json"
-    R += camera("TITLE_CAMERA", T)
-    for p, go in [("TITLE_PLAY", "PLAY"), ("TITLE_SD", "SD"), ("TITLE_WR", "WR"), ("TITLE_NAME", "Title"),
-                  ("TITLE_LD", "LD")]:
-        R += guitext(p, T, go)
-    for p, go in [("TITLE_PLAY_BUTTON", "PLAY"), ("TITLE_SD_BUTTON", "SD")]:
-        c = "%s#%s:GUITextButton:" % (T, go)
-        R += [(p + "_HIGHLIGHT_COLOR", c + "highlightedColor"), (p + "_NORMAL_COLOR", c + "normalColor"),
-              (p + "_IDENTIFIER", c + "identifier"), (p + "_HIGHLIGHT_SFX", c + "higlightSFX"),
-              (p + "_CLICK_SFX", c + "clickSFX")]
-    R += audio("TITLE_CLICK_SOUND", T, "clickSound") + audio("TITLE_HIGHLIGHT_SOUND", T, "highlightSound")
-
-    # ---- Story1, Story2, Death, Win
-    for s, S in [("STORY1", "scenes/Story1.json"), ("STORY2", "scenes/Story2.json")]:
-        R += camera(s + "_CAMERA", S) + guitex(s + "_IMAGE", S, "gfx") + audio(s + "_SOUND", S, "Menu4")
-        c = "%s#gfx:NextSceneOnSpace:" % S
-        R += [(s + "_DISMISS_DURATION", c + "dismissDuration"), (s + "_NEXT_SCENE", c + "nextScene")]
-    D = "scenes/Death.json"
-    R += camera("DEATH_CAMERA", D) + guitex("DEATH_IMAGE", D, "gfx") + \
-        audio("DEATH_SOUND", D, "Victory_-arewhyae-8093_hifi")
-    W = "scenes/Win.json"
-    R += camera("WIN_CAMERA", W) + guitex("WIN_IMAGE", W, "gfx") + \
-        audio("WIN_MUSIC", W, "bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm") + \
-        audio("WIN_HORN", W, "FOLEY HORN PARTY TOY BLOW OUT 01")
-
-    # ---- Game: camera, night overlay, cutscene images
-    R += camera("GAME_CAMERA", G)
-    R += [("NIGHT_OVERLAY_EULER", G + "#Main Camera/nightosphere:@transform:world_euler"),
-          ("NIGHT_OVERLAY_LOCAL_POS", G + "#Main Camera/nightosphere:@transform:local_position"),
-          ("NIGHT_OVERLAY_COLOR", "materials/nightMat.mat.json#summary.colors._Color"),
-          ("NIGHT_OVERLAY_MESH", G + "#Main Camera/nightosphere:MeshFilter:m_Mesh"),
-          ("NIGHT_OVERLAY_ENABLED", G + "#Main Camera/nightosphere:MeshRenderer:m_Enabled")]
-    R += tr("NIGHT_OVERLAY", G, "Main Camera/nightosphere")
-    R += tr("CUTSCENES", G, "Main Camera/cutscenes") + local_tr("CUTSCENES", G, "Main Camera/cutscenes")
-    for p, go in [("CUT_COULD_NOT_DECODE", "spr_couldNotDecode"), ("CUT_NEW_MESSAGE", "spr_newMessage"),
-                  ("CUT_COULD_DECODE", "spr_couldDecode"), ("CUT_TUTORIAL", "spr_tutorial")]:
-        R += sprite(p, G, "Main Camera/cutscenes/" + go) + \
-            tr(p, G, "Main Camera/cutscenes/" + go) + local_tr(p, G, "Main Camera/cutscenes/" + go)
-    R += local_tr("CAMERA_FOCUS", G, "Main Camera/CameraFocus")
-
-    # ---- Game: LevelLoader, Mars, Earth, RoverScreen, RockGenerator
-    c = G + "#Level:LevelLoader:"
-    R += [("LEVEL_LOADER_CURRENT_LEVEL", c + "currentLevel"), ("LEVEL_LOADER_GAP", c + "gap"),
-          ("LEVEL_LOADER_INITIAL_QUESTION", c + "currentQuestion"), ("LEVEL_LOADER_SENTENCE_SIZE", c + "sentenceSize")]
-    R += tr("LEVEL", G, "Level") + tr("LETTERS", G, "Level/letters")
-    c = G + "#Mars:Mars:"
-    R += [("MARS_TILE_SIZE", c + "tileSize"), ("MARS_NUM_TILES_X", c + "numTilesX"), ("MARS_NUM_TILES_Y", c + "numTilesY"),
-          ("MARS_TIME_SCALE", c + "timeScale"), ("MARS_SECONDS_SPENT", c + "secondsSpent"),
-          ("MARS_TILE_SPRITES", c + "sprites"), ("MARS_TILE_TEMPLATE", c + "tileTemplate")]
-    R += tr("MARS", G, "Mars") + guitext("SOL_COUNTER", G, "Mars/solCounter")
-    R += tr("MARS_TILE", "prefabs/MarsTile.json", "MarsTile") + sprite("MARS_TILE", "prefabs/MarsTile.json", "MarsTile")
-    c = G + "#RoverScreen:RoverScreen:"
-    R += [("ROVER_SCREEN_STARTING_LIFE_SUPPORT", c + "startingLifeSupport")]
-    R += guitex("ROVER_SCREEN_BACKGROUND", G, "RoverScreen") + guitext("ROVER_SCREEN_TEXT", G, "RoverScreen/screenGUIText")
-    R += tr("ROVER_SCREEN", G, "RoverScreen")
-    c = G + "#Earth:Earth:"
-    R += [("EARTH_MAX_MESSAGE_SOUND_VOLUME", c + "maxMessageSoundVolume"), ("EARTH_TELEMETRY_DELAY", c + "telemetryDelay"),
-          ("EARTH_DEBUG_FORCE_NEXT_LEVEL", c + "debugForceNextLevel"),
-          ("EARTH_TEST_IGNORE_ROVER_ENTRANCE", c + "testIgnoreRoverEnterance"),
-          ("EARTH_ROCKET_PREFAB", c + "rocketPrefab")]
-    R += guitext("VISIBILITY_INDICATOR", G, "Earth/visibiltyIndicator")
-    c = G + "#Rocks:RockGenerator:"
-    R += [("ROCK_GENERATOR_NUM_ROCKS", c + "numRocks"), ("ROCK_GENERATOR_ROCK_PREFAB", c + "rockPrefab"),
-          ("ROCK_GENERATOR_SHATTER_PREFAB", c + "rockShatterAnimationPrefab")]
-    R += tr("ROCKS", G, "Rocks")
-    R += audio("GAME_START_SOUND", G, "Menu4")
-    R += sprite("DRAG_TARGET_SCENE", G, "RockDragTarget") + tr("DRAG_TARGET_SCENE", G, "RockDragTarget")
-    c = G + "#RockDragTarget:SnapToTarget:"
-    R += [("DRAG_TARGET_DASH_SPRITE", c + "dashTarget"), ("DRAG_TARGET_DOT_SPRITE", c + "dotTarget")]
-    R += [("CAM_FOCUS_PLAYER_IN_ROVER", G + "#Main Camera:CamerFocusSwitcher:playerIsInRover")]
-
-    # ---- Game: Player
-    R += tr("PLAYER", G, "Player") + rigid("PLAYER_RB", G, "Player")
-    R += circle("PLAYER_TRIGGER", G, "Player") + poly("PLAYER_BODY", G, "Player")
-    R += sprite("PLAYER", G, "Player")
-    R += [("PLAYER_ANIMATOR_CONTROLLER", G + "#Player:Animator:m_Controller"),
-          ("PLAYER_ANIMATOR_APPLY_ROOT_MOTION", G + "#Player:Animator:m_ApplyRootMotion"),
-          ("PLAYER_TAG", G + "#Player:@node:tag")]
-    R += audio("PLAYER_STRAIN", G, "Player") + audio("PLAYER_FOOTSTEPS", G, "Player/footsteps")
-    R += audio("PLAYER_AMBIENCE", G, "Player/pivot/Sci-fi_AmbienceLoop1")
-    R += tr("PLAYER_PIVOT", G, "Player/pivot", euler=True) + local_tr("PLAYER_PIVOT", G, "Player/pivot")
-    R += tr("PLAYER_LISTENER", G, "Player/pivot/audioListener") + local_tr("PLAYER_FOOTSTEPS", G, "Player/footsteps")
-
-    # ---- Game: Rover
-    R += tr("ROVER", G, "Rover") + audio("ROVER_NEW_MESSAGE", G, "Rover") + reverb("ROVER_REVERB", G, "Rover/Reverb")
-    R += tr("ROVER_BODY", G, "Rover/RoverBody") + sprite("ROVER_BODY", G, "Rover/RoverBody") + \
-        rigid("ROVER_BODY_RB", G, "Rover/RoverBody") + box("ROVER_BODY_TRIGGER", G, "Rover/RoverBody") + \
-        [("ROVER_BODY_TAG", G + "#Rover/RoverBody:@node:tag")]
-    R += tr("ROVER_ROOF", G, "Rover/bis_rover_v2_roof") + sprite("ROVER_ROOF", G, "Rover/bis_rover_v2_roof") + \
-        rigid("ROVER_ROOF_RB", G, "Rover/bis_rover_v2_roof") + poly("ROVER_ROOF_COLLIDER", G, "Rover/bis_rover_v2_roof") + \
-        [("ROVER_ROOF_TAG", G + "#Rover/bis_rover_v2_roof:@node:tag")]
-    R += tr("ROCK_REPELLER", G, "Rover/rockRepeller") + circle("ROCK_REPELLER", G, "Rover/rockRepeller") + \
-        [("ROCK_REPELLER_TAG", G + "#Rover/rockRepeller:@node:tag")]
-    R += tr("ROVER_FOCUS_TARGET", G, "Rover/roverFocusTarget")
-    p = "Rover/playerInsideRoverTrigger"
-    R += tr("ROVER_INSIDE_TRIGGER", G, p) + circle("ROVER_INSIDE_TRIGGER", G, p)
-    c = G + "#" + p + ":RoverInsideTrigger:"
-    R += [("ROVER_INSIDE_SET_ON_PITCH", c + "setOnPitch"), ("ROVER_INSIDE_SET_OFF_PITCH", c + "setOffPitch")]
-    R += audio("ROVER_ENTER_SOUND", G, p) + audio("ROVER_CHATTER", G, p + "/chatter")
-    R += tr("ROVER_UPDATES_INDICATOR", G, "Rover/updatesIndicator") + sprite("ROVER_UPDATES_INDICATOR", G, "Rover/updatesIndicator")
-
-    # ---- Prefabs
-    P = "prefabs/RockPrefab.json"
-    R += tr("ROCK", P, "RockPrefab") + rigid("ROCK_RB", P, "RockPrefab") + circle("ROCK", P, "RockPrefab") + \
-        sprite("ROCK", P, "RockPrefab") + audio("ROCK_DRAG", P, "RockPrefab", curve=True)
-    c = P + "#RockPrefab:DistanceJoint2D:"
-    R += [("ROCK_JOINT_DISTANCE", c + "m_Distance"), ("ROCK_JOINT_ANCHOR", c + "m_Anchor"),
-          ("ROCK_JOINT_CONNECTED_ANCHOR", c + "m_ConnectedAnchor"), ("ROCK_JOINT_MAX_DISTANCE_ONLY", c + "m_MaxDistanceOnly"),
-          ("ROCK_JOINT_COLLIDE_CONNECTED", c + "m_CollideConnected"), ("ROCK_JOINT_ENABLED", c + "m_Enabled"),
-          ("ROCK_DARK_SPRITE", P + "#RockPrefab:Rock:darkSprite"), ("ROCK_LIGHT_SPRITE", P + "#RockPrefab:Rock:lightSprite"),
-          ("ROCK_SHADOW_PREFAB", P + "#RockPrefab:Rock:rockShadowPrefab"),
-          ("ROCK_MATERIAL", P + "#RockPrefab:SpriteRenderer:m_Materials[0]")]
-    P = "prefabs/RockShadowPrefab.json"
-    R += tr("ROCK_SHADOW", P, "RockShadowPrefab") + sprite("ROCK_SHADOW", P, "RockShadowPrefab")
-    P = "prefabs/RockPlaceholderPrefab.json"
-    R += tr("PLACEHOLDER", P, "RockPlaceholderPrefab") + sprite("PLACEHOLDER", P, "RockPlaceholderPrefab") + \
-        circle("PLACEHOLDER", P, "RockPlaceholderPrefab") + audio("PLACEHOLDER_CORRECT", P, "RockPlaceholderPrefab")
-    c = P + "#RockPlaceholderPrefab:RockPlaceholder:"
-    R += [("PLACEHOLDER_DASH_SPRITE", c + "dashSprite"), ("PLACEHOLDER_DOT_SPRITE", c + "dotSprite"),
-          ("PLACEHOLDER_INCORRECT_SPRITE", c + "incorrectSprite"), ("PLACEHOLDER_CORRECT_SPRITE", c + "correctSprite")]
-    P = "prefabs/RockDragTarget.json"
-    R += tr("DRAG_TARGET", P, "RockDragTarget") + sprite("DRAG_TARGET", P, "RockDragTarget")
-    P = "prefabs/LetterPrefab.json"
-    c = P + "#LetterPrefab:TextMesh:"
-    R += tr("LETTER", P, "LetterPrefab") + [("LETTER_" + n, c + k) for n, k in [
-        ("TEXT", "m_Text"), ("FONT", "m_Font"), ("FONT_SIZE", "m_FontSize"), ("FONT_STYLE", "m_FontStyle"),
-        ("CHARACTER_SIZE", "m_CharacterSize"), ("ANCHOR", "m_Anchor"), ("ALIGNMENT", "m_Alignment"),
-        ("COLOR", "m_Color"), ("LINE_SPACING", "m_LineSpacing"), ("OFFSET_Z", "m_OffsetZ"),
-        ("RICH_TEXT", "m_RichText"), ("TAB_SIZE", "m_TabSize")]]
-    R += [("LETTER_MESH_RENDERER_ENABLED", P + "#LetterPrefab:MeshRenderer:m_Enabled")]
-    P = "prefabs/RockShatterPrefab.json"
-    R += tr("SHATTER", P, "RockShatterPrefab") + audio("SHATTER_SOUND", P, "RockShatterPrefab", curve=True)
-    R += [("SHATTER_TIME_OUT", P + "#RockShatterPrefab:TimedObjectDestructor:timeOut"),
-          ("SHATTER_DETACH_CHILDREN", P + "#RockShatterPrefab:TimedObjectDestructor:detachChildren")]
-    R += emitter("SHATTER", P, "RockShatterPrefab/large flames")
-    R += [("SHATTER_EMITTER_ANIMATION", P + "#RockShatterPrefab/large flames:Animation:m_Animation"),
-          ("SHATTER_EMITTER_PLAY_AUTOMATICALLY", P + "#RockShatterPrefab/large flames:Animation:m_PlayAutomatically"),
-          ("SHATTER_EMITTER_WRAP_MODE", P + "#RockShatterPrefab/large flames:Animation:m_WrapMode"),
-          ("SHATTER_STOP_EMIT_CURVE", "animation/Stop Emitting ,5 sec.anim.json#summary.float_curves[0].curve.m_Curve"),
-          ("SHATTER_STOP_EMIT_SAMPLE_RATE", "animation/Stop Emitting ,5 sec.anim.json#summary.sample_rate"),
-          ("SHATTER_MATERIAL_COLOR", "materials/Fire Smoke.mat.json#summary.colors._Color"),
-          ("SHATTER_MATERIAL_TINT", "materials/Fire Smoke.mat.json#summary.colors._TintColor"),
-          ("SHATTER_MATERIAL_MAIN_TEX", "materials/Fire Smoke.mat.json#summary.textures._MainTex"),
-          ("SHATTER_MATERIAL_ALPHA_TEX", "materials/Fire Smoke.mat.json#summary.textures._AlphaTex")]
-    P = "prefabs/RocketPrefab.json"
-    R += tr("ROCKET", P, "RocketPrefab") + tr("ROCKET_BODY", P, "RocketPrefab/RocketBody") + \
-        sprite("ROCKET_BODY", P, "RocketPrefab/RocketBody") + rigid("ROCKET_BODY_RB", P, "RocketPrefab/RocketBody") + \
-        poly("ROCKET_BODY_COLLIDER", P, "RocketPrefab/RocketBody") + \
-        [("ROCKET_BODY_TAG", P + "#RocketPrefab/RocketBody:@node:tag")]
-    R += tr("ROCKET_COVER", P, "RocketPrefab/RocketCover") + sprite("ROCKET_COVER", P, "RocketPrefab/RocketCover") + \
-        box("ROCKET_COVER_TRIGGER", P, "RocketPrefab/RocketCover") + \
-        [("ROCKET_COVER_TAG", P + "#RocketPrefab/RocketCover:@node:tag")]
-    R += tr("ROCKET_REPELLER", P, "RocketPrefab/rockRepeller") + box("ROCKET_REPELLER", P, "RocketPrefab/rockRepeller") + \
-        [("ROCKET_REPELLER_TAG", P + "#RocketPrefab/rockRepeller:@node:tag")]
-    R += tr("ROCKET_INSIDE_TRIGGER", P, "RocketPrefab/InsideTrigger") + box("ROCKET_INSIDE_TRIGGER", P, "RocketPrefab/InsideTrigger")
-    R += reverb("ROCKET_REVERB", P, "RocketPrefab/Reverb") + tr("ROCKET_REVERB", P, "RocketPrefab/Reverb")
-    return R
+    """The rows the C code reads. Rows nobody read were deleted in step 10 of the plan; add one back
+    when the C code needs another value. A "derived:" source is worked out by Dumps.get: the
+    _SPATIAL_BLEND and _REVERB_ZONE_MIX rows follow the 2016 Unity 5.4.3 build."""
+    return [
+        # ---- settings/ProjectSettings.json
+        ("WINDOW_WIDTH", "settings/ProjectSettings.json#defaultScreenWidth"),
+        ("WINDOW_HEIGHT", "settings/ProjectSettings.json#defaultScreenHeight"),
+        ("PRODUCT_NAME", "settings/ProjectSettings.json#productName"),
+        # ---- settings/TimeManager.json
+        ("FIXED_TIMESTEP", "settings/TimeManager.json#Fixed Timestep"),
+        ("MAX_ALLOWED_TIMESTEP", "settings/TimeManager.json#Maximum Allowed Timestep"),
+        ("TIME_SCALE_START", "settings/TimeManager.json#m_TimeScale"),
+        # ---- settings/Physics2DSettings.json
+        ("PHYSICS_GRAVITY", "settings/Physics2DSettings.json#m_Gravity"),
+        ("PHYSICS_LINEAR_SLEEP_TOLERANCE", "settings/Physics2DSettings.json#m_LinearSleepTolerance"),
+        # ---- settings/AudioManager.json
+        ("AUDIO_MASTER_VOLUME", "settings/AudioManager.json#m_Volume"),
+        ("AUDIO_SPEED_OF_SOUND", "settings/AudioManager.json#m_SpeedOfSound"),
+        ("AUDIO_DOPPLER_FACTOR", "settings/AudioManager.json#Doppler Factor"),
+        # ---- settings/InputManager.json
+        ("INPUT_KEY_HORIZONTAL_SENSITIVITY", "settings/InputManager.json#m_Axes[0].sensitivity"),
+        ("INPUT_KEY_HORIZONTAL_GRAVITY", "settings/InputManager.json#m_Axes[0].gravity"),
+        ("INPUT_KEY_HORIZONTAL_DEAD", "settings/InputManager.json#m_Axes[0].dead"),
+        ("INPUT_KEY_HORIZONTAL_SNAP", "settings/InputManager.json#m_Axes[0].snap"),
+        ("INPUT_KEY_VERTICAL_SENSITIVITY", "settings/InputManager.json#m_Axes[1].sensitivity"),
+        ("INPUT_KEY_VERTICAL_GRAVITY", "settings/InputManager.json#m_Axes[1].gravity"),
+        ("INPUT_KEY_VERTICAL_DEAD", "settings/InputManager.json#m_Axes[1].dead"),
+        ("INPUT_KEY_VERTICAL_SNAP", "settings/InputManager.json#m_Axes[1].snap"),
+        ("INPUT_STICK_HORIZONTAL_DEAD", "settings/InputManager.json#m_Axes[9].dead"),
+        ("INPUT_STICK_VERTICAL_DEAD", "settings/InputManager.json#m_Axes[10].dead"),
+        ("INPUT_STICK_VERTICAL_INVERT", "settings/InputManager.json#m_Axes[10].invert"),
+        # ---- scenes/Intro.json
+        ("INTRO_CAMERA_ORTHO_SIZE", "scenes/Intro.json#Main Camera:Camera:orthographic size"),
+        ("INTRO_CAMERA_BACKGROUND", "scenes/Intro.json#Main Camera:Camera:m_BackGroundColor"),
+        ("INTRO_CAMERA_POS", "scenes/Intro.json#Main Camera:@transform:world_position"),
+        ("INTRO_LOGO_POS", "scenes/Intro.json#superdamage:@transform:world_position"),
+        ("INTRO_LOGO_SCALE", "scenes/Intro.json#superdamage:@transform:world_scale"),
+        ("INTRO_LOGO_SPRITE", "scenes/Intro.json#superdamage:SpriteRenderer:m_Sprite"),
+        ("INTRO_LOGO_COLOR", "scenes/Intro.json#superdamage:SpriteRenderer:m_Color"),
+        ("INTRO_LOGO_SORTING_ORDER", "scenes/Intro.json#superdamage:SpriteRenderer:m_SortingOrder"),
+        ("INTRO_LOGO_ENABLED", "scenes/Intro.json#superdamage:SpriteRenderer:m_Enabled"),
+        ("INTRO_SOUND_CLIP", "scenes/Intro.json#Explosion_04:AudioSource:m_audioClip"),
+        ("INTRO_SOUND_VOLUME", "scenes/Intro.json#Explosion_04:AudioSource:m_Volume"),
+        ("INTRO_SOUND_PITCH", "scenes/Intro.json#Explosion_04:AudioSource:m_Pitch"),
+        ("INTRO_SOUND_LOOP", "scenes/Intro.json#Explosion_04:AudioSource:Loop"),
+        ("INTRO_SOUND_PLAY_ON_AWAKE", "scenes/Intro.json#Explosion_04:AudioSource:m_PlayOnAwake"),
+        ("INTRO_SOUND_ENABLED", "scenes/Intro.json#Explosion_04:AudioSource:m_Enabled"),
+        ("INTRO_SOUND_MIN_DISTANCE", "scenes/Intro.json#Explosion_04:AudioSource:MinDistance"),
+        ("INTRO_SOUND_MAX_DISTANCE", "scenes/Intro.json#Explosion_04:AudioSource:MaxDistance"),
+        ("INTRO_SOUND_ROLLOFF_MODE", "scenes/Intro.json#Explosion_04:AudioSource:rolloffMode"),
+        ("INTRO_SOUND_DOPPLER", "scenes/Intro.json#Explosion_04:AudioSource:DopplerLevel"),
+        ("INTRO_SOUND_SPATIAL_BLEND", "derived:spatial_blend|scenes/Intro.json#Explosion_04"),
+        # ---- scenes/Title.json
+        ("TITLE_CAMERA_ORTHO_SIZE", "scenes/Title.json#Main Camera:Camera:orthographic size"),
+        ("TITLE_CAMERA_BACKGROUND", "scenes/Title.json#Main Camera:Camera:m_BackGroundColor"),
+        ("TITLE_CAMERA_POS", "scenes/Title.json#Main Camera:@transform:world_position"),
+        ("TITLE_PLAY_TEXT", "scenes/Title.json#PLAY:GUIText:m_Text"),
+        ("TITLE_PLAY_FONT_SIZE", "scenes/Title.json#PLAY:GUIText:m_FontSize"),
+        ("TITLE_PLAY_ANCHOR", "scenes/Title.json#PLAY:GUIText:m_Anchor"),
+        ("TITLE_PLAY_ALIGNMENT", "scenes/Title.json#PLAY:GUIText:m_Alignment"),
+        ("TITLE_PLAY_COLOR", "scenes/Title.json#PLAY:GUIText:m_Color"),
+        ("TITLE_PLAY_LINE_SPACING", "scenes/Title.json#PLAY:GUIText:m_LineSpacing"),
+        ("TITLE_PLAY_PIXEL_OFFSET", "scenes/Title.json#PLAY:GUIText:m_PixelOffset"),
+        ("TITLE_PLAY_ENABLED", "scenes/Title.json#PLAY:GUIText:m_Enabled"),
+        ("TITLE_PLAY_VIEWPORT_POS", "scenes/Title.json#PLAY:@transform:world_position"),
+        ("TITLE_SD_TEXT", "scenes/Title.json#SD:GUIText:m_Text"),
+        ("TITLE_SD_FONT_SIZE", "scenes/Title.json#SD:GUIText:m_FontSize"),
+        ("TITLE_SD_ANCHOR", "scenes/Title.json#SD:GUIText:m_Anchor"),
+        ("TITLE_SD_ALIGNMENT", "scenes/Title.json#SD:GUIText:m_Alignment"),
+        ("TITLE_SD_COLOR", "scenes/Title.json#SD:GUIText:m_Color"),
+        ("TITLE_SD_LINE_SPACING", "scenes/Title.json#SD:GUIText:m_LineSpacing"),
+        ("TITLE_SD_PIXEL_OFFSET", "scenes/Title.json#SD:GUIText:m_PixelOffset"),
+        ("TITLE_SD_ENABLED", "scenes/Title.json#SD:GUIText:m_Enabled"),
+        ("TITLE_SD_VIEWPORT_POS", "scenes/Title.json#SD:@transform:world_position"),
+        ("TITLE_WR_TEXT", "scenes/Title.json#WR:GUIText:m_Text"),
+        ("TITLE_WR_FONT_SIZE", "scenes/Title.json#WR:GUIText:m_FontSize"),
+        ("TITLE_WR_ANCHOR", "scenes/Title.json#WR:GUIText:m_Anchor"),
+        ("TITLE_WR_ALIGNMENT", "scenes/Title.json#WR:GUIText:m_Alignment"),
+        ("TITLE_WR_COLOR", "scenes/Title.json#WR:GUIText:m_Color"),
+        ("TITLE_WR_LINE_SPACING", "scenes/Title.json#WR:GUIText:m_LineSpacing"),
+        ("TITLE_WR_PIXEL_OFFSET", "scenes/Title.json#WR:GUIText:m_PixelOffset"),
+        ("TITLE_WR_ENABLED", "scenes/Title.json#WR:GUIText:m_Enabled"),
+        ("TITLE_WR_VIEWPORT_POS", "scenes/Title.json#WR:@transform:world_position"),
+        ("TITLE_NAME_TEXT", "scenes/Title.json#Title:GUIText:m_Text"),
+        ("TITLE_NAME_FONT_SIZE", "scenes/Title.json#Title:GUIText:m_FontSize"),
+        ("TITLE_NAME_ANCHOR", "scenes/Title.json#Title:GUIText:m_Anchor"),
+        ("TITLE_NAME_ALIGNMENT", "scenes/Title.json#Title:GUIText:m_Alignment"),
+        ("TITLE_NAME_COLOR", "scenes/Title.json#Title:GUIText:m_Color"),
+        ("TITLE_NAME_LINE_SPACING", "scenes/Title.json#Title:GUIText:m_LineSpacing"),
+        ("TITLE_NAME_PIXEL_OFFSET", "scenes/Title.json#Title:GUIText:m_PixelOffset"),
+        ("TITLE_NAME_ENABLED", "scenes/Title.json#Title:GUIText:m_Enabled"),
+        ("TITLE_NAME_VIEWPORT_POS", "scenes/Title.json#Title:@transform:world_position"),
+        ("TITLE_LD_TEXT", "scenes/Title.json#LD:GUIText:m_Text"),
+        ("TITLE_LD_FONT_SIZE", "scenes/Title.json#LD:GUIText:m_FontSize"),
+        ("TITLE_LD_ANCHOR", "scenes/Title.json#LD:GUIText:m_Anchor"),
+        ("TITLE_LD_ALIGNMENT", "scenes/Title.json#LD:GUIText:m_Alignment"),
+        ("TITLE_LD_COLOR", "scenes/Title.json#LD:GUIText:m_Color"),
+        ("TITLE_LD_LINE_SPACING", "scenes/Title.json#LD:GUIText:m_LineSpacing"),
+        ("TITLE_LD_PIXEL_OFFSET", "scenes/Title.json#LD:GUIText:m_PixelOffset"),
+        ("TITLE_LD_ENABLED", "scenes/Title.json#LD:GUIText:m_Enabled"),
+        ("TITLE_LD_VIEWPORT_POS", "scenes/Title.json#LD:@transform:world_position"),
+        ("TITLE_PLAY_BUTTON_HIGHLIGHT_COLOR", "scenes/Title.json#PLAY:GUITextButton:highlightedColor"),
+        ("TITLE_PLAY_BUTTON_NORMAL_COLOR", "scenes/Title.json#PLAY:GUITextButton:normalColor"),
+        ("TITLE_SD_BUTTON_HIGHLIGHT_COLOR", "scenes/Title.json#SD:GUITextButton:highlightedColor"),
+        ("TITLE_SD_BUTTON_NORMAL_COLOR", "scenes/Title.json#SD:GUITextButton:normalColor"),
+        ("TITLE_CLICK_SOUND_CLIP", "scenes/Title.json#clickSound:AudioSource:m_audioClip"),
+        ("TITLE_CLICK_SOUND_VOLUME", "scenes/Title.json#clickSound:AudioSource:m_Volume"),
+        ("TITLE_CLICK_SOUND_PITCH", "scenes/Title.json#clickSound:AudioSource:m_Pitch"),
+        ("TITLE_CLICK_SOUND_LOOP", "scenes/Title.json#clickSound:AudioSource:Loop"),
+        ("TITLE_CLICK_SOUND_PLAY_ON_AWAKE", "scenes/Title.json#clickSound:AudioSource:m_PlayOnAwake"),
+        ("TITLE_CLICK_SOUND_ENABLED", "scenes/Title.json#clickSound:AudioSource:m_Enabled"),
+        ("TITLE_CLICK_SOUND_MIN_DISTANCE", "scenes/Title.json#clickSound:AudioSource:MinDistance"),
+        ("TITLE_CLICK_SOUND_MAX_DISTANCE", "scenes/Title.json#clickSound:AudioSource:MaxDistance"),
+        ("TITLE_CLICK_SOUND_ROLLOFF_MODE", "scenes/Title.json#clickSound:AudioSource:rolloffMode"),
+        ("TITLE_CLICK_SOUND_DOPPLER", "scenes/Title.json#clickSound:AudioSource:DopplerLevel"),
+        ("TITLE_CLICK_SOUND_SPATIAL_BLEND", "derived:spatial_blend|scenes/Title.json#clickSound"),
+        ("TITLE_HIGHLIGHT_SOUND_CLIP", "scenes/Title.json#highlightSound:AudioSource:m_audioClip"),
+        ("TITLE_HIGHLIGHT_SOUND_VOLUME", "scenes/Title.json#highlightSound:AudioSource:m_Volume"),
+        ("TITLE_HIGHLIGHT_SOUND_PITCH", "scenes/Title.json#highlightSound:AudioSource:m_Pitch"),
+        ("TITLE_HIGHLIGHT_SOUND_LOOP", "scenes/Title.json#highlightSound:AudioSource:Loop"),
+        ("TITLE_HIGHLIGHT_SOUND_PLAY_ON_AWAKE", "scenes/Title.json#highlightSound:AudioSource:m_PlayOnAwake"),
+        ("TITLE_HIGHLIGHT_SOUND_ENABLED", "scenes/Title.json#highlightSound:AudioSource:m_Enabled"),
+        ("TITLE_HIGHLIGHT_SOUND_MIN_DISTANCE", "scenes/Title.json#highlightSound:AudioSource:MinDistance"),
+        ("TITLE_HIGHLIGHT_SOUND_MAX_DISTANCE", "scenes/Title.json#highlightSound:AudioSource:MaxDistance"),
+        ("TITLE_HIGHLIGHT_SOUND_ROLLOFF_MODE", "scenes/Title.json#highlightSound:AudioSource:rolloffMode"),
+        ("TITLE_HIGHLIGHT_SOUND_DOPPLER", "scenes/Title.json#highlightSound:AudioSource:DopplerLevel"),
+        ("TITLE_HIGHLIGHT_SOUND_SPATIAL_BLEND", "derived:spatial_blend|scenes/Title.json#highlightSound"),
+        # ---- scenes/Story1.json
+        ("STORY1_CAMERA_ORTHO_SIZE", "scenes/Story1.json#Main Camera:Camera:orthographic size"),
+        ("STORY1_CAMERA_BACKGROUND", "scenes/Story1.json#Main Camera:Camera:m_BackGroundColor"),
+        ("STORY1_CAMERA_POS", "scenes/Story1.json#Main Camera:@transform:world_position"),
+        ("STORY1_IMAGE_TEXTURE", "scenes/Story1.json#gfx:GUITexture:m_Texture"),
+        ("STORY1_IMAGE_COLOR", "scenes/Story1.json#gfx:GUITexture:m_Color"),
+        ("STORY1_IMAGE_PIXEL_INSET", "scenes/Story1.json#gfx:GUITexture:m_PixelInset"),
+        ("STORY1_IMAGE_ENABLED", "scenes/Story1.json#gfx:GUITexture:m_Enabled"),
+        ("STORY1_IMAGE_VIEWPORT_POS", "scenes/Story1.json#gfx:@transform:world_position"),
+        ("STORY1_SOUND_CLIP", "scenes/Story1.json#Menu4:AudioSource:m_audioClip"),
+        ("STORY1_SOUND_VOLUME", "scenes/Story1.json#Menu4:AudioSource:m_Volume"),
+        ("STORY1_SOUND_PITCH", "scenes/Story1.json#Menu4:AudioSource:m_Pitch"),
+        ("STORY1_SOUND_LOOP", "scenes/Story1.json#Menu4:AudioSource:Loop"),
+        ("STORY1_SOUND_PLAY_ON_AWAKE", "scenes/Story1.json#Menu4:AudioSource:m_PlayOnAwake"),
+        ("STORY1_SOUND_ENABLED", "scenes/Story1.json#Menu4:AudioSource:m_Enabled"),
+        ("STORY1_SOUND_MIN_DISTANCE", "scenes/Story1.json#Menu4:AudioSource:MinDistance"),
+        ("STORY1_SOUND_MAX_DISTANCE", "scenes/Story1.json#Menu4:AudioSource:MaxDistance"),
+        ("STORY1_SOUND_ROLLOFF_MODE", "scenes/Story1.json#Menu4:AudioSource:rolloffMode"),
+        ("STORY1_SOUND_DOPPLER", "scenes/Story1.json#Menu4:AudioSource:DopplerLevel"),
+        ("STORY1_SOUND_SPATIAL_BLEND", "derived:spatial_blend|scenes/Story1.json#Menu4"),
+        ("STORY1_DISMISS_DURATION", "scenes/Story1.json#gfx:NextSceneOnSpace:dismissDuration"),
+        ("STORY1_NEXT_SCENE", "scenes/Story1.json#gfx:NextSceneOnSpace:nextScene"),
+        # ---- scenes/Story2.json
+        ("STORY2_CAMERA_ORTHO_SIZE", "scenes/Story2.json#Main Camera:Camera:orthographic size"),
+        ("STORY2_CAMERA_BACKGROUND", "scenes/Story2.json#Main Camera:Camera:m_BackGroundColor"),
+        ("STORY2_CAMERA_POS", "scenes/Story2.json#Main Camera:@transform:world_position"),
+        ("STORY2_IMAGE_TEXTURE", "scenes/Story2.json#gfx:GUITexture:m_Texture"),
+        ("STORY2_IMAGE_COLOR", "scenes/Story2.json#gfx:GUITexture:m_Color"),
+        ("STORY2_IMAGE_PIXEL_INSET", "scenes/Story2.json#gfx:GUITexture:m_PixelInset"),
+        ("STORY2_IMAGE_ENABLED", "scenes/Story2.json#gfx:GUITexture:m_Enabled"),
+        ("STORY2_IMAGE_VIEWPORT_POS", "scenes/Story2.json#gfx:@transform:world_position"),
+        ("STORY2_SOUND_CLIP", "scenes/Story2.json#Menu4:AudioSource:m_audioClip"),
+        ("STORY2_SOUND_VOLUME", "scenes/Story2.json#Menu4:AudioSource:m_Volume"),
+        ("STORY2_SOUND_PITCH", "scenes/Story2.json#Menu4:AudioSource:m_Pitch"),
+        ("STORY2_SOUND_LOOP", "scenes/Story2.json#Menu4:AudioSource:Loop"),
+        ("STORY2_SOUND_PLAY_ON_AWAKE", "scenes/Story2.json#Menu4:AudioSource:m_PlayOnAwake"),
+        ("STORY2_SOUND_ENABLED", "scenes/Story2.json#Menu4:AudioSource:m_Enabled"),
+        ("STORY2_SOUND_MIN_DISTANCE", "scenes/Story2.json#Menu4:AudioSource:MinDistance"),
+        ("STORY2_SOUND_MAX_DISTANCE", "scenes/Story2.json#Menu4:AudioSource:MaxDistance"),
+        ("STORY2_SOUND_ROLLOFF_MODE", "scenes/Story2.json#Menu4:AudioSource:rolloffMode"),
+        ("STORY2_SOUND_DOPPLER", "scenes/Story2.json#Menu4:AudioSource:DopplerLevel"),
+        ("STORY2_SOUND_SPATIAL_BLEND", "derived:spatial_blend|scenes/Story2.json#Menu4"),
+        ("STORY2_DISMISS_DURATION", "scenes/Story2.json#gfx:NextSceneOnSpace:dismissDuration"),
+        ("STORY2_NEXT_SCENE", "scenes/Story2.json#gfx:NextSceneOnSpace:nextScene"),
+        # ---- scenes/Death.json
+        ("DEATH_CAMERA_ORTHO_SIZE", "scenes/Death.json#Main Camera:Camera:orthographic size"),
+        ("DEATH_CAMERA_BACKGROUND", "scenes/Death.json#Main Camera:Camera:m_BackGroundColor"),
+        ("DEATH_CAMERA_POS", "scenes/Death.json#Main Camera:@transform:world_position"),
+        ("DEATH_IMAGE_TEXTURE", "scenes/Death.json#gfx:GUITexture:m_Texture"),
+        ("DEATH_IMAGE_COLOR", "scenes/Death.json#gfx:GUITexture:m_Color"),
+        ("DEATH_IMAGE_PIXEL_INSET", "scenes/Death.json#gfx:GUITexture:m_PixelInset"),
+        ("DEATH_IMAGE_ENABLED", "scenes/Death.json#gfx:GUITexture:m_Enabled"),
+        ("DEATH_IMAGE_VIEWPORT_POS", "scenes/Death.json#gfx:@transform:world_position"),
+        ("DEATH_SOUND_CLIP", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:m_audioClip"),
+        ("DEATH_SOUND_VOLUME", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:m_Volume"),
+        ("DEATH_SOUND_PITCH", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:m_Pitch"),
+        ("DEATH_SOUND_LOOP", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:Loop"),
+        ("DEATH_SOUND_PLAY_ON_AWAKE", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:m_PlayOnAwake"),
+        ("DEATH_SOUND_ENABLED", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:m_Enabled"),
+        ("DEATH_SOUND_MIN_DISTANCE", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:MinDistance"),
+        ("DEATH_SOUND_MAX_DISTANCE", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:MaxDistance"),
+        ("DEATH_SOUND_ROLLOFF_MODE", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:rolloffMode"),
+        ("DEATH_SOUND_DOPPLER", "scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:DopplerLevel"),
+        ("DEATH_SOUND_SPATIAL_BLEND", "derived:spatial_blend|scenes/Death.json#Victory_-arewhyae-8093_hifi"),
+        # ---- scenes/Win.json
+        ("WIN_CAMERA_ORTHO_SIZE", "scenes/Win.json#Main Camera:Camera:orthographic size"),
+        ("WIN_CAMERA_BACKGROUND", "scenes/Win.json#Main Camera:Camera:m_BackGroundColor"),
+        ("WIN_CAMERA_POS", "scenes/Win.json#Main Camera:@transform:world_position"),
+        ("WIN_IMAGE_TEXTURE", "scenes/Win.json#gfx:GUITexture:m_Texture"),
+        ("WIN_IMAGE_COLOR", "scenes/Win.json#gfx:GUITexture:m_Color"),
+        ("WIN_IMAGE_PIXEL_INSET", "scenes/Win.json#gfx:GUITexture:m_PixelInset"),
+        ("WIN_IMAGE_ENABLED", "scenes/Win.json#gfx:GUITexture:m_Enabled"),
+        ("WIN_IMAGE_VIEWPORT_POS", "scenes/Win.json#gfx:@transform:world_position"),
+        ("WIN_MUSIC_CLIP", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:m_audioClip"),
+        ("WIN_MUSIC_VOLUME", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:m_Volume"),
+        ("WIN_MUSIC_PITCH", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:m_Pitch"),
+        ("WIN_MUSIC_LOOP", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:Loop"),
+        ("WIN_MUSIC_PLAY_ON_AWAKE", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:m_PlayOnAwake"),
+        ("WIN_MUSIC_ENABLED", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:m_Enabled"),
+        ("WIN_MUSIC_MIN_DISTANCE", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:MinDistance"),
+        ("WIN_MUSIC_MAX_DISTANCE", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:MaxDistance"),
+        ("WIN_MUSIC_ROLLOFF_MODE", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:rolloffMode"),
+        ("WIN_MUSIC_DOPPLER", "scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:DopplerLevel"),
+        ("WIN_MUSIC_SPATIAL_BLEND", "derived:spatial_blend|scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm"),
+        ("WIN_HORN_CLIP", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:m_audioClip"),
+        ("WIN_HORN_VOLUME", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:m_Volume"),
+        ("WIN_HORN_PITCH", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:m_Pitch"),
+        ("WIN_HORN_LOOP", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:Loop"),
+        ("WIN_HORN_PLAY_ON_AWAKE", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:m_PlayOnAwake"),
+        ("WIN_HORN_ENABLED", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:m_Enabled"),
+        ("WIN_HORN_MIN_DISTANCE", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:MinDistance"),
+        ("WIN_HORN_MAX_DISTANCE", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:MaxDistance"),
+        ("WIN_HORN_ROLLOFF_MODE", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:rolloffMode"),
+        ("WIN_HORN_DOPPLER", "scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:DopplerLevel"),
+        ("WIN_HORN_SPATIAL_BLEND", "derived:spatial_blend|scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01"),
+        # ---- scenes/Game.json
+        ("GAME_CAMERA_ORTHO_SIZE", "scenes/Game.json#Main Camera:Camera:orthographic size"),
+        ("GAME_CAMERA_BACKGROUND", "scenes/Game.json#Main Camera:Camera:m_BackGroundColor"),
+        ("GAME_CAMERA_POS", "scenes/Game.json#Main Camera:@transform:world_position"),
+        ("NIGHT_OVERLAY_LOCAL_POS", "scenes/Game.json#Main Camera/nightosphere:@transform:local_position"),
+        # ---- materials/nightMat.mat.json
+        ("NIGHT_OVERLAY_COLOR", "materials/nightMat.mat.json#summary.colors._Color"),
+        # ---- scenes/Game.json
+        ("NIGHT_OVERLAY_ENABLED", "scenes/Game.json#Main Camera/nightosphere:MeshRenderer:m_Enabled"),
+        ("NIGHT_OVERLAY_SCALE", "scenes/Game.json#Main Camera/nightosphere:@transform:world_scale"),
+        ("CUTSCENES_LOCAL_POS", "scenes/Game.json#Main Camera/cutscenes:@transform:local_position"),
+        ("CUTSCENES_LOCAL_SCALE", "scenes/Game.json#Main Camera/cutscenes:@transform:local_scale"),
+        ("CUT_COULD_NOT_DECODE_SPRITE", "scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:SpriteRenderer:m_Sprite"),
+        ("CUT_COULD_NOT_DECODE_COLOR", "scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:SpriteRenderer:m_Color"),
+        ("CUT_COULD_NOT_DECODE_SORTING_ORDER", "scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:SpriteRenderer:m_SortingOrder"),
+        ("CUT_COULD_NOT_DECODE_ENABLED", "scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:SpriteRenderer:m_Enabled"),
+        ("CUT_COULD_NOT_DECODE_LOCAL_POS", "scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:@transform:local_position"),
+        ("CUT_COULD_NOT_DECODE_LOCAL_SCALE", "scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:@transform:local_scale"),
+        ("CUT_NEW_MESSAGE_SPRITE", "scenes/Game.json#Main Camera/cutscenes/spr_newMessage:SpriteRenderer:m_Sprite"),
+        ("CUT_NEW_MESSAGE_COLOR", "scenes/Game.json#Main Camera/cutscenes/spr_newMessage:SpriteRenderer:m_Color"),
+        ("CUT_NEW_MESSAGE_SORTING_ORDER", "scenes/Game.json#Main Camera/cutscenes/spr_newMessage:SpriteRenderer:m_SortingOrder"),
+        ("CUT_NEW_MESSAGE_ENABLED", "scenes/Game.json#Main Camera/cutscenes/spr_newMessage:SpriteRenderer:m_Enabled"),
+        ("CUT_NEW_MESSAGE_LOCAL_POS", "scenes/Game.json#Main Camera/cutscenes/spr_newMessage:@transform:local_position"),
+        ("CUT_NEW_MESSAGE_LOCAL_SCALE", "scenes/Game.json#Main Camera/cutscenes/spr_newMessage:@transform:local_scale"),
+        ("CUT_COULD_DECODE_SPRITE", "scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:SpriteRenderer:m_Sprite"),
+        ("CUT_COULD_DECODE_COLOR", "scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:SpriteRenderer:m_Color"),
+        ("CUT_COULD_DECODE_SORTING_ORDER", "scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:SpriteRenderer:m_SortingOrder"),
+        ("CUT_COULD_DECODE_ENABLED", "scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:SpriteRenderer:m_Enabled"),
+        ("CUT_COULD_DECODE_LOCAL_POS", "scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:@transform:local_position"),
+        ("CUT_COULD_DECODE_LOCAL_SCALE", "scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:@transform:local_scale"),
+        ("CUT_TUTORIAL_SPRITE", "scenes/Game.json#Main Camera/cutscenes/spr_tutorial:SpriteRenderer:m_Sprite"),
+        ("CUT_TUTORIAL_COLOR", "scenes/Game.json#Main Camera/cutscenes/spr_tutorial:SpriteRenderer:m_Color"),
+        ("CUT_TUTORIAL_SORTING_ORDER", "scenes/Game.json#Main Camera/cutscenes/spr_tutorial:SpriteRenderer:m_SortingOrder"),
+        ("CUT_TUTORIAL_ENABLED", "scenes/Game.json#Main Camera/cutscenes/spr_tutorial:SpriteRenderer:m_Enabled"),
+        ("CUT_TUTORIAL_LOCAL_POS", "scenes/Game.json#Main Camera/cutscenes/spr_tutorial:@transform:local_position"),
+        ("CUT_TUTORIAL_LOCAL_SCALE", "scenes/Game.json#Main Camera/cutscenes/spr_tutorial:@transform:local_scale"),
+        ("LEVEL_LOADER_CURRENT_LEVEL", "scenes/Game.json#Level:LevelLoader:currentLevel"),
+        ("LEVEL_LOADER_GAP", "scenes/Game.json#Level:LevelLoader:gap"),
+        ("LEVEL_LOADER_INITIAL_QUESTION", "scenes/Game.json#Level:LevelLoader:currentQuestion"),
+        ("LEVEL_LOADER_SENTENCE_SIZE", "scenes/Game.json#Level:LevelLoader:sentenceSize"),
+        ("LEVEL_POS", "scenes/Game.json#Level:@transform:world_position"),
+        ("LETTERS_POS", "scenes/Game.json#Level/letters:@transform:world_position"),
+        ("MARS_TILE_SIZE", "scenes/Game.json#Mars:Mars:tileSize"),
+        ("MARS_NUM_TILES_X", "scenes/Game.json#Mars:Mars:numTilesX"),
+        ("MARS_NUM_TILES_Y", "scenes/Game.json#Mars:Mars:numTilesY"),
+        ("MARS_TIME_SCALE", "scenes/Game.json#Mars:Mars:timeScale"),
+        ("MARS_SECONDS_SPENT", "scenes/Game.json#Mars:Mars:secondsSpent"),
+        ("MARS_TILE_SPRITES", "scenes/Game.json#Mars:Mars:sprites"),
+        ("SOL_COUNTER_TEXT", "scenes/Game.json#Mars/solCounter:GUIText:m_Text"),
+        ("SOL_COUNTER_FONT_SIZE", "scenes/Game.json#Mars/solCounter:GUIText:m_FontSize"),
+        ("SOL_COUNTER_ANCHOR", "scenes/Game.json#Mars/solCounter:GUIText:m_Anchor"),
+        ("SOL_COUNTER_ALIGNMENT", "scenes/Game.json#Mars/solCounter:GUIText:m_Alignment"),
+        ("SOL_COUNTER_COLOR", "scenes/Game.json#Mars/solCounter:GUIText:m_Color"),
+        ("SOL_COUNTER_LINE_SPACING", "scenes/Game.json#Mars/solCounter:GUIText:m_LineSpacing"),
+        ("SOL_COUNTER_PIXEL_OFFSET", "scenes/Game.json#Mars/solCounter:GUIText:m_PixelOffset"),
+        ("SOL_COUNTER_ENABLED", "scenes/Game.json#Mars/solCounter:GUIText:m_Enabled"),
+        ("SOL_COUNTER_VIEWPORT_POS", "scenes/Game.json#Mars/solCounter:@transform:world_position"),
+        # ---- prefabs/MarsTile.json
+        ("MARS_TILE_SCALE", "prefabs/MarsTile.json#MarsTile:@transform:world_scale"),
+        ("MARS_TILE_COLOR", "prefabs/MarsTile.json#MarsTile:SpriteRenderer:m_Color"),
+        ("MARS_TILE_SORTING_ORDER", "prefabs/MarsTile.json#MarsTile:SpriteRenderer:m_SortingOrder"),
+        ("MARS_TILE_ENABLED", "prefabs/MarsTile.json#MarsTile:SpriteRenderer:m_Enabled"),
+        # ---- scenes/Game.json
+        ("ROVER_SCREEN_STARTING_LIFE_SUPPORT", "scenes/Game.json#RoverScreen:RoverScreen:startingLifeSupport"),
+        ("ROVER_SCREEN_BACKGROUND_TEXTURE", "scenes/Game.json#RoverScreen:GUITexture:m_Texture"),
+        ("ROVER_SCREEN_BACKGROUND_COLOR", "scenes/Game.json#RoverScreen:GUITexture:m_Color"),
+        ("ROVER_SCREEN_BACKGROUND_PIXEL_INSET", "scenes/Game.json#RoverScreen:GUITexture:m_PixelInset"),
+        ("ROVER_SCREEN_BACKGROUND_ENABLED", "scenes/Game.json#RoverScreen:GUITexture:m_Enabled"),
+        ("ROVER_SCREEN_BACKGROUND_VIEWPORT_POS", "scenes/Game.json#RoverScreen:@transform:world_position"),
+        ("ROVER_SCREEN_TEXT_TEXT", "scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Text"),
+        ("ROVER_SCREEN_TEXT_FONT_SIZE", "scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_FontSize"),
+        ("ROVER_SCREEN_TEXT_ANCHOR", "scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Anchor"),
+        ("ROVER_SCREEN_TEXT_ALIGNMENT", "scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Alignment"),
+        ("ROVER_SCREEN_TEXT_COLOR", "scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Color"),
+        ("ROVER_SCREEN_TEXT_LINE_SPACING", "scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_LineSpacing"),
+        ("ROVER_SCREEN_TEXT_PIXEL_OFFSET", "scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_PixelOffset"),
+        ("ROVER_SCREEN_TEXT_ENABLED", "scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Enabled"),
+        ("ROVER_SCREEN_TEXT_VIEWPORT_POS", "scenes/Game.json#RoverScreen/screenGUIText:@transform:world_position"),
+        ("ROVER_SCREEN_SCALE", "scenes/Game.json#RoverScreen:@transform:world_scale"),
+        ("EARTH_MAX_MESSAGE_SOUND_VOLUME", "scenes/Game.json#Earth:Earth:maxMessageSoundVolume"),
+        ("EARTH_TELEMETRY_DELAY", "scenes/Game.json#Earth:Earth:telemetryDelay"),
+        ("EARTH_DEBUG_FORCE_NEXT_LEVEL", "scenes/Game.json#Earth:Earth:debugForceNextLevel"),
+        ("VISIBILITY_INDICATOR_TEXT", "scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Text"),
+        ("VISIBILITY_INDICATOR_FONT_SIZE", "scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_FontSize"),
+        ("VISIBILITY_INDICATOR_ANCHOR", "scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Anchor"),
+        ("VISIBILITY_INDICATOR_ALIGNMENT", "scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Alignment"),
+        ("VISIBILITY_INDICATOR_COLOR", "scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Color"),
+        ("VISIBILITY_INDICATOR_LINE_SPACING", "scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_LineSpacing"),
+        ("VISIBILITY_INDICATOR_PIXEL_OFFSET", "scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_PixelOffset"),
+        ("VISIBILITY_INDICATOR_ENABLED", "scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Enabled"),
+        ("VISIBILITY_INDICATOR_VIEWPORT_POS", "scenes/Game.json#Earth/visibiltyIndicator:@transform:world_position"),
+        ("ROCK_GENERATOR_NUM_ROCKS", "scenes/Game.json#Rocks:RockGenerator:numRocks"),
+        ("ROCKS_POS", "scenes/Game.json#Rocks:@transform:world_position"),
+        ("GAME_START_SOUND_CLIP", "scenes/Game.json#Menu4:AudioSource:m_audioClip"),
+        ("GAME_START_SOUND_VOLUME", "scenes/Game.json#Menu4:AudioSource:m_Volume"),
+        ("GAME_START_SOUND_PITCH", "scenes/Game.json#Menu4:AudioSource:m_Pitch"),
+        ("GAME_START_SOUND_LOOP", "scenes/Game.json#Menu4:AudioSource:Loop"),
+        ("GAME_START_SOUND_PLAY_ON_AWAKE", "scenes/Game.json#Menu4:AudioSource:m_PlayOnAwake"),
+        ("GAME_START_SOUND_ENABLED", "scenes/Game.json#Menu4:AudioSource:m_Enabled"),
+        ("GAME_START_SOUND_MIN_DISTANCE", "scenes/Game.json#Menu4:AudioSource:MinDistance"),
+        ("GAME_START_SOUND_MAX_DISTANCE", "scenes/Game.json#Menu4:AudioSource:MaxDistance"),
+        ("GAME_START_SOUND_ROLLOFF_MODE", "scenes/Game.json#Menu4:AudioSource:rolloffMode"),
+        ("GAME_START_SOUND_DOPPLER", "scenes/Game.json#Menu4:AudioSource:DopplerLevel"),
+        ("GAME_START_SOUND_SPATIAL_BLEND", "derived:spatial_blend|scenes/Game.json#Menu4"),
+        ("DRAG_TARGET_SCENE_SPRITE", "scenes/Game.json#RockDragTarget:SpriteRenderer:m_Sprite"),
+        ("DRAG_TARGET_SCENE_COLOR", "scenes/Game.json#RockDragTarget:SpriteRenderer:m_Color"),
+        ("DRAG_TARGET_SCENE_SORTING_ORDER", "scenes/Game.json#RockDragTarget:SpriteRenderer:m_SortingOrder"),
+        ("DRAG_TARGET_SCENE_ENABLED", "scenes/Game.json#RockDragTarget:SpriteRenderer:m_Enabled"),
+        ("DRAG_TARGET_SCENE_POS", "scenes/Game.json#RockDragTarget:@transform:world_position"),
+        ("DRAG_TARGET_SCENE_SCALE", "scenes/Game.json#RockDragTarget:@transform:world_scale"),
+        ("DRAG_TARGET_DASH_SPRITE", "scenes/Game.json#RockDragTarget:SnapToTarget:dashTarget"),
+        ("DRAG_TARGET_DOT_SPRITE", "scenes/Game.json#RockDragTarget:SnapToTarget:dotTarget"),
+        ("CAM_FOCUS_PLAYER_IN_ROVER", "scenes/Game.json#Main Camera:CamerFocusSwitcher:playerIsInRover"),
+        ("GAME_AMBIENT_LIGHT", "scenes/Game.json#scene_settings:RenderSettings:m_AmbientLight"),
+        ("PLAYER_POS", "scenes/Game.json#Player:@transform:world_position"),
+        ("PLAYER_SCALE", "scenes/Game.json#Player:@transform:world_scale"),
+        ("PLAYER_RB_MASS", "scenes/Game.json#Player:Rigidbody2D:m_Mass"),
+        ("PLAYER_RB_LINEAR_DRAG", "scenes/Game.json#Player:Rigidbody2D:m_LinearDrag"),
+        ("PLAYER_RB_ANGULAR_DRAG", "scenes/Game.json#Player:Rigidbody2D:m_AngularDrag"),
+        ("PLAYER_RB_GRAVITY_SCALE", "scenes/Game.json#Player:Rigidbody2D:m_GravityScale"),
+        ("PLAYER_RB_FIXED_ANGLE", "scenes/Game.json#Player:Rigidbody2D:m_FixedAngle"),
+        ("PLAYER_RB_KINEMATIC", "scenes/Game.json#Player:Rigidbody2D:m_IsKinematic"),
+        ("PLAYER_TRIGGER_IS_TRIGGER", "scenes/Game.json#Player:CircleCollider2D:m_IsTrigger"),
+        ("PLAYER_TRIGGER_RADIUS_WORLD", "scenes/Game.json#Player:CircleCollider2D:derived.radius_world"),
+        ("PLAYER_TRIGGER_OFFSET_WORLD", "scenes/Game.json#Player:CircleCollider2D:derived.offset_world"),
+        ("PLAYER_BODY_IS_TRIGGER", "scenes/Game.json#Player:PolygonCollider2D:m_IsTrigger"),
+        ("PLAYER_BODY_PIECES", "scenes/Game.json#Player:PolygonCollider2D:derived.paths[0].pieces"),
+        ("PLAYER_SPRITE", "scenes/Game.json#Player:SpriteRenderer:m_Sprite"),
+        ("PLAYER_COLOR", "scenes/Game.json#Player:SpriteRenderer:m_Color"),
+        ("PLAYER_SORTING_ORDER", "scenes/Game.json#Player:SpriteRenderer:m_SortingOrder"),
+        ("PLAYER_ENABLED", "scenes/Game.json#Player:SpriteRenderer:m_Enabled"),
+        ("PLAYER_TAG", "scenes/Game.json#Player:@node:tag"),
+        ("PLAYER_STRAIN_CLIP", "scenes/Game.json#Player:AudioSource:m_audioClip"),
+        ("PLAYER_STRAIN_VOLUME", "scenes/Game.json#Player:AudioSource:m_Volume"),
+        ("PLAYER_STRAIN_PITCH", "scenes/Game.json#Player:AudioSource:m_Pitch"),
+        ("PLAYER_STRAIN_LOOP", "scenes/Game.json#Player:AudioSource:Loop"),
+        ("PLAYER_STRAIN_PLAY_ON_AWAKE", "scenes/Game.json#Player:AudioSource:m_PlayOnAwake"),
+        ("PLAYER_STRAIN_ENABLED", "scenes/Game.json#Player:AudioSource:m_Enabled"),
+        ("PLAYER_STRAIN_MIN_DISTANCE", "scenes/Game.json#Player:AudioSource:MinDistance"),
+        ("PLAYER_STRAIN_MAX_DISTANCE", "scenes/Game.json#Player:AudioSource:MaxDistance"),
+        ("PLAYER_STRAIN_ROLLOFF_MODE", "scenes/Game.json#Player:AudioSource:rolloffMode"),
+        ("PLAYER_STRAIN_DOPPLER", "scenes/Game.json#Player:AudioSource:DopplerLevel"),
+        ("PLAYER_STRAIN_SPATIAL_BLEND", "derived:spatial_blend|scenes/Game.json#Player"),
+        ("PLAYER_FOOTSTEPS_CLIP", "scenes/Game.json#Player/footsteps:AudioSource:m_audioClip"),
+        ("PLAYER_FOOTSTEPS_VOLUME", "scenes/Game.json#Player/footsteps:AudioSource:m_Volume"),
+        ("PLAYER_FOOTSTEPS_PITCH", "scenes/Game.json#Player/footsteps:AudioSource:m_Pitch"),
+        ("PLAYER_FOOTSTEPS_LOOP", "scenes/Game.json#Player/footsteps:AudioSource:Loop"),
+        ("PLAYER_FOOTSTEPS_PLAY_ON_AWAKE", "scenes/Game.json#Player/footsteps:AudioSource:m_PlayOnAwake"),
+        ("PLAYER_FOOTSTEPS_ENABLED", "scenes/Game.json#Player/footsteps:AudioSource:m_Enabled"),
+        ("PLAYER_FOOTSTEPS_MIN_DISTANCE", "scenes/Game.json#Player/footsteps:AudioSource:MinDistance"),
+        ("PLAYER_FOOTSTEPS_MAX_DISTANCE", "scenes/Game.json#Player/footsteps:AudioSource:MaxDistance"),
+        ("PLAYER_FOOTSTEPS_ROLLOFF_MODE", "scenes/Game.json#Player/footsteps:AudioSource:rolloffMode"),
+        ("PLAYER_FOOTSTEPS_DOPPLER", "scenes/Game.json#Player/footsteps:AudioSource:DopplerLevel"),
+        ("PLAYER_FOOTSTEPS_SPATIAL_BLEND", "derived:spatial_blend|scenes/Game.json#Player/footsteps"),
+        ("PLAYER_AMBIENCE_CLIP", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:m_audioClip"),
+        ("PLAYER_AMBIENCE_VOLUME", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:m_Volume"),
+        ("PLAYER_AMBIENCE_PITCH", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:m_Pitch"),
+        ("PLAYER_AMBIENCE_LOOP", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:Loop"),
+        ("PLAYER_AMBIENCE_PLAY_ON_AWAKE", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:m_PlayOnAwake"),
+        ("PLAYER_AMBIENCE_ENABLED", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:m_Enabled"),
+        ("PLAYER_AMBIENCE_MIN_DISTANCE", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:MinDistance"),
+        ("PLAYER_AMBIENCE_MAX_DISTANCE", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:MaxDistance"),
+        ("PLAYER_AMBIENCE_ROLLOFF_MODE", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:rolloffMode"),
+        ("PLAYER_AMBIENCE_DOPPLER", "scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:DopplerLevel"),
+        ("PLAYER_AMBIENCE_SPATIAL_BLEND", "derived:spatial_blend|scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1"),
+        ("PLAYER_PIVOT_EULER", "scenes/Game.json#Player/pivot:@transform:world_euler"),
+        ("PLAYER_FOOTSTEPS_LOCAL_POS", "scenes/Game.json#Player/footsteps:@transform:local_position"),
+        ("ROVER_POS", "scenes/Game.json#Rover:@transform:world_position"),
+        ("ROVER_NEW_MESSAGE_CLIP", "scenes/Game.json#Rover:AudioSource:m_audioClip"),
+        ("ROVER_NEW_MESSAGE_VOLUME", "scenes/Game.json#Rover:AudioSource:m_Volume"),
+        ("ROVER_NEW_MESSAGE_PITCH", "scenes/Game.json#Rover:AudioSource:m_Pitch"),
+        ("ROVER_NEW_MESSAGE_LOOP", "scenes/Game.json#Rover:AudioSource:Loop"),
+        ("ROVER_NEW_MESSAGE_PLAY_ON_AWAKE", "scenes/Game.json#Rover:AudioSource:m_PlayOnAwake"),
+        ("ROVER_NEW_MESSAGE_ENABLED", "scenes/Game.json#Rover:AudioSource:m_Enabled"),
+        ("ROVER_NEW_MESSAGE_MIN_DISTANCE", "scenes/Game.json#Rover:AudioSource:MinDistance"),
+        ("ROVER_NEW_MESSAGE_MAX_DISTANCE", "scenes/Game.json#Rover:AudioSource:MaxDistance"),
+        ("ROVER_NEW_MESSAGE_ROLLOFF_MODE", "scenes/Game.json#Rover:AudioSource:rolloffMode"),
+        ("ROVER_NEW_MESSAGE_DOPPLER", "scenes/Game.json#Rover:AudioSource:DopplerLevel"),
+        ("ROVER_NEW_MESSAGE_SPATIAL_BLEND", "derived:spatial_blend|scenes/Game.json#Rover"),
+        ("ROVER_BODY_POS", "scenes/Game.json#Rover/RoverBody:@transform:world_position"),
+        ("ROVER_BODY_SCALE", "scenes/Game.json#Rover/RoverBody:@transform:world_scale"),
+        ("ROVER_BODY_SPRITE", "scenes/Game.json#Rover/RoverBody:SpriteRenderer:m_Sprite"),
+        ("ROVER_BODY_COLOR", "scenes/Game.json#Rover/RoverBody:SpriteRenderer:m_Color"),
+        ("ROVER_BODY_SORTING_ORDER", "scenes/Game.json#Rover/RoverBody:SpriteRenderer:m_SortingOrder"),
+        ("ROVER_BODY_ENABLED", "scenes/Game.json#Rover/RoverBody:SpriteRenderer:m_Enabled"),
+        ("ROVER_BODY_RB_LINEAR_DRAG", "scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_LinearDrag"),
+        ("ROVER_BODY_RB_ANGULAR_DRAG", "scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_AngularDrag"),
+        ("ROVER_BODY_RB_GRAVITY_SCALE", "scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_GravityScale"),
+        ("ROVER_BODY_RB_FIXED_ANGLE", "scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_FixedAngle"),
+        ("ROVER_BODY_RB_KINEMATIC", "scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_IsKinematic"),
+        ("ROVER_BODY_TRIGGER_IS_TRIGGER", "scenes/Game.json#Rover/RoverBody:BoxCollider2D:m_IsTrigger"),
+        ("ROVER_BODY_TRIGGER_SIZE_WORLD", "scenes/Game.json#Rover/RoverBody:BoxCollider2D:derived.size_world"),
+        ("ROVER_BODY_TRIGGER_OFFSET_WORLD", "scenes/Game.json#Rover/RoverBody:BoxCollider2D:derived.offset_world"),
+        ("ROVER_BODY_TAG", "scenes/Game.json#Rover/RoverBody:@node:tag"),
+        ("ROVER_ROOF_POS", "scenes/Game.json#Rover/bis_rover_v2_roof:@transform:world_position"),
+        ("ROVER_ROOF_SCALE", "scenes/Game.json#Rover/bis_rover_v2_roof:@transform:world_scale"),
+        ("ROVER_ROOF_SPRITE", "scenes/Game.json#Rover/bis_rover_v2_roof:SpriteRenderer:m_Sprite"),
+        ("ROVER_ROOF_COLOR", "scenes/Game.json#Rover/bis_rover_v2_roof:SpriteRenderer:m_Color"),
+        ("ROVER_ROOF_SORTING_ORDER", "scenes/Game.json#Rover/bis_rover_v2_roof:SpriteRenderer:m_SortingOrder"),
+        ("ROVER_ROOF_ENABLED", "scenes/Game.json#Rover/bis_rover_v2_roof:SpriteRenderer:m_Enabled"),
+        ("ROVER_ROOF_RB_LINEAR_DRAG", "scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_LinearDrag"),
+        ("ROVER_ROOF_RB_ANGULAR_DRAG", "scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_AngularDrag"),
+        ("ROVER_ROOF_RB_GRAVITY_SCALE", "scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_GravityScale"),
+        ("ROVER_ROOF_RB_FIXED_ANGLE", "scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_FixedAngle"),
+        ("ROVER_ROOF_RB_KINEMATIC", "scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_IsKinematic"),
+        ("ROVER_ROOF_COLLIDER_IS_TRIGGER", "scenes/Game.json#Rover/bis_rover_v2_roof:PolygonCollider2D:m_IsTrigger"),
+        ("ROVER_ROOF_COLLIDER_PIECES", "scenes/Game.json#Rover/bis_rover_v2_roof:PolygonCollider2D:derived.paths[0].pieces"),
+        ("ROVER_ROOF_TAG", "scenes/Game.json#Rover/bis_rover_v2_roof:@node:tag"),
+        ("ROCK_REPELLER_POS", "scenes/Game.json#Rover/rockRepeller:@transform:world_position"),
+        ("ROCK_REPELLER_IS_TRIGGER", "scenes/Game.json#Rover/rockRepeller:CircleCollider2D:m_IsTrigger"),
+        ("ROCK_REPELLER_RADIUS_WORLD", "scenes/Game.json#Rover/rockRepeller:CircleCollider2D:derived.radius_world"),
+        ("ROCK_REPELLER_OFFSET_WORLD", "scenes/Game.json#Rover/rockRepeller:CircleCollider2D:derived.offset_world"),
+        ("ROVER_FOCUS_TARGET_POS", "scenes/Game.json#Rover/roverFocusTarget:@transform:world_position"),
+        ("ROVER_INSIDE_TRIGGER_POS", "scenes/Game.json#Rover/playerInsideRoverTrigger:@transform:world_position"),
+        ("ROVER_INSIDE_TRIGGER_IS_TRIGGER", "scenes/Game.json#Rover/playerInsideRoverTrigger:CircleCollider2D:m_IsTrigger"),
+        ("ROVER_INSIDE_TRIGGER_RADIUS_WORLD", "scenes/Game.json#Rover/playerInsideRoverTrigger:CircleCollider2D:derived.radius_world"),
+        ("ROVER_INSIDE_TRIGGER_OFFSET_WORLD", "scenes/Game.json#Rover/playerInsideRoverTrigger:CircleCollider2D:derived.offset_world"),
+        ("ROVER_INSIDE_SET_ON_PITCH", "scenes/Game.json#Rover/playerInsideRoverTrigger:RoverInsideTrigger:setOnPitch"),
+        ("ROVER_INSIDE_SET_OFF_PITCH", "scenes/Game.json#Rover/playerInsideRoverTrigger:RoverInsideTrigger:setOffPitch"),
+        ("ROVER_INSIDE_TRIGGER_TAG", "scenes/Game.json#Rover/playerInsideRoverTrigger:@node:tag"),
+        ("ROVER_ENTER_SOUND_CLIP", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:m_audioClip"),
+        ("ROVER_ENTER_SOUND_VOLUME", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:m_Volume"),
+        ("ROVER_ENTER_SOUND_PITCH", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:m_Pitch"),
+        ("ROVER_ENTER_SOUND_LOOP", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:Loop"),
+        ("ROVER_ENTER_SOUND_PLAY_ON_AWAKE", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:m_PlayOnAwake"),
+        ("ROVER_ENTER_SOUND_ENABLED", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:m_Enabled"),
+        ("ROVER_ENTER_SOUND_MIN_DISTANCE", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:MinDistance"),
+        ("ROVER_ENTER_SOUND_MAX_DISTANCE", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:MaxDistance"),
+        ("ROVER_ENTER_SOUND_ROLLOFF_MODE", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:rolloffMode"),
+        ("ROVER_ENTER_SOUND_DOPPLER", "scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:DopplerLevel"),
+        ("ROVER_ENTER_SOUND_SPATIAL_BLEND", "derived:spatial_blend|scenes/Game.json#Rover/playerInsideRoverTrigger"),
+        ("ROVER_CHATTER_CLIP", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:m_audioClip"),
+        ("ROVER_CHATTER_VOLUME", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:m_Volume"),
+        ("ROVER_CHATTER_PITCH", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:m_Pitch"),
+        ("ROVER_CHATTER_LOOP", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:Loop"),
+        ("ROVER_CHATTER_PLAY_ON_AWAKE", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:m_PlayOnAwake"),
+        ("ROVER_CHATTER_ENABLED", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:m_Enabled"),
+        ("ROVER_CHATTER_MIN_DISTANCE", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:MinDistance"),
+        ("ROVER_CHATTER_MAX_DISTANCE", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:MaxDistance"),
+        ("ROVER_CHATTER_ROLLOFF_MODE", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:rolloffMode"),
+        ("ROVER_CHATTER_DOPPLER", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:DopplerLevel"),
+        ("ROVER_CHATTER_SPATIAL_BLEND", "derived:spatial_blend|scenes/Game.json#Rover/playerInsideRoverTrigger/chatter"),
+        ("ROVER_CHATTER_POS", "scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:@transform:world_position"),
+        ("ROVER_UPDATES_INDICATOR_POS", "scenes/Game.json#Rover/updatesIndicator:@transform:world_position"),
+        ("ROVER_UPDATES_INDICATOR_SCALE", "scenes/Game.json#Rover/updatesIndicator:@transform:world_scale"),
+        ("ROVER_UPDATES_INDICATOR_SPRITE", "scenes/Game.json#Rover/updatesIndicator:SpriteRenderer:m_Sprite"),
+        ("ROVER_UPDATES_INDICATOR_COLOR", "scenes/Game.json#Rover/updatesIndicator:SpriteRenderer:m_Color"),
+        ("ROVER_UPDATES_INDICATOR_SORTING_ORDER", "scenes/Game.json#Rover/updatesIndicator:SpriteRenderer:m_SortingOrder"),
+        ("ROVER_UPDATES_INDICATOR_ENABLED", "scenes/Game.json#Rover/updatesIndicator:SpriteRenderer:m_Enabled"),
+        # ---- prefabs/RockPrefab.json
+        ("ROCK_POS", "prefabs/RockPrefab.json#RockPrefab:@transform:world_position"),
+        ("ROCK_SCALE", "prefabs/RockPrefab.json#RockPrefab:@transform:world_scale"),
+        ("ROCK_RB_MASS", "prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_Mass"),
+        ("ROCK_RB_LINEAR_DRAG", "prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_LinearDrag"),
+        ("ROCK_RB_ANGULAR_DRAG", "prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_AngularDrag"),
+        ("ROCK_RB_GRAVITY_SCALE", "prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_GravityScale"),
+        ("ROCK_RB_FIXED_ANGLE", "prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_FixedAngle"),
+        ("ROCK_IS_TRIGGER", "prefabs/RockPrefab.json#RockPrefab:CircleCollider2D:m_IsTrigger"),
+        ("ROCK_RADIUS_WORLD", "prefabs/RockPrefab.json#RockPrefab:CircleCollider2D:derived.radius_world"),
+        ("ROCK_OFFSET_WORLD", "prefabs/RockPrefab.json#RockPrefab:CircleCollider2D:derived.offset_world"),
+        ("ROCK_SPRITE", "prefabs/RockPrefab.json#RockPrefab:SpriteRenderer:m_Sprite"),
+        ("ROCK_COLOR", "prefabs/RockPrefab.json#RockPrefab:SpriteRenderer:m_Color"),
+        ("ROCK_SORTING_ORDER", "prefabs/RockPrefab.json#RockPrefab:SpriteRenderer:m_SortingOrder"),
+        ("ROCK_ENABLED", "prefabs/RockPrefab.json#RockPrefab:SpriteRenderer:m_Enabled"),
+        ("ROCK_DRAG_CLIP", "prefabs/RockPrefab.json#RockPrefab:AudioSource:m_audioClip"),
+        ("ROCK_DRAG_VOLUME", "prefabs/RockPrefab.json#RockPrefab:AudioSource:m_Volume"),
+        ("ROCK_DRAG_PITCH", "prefabs/RockPrefab.json#RockPrefab:AudioSource:m_Pitch"),
+        ("ROCK_DRAG_LOOP", "prefabs/RockPrefab.json#RockPrefab:AudioSource:Loop"),
+        ("ROCK_DRAG_PLAY_ON_AWAKE", "prefabs/RockPrefab.json#RockPrefab:AudioSource:m_PlayOnAwake"),
+        ("ROCK_DRAG_ENABLED", "prefabs/RockPrefab.json#RockPrefab:AudioSource:m_Enabled"),
+        ("ROCK_DRAG_MIN_DISTANCE", "prefabs/RockPrefab.json#RockPrefab:AudioSource:MinDistance"),
+        ("ROCK_DRAG_MAX_DISTANCE", "prefabs/RockPrefab.json#RockPrefab:AudioSource:MaxDistance"),
+        ("ROCK_DRAG_ROLLOFF_MODE", "prefabs/RockPrefab.json#RockPrefab:AudioSource:rolloffMode"),
+        ("ROCK_DRAG_DOPPLER", "prefabs/RockPrefab.json#RockPrefab:AudioSource:DopplerLevel"),
+        ("ROCK_DRAG_SPATIAL_BLEND", "derived:spatial_blend|prefabs/RockPrefab.json#RockPrefab"),
+        ("ROCK_DRAG_ROLLOFF_CURVE", "prefabs/RockPrefab.json#RockPrefab:AudioSource:rolloffCustomCurve.m_Curve"),
+        ("ROCK_TAG", "prefabs/RockPrefab.json#RockPrefab:@node:tag"),
+        ("ROCK_JOINT_DISTANCE", "prefabs/RockPrefab.json#RockPrefab:DistanceJoint2D:m_Distance"),
+        ("ROCK_JOINT_ANCHOR", "prefabs/RockPrefab.json#RockPrefab:DistanceJoint2D:m_Anchor"),
+        ("ROCK_JOINT_CONNECTED_ANCHOR", "prefabs/RockPrefab.json#RockPrefab:DistanceJoint2D:m_ConnectedAnchor"),
+        ("ROCK_JOINT_MAX_DISTANCE_ONLY", "prefabs/RockPrefab.json#RockPrefab:DistanceJoint2D:m_MaxDistanceOnly"),
+        ("ROCK_JOINT_COLLIDE_CONNECTED", "prefabs/RockPrefab.json#RockPrefab:DistanceJoint2D:m_CollideConnected"),
+        ("ROCK_JOINT_ENABLED", "prefabs/RockPrefab.json#RockPrefab:DistanceJoint2D:m_Enabled"),
+        ("ROCK_DARK_SPRITE", "prefabs/RockPrefab.json#RockPrefab:Rock:darkSprite"),
+        ("ROCK_LIGHT_SPRITE", "prefabs/RockPrefab.json#RockPrefab:Rock:lightSprite"),
+        # ---- prefabs/RockShadowPrefab.json
+        ("ROCK_SHADOW_POS", "prefabs/RockShadowPrefab.json#RockShadowPrefab:@transform:world_position"),
+        ("ROCK_SHADOW_SCALE", "prefabs/RockShadowPrefab.json#RockShadowPrefab:@transform:world_scale"),
+        ("ROCK_SHADOW_SPRITE", "prefabs/RockShadowPrefab.json#RockShadowPrefab:SpriteRenderer:m_Sprite"),
+        ("ROCK_SHADOW_COLOR", "prefabs/RockShadowPrefab.json#RockShadowPrefab:SpriteRenderer:m_Color"),
+        ("ROCK_SHADOW_SORTING_ORDER", "prefabs/RockShadowPrefab.json#RockShadowPrefab:SpriteRenderer:m_SortingOrder"),
+        ("ROCK_SHADOW_ENABLED", "prefabs/RockShadowPrefab.json#RockShadowPrefab:SpriteRenderer:m_Enabled"),
+        # ---- prefabs/RockPlaceholderPrefab.json
+        ("PLACEHOLDER_POS", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:@transform:world_position"),
+        ("PLACEHOLDER_SCALE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:@transform:world_scale"),
+        ("PLACEHOLDER_SPRITE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:SpriteRenderer:m_Sprite"),
+        ("PLACEHOLDER_COLOR", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:SpriteRenderer:m_Color"),
+        ("PLACEHOLDER_SORTING_ORDER", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:SpriteRenderer:m_SortingOrder"),
+        ("PLACEHOLDER_ENABLED", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:SpriteRenderer:m_Enabled"),
+        ("PLACEHOLDER_IS_TRIGGER", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:CircleCollider2D:m_IsTrigger"),
+        ("PLACEHOLDER_RADIUS_WORLD", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:CircleCollider2D:derived.radius_world"),
+        ("PLACEHOLDER_OFFSET_WORLD", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:CircleCollider2D:derived.offset_world"),
+        ("PLACEHOLDER_CORRECT_CLIP", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:m_audioClip"),
+        ("PLACEHOLDER_CORRECT_VOLUME", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:m_Volume"),
+        ("PLACEHOLDER_CORRECT_PITCH", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:m_Pitch"),
+        ("PLACEHOLDER_CORRECT_LOOP", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:Loop"),
+        ("PLACEHOLDER_CORRECT_PLAY_ON_AWAKE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:m_PlayOnAwake"),
+        ("PLACEHOLDER_CORRECT_ENABLED", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:m_Enabled"),
+        ("PLACEHOLDER_CORRECT_MIN_DISTANCE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:MinDistance"),
+        ("PLACEHOLDER_CORRECT_MAX_DISTANCE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:MaxDistance"),
+        ("PLACEHOLDER_CORRECT_ROLLOFF_MODE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:rolloffMode"),
+        ("PLACEHOLDER_CORRECT_DOPPLER", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:DopplerLevel"),
+        ("PLACEHOLDER_CORRECT_SPATIAL_BLEND", "derived:spatial_blend|prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab"),
+        ("PLACEHOLDER_TAG", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:@node:tag"),
+        ("PLACEHOLDER_DASH_SPRITE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:RockPlaceholder:dashSprite"),
+        ("PLACEHOLDER_DOT_SPRITE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:RockPlaceholder:dotSprite"),
+        ("PLACEHOLDER_INCORRECT_SPRITE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:RockPlaceholder:incorrectSprite"),
+        ("PLACEHOLDER_CORRECT_SPRITE", "prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:RockPlaceholder:correctSprite"),
+        # ---- prefabs/LetterPrefab.json
+        ("LETTER_SCALE", "prefabs/LetterPrefab.json#LetterPrefab:@transform:world_scale"),
+        ("LETTER_TEXT", "prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_Text"),
+        ("LETTER_FONT_SIZE", "prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_FontSize"),
+        ("LETTER_CHARACTER_SIZE", "prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_CharacterSize"),
+        ("LETTER_ANCHOR", "prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_Anchor"),
+        ("LETTER_ALIGNMENT", "prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_Alignment"),
+        ("LETTER_COLOR", "prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_Color"),
+        ("LETTER_MESH_RENDERER_ENABLED", "prefabs/LetterPrefab.json#LetterPrefab:MeshRenderer:m_Enabled"),
+        # ---- build/font.json
+        ("JOYSTIX_PIXEL_SCALE", "build/font.json#build_font.m_PixelScale"),
+        # ---- prefabs/RockShatterPrefab.json
+        ("SHATTER_SOUND_CLIP", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:m_audioClip"),
+        ("SHATTER_SOUND_VOLUME", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:m_Volume"),
+        ("SHATTER_SOUND_PITCH", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:m_Pitch"),
+        ("SHATTER_SOUND_LOOP", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:Loop"),
+        ("SHATTER_SOUND_PLAY_ON_AWAKE", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:m_PlayOnAwake"),
+        ("SHATTER_SOUND_ENABLED", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:m_Enabled"),
+        ("SHATTER_SOUND_MIN_DISTANCE", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:MinDistance"),
+        ("SHATTER_SOUND_MAX_DISTANCE", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:MaxDistance"),
+        ("SHATTER_SOUND_ROLLOFF_MODE", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:rolloffMode"),
+        ("SHATTER_SOUND_DOPPLER", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:DopplerLevel"),
+        ("SHATTER_SOUND_SPATIAL_BLEND", "derived:spatial_blend|prefabs/RockShatterPrefab.json#RockShatterPrefab"),
+        ("SHATTER_SOUND_ROLLOFF_CURVE", "prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:rolloffCustomCurve.m_Curve"),
+        ("SHATTER_TIME_OUT", "prefabs/RockShatterPrefab.json#RockShatterPrefab:TimedObjectDestructor:timeOut"),
+        ("SHATTER_EMIT", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:m_Emit"),
+        ("SHATTER_MIN_EMISSION", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:minEmission"),
+        ("SHATTER_MAX_EMISSION", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:maxEmission"),
+        ("SHATTER_MIN_ENERGY", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:minEnergy"),
+        ("SHATTER_MAX_ENERGY", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:maxEnergy"),
+        ("SHATTER_MIN_SIZE", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:minSize"),
+        ("SHATTER_MAX_SIZE", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:maxSize"),
+        ("SHATTER_RND_VELOCITY", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:rndVelocity"),
+        ("SHATTER_RND_ROTATION", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:rndRotation"),
+        ("SHATTER_ANIM_DAMPING", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:damping"),
+        ("SHATTER_ANIM_FORCE", "prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:force"),
+        # ---- animation/Stop Emitting ,5 sec.anim.json
+        ("SHATTER_STOP_EMIT_CURVE", "animation/Stop Emitting ,5 sec.anim.json#summary.float_curves[0].curve.m_Curve"),
+        # ---- materials/Fire Smoke.mat.json
+        ("SHATTER_MATERIAL_COLOR", "materials/Fire Smoke.mat.json#summary.colors._Color"),
+        ("SHATTER_MATERIAL_MAIN_TEX", "materials/Fire Smoke.mat.json#summary.textures._MainTex"),
+        # ---- prefabs/RocketPrefab.json
+        ("ROCKET_BODY_POS", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:@transform:world_position"),
+        ("ROCKET_BODY_SCALE", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:@transform:world_scale"),
+        ("ROCKET_BODY_SPRITE", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:SpriteRenderer:m_Sprite"),
+        ("ROCKET_BODY_COLOR", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:SpriteRenderer:m_Color"),
+        ("ROCKET_BODY_SORTING_ORDER", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:SpriteRenderer:m_SortingOrder"),
+        ("ROCKET_BODY_ENABLED", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:SpriteRenderer:m_Enabled"),
+        ("ROCKET_BODY_RB_LINEAR_DRAG", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_LinearDrag"),
+        ("ROCKET_BODY_RB_ANGULAR_DRAG", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_AngularDrag"),
+        ("ROCKET_BODY_RB_GRAVITY_SCALE", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_GravityScale"),
+        ("ROCKET_BODY_RB_FIXED_ANGLE", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_FixedAngle"),
+        ("ROCKET_BODY_RB_KINEMATIC", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_IsKinematic"),
+        ("ROCKET_BODY_COLLIDER_IS_TRIGGER", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:PolygonCollider2D:m_IsTrigger"),
+        ("ROCKET_BODY_COLLIDER_PIECES", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:PolygonCollider2D:derived.paths[0].pieces"),
+        ("ROCKET_BODY_TAG", "prefabs/RocketPrefab.json#RocketPrefab/RocketBody:@node:tag"),
+        ("ROCKET_COVER_POS", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:@transform:world_position"),
+        ("ROCKET_COVER_SCALE", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:@transform:world_scale"),
+        ("ROCKET_COVER_SPRITE", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:SpriteRenderer:m_Sprite"),
+        ("ROCKET_COVER_COLOR", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:SpriteRenderer:m_Color"),
+        ("ROCKET_COVER_SORTING_ORDER", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:SpriteRenderer:m_SortingOrder"),
+        ("ROCKET_COVER_ENABLED", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:SpriteRenderer:m_Enabled"),
+        ("ROCKET_COVER_TRIGGER_IS_TRIGGER", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:BoxCollider2D:m_IsTrigger"),
+        ("ROCKET_COVER_TRIGGER_SIZE_WORLD", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:BoxCollider2D:derived.size_world"),
+        ("ROCKET_COVER_TRIGGER_OFFSET_WORLD", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:BoxCollider2D:derived.offset_world"),
+        ("ROCKET_COVER_TAG", "prefabs/RocketPrefab.json#RocketPrefab/RocketCover:@node:tag"),
+        ("ROCKET_REPELLER_POS", "prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:@transform:world_position"),
+        ("ROCKET_REPELLER_IS_TRIGGER", "prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:BoxCollider2D:m_IsTrigger"),
+        ("ROCKET_REPELLER_SIZE_WORLD", "prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:BoxCollider2D:derived.size_world"),
+        ("ROCKET_REPELLER_OFFSET_WORLD", "prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:BoxCollider2D:derived.offset_world"),
+        ("ROCKET_REPELLER_TAG", "prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:@node:tag"),
+        ("ROCKET_INSIDE_TRIGGER_POS", "prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:@transform:world_position"),
+        ("ROCKET_INSIDE_TRIGGER_IS_TRIGGER", "prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:BoxCollider2D:m_IsTrigger"),
+        ("ROCKET_INSIDE_TRIGGER_SIZE_WORLD", "prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:BoxCollider2D:derived.size_world"),
+        ("ROCKET_INSIDE_TRIGGER_OFFSET_WORLD", "prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:BoxCollider2D:derived.offset_world"),
+        ("ROCKET_INSIDE_TRIGGER_TAG", "prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:@node:tag"),
+    ]
 
 
 # --------------------------------------------------------------------------
@@ -1474,7 +1754,7 @@ def write_values_h(rows, dumps, refmap, player_h, slop, path):
     write_header(path, out)
 
 
-NULL_ROWS = {"MARS_TILE_SPRITE"}  # the tile prefab has no sprite, Mars.cs assigns them
+NULL_ROWS = set()  # rows whose source is a null reference; none are left after the trim
 
 
 def write_header(path, parts):

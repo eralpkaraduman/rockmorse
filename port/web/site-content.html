@@ -1,9 +1,9 @@
-    <!-- Rockmorse's cover page text. CMake puts it into site.html.in.
-         First draft from step 2 of the plan. Step 9 adds screenshots and checks every line. -->
+    <!-- Rockmorse's cover page text. CMake puts it into site.html.in. -->
     <h2>About</h2>
-    <p>You are an astronaut stranded on Mars. Your radio still hears Earth, but Earth cannot hear you. Each sol, a Mars day, Earth sends a question to the screen in your rover.</p>
+    <p>You are an astronaut stranded on Mars. Your radio still hears Earth, but Earth cannot hear you. Each sol, a Mars day, Earth sends a message to the screen in your rover.</p>
     <p>You answer by dragging rocks into Morse code. Dark rocks are dashes and light rocks are dots. Earth can only read your answer in daylight, when its satellite can see you.</p>
-    <p>Life support runs out after a set number of sols. Answer every message before it does, and a lander comes to take you home.</p>
+    <p>Life support lasts 14 sols. Answer every message before it runs out, and a lander comes to take you home.</p>
+    <p>This is the post-compo version, the last state of the game's source, from December 2016.</p>
 
     <h2>Aim of the game</h2>
     <p>Answer each of Earth's messages in Morse code, then walk into the lander when it arrives.</p>
@@ -11,38 +11,66 @@
     <h2>How to play</h2>
     <ol>
       <li>Read the help screen, then press Space to start.</li>
-      <li>Walk into the rover to read Earth's message on its screen.</li>
-      <li>Find the answer's slots on the ground. Hold Space near a rock to pull it, and drag it onto a slot of its kind.</li>
+      <li>Walk into the rover to read Earth's message on its screen. The screen also shows how much life support is left.</li>
+      <li>Find the answer's slots on the ground near the rover. Hold M to see the whole answer from above.</li>
+      <li>Hold Space near a rock to pull it, and drag it onto a slot of its kind. A slot turns green when its rock is right.</li>
       <li>Wait for daylight. Earth reads your answer, and a new message arrives at the rover.</li>
     </ol>
+    <ul>
+      <li>Rocks that touch the rover break, and new ones appear somewhere else.</li>
+      <li>Time stops while you sit in the rover, so read the messages there.</li>
+    </ul>
 
     <h2>Controls</h2>
-    <p class="hint-touch">On a touch screen, the buttons under the game stand in for these keys.</p>
+    <p class="hint-touch">On a touch screen, the buttons under the game stand in for these keys. Pull is <kbd>Space</kbd>, Map is <kbd>M</kbd> and Help is <kbd>H</kbd>. Hold Pull and Map, as you would the keys. A tap on the game works as a click.</p>
     <dl class="controls">
       <dt><kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> or <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></dt><dd>Walk</dd>
-      <dt><kbd>Space</kbd></dt><dd>Hold to pull the nearest rock. Also dismisses a message and goes on from the story screens.</dd>
-      <dt><kbd>M</kbd> or <kbd>Tab</kbd></dt><dd>Hold to see the whole answer</dd>
-      <dt><kbd>H</kbd> or <kbd>Shift</kbd></dt><dd>Show or hide the help</dd>
-      <dt><kbd>Enter</kbd></dt><dd>Go on from the title, story and end screens</dd>
+      <dt><kbd>Space</kbd></dt><dd>Hold to pull the nearest rock. Also closes a message and goes on from the story screens.</dd>
+      <dt><kbd>M</kbd> or <kbd>Tab</kbd></dt><dd>Hold to see the whole answer from above</dd>
+      <dt><kbd>H</kbd> or <kbd>Shift</kbd></dt><dd>Show or hide the help. <kbd>Esc</kbd> and <kbd>P</kbd> work too.</dd>
+      <dt><kbd>Enter</kbd> or a click</dt><dd>Start from the title, and go on from the story and end screens</dd>
     </dl>
-    <p>A gamepad works too. The D-pad or left stick walks. A pulls and goes on, the left shoulder shows the map, and Start shows the help. In a browser, press a gamepad button once so the page sees the gamepad.</p>
+    <p>A gamepad works too. The D-pad or left stick walks. The bottom face button (A on Xbox, cross on PlayStation) is <kbd>Space</kbd>. The left shoulder button is <kbd>M</kbd>, and Start is <kbd>H</kbd>. In a browser, press a gamepad button once so the page sees the gamepad.</p>
+
+    <h2>Screenshots</h2>
+    <div class="shots two">
+      <img src="screenshots/1-title.png" width="660" height="440" alt="The title screen with the Play button">
+      <img src="screenshots/2-tutorial.png" width="660" height="440" alt="The help screen that explains the controls and the rocks">
+      <img src="screenshots/3-pulling-a-rock.png" width="660" height="440" alt="The astronaut pulling a light rock towards the answer's slots, next to the rover">
+      <img src="screenshots/4-rover-screen.png" width="660" height="440" alt="Earth's first message on the rover's screen, with life support left">
+      <img src="screenshots/5-decoded-answer.png" width="660" height="440" alt="The map view at night, with the answer OK decoded above its rocks">
+    </div>
 
     <h2>History</h2>
-    <p>Super Damage made Rockmorse for Ludum Dare 30 in August 2014, whose theme was "Connected Worlds". Super Damage was Eren Ozel and Eralp Karaduman.</p>
-    <p>It was made in Unity and kept working on after the jam. The last build, from December 2016, is the version this port follows.</p>
+    <p>Super Damage made Rockmorse for Ludum Dare 30 in August 2014. The theme was "Connected Worlds". Super Damage was Eren Ozel and Eralp Karaduman.</p>
+    <p>It was made in Unity, and work went on after the jam. The post-compo fixes stop time in the rover and fix a bug that kept you from leaving it. The source is on GitHub at <a href="https://github.com/superdamage/LD30">superdamage/LD30</a>. This port follows its last commit, <code>19ad7cb</code>, from December 2016. The builds made then used Unity 5.4.</p>
 
     <h2>How it was ported</h2>
-    <p>The game's Unity project and its 2016 builds survived. The scenes, prefabs and settings were read out of the project into plain data files, and the C# scripts were rewritten by hand in plain C, with their original comments kept.</p>
-    <p>The port uses raylib 6.0 for drawing, input and sound, and Box2D for physics. The web version is compiled to WebAssembly with Emscripten. The same code also builds for macOS, Windows and Linux.</p>
+    <p>The Unity project and its 2016 builds survived. In October 2026 the game was rebuilt in C with raylib and Box2D.</p>
+    <p>The scenes, prefabs and settings were read out of the Unity project into plain data files. Every number the game uses comes from those files. The C# scripts were rewritten by hand in plain C, with readable names. Their original comments are kept, word for word.</p>
+    <p>The 2016 web and Mac builds still run, and served as references. The port's movement, rock physics, timing, text layout and 3D sound were measured against them.</p>
+    <p>The port uses raylib 6.0 for drawing, input and sound, and Box2D 3.1 for physics. The web version is compiled to WebAssembly with Emscripten. The same code also builds for macOS, Windows and Linux.</p>
     <p>The port was written with Claude Code, Anthropic's coding agent, running the Claude Opus 5.5 model.</p>
+
+    <h2>Changes from the original</h2>
+    <p>The port plays like the 2016 build, original bugs included. A few things changed on purpose.</p>
+    <ul>
+      <li>The help keys froze the game when pressed during the short overview after Earth reads an answer. The port ignores them there.</li>
+      <li>The original cheat needed Shift and C pressed in the very same frame. The port uses "hold Ctrl, press C". It fills the current answer's slots with the right rocks.</li>
+      <li>New keys sit next to the old ones: Enter, Tab and Shift, plus the gamepad and touch controls. Every original key still works.</li>
+      <li>The title screen had no key for Play. Space and Enter now start the game.</li>
+      <li>The Unity splash screen is left out, as it is not part of the game.</li>
+      <li>The original had reverb inside the rover and the lander. The 2016 web build never played it, so the port leaves it out.</li>
+    </ul>
 
     <h2>More information</h2>
     <table class="info">
       <tr><th>Made</th><td>August 2014, last build December 2016</td></tr>
       <tr><th>Event</th><td>Ludum Dare 30, theme "Connected Worlds"</td></tr>
       <tr><th>Made by</th><td>Super Damage: <a href="https://erenozel.art">Eren Ozel</a> and <a href="https://eralp.dev">Eralp Karaduman</a></td></tr>
-      <tr><th>Original</th><td>Unity 5.4, C#</td></tr>
+      <tr><th>Original</th><td>Unity, C#. <a href="https://github.com/superdamage/LD30">Source</a> at commit <code>19ad7cb</code></td></tr>
       <tr><th>Port</th><td>C17, raylib 6.0, Box2D 3.1, WebAssembly</td></tr>
+      <tr><th>Genre</th><td>Puzzle, exploration</td></tr>
       <tr><th>Controls</th><td>Keyboard and mouse, gamepad, or touch on phones and tablets</td></tr>
       <tr><th>Source</th><td><a href="https://github.com/eralpkaraduman/rockmorse">github.com/eralpkaraduman/rockmorse</a></td></tr>
     </table>

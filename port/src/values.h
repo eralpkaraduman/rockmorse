@@ -20,22 +20,8 @@
 #define WINDOW_WIDTH 660
 /* settings/ProjectSettings.json#defaultScreenHeight */
 #define WINDOW_HEIGHT 440
-/* settings/ProjectSettings.json#defaultScreenWidthWeb */
-#define WINDOW_WIDTH_WEB 660
-/* settings/ProjectSettings.json#defaultScreenHeightWeb */
-#define WINDOW_HEIGHT_WEB 440
-/* settings/ProjectSettings.json#resizableWindow */
-#define WINDOW_RESIZABLE 0
-/* settings/ProjectSettings.json#defaultIsFullScreen */
-#define WINDOW_DEFAULT_FULLSCREEN 0
-/* settings/ProjectSettings.json#runInBackground */
-#define RUN_IN_BACKGROUND 0
 /* settings/ProjectSettings.json#productName */
 #define PRODUCT_NAME "Rockmorse"
-/* settings/ProjectSettings.json#companyName */
-#define COMPANY_NAME "Super Damage"
-/* settings/ProjectSettings.json#m_ShowUnitySplashScreen */
-#define SHOW_UNITY_SPLASH 1
 /* settings/TimeManager.json#Fixed Timestep */
 #define FIXED_TIMESTEP 0.02f
 /* settings/TimeManager.json#Maximum Allowed Timestep */
@@ -45,48 +31,14 @@
 /* settings/Physics2DSettings.json#m_Gravity */
 #define PHYSICS_GRAVITY_X 0.0f
 #define PHYSICS_GRAVITY_Y -9.81f
-/* settings/Physics2DSettings.json#m_VelocityIterations */
-#define PHYSICS_VELOCITY_ITERATIONS 8
-/* settings/Physics2DSettings.json#m_PositionIterations */
-#define PHYSICS_POSITION_ITERATIONS 3
-/* settings/Physics2DSettings.json#m_VelocityThreshold */
-#define PHYSICS_VELOCITY_THRESHOLD 1.0f
-/* settings/Physics2DSettings.json#m_MaxLinearCorrection */
-#define PHYSICS_MAX_LINEAR_CORRECTION 0.2f
-/* settings/Physics2DSettings.json#m_MaxAngularCorrection */
-#define PHYSICS_MAX_ANGULAR_CORRECTION 8.0f
-/* settings/Physics2DSettings.json#m_MaxTranslationSpeed */
-#define PHYSICS_MAX_TRANSLATION_SPEED 100.0f
-/* settings/Physics2DSettings.json#m_MaxRotationSpeed */
-#define PHYSICS_MAX_ROTATION_SPEED 360.0f
-/* settings/Physics2DSettings.json#m_BaumgarteScale */
-#define PHYSICS_BAUMGARTE_SCALE 0.2f
-/* settings/Physics2DSettings.json#m_BaumgarteTimeOfImpactScale */
-#define PHYSICS_BAUMGARTE_TOI_SCALE 0.75f
-/* settings/Physics2DSettings.json#m_TimeToSleep */
-#define PHYSICS_TIME_TO_SLEEP 0.5f
 /* settings/Physics2DSettings.json#m_LinearSleepTolerance */
 #define PHYSICS_LINEAR_SLEEP_TOLERANCE 0.01f
-/* settings/Physics2DSettings.json#m_AngularSleepTolerance */
-#define PHYSICS_ANGULAR_SLEEP_TOLERANCE 2.0f
-/* settings/Physics2DSettings.json#m_RaycastsHitTriggers */
-#define PHYSICS_RAYCASTS_HIT_TRIGGERS 1
 /* settings/AudioManager.json#m_Volume */
 #define AUDIO_MASTER_VOLUME 1.0f
 /* settings/AudioManager.json#m_SpeedOfSound */
 #define AUDIO_SPEED_OF_SOUND 347.0f
 /* settings/AudioManager.json#Doppler Factor */
 #define AUDIO_DOPPLER_FACTOR 1.0f
-/* settings/AudioManager.json#Rolloff Scale */
-#define AUDIO_ROLLOFF_SCALE 1.0f
-/* settings/QualitySettings.json#m_CurrentQuality */
-#define QUALITY_CURRENT_INDEX 0
-/* settings/QualitySettings.json#m_QualitySettings[0].name */
-#define QUALITY_NAME "Fastest"
-/* settings/QualitySettings.json#m_QualitySettings[0].vSyncCount */
-#define QUALITY_VSYNC_COUNT 0
-/* settings/QualitySettings.json#m_QualitySettings[0].antiAliasing */
-#define QUALITY_ANTI_ALIASING 0
 /* settings/InputManager.json#m_Axes[0].sensitivity */
 #define INPUT_KEY_HORIZONTAL_SENSITIVITY 3.0f
 /* settings/InputManager.json#m_Axes[0].gravity */
@@ -95,22 +47,6 @@
 #define INPUT_KEY_HORIZONTAL_DEAD 0.001f
 /* settings/InputManager.json#m_Axes[0].snap */
 #define INPUT_KEY_HORIZONTAL_SNAP 1
-/* settings/InputManager.json#m_Axes[0].invert */
-#define INPUT_KEY_HORIZONTAL_INVERT 0
-/* settings/InputManager.json#m_Axes[0].type */
-#define INPUT_KEY_HORIZONTAL_TYPE 0
-/* settings/InputManager.json#m_Axes[0].axis */
-#define INPUT_KEY_HORIZONTAL_AXIS 0
-/* settings/InputManager.json#m_Axes[0].joyNum */
-#define INPUT_KEY_HORIZONTAL_JOY_NUM 0
-/* settings/InputManager.json#m_Axes[0].positiveButton */
-#define INPUT_KEY_HORIZONTAL_POSITIVE_BUTTON "right"
-/* settings/InputManager.json#m_Axes[0].negativeButton */
-#define INPUT_KEY_HORIZONTAL_NEGATIVE_BUTTON "left"
-/* settings/InputManager.json#m_Axes[0].altPositiveButton */
-#define INPUT_KEY_HORIZONTAL_ALT_POSITIVE_BUTTON "d"
-/* settings/InputManager.json#m_Axes[0].altNegativeButton */
-#define INPUT_KEY_HORIZONTAL_ALT_NEGATIVE_BUTTON "a"
 /* settings/InputManager.json#m_Axes[1].sensitivity */
 #define INPUT_KEY_VERTICAL_SENSITIVITY 3.0f
 /* settings/InputManager.json#m_Axes[1].gravity */
@@ -119,100 +55,23 @@
 #define INPUT_KEY_VERTICAL_DEAD 0.001f
 /* settings/InputManager.json#m_Axes[1].snap */
 #define INPUT_KEY_VERTICAL_SNAP 1
-/* settings/InputManager.json#m_Axes[1].invert */
-#define INPUT_KEY_VERTICAL_INVERT 0
-/* settings/InputManager.json#m_Axes[1].type */
-#define INPUT_KEY_VERTICAL_TYPE 0
-/* settings/InputManager.json#m_Axes[1].axis */
-#define INPUT_KEY_VERTICAL_AXIS 0
-/* settings/InputManager.json#m_Axes[1].joyNum */
-#define INPUT_KEY_VERTICAL_JOY_NUM 0
-/* settings/InputManager.json#m_Axes[1].positiveButton */
-#define INPUT_KEY_VERTICAL_POSITIVE_BUTTON "up"
-/* settings/InputManager.json#m_Axes[1].negativeButton */
-#define INPUT_KEY_VERTICAL_NEGATIVE_BUTTON "down"
-/* settings/InputManager.json#m_Axes[1].altPositiveButton */
-#define INPUT_KEY_VERTICAL_ALT_POSITIVE_BUTTON "w"
-/* settings/InputManager.json#m_Axes[1].altNegativeButton */
-#define INPUT_KEY_VERTICAL_ALT_NEGATIVE_BUTTON "s"
-/* settings/InputManager.json#m_Axes[9].sensitivity */
-#define INPUT_STICK_HORIZONTAL_SENSITIVITY 1.0f
-/* settings/InputManager.json#m_Axes[9].gravity */
-#define INPUT_STICK_HORIZONTAL_GRAVITY 0.0f
 /* settings/InputManager.json#m_Axes[9].dead */
 #define INPUT_STICK_HORIZONTAL_DEAD 0.19f
-/* settings/InputManager.json#m_Axes[9].snap */
-#define INPUT_STICK_HORIZONTAL_SNAP 0
-/* settings/InputManager.json#m_Axes[9].invert */
-#define INPUT_STICK_HORIZONTAL_INVERT 0
-/* settings/InputManager.json#m_Axes[9].type */
-#define INPUT_STICK_HORIZONTAL_TYPE 2
-/* settings/InputManager.json#m_Axes[9].axis */
-#define INPUT_STICK_HORIZONTAL_AXIS 0
-/* settings/InputManager.json#m_Axes[9].joyNum */
-#define INPUT_STICK_HORIZONTAL_JOY_NUM 0
-/* settings/InputManager.json#m_Axes[9].positiveButton */
-#define INPUT_STICK_HORIZONTAL_POSITIVE_BUTTON ""
-/* settings/InputManager.json#m_Axes[9].negativeButton */
-#define INPUT_STICK_HORIZONTAL_NEGATIVE_BUTTON ""
-/* settings/InputManager.json#m_Axes[9].altPositiveButton */
-#define INPUT_STICK_HORIZONTAL_ALT_POSITIVE_BUTTON ""
-/* settings/InputManager.json#m_Axes[9].altNegativeButton */
-#define INPUT_STICK_HORIZONTAL_ALT_NEGATIVE_BUTTON ""
-/* settings/InputManager.json#m_Axes[10].sensitivity */
-#define INPUT_STICK_VERTICAL_SENSITIVITY 1.0f
-/* settings/InputManager.json#m_Axes[10].gravity */
-#define INPUT_STICK_VERTICAL_GRAVITY 0.0f
 /* settings/InputManager.json#m_Axes[10].dead */
 #define INPUT_STICK_VERTICAL_DEAD 0.19f
-/* settings/InputManager.json#m_Axes[10].snap */
-#define INPUT_STICK_VERTICAL_SNAP 0
 /* settings/InputManager.json#m_Axes[10].invert */
 #define INPUT_STICK_VERTICAL_INVERT 1
-/* settings/InputManager.json#m_Axes[10].type */
-#define INPUT_STICK_VERTICAL_TYPE 2
-/* settings/InputManager.json#m_Axes[10].axis */
-#define INPUT_STICK_VERTICAL_AXIS 1
-/* settings/InputManager.json#m_Axes[10].joyNum */
-#define INPUT_STICK_VERTICAL_JOY_NUM 0
-/* settings/InputManager.json#m_Axes[10].positiveButton */
-#define INPUT_STICK_VERTICAL_POSITIVE_BUTTON ""
-/* settings/InputManager.json#m_Axes[10].negativeButton */
-#define INPUT_STICK_VERTICAL_NEGATIVE_BUTTON ""
-/* settings/InputManager.json#m_Axes[10].altPositiveButton */
-#define INPUT_STICK_VERTICAL_ALT_POSITIVE_BUTTON ""
-/* settings/InputManager.json#m_Axes[10].altNegativeButton */
-#define INPUT_STICK_VERTICAL_ALT_NEGATIVE_BUTTON ""
 /* scenes/Intro.json#Main Camera:Camera:orthographic size */
 #define INTRO_CAMERA_ORTHO_SIZE 5.0f
-/* scenes/Intro.json#Main Camera:Camera:orthographic */
-#define INTRO_CAMERA_ORTHOGRAPHIC 1
 /* scenes/Intro.json#Main Camera:Camera:m_BackGroundColor */
 #define INTRO_CAMERA_BACKGROUND_A 0.019607844f
 #define INTRO_CAMERA_BACKGROUND_B 0.0f
 #define INTRO_CAMERA_BACKGROUND_G 0.0f
 #define INTRO_CAMERA_BACKGROUND_R 0.0f
-/* scenes/Intro.json#Main Camera:Camera:m_ClearFlags */
-#define INTRO_CAMERA_CLEAR_FLAGS 1
-/* scenes/Intro.json#Main Camera:Camera:near clip plane */
-#define INTRO_CAMERA_NEAR 0.3f
-/* scenes/Intro.json#Main Camera:Camera:far clip plane */
-#define INTRO_CAMERA_FAR 1000.0f
-/* scenes/Intro.json#Main Camera:Camera:m_NormalizedViewPortRect */
-#define INTRO_CAMERA_VIEWPORT_RECT_HEIGHT 1.0f
-#define INTRO_CAMERA_VIEWPORT_RECT_WIDTH 1.0f
-#define INTRO_CAMERA_VIEWPORT_RECT_X 0.0f
-#define INTRO_CAMERA_VIEWPORT_RECT_Y 0.0f
-/* scenes/Intro.json#Main Camera:Camera:m_Depth */
-#define INTRO_CAMERA_DEPTH -1.0f
 /* scenes/Intro.json#Main Camera:@transform:world_position */
 #define INTRO_CAMERA_POS_X 0.0f
 #define INTRO_CAMERA_POS_Y 0.0f
 #define INTRO_CAMERA_POS_Z -10.0f
-/* scenes/Intro.json#Main Camera:@transform:world_scale */
-#define INTRO_CAMERA_SCALE_X 1.0f
-#define INTRO_CAMERA_SCALE_Y 1.0f
-#define INTRO_CAMERA_SCALE_Z 1.0f
 /* scenes/Intro.json#superdamage:@transform:world_position */
 #define INTRO_LOGO_POS_X 0.0f
 #define INTRO_LOGO_POS_Y 0.0f
@@ -250,62 +109,26 @@
 #define INTRO_SOUND_MAX_DISTANCE 500.0f
 /* scenes/Intro.json#Explosion_04:AudioSource:rolloffMode */
 #define INTRO_SOUND_ROLLOFF_MODE 2
-/* scenes/Intro.json#Explosion_04:AudioSource:Pan2D */
-#define INTRO_SOUND_PAN2D 0.0f
-/* scenes/Intro.json#Explosion_04:AudioSource:Priority */
-#define INTRO_SOUND_PRIORITY 192
 /* scenes/Intro.json#Explosion_04:AudioSource:DopplerLevel */
 #define INTRO_SOUND_DOPPLER 1.0f
-/* scenes/Intro.json#Explosion_04:AudioSource:Mute */
-#define INTRO_SOUND_MUTE 0
-/* scenes/Intro.json#Explosion_04:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define INTRO_SOUND_SPREAD 0.25833333f
-/* scenes/Intro.json#Explosion_04:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define INTRO_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Intro.json#Explosion_04, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define INTRO_SOUND_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Intro.json#Explosion_04, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define INTRO_SOUND_REVERB_ZONE_MIX 0.0f
 /* scenes/Title.json#Main Camera:Camera:orthographic size */
 #define TITLE_CAMERA_ORTHO_SIZE 5.0f
-/* scenes/Title.json#Main Camera:Camera:orthographic */
-#define TITLE_CAMERA_ORTHOGRAPHIC 1
 /* scenes/Title.json#Main Camera:Camera:m_BackGroundColor */
 #define TITLE_CAMERA_BACKGROUND_A 0.019607844f
 #define TITLE_CAMERA_BACKGROUND_B 0.0f
 #define TITLE_CAMERA_BACKGROUND_G 0.0f
 #define TITLE_CAMERA_BACKGROUND_R 0.0f
-/* scenes/Title.json#Main Camera:Camera:m_ClearFlags */
-#define TITLE_CAMERA_CLEAR_FLAGS 1
-/* scenes/Title.json#Main Camera:Camera:near clip plane */
-#define TITLE_CAMERA_NEAR 0.3f
-/* scenes/Title.json#Main Camera:Camera:far clip plane */
-#define TITLE_CAMERA_FAR 1000.0f
-/* scenes/Title.json#Main Camera:Camera:m_NormalizedViewPortRect */
-#define TITLE_CAMERA_VIEWPORT_RECT_HEIGHT 1.0f
-#define TITLE_CAMERA_VIEWPORT_RECT_WIDTH 1.0f
-#define TITLE_CAMERA_VIEWPORT_RECT_X 0.0f
-#define TITLE_CAMERA_VIEWPORT_RECT_Y 0.0f
-/* scenes/Title.json#Main Camera:Camera:m_Depth */
-#define TITLE_CAMERA_DEPTH -1.0f
 /* scenes/Title.json#Main Camera:@transform:world_position */
 #define TITLE_CAMERA_POS_X 0.0f
 #define TITLE_CAMERA_POS_Y 0.0f
 #define TITLE_CAMERA_POS_Z -10.0f
-/* scenes/Title.json#Main Camera:@transform:world_scale */
-#define TITLE_CAMERA_SCALE_X 1.0f
-#define TITLE_CAMERA_SCALE_Y 1.0f
-#define TITLE_CAMERA_SCALE_Z 1.0f
 /* scenes/Title.json#PLAY:GUIText:m_Text */
 #define TITLE_PLAY_TEXT "PLAY"
-/* scenes/Title.json#PLAY:GUIText:m_Font */
-#define TITLE_PLAY_FONT FONT_JOYSTIX_MONOSPACE
 /* scenes/Title.json#PLAY:GUIText:m_FontSize */
 #define TITLE_PLAY_FONT_SIZE 50
-/* scenes/Title.json#PLAY:GUIText:m_FontStyle */
-#define TITLE_PLAY_FONT_STYLE 0
 /* scenes/Title.json#PLAY:GUIText:m_Anchor */
 #define TITLE_PLAY_ANCHOR 4
 /* scenes/Title.json#PLAY:GUIText:m_Alignment */
@@ -323,22 +146,14 @@
 #define TITLE_PLAY_PIXEL_OFFSET_Y 0.0f
 /* scenes/Title.json#PLAY:GUIText:m_Enabled */
 #define TITLE_PLAY_ENABLED 1
-/* scenes/Title.json#PLAY:GUIText:m_TabSize */
-#define TITLE_PLAY_TAB_SIZE 4.0f
-/* scenes/Title.json#PLAY:GUIText:m_PixelCorrect */
-#define TITLE_PLAY_PIXEL_CORRECT 1
 /* scenes/Title.json#PLAY:@transform:world_position */
 #define TITLE_PLAY_VIEWPORT_POS_X 0.5f
 #define TITLE_PLAY_VIEWPORT_POS_Y 0.2f
 #define TITLE_PLAY_VIEWPORT_POS_Z 0.0f
 /* scenes/Title.json#SD:GUIText:m_Text */
 #define TITLE_SD_TEXT "SUPER DAMAGE"
-/* scenes/Title.json#SD:GUIText:m_Font */
-#define TITLE_SD_FONT FONT_JOYSTIX_MONOSPACE
 /* scenes/Title.json#SD:GUIText:m_FontSize */
 #define TITLE_SD_FONT_SIZE 17
-/* scenes/Title.json#SD:GUIText:m_FontStyle */
-#define TITLE_SD_FONT_STYLE 0
 /* scenes/Title.json#SD:GUIText:m_Anchor */
 #define TITLE_SD_ANCHOR 4
 /* scenes/Title.json#SD:GUIText:m_Alignment */
@@ -356,22 +171,14 @@
 #define TITLE_SD_PIXEL_OFFSET_Y 0.0f
 /* scenes/Title.json#SD:GUIText:m_Enabled */
 #define TITLE_SD_ENABLED 1
-/* scenes/Title.json#SD:GUIText:m_TabSize */
-#define TITLE_SD_TAB_SIZE 4.0f
-/* scenes/Title.json#SD:GUIText:m_PixelCorrect */
-#define TITLE_SD_PIXEL_CORRECT 1
 /* scenes/Title.json#SD:@transform:world_position */
 #define TITLE_SD_VIEWPORT_POS_X 0.5f
 #define TITLE_SD_VIEWPORT_POS_Y 0.48f
 #define TITLE_SD_VIEWPORT_POS_Z 0.0f
 /* scenes/Title.json#WR:GUIText:m_Text */
 #define TITLE_WR_TEXT "WE ARE"
-/* scenes/Title.json#WR:GUIText:m_Font */
-#define TITLE_WR_FONT FONT_JOYSTIX_MONOSPACE
 /* scenes/Title.json#WR:GUIText:m_FontSize */
 #define TITLE_WR_FONT_SIZE 12
-/* scenes/Title.json#WR:GUIText:m_FontStyle */
-#define TITLE_WR_FONT_STYLE 0
 /* scenes/Title.json#WR:GUIText:m_Anchor */
 #define TITLE_WR_ANCHOR 4
 /* scenes/Title.json#WR:GUIText:m_Alignment */
@@ -389,22 +196,14 @@
 #define TITLE_WR_PIXEL_OFFSET_Y 0.0f
 /* scenes/Title.json#WR:GUIText:m_Enabled */
 #define TITLE_WR_ENABLED 1
-/* scenes/Title.json#WR:GUIText:m_TabSize */
-#define TITLE_WR_TAB_SIZE 4.0f
-/* scenes/Title.json#WR:GUIText:m_PixelCorrect */
-#define TITLE_WR_PIXEL_CORRECT 1
 /* scenes/Title.json#WR:@transform:world_position */
 #define TITLE_WR_VIEWPORT_POS_X 0.5f
 #define TITLE_WR_VIEWPORT_POS_Y 0.54f
 #define TITLE_WR_VIEWPORT_POS_Z 0.0f
 /* scenes/Title.json#Title:GUIText:m_Text */
 #define TITLE_NAME_TEXT "ROCKMORSE"
-/* scenes/Title.json#Title:GUIText:m_Font */
-#define TITLE_NAME_FONT FONT_JOYSTIX_MONOSPACE
 /* scenes/Title.json#Title:GUIText:m_FontSize */
 #define TITLE_NAME_FONT_SIZE 40
-/* scenes/Title.json#Title:GUIText:m_FontStyle */
-#define TITLE_NAME_FONT_STYLE 0
 /* scenes/Title.json#Title:GUIText:m_Anchor */
 #define TITLE_NAME_ANCHOR 4
 /* scenes/Title.json#Title:GUIText:m_Alignment */
@@ -422,22 +221,14 @@
 #define TITLE_NAME_PIXEL_OFFSET_Y 0.0f
 /* scenes/Title.json#Title:GUIText:m_Enabled */
 #define TITLE_NAME_ENABLED 1
-/* scenes/Title.json#Title:GUIText:m_TabSize */
-#define TITLE_NAME_TAB_SIZE 4.0f
-/* scenes/Title.json#Title:GUIText:m_PixelCorrect */
-#define TITLE_NAME_PIXEL_CORRECT 1
 /* scenes/Title.json#Title:@transform:world_position */
 #define TITLE_NAME_VIEWPORT_POS_X 0.5f
 #define TITLE_NAME_VIEWPORT_POS_Y 0.8f
 #define TITLE_NAME_VIEWPORT_POS_Z 0.0f
 /* scenes/Title.json#LD:GUIText:m_Text */
 #define TITLE_LD_TEXT "Made For Ludum Dare 30"
-/* scenes/Title.json#LD:GUIText:m_Font */
-#define TITLE_LD_FONT FONT_JOYSTIX_MONOSPACE
 /* scenes/Title.json#LD:GUIText:m_FontSize */
 #define TITLE_LD_FONT_SIZE 12
-/* scenes/Title.json#LD:GUIText:m_FontStyle */
-#define TITLE_LD_FONT_STYLE 0
 /* scenes/Title.json#LD:GUIText:m_Anchor */
 #define TITLE_LD_ANCHOR 4
 /* scenes/Title.json#LD:GUIText:m_Alignment */
@@ -455,10 +246,6 @@
 #define TITLE_LD_PIXEL_OFFSET_Y 0.0f
 /* scenes/Title.json#LD:GUIText:m_Enabled */
 #define TITLE_LD_ENABLED 1
-/* scenes/Title.json#LD:GUIText:m_TabSize */
-#define TITLE_LD_TAB_SIZE 4.0f
-/* scenes/Title.json#LD:GUIText:m_PixelCorrect */
-#define TITLE_LD_PIXEL_CORRECT 1
 /* scenes/Title.json#LD:@transform:world_position */
 #define TITLE_LD_VIEWPORT_POS_X 0.5f
 #define TITLE_LD_VIEWPORT_POS_Y 0.72f
@@ -473,12 +260,6 @@
 #define TITLE_PLAY_BUTTON_NORMAL_COLOR_B 1.0f
 #define TITLE_PLAY_BUTTON_NORMAL_COLOR_G 1.0f
 #define TITLE_PLAY_BUTTON_NORMAL_COLOR_R 1.0f
-/* scenes/Title.json#PLAY:GUITextButton:identifier */
-#define TITLE_PLAY_BUTTON_IDENTIFIER ""
-/* scenes/Title.json#PLAY:GUITextButton:higlightSFX */
-#define TITLE_PLAY_BUTTON_HIGHLIGHT_SFX "@highlightSound:AudioSource"
-/* scenes/Title.json#PLAY:GUITextButton:clickSFX */
-#define TITLE_PLAY_BUTTON_CLICK_SFX "@clickSound:AudioSource"
 /* scenes/Title.json#SD:GUITextButton:highlightedColor */
 #define TITLE_SD_BUTTON_HIGHLIGHT_COLOR_A 1.0f
 #define TITLE_SD_BUTTON_HIGHLIGHT_COLOR_B 0.0f
@@ -489,12 +270,6 @@
 #define TITLE_SD_BUTTON_NORMAL_COLOR_B 1.0f
 #define TITLE_SD_BUTTON_NORMAL_COLOR_G 1.0f
 #define TITLE_SD_BUTTON_NORMAL_COLOR_R 1.0f
-/* scenes/Title.json#SD:GUITextButton:identifier */
-#define TITLE_SD_BUTTON_IDENTIFIER ""
-/* scenes/Title.json#SD:GUITextButton:higlightSFX */
-#define TITLE_SD_BUTTON_HIGHLIGHT_SFX "@highlightSound:AudioSource"
-/* scenes/Title.json#SD:GUITextButton:clickSFX */
-#define TITLE_SD_BUTTON_CLICK_SFX "@clickSound:AudioSource"
 /* scenes/Title.json#clickSound:AudioSource:m_audioClip */
 #define TITLE_CLICK_SOUND_CLIP SND_HITSACCEPT2
 /* scenes/Title.json#clickSound:AudioSource:m_Volume */
@@ -513,24 +288,11 @@
 #define TITLE_CLICK_SOUND_MAX_DISTANCE 500.0f
 /* scenes/Title.json#clickSound:AudioSource:rolloffMode */
 #define TITLE_CLICK_SOUND_ROLLOFF_MODE 0
-/* scenes/Title.json#clickSound:AudioSource:Pan2D */
-#define TITLE_CLICK_SOUND_PAN2D 0.0f
-/* scenes/Title.json#clickSound:AudioSource:Priority */
-#define TITLE_CLICK_SOUND_PRIORITY 128
 /* scenes/Title.json#clickSound:AudioSource:DopplerLevel */
 #define TITLE_CLICK_SOUND_DOPPLER 1.0f
-/* scenes/Title.json#clickSound:AudioSource:Mute */
-#define TITLE_CLICK_SOUND_MUTE 0
-/* scenes/Title.json#clickSound:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define TITLE_CLICK_SOUND_SPREAD 0.0f
-/* scenes/Title.json#clickSound:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define TITLE_CLICK_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Title.json#clickSound, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define TITLE_CLICK_SOUND_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Title.json#clickSound, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define TITLE_CLICK_SOUND_REVERB_ZONE_MIX 0.0f
 /* scenes/Title.json#highlightSound:AudioSource:m_audioClip */
 #define TITLE_HIGHLIGHT_SOUND_CLIP SND_GLASSHITSCROLL6
 /* scenes/Title.json#highlightSound:AudioSource:m_Volume */
@@ -549,54 +311,22 @@
 #define TITLE_HIGHLIGHT_SOUND_MAX_DISTANCE 500.0f
 /* scenes/Title.json#highlightSound:AudioSource:rolloffMode */
 #define TITLE_HIGHLIGHT_SOUND_ROLLOFF_MODE 0
-/* scenes/Title.json#highlightSound:AudioSource:Pan2D */
-#define TITLE_HIGHLIGHT_SOUND_PAN2D 0.0f
-/* scenes/Title.json#highlightSound:AudioSource:Priority */
-#define TITLE_HIGHLIGHT_SOUND_PRIORITY 128
 /* scenes/Title.json#highlightSound:AudioSource:DopplerLevel */
 #define TITLE_HIGHLIGHT_SOUND_DOPPLER 1.0f
-/* scenes/Title.json#highlightSound:AudioSource:Mute */
-#define TITLE_HIGHLIGHT_SOUND_MUTE 0
-/* scenes/Title.json#highlightSound:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define TITLE_HIGHLIGHT_SOUND_SPREAD 0.0f
-/* scenes/Title.json#highlightSound:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define TITLE_HIGHLIGHT_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Title.json#highlightSound, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define TITLE_HIGHLIGHT_SOUND_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Title.json#highlightSound, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define TITLE_HIGHLIGHT_SOUND_REVERB_ZONE_MIX 0.0f
 /* scenes/Story1.json#Main Camera:Camera:orthographic size */
 #define STORY1_CAMERA_ORTHO_SIZE 5.0f
-/* scenes/Story1.json#Main Camera:Camera:orthographic */
-#define STORY1_CAMERA_ORTHOGRAPHIC 1
 /* scenes/Story1.json#Main Camera:Camera:m_BackGroundColor */
 #define STORY1_CAMERA_BACKGROUND_A 0.019607844f
 #define STORY1_CAMERA_BACKGROUND_B 0.4745098f
 #define STORY1_CAMERA_BACKGROUND_G 0.3019608f
 #define STORY1_CAMERA_BACKGROUND_R 0.19215687f
-/* scenes/Story1.json#Main Camera:Camera:m_ClearFlags */
-#define STORY1_CAMERA_CLEAR_FLAGS 1
-/* scenes/Story1.json#Main Camera:Camera:near clip plane */
-#define STORY1_CAMERA_NEAR 0.3f
-/* scenes/Story1.json#Main Camera:Camera:far clip plane */
-#define STORY1_CAMERA_FAR 1000.0f
-/* scenes/Story1.json#Main Camera:Camera:m_NormalizedViewPortRect */
-#define STORY1_CAMERA_VIEWPORT_RECT_HEIGHT 1.0f
-#define STORY1_CAMERA_VIEWPORT_RECT_WIDTH 1.0f
-#define STORY1_CAMERA_VIEWPORT_RECT_X 0.0f
-#define STORY1_CAMERA_VIEWPORT_RECT_Y 0.0f
-/* scenes/Story1.json#Main Camera:Camera:m_Depth */
-#define STORY1_CAMERA_DEPTH -1.0f
 /* scenes/Story1.json#Main Camera:@transform:world_position */
 #define STORY1_CAMERA_POS_X 0.0f
 #define STORY1_CAMERA_POS_Y 0.0f
 #define STORY1_CAMERA_POS_Z -10.0f
-/* scenes/Story1.json#Main Camera:@transform:world_scale */
-#define STORY1_CAMERA_SCALE_X 1.0f
-#define STORY1_CAMERA_SCALE_Y 1.0f
-#define STORY1_CAMERA_SCALE_Z 1.0f
 /* scenes/Story1.json#gfx:GUITexture:m_Texture */
 #define STORY1_IMAGE_TEXTURE IMG_RM_TUTORIAL_V4_1
 /* scenes/Story1.json#gfx:GUITexture:m_Color */
@@ -633,58 +363,26 @@
 #define STORY1_SOUND_MAX_DISTANCE 500.0f
 /* scenes/Story1.json#Menu4:AudioSource:rolloffMode */
 #define STORY1_SOUND_ROLLOFF_MODE 0
-/* scenes/Story1.json#Menu4:AudioSource:Pan2D */
-#define STORY1_SOUND_PAN2D 0.0f
-/* scenes/Story1.json#Menu4:AudioSource:Priority */
-#define STORY1_SOUND_PRIORITY 128
 /* scenes/Story1.json#Menu4:AudioSource:DopplerLevel */
 #define STORY1_SOUND_DOPPLER 1.0f
-/* scenes/Story1.json#Menu4:AudioSource:Mute */
-#define STORY1_SOUND_MUTE 0
-/* scenes/Story1.json#Menu4:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define STORY1_SOUND_SPREAD 0.0f
-/* scenes/Story1.json#Menu4:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define STORY1_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Story1.json#Menu4, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define STORY1_SOUND_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Story1.json#Menu4, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define STORY1_SOUND_REVERB_ZONE_MIX 0.0f
 /* scenes/Story1.json#gfx:NextSceneOnSpace:dismissDuration */
 #define STORY1_DISMISS_DURATION 20.0f
 /* scenes/Story1.json#gfx:NextSceneOnSpace:nextScene */
 #define STORY1_NEXT_SCENE "Story2"
 /* scenes/Story2.json#Main Camera:Camera:orthographic size */
 #define STORY2_CAMERA_ORTHO_SIZE 5.0f
-/* scenes/Story2.json#Main Camera:Camera:orthographic */
-#define STORY2_CAMERA_ORTHOGRAPHIC 1
 /* scenes/Story2.json#Main Camera:Camera:m_BackGroundColor */
 #define STORY2_CAMERA_BACKGROUND_A 0.019607844f
 #define STORY2_CAMERA_BACKGROUND_B 0.4745098f
 #define STORY2_CAMERA_BACKGROUND_G 0.3019608f
 #define STORY2_CAMERA_BACKGROUND_R 0.19215687f
-/* scenes/Story2.json#Main Camera:Camera:m_ClearFlags */
-#define STORY2_CAMERA_CLEAR_FLAGS 1
-/* scenes/Story2.json#Main Camera:Camera:near clip plane */
-#define STORY2_CAMERA_NEAR 0.3f
-/* scenes/Story2.json#Main Camera:Camera:far clip plane */
-#define STORY2_CAMERA_FAR 1000.0f
-/* scenes/Story2.json#Main Camera:Camera:m_NormalizedViewPortRect */
-#define STORY2_CAMERA_VIEWPORT_RECT_HEIGHT 1.0f
-#define STORY2_CAMERA_VIEWPORT_RECT_WIDTH 1.0f
-#define STORY2_CAMERA_VIEWPORT_RECT_X 0.0f
-#define STORY2_CAMERA_VIEWPORT_RECT_Y 0.0f
-/* scenes/Story2.json#Main Camera:Camera:m_Depth */
-#define STORY2_CAMERA_DEPTH -1.0f
 /* scenes/Story2.json#Main Camera:@transform:world_position */
 #define STORY2_CAMERA_POS_X 0.0f
 #define STORY2_CAMERA_POS_Y 0.0f
 #define STORY2_CAMERA_POS_Z -10.0f
-/* scenes/Story2.json#Main Camera:@transform:world_scale */
-#define STORY2_CAMERA_SCALE_X 1.0f
-#define STORY2_CAMERA_SCALE_Y 1.0f
-#define STORY2_CAMERA_SCALE_Z 1.0f
 /* scenes/Story2.json#gfx:GUITexture:m_Texture */
 #define STORY2_IMAGE_TEXTURE IMG_RM_TUTORIAL_V4_2
 /* scenes/Story2.json#gfx:GUITexture:m_Color */
@@ -721,58 +419,26 @@
 #define STORY2_SOUND_MAX_DISTANCE 500.0f
 /* scenes/Story2.json#Menu4:AudioSource:rolloffMode */
 #define STORY2_SOUND_ROLLOFF_MODE 0
-/* scenes/Story2.json#Menu4:AudioSource:Pan2D */
-#define STORY2_SOUND_PAN2D 0.0f
-/* scenes/Story2.json#Menu4:AudioSource:Priority */
-#define STORY2_SOUND_PRIORITY 128
 /* scenes/Story2.json#Menu4:AudioSource:DopplerLevel */
 #define STORY2_SOUND_DOPPLER 1.0f
-/* scenes/Story2.json#Menu4:AudioSource:Mute */
-#define STORY2_SOUND_MUTE 0
-/* scenes/Story2.json#Menu4:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define STORY2_SOUND_SPREAD 0.0f
-/* scenes/Story2.json#Menu4:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define STORY2_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Story2.json#Menu4, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define STORY2_SOUND_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Story2.json#Menu4, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define STORY2_SOUND_REVERB_ZONE_MIX 0.0f
 /* scenes/Story2.json#gfx:NextSceneOnSpace:dismissDuration */
 #define STORY2_DISMISS_DURATION 20.0f
 /* scenes/Story2.json#gfx:NextSceneOnSpace:nextScene */
 #define STORY2_NEXT_SCENE "Game"
 /* scenes/Death.json#Main Camera:Camera:orthographic size */
 #define DEATH_CAMERA_ORTHO_SIZE 5.0f
-/* scenes/Death.json#Main Camera:Camera:orthographic */
-#define DEATH_CAMERA_ORTHOGRAPHIC 1
 /* scenes/Death.json#Main Camera:Camera:m_BackGroundColor */
 #define DEATH_CAMERA_BACKGROUND_A 0.019607844f
 #define DEATH_CAMERA_BACKGROUND_B 0.4745098f
 #define DEATH_CAMERA_BACKGROUND_G 0.3019608f
 #define DEATH_CAMERA_BACKGROUND_R 0.19215687f
-/* scenes/Death.json#Main Camera:Camera:m_ClearFlags */
-#define DEATH_CAMERA_CLEAR_FLAGS 1
-/* scenes/Death.json#Main Camera:Camera:near clip plane */
-#define DEATH_CAMERA_NEAR 0.3f
-/* scenes/Death.json#Main Camera:Camera:far clip plane */
-#define DEATH_CAMERA_FAR 1000.0f
-/* scenes/Death.json#Main Camera:Camera:m_NormalizedViewPortRect */
-#define DEATH_CAMERA_VIEWPORT_RECT_HEIGHT 1.0f
-#define DEATH_CAMERA_VIEWPORT_RECT_WIDTH 1.0f
-#define DEATH_CAMERA_VIEWPORT_RECT_X 0.0f
-#define DEATH_CAMERA_VIEWPORT_RECT_Y 0.0f
-/* scenes/Death.json#Main Camera:Camera:m_Depth */
-#define DEATH_CAMERA_DEPTH -1.0f
 /* scenes/Death.json#Main Camera:@transform:world_position */
 #define DEATH_CAMERA_POS_X 0.0f
 #define DEATH_CAMERA_POS_Y 0.0f
 #define DEATH_CAMERA_POS_Z -10.0f
-/* scenes/Death.json#Main Camera:@transform:world_scale */
-#define DEATH_CAMERA_SCALE_X 1.0f
-#define DEATH_CAMERA_SCALE_Y 1.0f
-#define DEATH_CAMERA_SCALE_Z 1.0f
 /* scenes/Death.json#gfx:GUITexture:m_Texture */
 #define DEATH_IMAGE_TEXTURE IMG_DEATH
 /* scenes/Death.json#gfx:GUITexture:m_Color */
@@ -809,54 +475,22 @@
 #define DEATH_SOUND_MAX_DISTANCE 500.0f
 /* scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:rolloffMode */
 #define DEATH_SOUND_ROLLOFF_MODE 0
-/* scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:Pan2D */
-#define DEATH_SOUND_PAN2D 0.0f
-/* scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:Priority */
-#define DEATH_SOUND_PRIORITY 128
 /* scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:DopplerLevel */
 #define DEATH_SOUND_DOPPLER 1.0f
-/* scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:Mute */
-#define DEATH_SOUND_MUTE 0
-/* scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define DEATH_SOUND_SPREAD 0.0f
-/* scenes/Death.json#Victory_-arewhyae-8093_hifi:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define DEATH_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Death.json#Victory_-arewhyae-8093_hifi, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define DEATH_SOUND_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Death.json#Victory_-arewhyae-8093_hifi, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define DEATH_SOUND_REVERB_ZONE_MIX 0.0f
 /* scenes/Win.json#Main Camera:Camera:orthographic size */
 #define WIN_CAMERA_ORTHO_SIZE 5.0f
-/* scenes/Win.json#Main Camera:Camera:orthographic */
-#define WIN_CAMERA_ORTHOGRAPHIC 1
 /* scenes/Win.json#Main Camera:Camera:m_BackGroundColor */
 #define WIN_CAMERA_BACKGROUND_A 0.019607844f
 #define WIN_CAMERA_BACKGROUND_B 0.4745098f
 #define WIN_CAMERA_BACKGROUND_G 0.3019608f
 #define WIN_CAMERA_BACKGROUND_R 0.19215687f
-/* scenes/Win.json#Main Camera:Camera:m_ClearFlags */
-#define WIN_CAMERA_CLEAR_FLAGS 1
-/* scenes/Win.json#Main Camera:Camera:near clip plane */
-#define WIN_CAMERA_NEAR 0.3f
-/* scenes/Win.json#Main Camera:Camera:far clip plane */
-#define WIN_CAMERA_FAR 1000.0f
-/* scenes/Win.json#Main Camera:Camera:m_NormalizedViewPortRect */
-#define WIN_CAMERA_VIEWPORT_RECT_HEIGHT 1.0f
-#define WIN_CAMERA_VIEWPORT_RECT_WIDTH 1.0f
-#define WIN_CAMERA_VIEWPORT_RECT_X 0.0f
-#define WIN_CAMERA_VIEWPORT_RECT_Y 0.0f
-/* scenes/Win.json#Main Camera:Camera:m_Depth */
-#define WIN_CAMERA_DEPTH -1.0f
 /* scenes/Win.json#Main Camera:@transform:world_position */
 #define WIN_CAMERA_POS_X 0.0f
 #define WIN_CAMERA_POS_Y 0.0f
 #define WIN_CAMERA_POS_Z -10.0f
-/* scenes/Win.json#Main Camera:@transform:world_scale */
-#define WIN_CAMERA_SCALE_X 1.0f
-#define WIN_CAMERA_SCALE_Y 1.0f
-#define WIN_CAMERA_SCALE_Z 1.0f
 /* scenes/Win.json#gfx:GUITexture:m_Texture */
 #define WIN_IMAGE_TEXTURE IMG_WIN
 /* scenes/Win.json#gfx:GUITexture:m_Color */
@@ -893,24 +527,11 @@
 #define WIN_MUSIC_MAX_DISTANCE 500.0f
 /* scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:rolloffMode */
 #define WIN_MUSIC_ROLLOFF_MODE 0
-/* scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:Pan2D */
-#define WIN_MUSIC_PAN2D 0.0f
-/* scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:Priority */
-#define WIN_MUSIC_PRIORITY 128
 /* scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:DopplerLevel */
 #define WIN_MUSIC_DOPPLER 1.0f
-/* scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:Mute */
-#define WIN_MUSIC_MUTE 0
-/* scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define WIN_MUSIC_SPREAD 0.0f
-/* scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define WIN_MUSIC_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define WIN_MUSIC_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Win.json#bbc-030514-a-major-acoustic-guitar-rock-and-rock-140-bpm, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define WIN_MUSIC_REVERB_ZONE_MIX 0.0f
 /* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:m_audioClip */
 #define WIN_HORN_CLIP SND_FOLEY_HORN_PARTY_TOY_BLOW_OUT_01
 /* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:m_Volume */
@@ -929,57 +550,22 @@
 #define WIN_HORN_MAX_DISTANCE 500.0f
 /* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:rolloffMode */
 #define WIN_HORN_ROLLOFF_MODE 0
-/* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:Pan2D */
-#define WIN_HORN_PAN2D 0.0f
-/* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:Priority */
-#define WIN_HORN_PRIORITY 128
 /* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:DopplerLevel */
 #define WIN_HORN_DOPPLER 1.0f
-/* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:Mute */
-#define WIN_HORN_MUTE 0
-/* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define WIN_HORN_SPREAD 0.0f
-/* scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define WIN_HORN_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define WIN_HORN_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Win.json#FOLEY HORN PARTY TOY BLOW OUT 01, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define WIN_HORN_REVERB_ZONE_MIX 0.0f
 /* scenes/Game.json#Main Camera:Camera:orthographic size */
 #define GAME_CAMERA_ORTHO_SIZE 3.6f
-/* scenes/Game.json#Main Camera:Camera:orthographic */
-#define GAME_CAMERA_ORTHOGRAPHIC 1
 /* scenes/Game.json#Main Camera:Camera:m_BackGroundColor */
 #define GAME_CAMERA_BACKGROUND_A 0.019607844f
 #define GAME_CAMERA_BACKGROUND_B 0.20392157f
 #define GAME_CAMERA_BACKGROUND_G 0.29803923f
 #define GAME_CAMERA_BACKGROUND_R 0.40784314f
-/* scenes/Game.json#Main Camera:Camera:m_ClearFlags */
-#define GAME_CAMERA_CLEAR_FLAGS 1
-/* scenes/Game.json#Main Camera:Camera:near clip plane */
-#define GAME_CAMERA_NEAR 0.3f
-/* scenes/Game.json#Main Camera:Camera:far clip plane */
-#define GAME_CAMERA_FAR 40.0f
-/* scenes/Game.json#Main Camera:Camera:m_NormalizedViewPortRect */
-#define GAME_CAMERA_VIEWPORT_RECT_HEIGHT 1.0f
-#define GAME_CAMERA_VIEWPORT_RECT_WIDTH 1.0f
-#define GAME_CAMERA_VIEWPORT_RECT_X 0.0f
-#define GAME_CAMERA_VIEWPORT_RECT_Y 0.0f
-/* scenes/Game.json#Main Camera:Camera:m_Depth */
-#define GAME_CAMERA_DEPTH -1.0f
 /* scenes/Game.json#Main Camera:@transform:world_position */
 #define GAME_CAMERA_POS_X -1000.0f
 #define GAME_CAMERA_POS_Y -1000.0f
 #define GAME_CAMERA_POS_Z -30.0f
-/* scenes/Game.json#Main Camera:@transform:world_scale */
-#define GAME_CAMERA_SCALE_X 1.0f
-#define GAME_CAMERA_SCALE_Y 1.0f
-#define GAME_CAMERA_SCALE_Z 1.0f
-/* scenes/Game.json#Main Camera/nightosphere:@transform:world_euler */
-#define NIGHT_OVERLAY_EULER_COUNT 3
-static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 /* scenes/Game.json#Main Camera/nightosphere:@transform:local_position */
 #define NIGHT_OVERLAY_LOCAL_POS_X 0.0f
 #define NIGHT_OVERLAY_LOCAL_POS_Y 0.0f
@@ -989,26 +575,12 @@ static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 #define NIGHT_OVERLAY_COLOR_B 0.0f
 #define NIGHT_OVERLAY_COLOR_G 0.0f
 #define NIGHT_OVERLAY_COLOR_R 0.0f
-/* scenes/Game.json#Main Camera/nightosphere:MeshFilter:m_Mesh */
-#define NIGHT_OVERLAY_MESH "builtin:library/unity default resources#10209"
 /* scenes/Game.json#Main Camera/nightosphere:MeshRenderer:m_Enabled */
 #define NIGHT_OVERLAY_ENABLED 1
-/* scenes/Game.json#Main Camera/nightosphere:@transform:world_position */
-#define NIGHT_OVERLAY_POS_X -1000.0f
-#define NIGHT_OVERLAY_POS_Y -1000.0f
-#define NIGHT_OVERLAY_POS_Z -12.0f
 /* scenes/Game.json#Main Camera/nightosphere:@transform:world_scale */
 #define NIGHT_OVERLAY_SCALE_X 6.0f
 #define NIGHT_OVERLAY_SCALE_Y 1.0f
 #define NIGHT_OVERLAY_SCALE_Z 6.0f
-/* scenes/Game.json#Main Camera/cutscenes:@transform:world_position */
-#define CUTSCENES_POS_X -1000.0f
-#define CUTSCENES_POS_Y -1000.0f
-#define CUTSCENES_POS_Z -29.0f
-/* scenes/Game.json#Main Camera/cutscenes:@transform:world_scale */
-#define CUTSCENES_SCALE_X 1.7f
-#define CUTSCENES_SCALE_Y 1.7f
-#define CUTSCENES_SCALE_Z 1.7f
 /* scenes/Game.json#Main Camera/cutscenes:@transform:local_position */
 #define CUTSCENES_LOCAL_POS_X 0.0f
 #define CUTSCENES_LOCAL_POS_Y 0.0f
@@ -1028,14 +600,6 @@ static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 #define CUT_COULD_NOT_DECODE_SORTING_ORDER 0
 /* scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:SpriteRenderer:m_Enabled */
 #define CUT_COULD_NOT_DECODE_ENABLED 0
-/* scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:@transform:world_position */
-#define CUT_COULD_NOT_DECODE_POS_X -1000.0f
-#define CUT_COULD_NOT_DECODE_POS_Y -1000.0f
-#define CUT_COULD_NOT_DECODE_POS_Z -29.0f
-/* scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:@transform:world_scale */
-#define CUT_COULD_NOT_DECODE_SCALE_X 1.7f
-#define CUT_COULD_NOT_DECODE_SCALE_Y 1.7f
-#define CUT_COULD_NOT_DECODE_SCALE_Z 1.7f
 /* scenes/Game.json#Main Camera/cutscenes/spr_couldNotDecode:@transform:local_position */
 #define CUT_COULD_NOT_DECODE_LOCAL_POS_X 0.0f
 #define CUT_COULD_NOT_DECODE_LOCAL_POS_Y 0.0f
@@ -1055,14 +619,6 @@ static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 #define CUT_NEW_MESSAGE_SORTING_ORDER 0
 /* scenes/Game.json#Main Camera/cutscenes/spr_newMessage:SpriteRenderer:m_Enabled */
 #define CUT_NEW_MESSAGE_ENABLED 0
-/* scenes/Game.json#Main Camera/cutscenes/spr_newMessage:@transform:world_position */
-#define CUT_NEW_MESSAGE_POS_X -1000.0f
-#define CUT_NEW_MESSAGE_POS_Y -1000.0f
-#define CUT_NEW_MESSAGE_POS_Z -29.0f
-/* scenes/Game.json#Main Camera/cutscenes/spr_newMessage:@transform:world_scale */
-#define CUT_NEW_MESSAGE_SCALE_X 1.7f
-#define CUT_NEW_MESSAGE_SCALE_Y 1.7f
-#define CUT_NEW_MESSAGE_SCALE_Z 1.7f
 /* scenes/Game.json#Main Camera/cutscenes/spr_newMessage:@transform:local_position */
 #define CUT_NEW_MESSAGE_LOCAL_POS_X 0.0f
 #define CUT_NEW_MESSAGE_LOCAL_POS_Y 0.0f
@@ -1082,14 +638,6 @@ static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 #define CUT_COULD_DECODE_SORTING_ORDER 0
 /* scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:SpriteRenderer:m_Enabled */
 #define CUT_COULD_DECODE_ENABLED 0
-/* scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:@transform:world_position */
-#define CUT_COULD_DECODE_POS_X -1000.0f
-#define CUT_COULD_DECODE_POS_Y -1000.0f
-#define CUT_COULD_DECODE_POS_Z -29.0f
-/* scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:@transform:world_scale */
-#define CUT_COULD_DECODE_SCALE_X 1.7f
-#define CUT_COULD_DECODE_SCALE_Y 1.7f
-#define CUT_COULD_DECODE_SCALE_Z 1.7f
 /* scenes/Game.json#Main Camera/cutscenes/spr_couldDecode:@transform:local_position */
 #define CUT_COULD_DECODE_LOCAL_POS_X 0.0f
 #define CUT_COULD_DECODE_LOCAL_POS_Y 0.0f
@@ -1109,14 +657,6 @@ static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 #define CUT_TUTORIAL_SORTING_ORDER 0
 /* scenes/Game.json#Main Camera/cutscenes/spr_tutorial:SpriteRenderer:m_Enabled */
 #define CUT_TUTORIAL_ENABLED 0
-/* scenes/Game.json#Main Camera/cutscenes/spr_tutorial:@transform:world_position */
-#define CUT_TUTORIAL_POS_X -1000.0f
-#define CUT_TUTORIAL_POS_Y -1000.0f
-#define CUT_TUTORIAL_POS_Z -29.0f
-/* scenes/Game.json#Main Camera/cutscenes/spr_tutorial:@transform:world_scale */
-#define CUT_TUTORIAL_SCALE_X 1.7f
-#define CUT_TUTORIAL_SCALE_Y 1.7f
-#define CUT_TUTORIAL_SCALE_Z 1.7f
 /* scenes/Game.json#Main Camera/cutscenes/spr_tutorial:@transform:local_position */
 #define CUT_TUTORIAL_LOCAL_POS_X 0.0f
 #define CUT_TUTORIAL_LOCAL_POS_Y 0.0f
@@ -1125,14 +665,6 @@ static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 #define CUT_TUTORIAL_LOCAL_SCALE_X 1.0f
 #define CUT_TUTORIAL_LOCAL_SCALE_Y 1.0f
 #define CUT_TUTORIAL_LOCAL_SCALE_Z 1.0f
-/* scenes/Game.json#Main Camera/CameraFocus:@transform:local_position */
-#define CAMERA_FOCUS_LOCAL_POS_X 0.0f
-#define CAMERA_FOCUS_LOCAL_POS_Y 0.0f
-#define CAMERA_FOCUS_LOCAL_POS_Z 0.0f
-/* scenes/Game.json#Main Camera/CameraFocus:@transform:local_scale */
-#define CAMERA_FOCUS_LOCAL_SCALE_X 1.0f
-#define CAMERA_FOCUS_LOCAL_SCALE_Y 1.0f
-#define CAMERA_FOCUS_LOCAL_SCALE_Z 1.0f
 /* scenes/Game.json#Level:LevelLoader:currentLevel */
 #define LEVEL_LOADER_CURRENT_LEVEL -1
 /* scenes/Game.json#Level:LevelLoader:gap */
@@ -1147,18 +679,10 @@ static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 #define LEVEL_POS_X 0.0f
 #define LEVEL_POS_Y 0.0f
 #define LEVEL_POS_Z -4.0f
-/* scenes/Game.json#Level:@transform:world_scale */
-#define LEVEL_SCALE_X 1.0f
-#define LEVEL_SCALE_Y 1.0f
-#define LEVEL_SCALE_Z 1.0f
 /* scenes/Game.json#Level/letters:@transform:world_position */
 #define LETTERS_POS_X 0.0f
 #define LETTERS_POS_Y 0.0f
 #define LETTERS_POS_Z -29.0f
-/* scenes/Game.json#Level/letters:@transform:world_scale */
-#define LETTERS_SCALE_X 1.0f
-#define LETTERS_SCALE_Y 1.0f
-#define LETTERS_SCALE_Z 1.0f
 /* scenes/Game.json#Mars:Mars:tileSize */
 #define MARS_TILE_SIZE 5.0f
 /* scenes/Game.json#Mars:Mars:numTilesX */
@@ -1172,24 +696,10 @@ static const float NIGHT_OVERLAY_EULER[3] = { 270.0f, 0.0f, 0.0f };
 /* scenes/Game.json#Mars:Mars:sprites */
 #define MARS_TILE_SPRITES_COUNT 12
 static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR_MARSTILES_1, SPR_MARSTILES_1, SPR_MARSTILES_1, SPR_MARSTILES_1, SPR_MARSTILES_1, SPR_MARSTILES_1, SPR_MARSTILES_1, SPR_MARSTILES_2, SPR_MARSTILES_2, SPR_MARSTILES_0 };
-/* scenes/Game.json#Mars:Mars:tileTemplate */
-#define MARS_TILE_TEMPLATE "Sprites/ground/MarsTile.prefab#Transform:MarsTile"
-/* scenes/Game.json#Mars:@transform:world_position */
-#define MARS_POS_X 0.0f
-#define MARS_POS_Y 0.0f
-#define MARS_POS_Z 0.0f
-/* scenes/Game.json#Mars:@transform:world_scale */
-#define MARS_SCALE_X 1.0f
-#define MARS_SCALE_Y 1.0f
-#define MARS_SCALE_Z 1.0f
 /* scenes/Game.json#Mars/solCounter:GUIText:m_Text */
 #define SOL_COUNTER_TEXT "SOL 1"
-/* scenes/Game.json#Mars/solCounter:GUIText:m_Font */
-#define SOL_COUNTER_FONT FONT_JOYSTIX_MONOSPACE
 /* scenes/Game.json#Mars/solCounter:GUIText:m_FontSize */
 #define SOL_COUNTER_FONT_SIZE 30
-/* scenes/Game.json#Mars/solCounter:GUIText:m_FontStyle */
-#define SOL_COUNTER_FONT_STYLE 0
 /* scenes/Game.json#Mars/solCounter:GUIText:m_Anchor */
 #define SOL_COUNTER_ANCHOR 4
 /* scenes/Game.json#Mars/solCounter:GUIText:m_Alignment */
@@ -1207,24 +717,14 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define SOL_COUNTER_PIXEL_OFFSET_Y 0.0f
 /* scenes/Game.json#Mars/solCounter:GUIText:m_Enabled */
 #define SOL_COUNTER_ENABLED 0
-/* scenes/Game.json#Mars/solCounter:GUIText:m_TabSize */
-#define SOL_COUNTER_TAB_SIZE 4.0f
-/* scenes/Game.json#Mars/solCounter:GUIText:m_PixelCorrect */
-#define SOL_COUNTER_PIXEL_CORRECT 1
 /* scenes/Game.json#Mars/solCounter:@transform:world_position */
 #define SOL_COUNTER_VIEWPORT_POS_X 0.5f
 #define SOL_COUNTER_VIEWPORT_POS_Y 0.2f
 #define SOL_COUNTER_VIEWPORT_POS_Z 0.0f
-/* prefabs/MarsTile.json#MarsTile:@transform:world_position */
-#define MARS_TILE_POS_X 0.0f
-#define MARS_TILE_POS_Y 0.0f
-#define MARS_TILE_POS_Z 0.0f
 /* prefabs/MarsTile.json#MarsTile:@transform:world_scale */
 #define MARS_TILE_SCALE_X 5.0f
 #define MARS_TILE_SCALE_Y 5.0f
 #define MARS_TILE_SCALE_Z 5.0f
-/* prefabs/MarsTile.json#MarsTile:SpriteRenderer:m_Sprite */
-/* MARS_TILE_SPRITE: null reference in the source, no constant */
 /* prefabs/MarsTile.json#MarsTile:SpriteRenderer:m_Color */
 #define MARS_TILE_COLOR_A 1.0f
 #define MARS_TILE_COLOR_B 1.0f
@@ -1256,12 +756,8 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define ROVER_SCREEN_BACKGROUND_VIEWPORT_POS_Z -30.0f
 /* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Text */
 #define ROVER_SCREEN_TEXT_TEXT ""
-/* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Font */
-#define ROVER_SCREEN_TEXT_FONT FONT_JOYSTIX_MONOSPACE
 /* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_FontSize */
 #define ROVER_SCREEN_TEXT_FONT_SIZE 13
-/* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_FontStyle */
-#define ROVER_SCREEN_TEXT_FONT_STYLE 0
 /* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Anchor */
 #define ROVER_SCREEN_TEXT_ANCHOR 0
 /* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Alignment */
@@ -1279,18 +775,10 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define ROVER_SCREEN_TEXT_PIXEL_OFFSET_Y 0.0f
 /* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_Enabled */
 #define ROVER_SCREEN_TEXT_ENABLED 0
-/* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_TabSize */
-#define ROVER_SCREEN_TEXT_TAB_SIZE 4.0f
-/* scenes/Game.json#RoverScreen/screenGUIText:GUIText:m_PixelCorrect */
-#define ROVER_SCREEN_TEXT_PIXEL_CORRECT 1
 /* scenes/Game.json#RoverScreen/screenGUIText:@transform:world_position */
 #define ROVER_SCREEN_TEXT_VIEWPORT_POS_X 0.06999999f
 #define ROVER_SCREEN_TEXT_VIEWPORT_POS_Y 0.91f
 #define ROVER_SCREEN_TEXT_VIEWPORT_POS_Z 0.0f
-/* scenes/Game.json#RoverScreen:@transform:world_position */
-#define ROVER_SCREEN_POS_X 0.5f
-#define ROVER_SCREEN_POS_Y 0.5f
-#define ROVER_SCREEN_POS_Z -30.0f
 /* scenes/Game.json#RoverScreen:@transform:world_scale */
 #define ROVER_SCREEN_SCALE_X 1.0f
 #define ROVER_SCREEN_SCALE_Y 1.0f
@@ -1301,18 +789,10 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define EARTH_TELEMETRY_DELAY 1.8f
 /* scenes/Game.json#Earth:Earth:debugForceNextLevel */
 #define EARTH_DEBUG_FORCE_NEXT_LEVEL -1
-/* scenes/Game.json#Earth:Earth:testIgnoreRoverEnterance */
-#define EARTH_TEST_IGNORE_ROVER_ENTRANCE 0
-/* scenes/Game.json#Earth:Earth:rocketPrefab */
-#define EARTH_ROCKET_PREFAB "Prefabs/RocketPrefab.prefab#Transform:RocketPrefab"
 /* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Text */
 #define VISIBILITY_INDICATOR_TEXT "WAIT FOR DAYLIGHT IN"
-/* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Font */
-#define VISIBILITY_INDICATOR_FONT FONT_JOYSTIX_MONOSPACE
 /* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_FontSize */
 #define VISIBILITY_INDICATOR_FONT_SIZE 11
-/* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_FontStyle */
-#define VISIBILITY_INDICATOR_FONT_STYLE 0
 /* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Anchor */
 #define VISIBILITY_INDICATOR_ANCHOR 0
 /* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Alignment */
@@ -1330,28 +810,16 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define VISIBILITY_INDICATOR_PIXEL_OFFSET_Y 0.0f
 /* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_Enabled */
 #define VISIBILITY_INDICATOR_ENABLED 0
-/* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_TabSize */
-#define VISIBILITY_INDICATOR_TAB_SIZE 4.0f
-/* scenes/Game.json#Earth/visibiltyIndicator:GUIText:m_PixelCorrect */
-#define VISIBILITY_INDICATOR_PIXEL_CORRECT 1
 /* scenes/Game.json#Earth/visibiltyIndicator:@transform:world_position */
 #define VISIBILITY_INDICATOR_VIEWPORT_POS_X 0.7f
 #define VISIBILITY_INDICATOR_VIEWPORT_POS_Y 0.99f
 #define VISIBILITY_INDICATOR_VIEWPORT_POS_Z -25.0f
 /* scenes/Game.json#Rocks:RockGenerator:numRocks */
 #define ROCK_GENERATOR_NUM_ROCKS 100
-/* scenes/Game.json#Rocks:RockGenerator:rockPrefab */
-#define ROCK_GENERATOR_ROCK_PREFAB "Prefabs/RockPrefab.prefab#Transform:RockPrefab"
-/* scenes/Game.json#Rocks:RockGenerator:rockShatterAnimationPrefab */
-#define ROCK_GENERATOR_SHATTER_PREFAB "Prefabs/RockShatterPrefab.prefab#Transform:RockShatterPrefab"
 /* scenes/Game.json#Rocks:@transform:world_position */
 #define ROCKS_POS_X 0.0f
 #define ROCKS_POS_Y 0.0f
 #define ROCKS_POS_Z -3.0f
-/* scenes/Game.json#Rocks:@transform:world_scale */
-#define ROCKS_SCALE_X 1.0f
-#define ROCKS_SCALE_Y 1.0f
-#define ROCKS_SCALE_Z 1.0f
 /* scenes/Game.json#Menu4:AudioSource:m_audioClip */
 #define GAME_START_SOUND_CLIP SND_MENU4
 /* scenes/Game.json#Menu4:AudioSource:m_Volume */
@@ -1370,24 +838,11 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define GAME_START_SOUND_MAX_DISTANCE 500.0f
 /* scenes/Game.json#Menu4:AudioSource:rolloffMode */
 #define GAME_START_SOUND_ROLLOFF_MODE 0
-/* scenes/Game.json#Menu4:AudioSource:Pan2D */
-#define GAME_START_SOUND_PAN2D 0.0f
-/* scenes/Game.json#Menu4:AudioSource:Priority */
-#define GAME_START_SOUND_PRIORITY 128
 /* scenes/Game.json#Menu4:AudioSource:DopplerLevel */
 #define GAME_START_SOUND_DOPPLER 1.0f
-/* scenes/Game.json#Menu4:AudioSource:Mute */
-#define GAME_START_SOUND_MUTE 0
-/* scenes/Game.json#Menu4:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define GAME_START_SOUND_SPREAD 0.0f
-/* scenes/Game.json#Menu4:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define GAME_START_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Game.json#Menu4, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define GAME_START_SOUND_SPATIAL_BLEND 0.0f
-/* audio_source scenes/Game.json#Menu4, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define GAME_START_SOUND_REVERB_ZONE_MIX 0.0f
 /* scenes/Game.json#RockDragTarget:SpriteRenderer:m_Sprite */
 #define DRAG_TARGET_SCENE_SPRITE SPR_ROCKDRAGTARGET
 /* scenes/Game.json#RockDragTarget:SpriteRenderer:m_Color */
@@ -1413,6 +868,11 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define DRAG_TARGET_DOT_SPRITE SPR_ROCKDRAGTARGET
 /* scenes/Game.json#Main Camera:CamerFocusSwitcher:playerIsInRover */
 #define CAM_FOCUS_PLAYER_IN_ROVER 0
+/* scenes/Game.json#scene_settings:RenderSettings:m_AmbientLight */
+#define GAME_AMBIENT_LIGHT_A 1.0f
+#define GAME_AMBIENT_LIGHT_B 0.49264705f
+#define GAME_AMBIENT_LIGHT_G 0.6710954f
+#define GAME_AMBIENT_LIGHT_R 1.0f
 /* scenes/Game.json#Player:@transform:world_position */
 #define PLAYER_POS_X 6.56f
 #define PLAYER_POS_Y 2.35f
@@ -1433,17 +893,6 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define PLAYER_RB_FIXED_ANGLE 1
 /* scenes/Game.json#Player:Rigidbody2D:m_IsKinematic */
 #define PLAYER_RB_KINEMATIC 0
-/* scenes/Game.json#Player:Rigidbody2D:m_SleepingMode */
-#define PLAYER_RB_SLEEPING_MODE 1
-/* scenes/Game.json#Player:Rigidbody2D:m_Interpolate */
-#define PLAYER_RB_INTERPOLATE 0
-/* scenes/Game.json#Player:Rigidbody2D:m_CollisionDetection */
-#define PLAYER_RB_COLLISION_DETECTION 0
-/* scenes/Game.json#Player:CircleCollider2D:m_Radius */
-#define PLAYER_TRIGGER_RADIUS 0.2f
-/* scenes/Game.json#Player:CircleCollider2D:m_Center */
-#define PLAYER_TRIGGER_CENTER_X 0.0f
-#define PLAYER_TRIGGER_CENTER_Y 0.0f
 /* scenes/Game.json#Player:CircleCollider2D:m_IsTrigger */
 #define PLAYER_TRIGGER_IS_TRIGGER 1
 /* scenes/Game.json#Player:CircleCollider2D:derived.radius_world */
@@ -1453,8 +902,6 @@ static const int MARS_TILE_SPRITES[12] = { SPR_MARSTILES_1, SPR_MARSTILES_1, SPR
 #define PLAYER_TRIGGER_OFFSET_WORLD_Y 0.0f
 /* scenes/Game.json#Player:PolygonCollider2D:m_IsTrigger */
 #define PLAYER_BODY_IS_TRIGGER 0
-/* scenes/Game.json#Player:PolygonCollider2D:derived.paths[0].source_points */
-#define PLAYER_BODY_SOURCE_POINT_COUNT 8
 /* scenes/Game.json#Player:PolygonCollider2D:derived.paths[0].pieces */
 #define PLAYER_BODY_PIECES_COUNT 3
 static const int PLAYER_BODY_PIECES_SIZES[3] = { 3, 5, 4 };
@@ -1471,10 +918,6 @@ static const float PLAYER_BODY_PIECES_POINTS[24] = { 0.26370382f, 0.172637f, 0.2
 #define PLAYER_SORTING_ORDER 0
 /* scenes/Game.json#Player:SpriteRenderer:m_Enabled */
 #define PLAYER_ENABLED 1
-/* scenes/Game.json#Player:Animator:m_Controller */
-#define PLAYER_ANIMATOR_CONTROLLER "Sprites/run/Player.controller"
-/* scenes/Game.json#Player:Animator:m_ApplyRootMotion */
-#define PLAYER_ANIMATOR_APPLY_ROOT_MOTION 1
 /* scenes/Game.json#Player:@node:tag */
 #define PLAYER_TAG "Player"
 /* scenes/Game.json#Player:AudioSource:m_audioClip */
@@ -1495,24 +938,11 @@ static const float PLAYER_BODY_PIECES_POINTS[24] = { 0.26370382f, 0.172637f, 0.2
 #define PLAYER_STRAIN_MAX_DISTANCE 500.0f
 /* scenes/Game.json#Player:AudioSource:rolloffMode */
 #define PLAYER_STRAIN_ROLLOFF_MODE 0
-/* scenes/Game.json#Player:AudioSource:Pan2D */
-#define PLAYER_STRAIN_PAN2D 0.0f
-/* scenes/Game.json#Player:AudioSource:Priority */
-#define PLAYER_STRAIN_PRIORITY 128
 /* scenes/Game.json#Player:AudioSource:DopplerLevel */
 #define PLAYER_STRAIN_DOPPLER 1.0f
-/* scenes/Game.json#Player:AudioSource:Mute */
-#define PLAYER_STRAIN_MUTE 0
-/* scenes/Game.json#Player:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define PLAYER_STRAIN_SPREAD 0.0f
-/* scenes/Game.json#Player:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define PLAYER_STRAIN_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Game.json#Player, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define PLAYER_STRAIN_SPATIAL_BLEND 1.0f
-/* audio_source scenes/Game.json#Player, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define PLAYER_STRAIN_REVERB_ZONE_MIX 1.0f
 /* scenes/Game.json#Player/footsteps:AudioSource:m_audioClip */
 #define PLAYER_FOOTSTEPS_CLIP SND_FOOTSTEP_GRAVEL_1
 /* scenes/Game.json#Player/footsteps:AudioSource:m_Volume */
@@ -1531,24 +961,11 @@ static const float PLAYER_BODY_PIECES_POINTS[24] = { 0.26370382f, 0.172637f, 0.2
 #define PLAYER_FOOTSTEPS_MAX_DISTANCE 500.0f
 /* scenes/Game.json#Player/footsteps:AudioSource:rolloffMode */
 #define PLAYER_FOOTSTEPS_ROLLOFF_MODE 0
-/* scenes/Game.json#Player/footsteps:AudioSource:Pan2D */
-#define PLAYER_FOOTSTEPS_PAN2D 0.0f
-/* scenes/Game.json#Player/footsteps:AudioSource:Priority */
-#define PLAYER_FOOTSTEPS_PRIORITY 128
 /* scenes/Game.json#Player/footsteps:AudioSource:DopplerLevel */
 #define PLAYER_FOOTSTEPS_DOPPLER 1.0f
-/* scenes/Game.json#Player/footsteps:AudioSource:Mute */
-#define PLAYER_FOOTSTEPS_MUTE 0
-/* scenes/Game.json#Player/footsteps:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define PLAYER_FOOTSTEPS_SPREAD 0.0f
-/* scenes/Game.json#Player/footsteps:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define PLAYER_FOOTSTEPS_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Game.json#Player/footsteps, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define PLAYER_FOOTSTEPS_SPATIAL_BLEND 1.0f
-/* audio_source scenes/Game.json#Player/footsteps, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define PLAYER_FOOTSTEPS_REVERB_ZONE_MIX 1.0f
 /* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:m_audioClip */
 #define PLAYER_AMBIENCE_CLIP SND_SCI_FI_AMBIENCELOOP1
 /* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:m_Volume */
@@ -1567,67 +984,22 @@ static const float PLAYER_BODY_PIECES_POINTS[24] = { 0.26370382f, 0.172637f, 0.2
 #define PLAYER_AMBIENCE_MAX_DISTANCE 500.0f
 /* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:rolloffMode */
 #define PLAYER_AMBIENCE_ROLLOFF_MODE 0
-/* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:Pan2D */
-#define PLAYER_AMBIENCE_PAN2D 0.0f
-/* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:Priority */
-#define PLAYER_AMBIENCE_PRIORITY 100
 /* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:DopplerLevel */
 #define PLAYER_AMBIENCE_DOPPLER 1.0f
-/* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:Mute */
-#define PLAYER_AMBIENCE_MUTE 0
-/* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define PLAYER_AMBIENCE_SPREAD 0.0f
-/* scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define PLAYER_AMBIENCE_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define PLAYER_AMBIENCE_SPATIAL_BLEND 1.0f
-/* audio_source scenes/Game.json#Player/pivot/Sci-fi_AmbienceLoop1, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define PLAYER_AMBIENCE_REVERB_ZONE_MIX 1.0f
-/* scenes/Game.json#Player/pivot:@transform:world_position */
-#define PLAYER_PIVOT_POS_X 6.56f
-#define PLAYER_PIVOT_POS_Y 2.35f
-#define PLAYER_PIVOT_POS_Z -1.0f
-/* scenes/Game.json#Player/pivot:@transform:world_scale */
-#define PLAYER_PIVOT_SCALE_X 0.0f
-#define PLAYER_PIVOT_SCALE_Y 5.0f
-#define PLAYER_PIVOT_SCALE_Z 1.0f
 /* scenes/Game.json#Player/pivot:@transform:world_euler */
 #define PLAYER_PIVOT_EULER_COUNT 3
 static const float PLAYER_PIVOT_EULER[3] = { 0.0f, 180.0f, 0.0f };
-/* scenes/Game.json#Player/pivot:@transform:local_position */
-#define PLAYER_PIVOT_LOCAL_POS_X 0.0f
-#define PLAYER_PIVOT_LOCAL_POS_Y 0.0f
-#define PLAYER_PIVOT_LOCAL_POS_Z 0.0f
-/* scenes/Game.json#Player/pivot:@transform:local_scale */
-#define PLAYER_PIVOT_LOCAL_SCALE_X 0.0f
-#define PLAYER_PIVOT_LOCAL_SCALE_Y 1.0f
-#define PLAYER_PIVOT_LOCAL_SCALE_Z 1.0f
-/* scenes/Game.json#Player/pivot/audioListener:@transform:world_position */
-#define PLAYER_LISTENER_POS_X 6.56f
-#define PLAYER_LISTENER_POS_Y 2.35f
-#define PLAYER_LISTENER_POS_Z -1.0f
-/* scenes/Game.json#Player/pivot/audioListener:@transform:world_scale */
-#define PLAYER_LISTENER_SCALE_X 0.0f
-#define PLAYER_LISTENER_SCALE_Y 5.0f
-#define PLAYER_LISTENER_SCALE_Z 1.0f
 /* scenes/Game.json#Player/footsteps:@transform:local_position */
 #define PLAYER_FOOTSTEPS_LOCAL_POS_X 0.0f
 #define PLAYER_FOOTSTEPS_LOCAL_POS_Y 0.0f
 #define PLAYER_FOOTSTEPS_LOCAL_POS_Z 1.0f
-/* scenes/Game.json#Player/footsteps:@transform:local_scale */
-#define PLAYER_FOOTSTEPS_LOCAL_SCALE_X 0.2f
-#define PLAYER_FOOTSTEPS_LOCAL_SCALE_Y 0.2f
-#define PLAYER_FOOTSTEPS_LOCAL_SCALE_Z 1.0f
 /* scenes/Game.json#Rover:@transform:world_position */
 #define ROVER_POS_X 9.3f
 #define ROVER_POS_Y 4.5f
 #define ROVER_POS_Z -0.5f
-/* scenes/Game.json#Rover:@transform:world_scale */
-#define ROVER_SCALE_X 1.0f
-#define ROVER_SCALE_Y 1.0f
-#define ROVER_SCALE_Z 1.0f
 /* scenes/Game.json#Rover:AudioSource:m_audioClip */
 #define ROVER_NEW_MESSAGE_CLIP SND_NEWMESSAGE
 /* scenes/Game.json#Rover:AudioSource:m_Volume */
@@ -1646,60 +1018,11 @@ static const float PLAYER_PIVOT_EULER[3] = { 0.0f, 180.0f, 0.0f };
 #define ROVER_NEW_MESSAGE_MAX_DISTANCE 25.0f
 /* scenes/Game.json#Rover:AudioSource:rolloffMode */
 #define ROVER_NEW_MESSAGE_ROLLOFF_MODE 1
-/* scenes/Game.json#Rover:AudioSource:Pan2D */
-#define ROVER_NEW_MESSAGE_PAN2D 0.0f
-/* scenes/Game.json#Rover:AudioSource:Priority */
-#define ROVER_NEW_MESSAGE_PRIORITY 128
 /* scenes/Game.json#Rover:AudioSource:DopplerLevel */
 #define ROVER_NEW_MESSAGE_DOPPLER 1.0f
-/* scenes/Game.json#Rover:AudioSource:Mute */
-#define ROVER_NEW_MESSAGE_MUTE 0
-/* scenes/Game.json#Rover:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define ROVER_NEW_MESSAGE_SPREAD 1.0f
-/* scenes/Game.json#Rover:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define ROVER_NEW_MESSAGE_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Game.json#Rover, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define ROVER_NEW_MESSAGE_SPATIAL_BLEND 1.0f
-/* audio_source scenes/Game.json#Rover, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define ROVER_NEW_MESSAGE_REVERB_ZONE_MIX 1.0f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_ReverbPreset */
-#define ROVER_REVERB_PRESET 22
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_MinDistance */
-#define ROVER_REVERB_MIN_DISTANCE 1.3f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_MaxDistance */
-#define ROVER_REVERB_MAX_DISTANCE 2.0f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_Room */
-#define ROVER_REVERB_ROOM -1000
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_RoomHF */
-#define ROVER_REVERB_ROOM_HF -1000
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_RoomLF */
-#define ROVER_REVERB_ROOM_LF 0
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_DecayTime */
-#define ROVER_REVERB_DECAY_TIME 2.81f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_DecayHFRatio */
-#define ROVER_REVERB_DECAY_HF_RATIO 0.14f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_Reflections */
-#define ROVER_REVERB_REFLECTIONS 429
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_ReflectionsDelay */
-#define ROVER_REVERB_REFLECTIONS_DELAY 0.014f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_Reverb */
-#define ROVER_REVERB_REVERB 1023
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_ReverbDelay */
-#define ROVER_REVERB_REVERB_DELAY 0.021f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_HFReference */
-#define ROVER_REVERB_HF_REFERENCE 5000.0f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_LFReference */
-#define ROVER_REVERB_LF_REFERENCE 250.0f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_Diffusion */
-#define ROVER_REVERB_DIFFUSION 80.0f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_Density */
-#define ROVER_REVERB_DENSITY 60.0f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_RoomRolloffFactor */
-#define ROVER_REVERB_ROLLOFF_FACTOR 0.0f
-/* scenes/Game.json#Rover/Reverb:AudioReverbZone:m_Enabled */
-#define ROVER_REVERB_ENABLED 1
 /* scenes/Game.json#Rover/RoverBody:@transform:world_position */
 #define ROVER_BODY_POS_X 9.3f
 #define ROVER_BODY_POS_Y 4.5f
@@ -1719,8 +1042,6 @@ static const float PLAYER_PIVOT_EULER[3] = { 0.0f, 180.0f, 0.0f };
 #define ROVER_BODY_SORTING_ORDER 0
 /* scenes/Game.json#Rover/RoverBody:SpriteRenderer:m_Enabled */
 #define ROVER_BODY_ENABLED 1
-/* scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_Mass */
-#define ROVER_BODY_RB_MASS 1.0f
 /* scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_LinearDrag */
 #define ROVER_BODY_RB_LINEAR_DRAG 0.0f
 /* scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_AngularDrag */
@@ -1731,18 +1052,6 @@ static const float PLAYER_PIVOT_EULER[3] = { 0.0f, 180.0f, 0.0f };
 #define ROVER_BODY_RB_FIXED_ANGLE 0
 /* scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_IsKinematic */
 #define ROVER_BODY_RB_KINEMATIC 1
-/* scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_SleepingMode */
-#define ROVER_BODY_RB_SLEEPING_MODE 1
-/* scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_Interpolate */
-#define ROVER_BODY_RB_INTERPOLATE 0
-/* scenes/Game.json#Rover/RoverBody:Rigidbody2D:m_CollisionDetection */
-#define ROVER_BODY_RB_COLLISION_DETECTION 0
-/* scenes/Game.json#Rover/RoverBody:BoxCollider2D:m_Size */
-#define ROVER_BODY_TRIGGER_SIZE_X 0.25f
-#define ROVER_BODY_TRIGGER_SIZE_Y 0.26722535f
-/* scenes/Game.json#Rover/RoverBody:BoxCollider2D:m_Center */
-#define ROVER_BODY_TRIGGER_CENTER_X -0.03f
-#define ROVER_BODY_TRIGGER_CENTER_Y 0.06638747f
 /* scenes/Game.json#Rover/RoverBody:BoxCollider2D:m_IsTrigger */
 #define ROVER_BODY_TRIGGER_IS_TRIGGER 1
 /* scenes/Game.json#Rover/RoverBody:BoxCollider2D:derived.size_world */
@@ -1772,8 +1081,6 @@ static const float PLAYER_PIVOT_EULER[3] = { 0.0f, 180.0f, 0.0f };
 #define ROVER_ROOF_SORTING_ORDER 0
 /* scenes/Game.json#Rover/bis_rover_v2_roof:SpriteRenderer:m_Enabled */
 #define ROVER_ROOF_ENABLED 0
-/* scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_Mass */
-#define ROVER_ROOF_RB_MASS 1.0f
 /* scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_LinearDrag */
 #define ROVER_ROOF_RB_LINEAR_DRAG 0.0f
 /* scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_AngularDrag */
@@ -1784,16 +1091,8 @@ static const float PLAYER_PIVOT_EULER[3] = { 0.0f, 180.0f, 0.0f };
 #define ROVER_ROOF_RB_FIXED_ANGLE 0
 /* scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_IsKinematic */
 #define ROVER_ROOF_RB_KINEMATIC 1
-/* scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_SleepingMode */
-#define ROVER_ROOF_RB_SLEEPING_MODE 1
-/* scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_Interpolate */
-#define ROVER_ROOF_RB_INTERPOLATE 0
-/* scenes/Game.json#Rover/bis_rover_v2_roof:Rigidbody2D:m_CollisionDetection */
-#define ROVER_ROOF_RB_COLLISION_DETECTION 0
 /* scenes/Game.json#Rover/bis_rover_v2_roof:PolygonCollider2D:m_IsTrigger */
 #define ROVER_ROOF_COLLIDER_IS_TRIGGER 0
-/* scenes/Game.json#Rover/bis_rover_v2_roof:PolygonCollider2D:derived.paths[0].source_points */
-#define ROVER_ROOF_COLLIDER_SOURCE_POINT_COUNT 14
 /* scenes/Game.json#Rover/bis_rover_v2_roof:PolygonCollider2D:derived.paths[0].pieces */
 #define ROVER_ROOF_COLLIDER_PIECES_COUNT 7
 static const int ROVER_ROOF_COLLIDER_PIECES_SIZES[7] = { 3, 3, 3, 4, 4, 4, 5 };
@@ -1805,15 +1104,6 @@ static const float ROVER_ROOF_COLLIDER_PIECES_POINTS[52] = { -1.7697941f, 0.1423
 #define ROCK_REPELLER_POS_X 9.3f
 #define ROCK_REPELLER_POS_Y 4.5f
 #define ROCK_REPELLER_POS_Z -0.5f
-/* scenes/Game.json#Rover/rockRepeller:@transform:world_scale */
-#define ROCK_REPELLER_SCALE_X 1.0f
-#define ROCK_REPELLER_SCALE_Y 1.0f
-#define ROCK_REPELLER_SCALE_Z 1.0f
-/* scenes/Game.json#Rover/rockRepeller:CircleCollider2D:m_Radius */
-#define ROCK_REPELLER_RADIUS 3.29f
-/* scenes/Game.json#Rover/rockRepeller:CircleCollider2D:m_Center */
-#define ROCK_REPELLER_CENTER_X -0.15f
-#define ROCK_REPELLER_CENTER_Y -0.06f
 /* scenes/Game.json#Rover/rockRepeller:CircleCollider2D:m_IsTrigger */
 #define ROCK_REPELLER_IS_TRIGGER 1
 /* scenes/Game.json#Rover/rockRepeller:CircleCollider2D:derived.radius_world */
@@ -1821,29 +1111,14 @@ static const float ROVER_ROOF_COLLIDER_PIECES_POINTS[52] = { -1.7697941f, 0.1423
 /* scenes/Game.json#Rover/rockRepeller:CircleCollider2D:derived.offset_world */
 #define ROCK_REPELLER_OFFSET_WORLD_X -0.15f
 #define ROCK_REPELLER_OFFSET_WORLD_Y -0.06f
-/* scenes/Game.json#Rover/rockRepeller:@node:tag */
-#define ROCK_REPELLER_TAG "Rover"
 /* scenes/Game.json#Rover/roverFocusTarget:@transform:world_position */
 #define ROVER_FOCUS_TARGET_POS_X 4.76f
 #define ROVER_FOCUS_TARGET_POS_Y 4.5f
 #define ROVER_FOCUS_TARGET_POS_Z -0.5f
-/* scenes/Game.json#Rover/roverFocusTarget:@transform:world_scale */
-#define ROVER_FOCUS_TARGET_SCALE_X 1.0f
-#define ROVER_FOCUS_TARGET_SCALE_Y 1.0f
-#define ROVER_FOCUS_TARGET_SCALE_Z 1.0f
 /* scenes/Game.json#Rover/playerInsideRoverTrigger:@transform:world_position */
 #define ROVER_INSIDE_TRIGGER_POS_X 8.929765f
 #define ROVER_INSIDE_TRIGGER_POS_Y 4.511457f
 #define ROVER_INSIDE_TRIGGER_POS_Z -0.5f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger:@transform:world_scale */
-#define ROVER_INSIDE_TRIGGER_SCALE_X 5.0f
-#define ROVER_INSIDE_TRIGGER_SCALE_Y 5.0f
-#define ROVER_INSIDE_TRIGGER_SCALE_Z 1.0f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger:CircleCollider2D:m_Radius */
-#define ROVER_INSIDE_TRIGGER_RADIUS 0.12f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger:CircleCollider2D:m_Center */
-#define ROVER_INSIDE_TRIGGER_CENTER_X 0.0f
-#define ROVER_INSIDE_TRIGGER_CENTER_Y 0.0f
 /* scenes/Game.json#Rover/playerInsideRoverTrigger:CircleCollider2D:m_IsTrigger */
 #define ROVER_INSIDE_TRIGGER_IS_TRIGGER 1
 /* scenes/Game.json#Rover/playerInsideRoverTrigger:CircleCollider2D:derived.radius_world */
@@ -1855,6 +1130,8 @@ static const float ROVER_ROOF_COLLIDER_PIECES_POINTS[52] = { -1.7697941f, 0.1423
 #define ROVER_INSIDE_SET_ON_PITCH 0.6f
 /* scenes/Game.json#Rover/playerInsideRoverTrigger:RoverInsideTrigger:setOffPitch */
 #define ROVER_INSIDE_SET_OFF_PITCH 0.9f
+/* scenes/Game.json#Rover/playerInsideRoverTrigger:@node:tag */
+#define ROVER_INSIDE_TRIGGER_TAG "Untagged"
 /* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:m_audioClip */
 #define ROVER_ENTER_SOUND_CLIP SND_MENU1
 /* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:m_Volume */
@@ -1873,24 +1150,11 @@ static const float ROVER_ROOF_COLLIDER_PIECES_POINTS[52] = { -1.7697941f, 0.1423
 #define ROVER_ENTER_SOUND_MAX_DISTANCE 500.0f
 /* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:rolloffMode */
 #define ROVER_ENTER_SOUND_ROLLOFF_MODE 1
-/* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:Pan2D */
-#define ROVER_ENTER_SOUND_PAN2D 0.0f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:Priority */
-#define ROVER_ENTER_SOUND_PRIORITY 107
 /* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:DopplerLevel */
 #define ROVER_ENTER_SOUND_DOPPLER 1.0f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:Mute */
-#define ROVER_ENTER_SOUND_MUTE 0
-/* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define ROVER_ENTER_SOUND_SPREAD 0.0f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define ROVER_ENTER_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Game.json#Rover/playerInsideRoverTrigger, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define ROVER_ENTER_SOUND_SPATIAL_BLEND 1.0f
-/* audio_source scenes/Game.json#Rover/playerInsideRoverTrigger, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define ROVER_ENTER_SOUND_REVERB_ZONE_MIX 1.0f
 /* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:m_audioClip */
 #define ROVER_CHATTER_CLIP SND_STATIC
 /* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:m_Volume */
@@ -1909,24 +1173,15 @@ static const float ROVER_ROOF_COLLIDER_PIECES_POINTS[52] = { -1.7697941f, 0.1423
 #define ROVER_CHATTER_MAX_DISTANCE 4.6f
 /* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:rolloffMode */
 #define ROVER_CHATTER_ROLLOFF_MODE 1
-/* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:Pan2D */
-#define ROVER_CHATTER_PAN2D 0.0f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:Priority */
-#define ROVER_CHATTER_PRIORITY 128
 /* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:DopplerLevel */
 #define ROVER_CHATTER_DOPPLER 1.0f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:Mute */
-#define ROVER_CHATTER_MUTE 0
-/* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define ROVER_CHATTER_SPREAD 0.44702774f
-/* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define ROVER_CHATTER_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source scenes/Game.json#Rover/playerInsideRoverTrigger/chatter, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define ROVER_CHATTER_SPATIAL_BLEND 1.0f
-/* audio_source scenes/Game.json#Rover/playerInsideRoverTrigger/chatter, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define ROVER_CHATTER_REVERB_ZONE_MIX 1.0f
+/* scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:@transform:world_position */
+#define ROVER_CHATTER_POS_X 9.186773f
+#define ROVER_CHATTER_POS_Y 4.7684665f
+#define ROVER_CHATTER_POS_Z -0.5f
 /* scenes/Game.json#Rover/updatesIndicator:@transform:world_position */
 #define ROVER_UPDATES_INDICATOR_POS_X 8.119604f
 #define ROVER_UPDATES_INDICATOR_POS_Y 3.456012f
@@ -1964,19 +1219,6 @@ static const float ROVER_ROOF_COLLIDER_PIECES_POINTS[52] = { -1.7697941f, 0.1423
 #define ROCK_RB_GRAVITY_SCALE 0.0f
 /* prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_FixedAngle */
 #define ROCK_RB_FIXED_ANGLE 0
-/* prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_IsKinematic */
-#define ROCK_RB_KINEMATIC 0
-/* prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_SleepingMode */
-#define ROCK_RB_SLEEPING_MODE 1
-/* prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_Interpolate */
-#define ROCK_RB_INTERPOLATE 0
-/* prefabs/RockPrefab.json#RockPrefab:Rigidbody2D:m_CollisionDetection */
-#define ROCK_RB_COLLISION_DETECTION 0
-/* prefabs/RockPrefab.json#RockPrefab:CircleCollider2D:m_Radius */
-#define ROCK_RADIUS 0.055f
-/* prefabs/RockPrefab.json#RockPrefab:CircleCollider2D:m_Center */
-#define ROCK_CENTER_X 0.0f
-#define ROCK_CENTER_Y 0.0f
 /* prefabs/RockPrefab.json#RockPrefab:CircleCollider2D:m_IsTrigger */
 #define ROCK_IS_TRIGGER 0
 /* prefabs/RockPrefab.json#RockPrefab:CircleCollider2D:derived.radius_world */
@@ -2013,28 +1255,17 @@ static const float ROVER_ROOF_COLLIDER_PIECES_POINTS[52] = { -1.7697941f, 0.1423
 #define ROCK_DRAG_MAX_DISTANCE 10.0f
 /* prefabs/RockPrefab.json#RockPrefab:AudioSource:rolloffMode */
 #define ROCK_DRAG_ROLLOFF_MODE 2
-/* prefabs/RockPrefab.json#RockPrefab:AudioSource:Pan2D */
-#define ROCK_DRAG_PAN2D 0.0f
-/* prefabs/RockPrefab.json#RockPrefab:AudioSource:Priority */
-#define ROCK_DRAG_PRIORITY 186
 /* prefabs/RockPrefab.json#RockPrefab:AudioSource:DopplerLevel */
 #define ROCK_DRAG_DOPPLER 1.0f
-/* prefabs/RockPrefab.json#RockPrefab:AudioSource:Mute */
-#define ROCK_DRAG_MUTE 0
-/* prefabs/RockPrefab.json#RockPrefab:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define ROCK_DRAG_SPREAD 0.21388888f
-/* prefabs/RockPrefab.json#RockPrefab:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define ROCK_DRAG_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source prefabs/RockPrefab.json#RockPrefab, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define ROCK_DRAG_SPATIAL_BLEND 1.0f
-/* audio_source prefabs/RockPrefab.json#RockPrefab, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define ROCK_DRAG_REVERB_ZONE_MIX 1.0f
 /* prefabs/RockPrefab.json#RockPrefab:AudioSource:rolloffCustomCurve.m_Curve */
 #define ROCK_DRAG_ROLLOFF_CURVE_COUNT 2
 /* ROCK_DRAG_ROLLOFF_CURVE: per entry the fields inSlope, outSlope, tangentMode, time, value */
 static const float ROCK_DRAG_ROLLOFF_CURVE[10] = { 0.0f, -1.0994112f, 0.0f, 0.0f, 1.0f, -1.0994112f, 0.0f, 0.0f, 1.0f, 0.0f };
+/* prefabs/RockPrefab.json#RockPrefab:@node:tag */
+#define ROCK_TAG "Untagged"
 /* prefabs/RockPrefab.json#RockPrefab:DistanceJoint2D:m_Distance */
 #define ROCK_JOINT_DISTANCE 0.55f
 /* prefabs/RockPrefab.json#RockPrefab:DistanceJoint2D:m_Anchor */
@@ -2053,10 +1284,6 @@ static const float ROCK_DRAG_ROLLOFF_CURVE[10] = { 0.0f, -1.0994112f, 0.0f, 0.0f
 #define ROCK_DARK_SPRITE SPR_BIS_ROCK_DARK_V3
 /* prefabs/RockPrefab.json#RockPrefab:Rock:lightSprite */
 #define ROCK_LIGHT_SPRITE SPR_BIS_ROCK_LIGHT_V3
-/* prefabs/RockPrefab.json#RockPrefab:Rock:rockShadowPrefab */
-#define ROCK_SHADOW_PREFAB "Prefabs/RockShadowPrefab.prefab#Transform:RockShadowPrefab"
-/* prefabs/RockPrefab.json#RockPrefab:SpriteRenderer:m_Materials[0] */
-#define ROCK_MATERIAL "Sprites/cutout.mat"
 /* prefabs/RockShadowPrefab.json#RockShadowPrefab:@transform:world_position */
 #define ROCK_SHADOW_POS_X 0.0f
 #define ROCK_SHADOW_POS_Y 0.0f
@@ -2095,11 +1322,6 @@ static const float ROCK_DRAG_ROLLOFF_CURVE[10] = { 0.0f, -1.0994112f, 0.0f, 0.0f
 #define PLACEHOLDER_SORTING_ORDER 0
 /* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:SpriteRenderer:m_Enabled */
 #define PLACEHOLDER_ENABLED 1
-/* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:CircleCollider2D:m_Radius */
-#define PLACEHOLDER_RADIUS 0.045f
-/* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:CircleCollider2D:m_Center */
-#define PLACEHOLDER_CENTER_X 0.0f
-#define PLACEHOLDER_CENTER_Y 0.0f
 /* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:CircleCollider2D:m_IsTrigger */
 #define PLACEHOLDER_IS_TRIGGER 1
 /* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:CircleCollider2D:derived.radius_world */
@@ -2125,24 +1347,13 @@ static const float ROCK_DRAG_ROLLOFF_CURVE[10] = { 0.0f, -1.0994112f, 0.0f, 0.0f
 #define PLACEHOLDER_CORRECT_MAX_DISTANCE 500.0f
 /* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:rolloffMode */
 #define PLACEHOLDER_CORRECT_ROLLOFF_MODE 0
-/* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:Pan2D */
-#define PLACEHOLDER_CORRECT_PAN2D 0.0f
-/* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:Priority */
-#define PLACEHOLDER_CORRECT_PRIORITY 128
 /* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:DopplerLevel */
 #define PLACEHOLDER_CORRECT_DOPPLER 1.0f
-/* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:Mute */
-#define PLACEHOLDER_CORRECT_MUTE 0
-/* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define PLACEHOLDER_CORRECT_SPREAD 0.0f
-/* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define PLACEHOLDER_CORRECT_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define PLACEHOLDER_CORRECT_SPATIAL_BLEND 0.0f
-/* audio_source prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define PLACEHOLDER_CORRECT_REVERB_ZONE_MIX 0.0f
+/* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:@node:tag */
+#define PLACEHOLDER_TAG "Untagged"
 /* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:RockPlaceholder:dashSprite */
 #define PLACEHOLDER_DASH_SPRITE SPR_BIS_MORSE_DASH_V1
 /* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:RockPlaceholder:dotSprite */
@@ -2151,41 +1362,14 @@ static const float ROCK_DRAG_ROLLOFF_CURVE[10] = { 0.0f, -1.0994112f, 0.0f, 0.0f
 #define PLACEHOLDER_INCORRECT_SPRITE SPR_BIS_MORSE_WRONG_V1
 /* prefabs/RockPlaceholderPrefab.json#RockPlaceholderPrefab:RockPlaceholder:correctSprite */
 #define PLACEHOLDER_CORRECT_SPRITE SPR_BIS_MORSE_CORRECT_V1
-/* prefabs/RockDragTarget.json#RockDragTarget:@transform:world_position */
-#define DRAG_TARGET_POS_X -0.633234f
-#define DRAG_TARGET_POS_Y -3.2340147f
-#define DRAG_TARGET_POS_Z -5.0f
-/* prefabs/RockDragTarget.json#RockDragTarget:@transform:world_scale */
-#define DRAG_TARGET_SCALE_X 4.5f
-#define DRAG_TARGET_SCALE_Y 4.5f
-#define DRAG_TARGET_SCALE_Z 1.0f
-/* prefabs/RockDragTarget.json#RockDragTarget:SpriteRenderer:m_Sprite */
-#define DRAG_TARGET_SPRITE SPR_ROCKDRAGTARGET
-/* prefabs/RockDragTarget.json#RockDragTarget:SpriteRenderer:m_Color */
-#define DRAG_TARGET_COLOR_A 0.627451f
-#define DRAG_TARGET_COLOR_B 1.0f
-#define DRAG_TARGET_COLOR_G 1.0f
-#define DRAG_TARGET_COLOR_R 1.0f
-/* prefabs/RockDragTarget.json#RockDragTarget:SpriteRenderer:m_SortingOrder */
-#define DRAG_TARGET_SORTING_ORDER 0
-/* prefabs/RockDragTarget.json#RockDragTarget:SpriteRenderer:m_Enabled */
-#define DRAG_TARGET_ENABLED 0
-/* prefabs/LetterPrefab.json#LetterPrefab:@transform:world_position */
-#define LETTER_POS_X 0.0f
-#define LETTER_POS_Y 0.0f
-#define LETTER_POS_Z 0.0f
 /* prefabs/LetterPrefab.json#LetterPrefab:@transform:world_scale */
 #define LETTER_SCALE_X 0.1f
 #define LETTER_SCALE_Y 0.1f
 #define LETTER_SCALE_Z 0.1f
 /* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_Text */
 #define LETTER_TEXT "A"
-/* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_Font */
-#define LETTER_FONT FONT_JOYSTIX_MONOSPACE
 /* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_FontSize */
 #define LETTER_FONT_SIZE 200
-/* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_FontStyle */
-#define LETTER_FONT_STYLE 0
 /* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_CharacterSize */
 #define LETTER_CHARACTER_SIZE 1.0f
 /* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_Anchor */
@@ -2198,24 +1382,10 @@ static const float ROCK_DRAG_ROLLOFF_CURVE[10] = { 0.0f, -1.0994112f, 0.0f, 0.0f
 #define LETTER_COLOR_G 255
 #define LETTER_COLOR_R 255
 #define LETTER_COLOR_RGBA 2164260863
-/* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_LineSpacing */
-#define LETTER_LINE_SPACING 1.0f
-/* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_OffsetZ */
-#define LETTER_OFFSET_Z 0.0f
-/* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_RichText */
-#define LETTER_RICH_TEXT 1
-/* prefabs/LetterPrefab.json#LetterPrefab:TextMesh:m_TabSize */
-#define LETTER_TAB_SIZE 4.0f
 /* prefabs/LetterPrefab.json#LetterPrefab:MeshRenderer:m_Enabled */
 #define LETTER_MESH_RENDERER_ENABLED 0
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab:@transform:world_position */
-#define SHATTER_POS_X -1000.0f
-#define SHATTER_POS_Y -1000.0f
-#define SHATTER_POS_Z 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab:@transform:world_scale */
-#define SHATTER_SCALE_X 1.0f
-#define SHATTER_SCALE_Y 1.0f
-#define SHATTER_SCALE_Z 1.0f
+/* build/font.json#build_font.m_PixelScale */
+#define JOYSTIX_PIXEL_SCALE 0.1f
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:m_audioClip */
 #define SHATTER_SOUND_CLIP SND_EXPLOSION1
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:m_Volume */
@@ -2234,36 +1404,19 @@ static const float ROCK_DRAG_ROLLOFF_CURVE[10] = { 0.0f, -1.0994112f, 0.0f, 0.0f
 #define SHATTER_SOUND_MAX_DISTANCE 3.0f
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:rolloffMode */
 #define SHATTER_SOUND_ROLLOFF_MODE 2
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:Pan2D */
-#define SHATTER_SOUND_PAN2D 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:Priority */
-#define SHATTER_SOUND_PRIORITY 128
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:DopplerLevel */
 #define SHATTER_SOUND_DOPPLER 1.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:Mute */
-#define SHATTER_SOUND_MUTE 0
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:spreadCustomCurve.m_Curve[0].value */
-#define SHATTER_SOUND_SPREAD 0.21388888f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:panLevelCustomCurve.m_Curve[0].value */
-#define SHATTER_SOUND_PAN_LEVEL_IN_SOURCE_SCENE 1.0f
 /* audio_source prefabs/RockShatterPrefab.json#RockShatterPrefab, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
    The source scene has panLevel 1.0 for every AudioSource. In the build spatialBlend is that value for 3D clips (importer flag 3D) and 0.0 for all others. */
 #define SHATTER_SOUND_SPATIAL_BLEND 1.0f
-/* audio_source prefabs/RockShatterPrefab.json#RockShatterPrefab, follows the 2016 Unity 5.4.3 Mac build (checked by tools/compare_build.py).
-   The source scene has panLevel 1.0 for every AudioSource. In the build reverbZoneMix is 1.0 for 3D clips and 0.0 for all others (a field Unity 5 added). */
-#define SHATTER_SOUND_REVERB_ZONE_MIX 1.0f
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab:AudioSource:rolloffCustomCurve.m_Curve */
 #define SHATTER_SOUND_ROLLOFF_CURVE_COUNT 2
 /* SHATTER_SOUND_ROLLOFF_CURVE: per entry the fields inSlope, outSlope, tangentMode, time, value */
 static const float SHATTER_SOUND_ROLLOFF_CURVE[10] = { 0.0f, -1.0714285f, 0.0f, 0.07227415f, 1.0f, -1.0714285f, 0.0f, 0.0f, 1.0f, 0.0f };
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab:TimedObjectDestructor:timeOut */
 #define SHATTER_TIME_OUT 2.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab:TimedObjectDestructor:detachChildren */
-#define SHATTER_DETACH_CHILDREN 0
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:m_Emit */
 #define SHATTER_EMIT 1
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:m_OneShot */
-#define SHATTER_ONE_SHOT 0
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:minEmission */
 #define SHATTER_MIN_EMISSION 100.0f
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:maxEmission */
@@ -2276,142 +1429,29 @@ static const float SHATTER_SOUND_ROLLOFF_CURVE[10] = { 0.0f, -1.0714285f, 0.0f, 
 #define SHATTER_MIN_SIZE 0.05f
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:maxSize */
 #define SHATTER_MAX_SIZE 0.35f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:Simulate in Worldspace? */
-#define SHATTER_WORLD_SPACE 1
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:emitterVelocityScale */
-#define SHATTER_EMITTER_VELOCITY_SCALE 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:localVelocity */
-#define SHATTER_LOCAL_VELOCITY_X 0.0f
-#define SHATTER_LOCAL_VELOCITY_Y 0.0f
-#define SHATTER_LOCAL_VELOCITY_Z 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:worldVelocity */
-#define SHATTER_WORLD_VELOCITY_X 0.0f
-#define SHATTER_WORLD_VELOCITY_Y 0.0f
-#define SHATTER_WORLD_VELOCITY_Z 0.0f
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:rndVelocity */
 #define SHATTER_RND_VELOCITY_X 5.0f
 #define SHATTER_RND_VELOCITY_Y 5.0f
 #define SHATTER_RND_VELOCITY_Z 5.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:tangentVelocity */
-#define SHATTER_TANGENT_VELOCITY_X 0.0f
-#define SHATTER_TANGENT_VELOCITY_Y 0.0f
-#define SHATTER_TANGENT_VELOCITY_Z 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:m_Ellipsoid */
-#define SHATTER_ELLIPSOID_X 0.0f
-#define SHATTER_ELLIPSOID_Y 0.0f
-#define SHATTER_ELLIPSOID_Z 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:m_MinEmitterRange */
-#define SHATTER_MIN_EMITTER_RANGE 60.0f
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:rndRotation */
 #define SHATTER_RND_ROTATION 1
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:angularVelocity */
-#define SHATTER_ANGULAR_VELOCITY 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:EllipsoidParticleEmitter:rndAngularVelocity */
-#define SHATTER_RND_ANGULAR_VELOCITY 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:Does Animate Color? */
-#define SHATTER_ANIM_ANIMATE_COLOR 1
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:autodestruct */
-#define SHATTER_ANIM_AUTODESTRUCT 1
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:damping */
 #define SHATTER_ANIM_DAMPING 0.1f
 /* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:force */
 #define SHATTER_ANIM_FORCE_X 0.0f
 #define SHATTER_ANIM_FORCE_Y -1.0f
 #define SHATTER_ANIM_FORCE_Z 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:rndForce */
-#define SHATTER_ANIM_RND_FORCE_X 0.0f
-#define SHATTER_ANIM_RND_FORCE_Y 0.0f
-#define SHATTER_ANIM_RND_FORCE_Z 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:sizeGrow */
-#define SHATTER_ANIM_SIZE_GROW 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:colorAnimation[0] */
-#define SHATTER_ANIM_COLOR_0_A 255
-#define SHATTER_ANIM_COLOR_0_B 0
-#define SHATTER_ANIM_COLOR_0_G 0
-#define SHATTER_ANIM_COLOR_0_R 0
-#define SHATTER_ANIM_COLOR_0_RGBA 4278190080
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:colorAnimation[1] */
-#define SHATTER_ANIM_COLOR_1_A 255
-#define SHATTER_ANIM_COLOR_1_B 38
-#define SHATTER_ANIM_COLOR_1_G 75
-#define SHATTER_ANIM_COLOR_1_R 112
-#define SHATTER_ANIM_COLOR_1_RGBA 4280699760
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:colorAnimation[2] */
-#define SHATTER_ANIM_COLOR_2_A 163
-#define SHATTER_ANIM_COLOR_2_B 0
-#define SHATTER_ANIM_COLOR_2_G 14
-#define SHATTER_ANIM_COLOR_2_R 29
-#define SHATTER_ANIM_COLOR_2_RGBA 2734689821
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:colorAnimation[3] */
-#define SHATTER_ANIM_COLOR_3_A 230
-#define SHATTER_ANIM_COLOR_3_B 0
-#define SHATTER_ANIM_COLOR_3_G 0
-#define SHATTER_ANIM_COLOR_3_R 0
-#define SHATTER_ANIM_COLOR_3_RGBA 3858759680
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:colorAnimation[4] */
-#define SHATTER_ANIM_COLOR_4_A 255
-#define SHATTER_ANIM_COLOR_4_B 0
-#define SHATTER_ANIM_COLOR_4_G 0
-#define SHATTER_ANIM_COLOR_4_R 0
-#define SHATTER_ANIM_COLOR_4_RGBA 4278190080
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:localRotationAxis */
-#define SHATTER_ANIM_LOCAL_ROTATION_AXIS_X 0.0f
-#define SHATTER_ANIM_LOCAL_ROTATION_AXIS_Y 0.0f
-#define SHATTER_ANIM_LOCAL_ROTATION_AXIS_Z 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleAnimator:worldRotationAxis */
-#define SHATTER_ANIM_WORLD_ROTATION_AXIS_X 0.0f
-#define SHATTER_ANIM_WORLD_ROTATION_AXIS_Y 0.0f
-#define SHATTER_ANIM_WORLD_ROTATION_AXIS_Z 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleRenderer:m_LengthScale */
-#define SHATTER_RENDER_LENGTH_SCALE 0.1f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleRenderer:m_MaxParticleSize */
-#define SHATTER_RENDER_MAX_PARTICLE_SIZE 1.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleRenderer:m_StretchParticles */
-#define SHATTER_RENDER_STRETCH 0
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleRenderer:m_VelocityScale */
-#define SHATTER_RENDER_VELOCITY_SCALE 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleRenderer:m_CameraVelocityScale */
-#define SHATTER_RENDER_CAMERA_VELOCITY_SCALE 0.0f
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleRenderer:m_Materials[0] */
-#define SHATTER_RENDER_MATERIAL "Standard Assets/Particles/Sources/Materials/Fire Smoke.mat"
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:ParticleRenderer:UV Animation */
-#define SHATTER_RENDER_UV_ANIMATION_CYCLES 1.0f
-#define SHATTER_RENDER_UV_ANIMATION_X_TILE 1
-#define SHATTER_RENDER_UV_ANIMATION_Y_TILE 1
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:Animation:m_Animation */
-#define SHATTER_EMITTER_ANIMATION "Standard Assets/Particles/Sources/Animations/Stop Emitting ,5 sec.anim"
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:Animation:m_PlayAutomatically */
-#define SHATTER_EMITTER_PLAY_AUTOMATICALLY 1
-/* prefabs/RockShatterPrefab.json#RockShatterPrefab/large flames:Animation:m_WrapMode */
-#define SHATTER_EMITTER_WRAP_MODE 0
 /* animation/Stop Emitting ,5 sec.anim.json#summary.float_curves[0].curve.m_Curve */
 #define SHATTER_STOP_EMIT_CURVE_COUNT 2
 /* SHATTER_STOP_EMIT_CURVE: per entry the fields inSlope, outSlope, tangentMode, time, value */
 static const float SHATTER_STOP_EMIT_CURVE[10] = { -1.9999995f, -1.9999995f, 0.0f, 0.0f, 1.0f, -1.9999995f, -1.9999995f, 0.0f, 0.5000001f, 0.0f };
-/* animation/Stop Emitting ,5 sec.anim.json#summary.sample_rate */
-#define SHATTER_STOP_EMIT_SAMPLE_RATE 60.0f
 /* materials/Fire Smoke.mat.json#summary.colors._Color */
 #define SHATTER_MATERIAL_COLOR_A 0.41960785f
 #define SHATTER_MATERIAL_COLOR_B 1.0f
 #define SHATTER_MATERIAL_COLOR_G 1.0f
 #define SHATTER_MATERIAL_COLOR_R 1.0f
-/* materials/Fire Smoke.mat.json#summary.colors._TintColor */
-#define SHATTER_MATERIAL_TINT_A 1.0f
-#define SHATTER_MATERIAL_TINT_B 1.0f
-#define SHATTER_MATERIAL_TINT_G 1.0f
-#define SHATTER_MATERIAL_TINT_R 1.0f
 /* materials/Fire Smoke.mat.json#summary.textures._MainTex */
 #define SHATTER_MATERIAL_MAIN_TEX IMG_BIS_ROCK_DARK_V3
-/* materials/Fire Smoke.mat.json#summary.textures._AlphaTex */
-#define SHATTER_MATERIAL_ALPHA_TEX "Standard Assets/Particles/Sources/Textures/smoketest2.psd"
-/* prefabs/RocketPrefab.json#RocketPrefab:@transform:world_position */
-#define ROCKET_POS_X -0.38962746f
-#define ROCKET_POS_Y 1.7857895f
-#define ROCKET_POS_Z -0.5f
-/* prefabs/RocketPrefab.json#RocketPrefab:@transform:world_scale */
-#define ROCKET_SCALE_X 1.0f
-#define ROCKET_SCALE_Y 1.0f
-#define ROCKET_SCALE_Z 1.0f
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:@transform:world_position */
 #define ROCKET_BODY_POS_X -0.38962746f
 #define ROCKET_BODY_POS_Y 1.7857895f
@@ -2431,8 +1471,6 @@ static const float SHATTER_STOP_EMIT_CURVE[10] = { -1.9999995f, -1.9999995f, 0.0
 #define ROCKET_BODY_SORTING_ORDER 0
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:SpriteRenderer:m_Enabled */
 #define ROCKET_BODY_ENABLED 1
-/* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_Mass */
-#define ROCKET_BODY_RB_MASS 1.0f
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_LinearDrag */
 #define ROCKET_BODY_RB_LINEAR_DRAG 0.0f
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_AngularDrag */
@@ -2443,16 +1481,8 @@ static const float SHATTER_STOP_EMIT_CURVE[10] = { -1.9999995f, -1.9999995f, 0.0
 #define ROCKET_BODY_RB_FIXED_ANGLE 0
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_IsKinematic */
 #define ROCKET_BODY_RB_KINEMATIC 1
-/* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_SleepingMode */
-#define ROCKET_BODY_RB_SLEEPING_MODE 1
-/* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_Interpolate */
-#define ROCKET_BODY_RB_INTERPOLATE 0
-/* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:Rigidbody2D:m_CollisionDetection */
-#define ROCKET_BODY_RB_COLLISION_DETECTION 0
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:PolygonCollider2D:m_IsTrigger */
 #define ROCKET_BODY_COLLIDER_IS_TRIGGER 0
-/* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:PolygonCollider2D:derived.paths[0].source_points */
-#define ROCKET_BODY_COLLIDER_SOURCE_POINT_COUNT 19
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketBody:PolygonCollider2D:derived.paths[0].pieces */
 #define ROCKET_BODY_COLLIDER_PIECES_COUNT 7
 static const int ROCKET_BODY_COLLIDER_PIECES_SIZES[7] = { 3, 3, 3, 7, 5, 4, 6 };
@@ -2479,12 +1509,6 @@ static const float ROCKET_BODY_COLLIDER_PIECES_POINTS[62] = { -1.2110835f, -1.46
 #define ROCKET_COVER_SORTING_ORDER 0
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketCover:SpriteRenderer:m_Enabled */
 #define ROCKET_COVER_ENABLED 0
-/* prefabs/RocketPrefab.json#RocketPrefab/RocketCover:BoxCollider2D:m_Size */
-#define ROCKET_COVER_TRIGGER_SIZE_X 0.172f
-#define ROCKET_COVER_TRIGGER_SIZE_Y 0.2829f
-/* prefabs/RocketPrefab.json#RocketPrefab/RocketCover:BoxCollider2D:m_Center */
-#define ROCKET_COVER_TRIGGER_CENTER_X -0.039f
-#define ROCKET_COVER_TRIGGER_CENTER_Y -0.2572f
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketCover:BoxCollider2D:m_IsTrigger */
 #define ROCKET_COVER_TRIGGER_IS_TRIGGER 1
 /* prefabs/RocketPrefab.json#RocketPrefab/RocketCover:BoxCollider2D:derived.size_world */
@@ -2499,16 +1523,6 @@ static const float ROCKET_BODY_COLLIDER_PIECES_POINTS[62] = { -1.2110835f, -1.46
 #define ROCKET_REPELLER_POS_X -0.38962746f
 #define ROCKET_REPELLER_POS_Y 1.7857895f
 #define ROCKET_REPELLER_POS_Z -0.5f
-/* prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:@transform:world_scale */
-#define ROCKET_REPELLER_SCALE_X 1.0f
-#define ROCKET_REPELLER_SCALE_Y 1.0f
-#define ROCKET_REPELLER_SCALE_Z 1.0f
-/* prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:BoxCollider2D:m_Size */
-#define ROCKET_REPELLER_SIZE_X 3.598116f
-#define ROCKET_REPELLER_SIZE_Y 7.536003f
-/* prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:BoxCollider2D:m_Center */
-#define ROCKET_REPELLER_CENTER_X -0.04879129f
-#define ROCKET_REPELLER_CENTER_Y -0.038908005f
 /* prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:BoxCollider2D:m_IsTrigger */
 #define ROCKET_REPELLER_IS_TRIGGER 1
 /* prefabs/RocketPrefab.json#RocketPrefab/rockRepeller:BoxCollider2D:derived.size_world */
@@ -2523,16 +1537,6 @@ static const float ROCKET_BODY_COLLIDER_PIECES_POINTS[62] = { -1.2110835f, -1.46
 #define ROCKET_INSIDE_TRIGGER_POS_X -0.38962746f
 #define ROCKET_INSIDE_TRIGGER_POS_Y 1.7857895f
 #define ROCKET_INSIDE_TRIGGER_POS_Z -0.5f
-/* prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:@transform:world_scale */
-#define ROCKET_INSIDE_TRIGGER_SCALE_X 1.0f
-#define ROCKET_INSIDE_TRIGGER_SCALE_Y 1.0f
-#define ROCKET_INSIDE_TRIGGER_SCALE_Z 1.0f
-/* prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:BoxCollider2D:m_Size */
-#define ROCKET_INSIDE_TRIGGER_SIZE_X 0.31f
-#define ROCKET_INSIDE_TRIGGER_SIZE_Y 0.16f
-/* prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:BoxCollider2D:m_Center */
-#define ROCKET_INSIDE_TRIGGER_CENTER_X 0.01f
-#define ROCKET_INSIDE_TRIGGER_CENTER_Y -0.1f
 /* prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:BoxCollider2D:m_IsTrigger */
 #define ROCKET_INSIDE_TRIGGER_IS_TRIGGER 1
 /* prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:BoxCollider2D:derived.size_world */
@@ -2541,49 +1545,7 @@ static const float ROCKET_BODY_COLLIDER_PIECES_POINTS[62] = { -1.2110835f, -1.46
 /* prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:BoxCollider2D:derived.offset_world */
 #define ROCKET_INSIDE_TRIGGER_OFFSET_WORLD_X 0.01f
 #define ROCKET_INSIDE_TRIGGER_OFFSET_WORLD_Y -0.1f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_ReverbPreset */
-#define ROCKET_REVERB_PRESET 22
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_MinDistance */
-#define ROCKET_REVERB_MIN_DISTANCE 1.3f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_MaxDistance */
-#define ROCKET_REVERB_MAX_DISTANCE 2.0f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_Room */
-#define ROCKET_REVERB_ROOM -1000
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_RoomHF */
-#define ROCKET_REVERB_ROOM_HF -1000
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_RoomLF */
-#define ROCKET_REVERB_ROOM_LF 0
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_DecayTime */
-#define ROCKET_REVERB_DECAY_TIME 2.81f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_DecayHFRatio */
-#define ROCKET_REVERB_DECAY_HF_RATIO 0.14f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_Reflections */
-#define ROCKET_REVERB_REFLECTIONS 429
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_ReflectionsDelay */
-#define ROCKET_REVERB_REFLECTIONS_DELAY 0.014f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_Reverb */
-#define ROCKET_REVERB_REVERB 1023
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_ReverbDelay */
-#define ROCKET_REVERB_REVERB_DELAY 0.021f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_HFReference */
-#define ROCKET_REVERB_HF_REFERENCE 5000.0f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_LFReference */
-#define ROCKET_REVERB_LF_REFERENCE 250.0f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_Diffusion */
-#define ROCKET_REVERB_DIFFUSION 80.0f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_Density */
-#define ROCKET_REVERB_DENSITY 60.0f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_RoomRolloffFactor */
-#define ROCKET_REVERB_ROLLOFF_FACTOR 0.0f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:AudioReverbZone:m_Enabled */
-#define ROCKET_REVERB_ENABLED 1
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:@transform:world_position */
-#define ROCKET_REVERB_POS_X -0.38962746f
-#define ROCKET_REVERB_POS_Y 1.7857895f
-#define ROCKET_REVERB_POS_Z -0.5f
-/* prefabs/RocketPrefab.json#RocketPrefab/Reverb:@transform:world_scale */
-#define ROCKET_REVERB_SCALE_X 1.0f
-#define ROCKET_REVERB_SCALE_Y 1.0f
-#define ROCKET_REVERB_SCALE_Z 1.0f
+/* prefabs/RocketPrefab.json#RocketPrefab/InsideTrigger:@node:tag */
+#define ROCKET_INSIDE_TRIGGER_TAG "Untagged"
 
 #endif

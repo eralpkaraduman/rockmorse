@@ -80,10 +80,17 @@ if(EMSCRIPTEN)
     # latest version arrives on the next configure. For a build that must not
     # change, pin a commit: cmake -DSHARED_WEB_REF=<commit hash> ...
     # GitHub may serve a branch's files up to 5 minutes old after a push.
+    # To try changes to the shared files before they are pushed, point
+    # SHARED_WEB_DIR at a local kurban-bayrami checkout's port/web folder.
     set(SHARED_WEB_REF "main" CACHE STRING "kurban-bayrami branch or commit to take the shared web files from")
+    set(SHARED_WEB_DIR "" CACHE PATH "Local folder to copy the shared web files from, instead of downloading them")
     set(SHARED_WEB_URL "https://raw.githubusercontent.com/eralpkaraduman/kurban-bayrami/${SHARED_WEB_REF}/port/web")
     set(WEB_DIR "${CMAKE_BINARY_DIR}/shared-web")
     foreach(name shell.html.in site.html.in touch-controls.js touch-controls.css)
+        if(SHARED_WEB_DIR)
+            file(COPY_FILE "${SHARED_WEB_DIR}/${name}" "${WEB_DIR}/${name}")
+            continue()
+        endif()
         file(DOWNLOAD "${SHARED_WEB_URL}/${name}" "${WEB_DIR}/${name}" STATUS status)
         list(GET status 0 code)
         if(NOT code EQUAL 0)
@@ -91,14 +98,21 @@ if(EMSCRIPTEN)
             message(FATAL_ERROR "Could not download ${name} from ${SHARED_WEB_URL}: ${reason}")
         endif()
     endforeach()
-    message(STATUS "Shared web files from kurban-bayrami at ${SHARED_WEB_REF}")
+    if(SHARED_WEB_DIR)
+        message(STATUS "Shared web files from ${SHARED_WEB_DIR}")
+    else()
+        message(STATUS "Shared web files from kurban-bayrami at ${SHARED_WEB_REF}")
+    endif()
 
     # Fill in the page for this game. Key codes are raylib's: arrows 262-265,
-    # Space 32, M 77, H 72. Pull sends Space, so it also dismisses messages
-    # and skips the story screens.
+    # Space 32, M 77, H 72. Pull sends Space, so it also dismisses messages,
+    # skips the story screens and starts the game from the title. A tap on
+    # the game is a mouse click, for the title's buttons and the screens
+    # that a click skips.
     set(WEB_TITLE "Rockmorse")
     set(WEB_TOUCH_DPAD "{ left: 263, right: 262, up: 265, down: 264 }")
     set(WEB_TOUCH_BUTTONS "[{ label: 'Space', caption: 'Pull', key: 32 }, { label: 'M', caption: 'Map', key: 77 }, { label: 'H', caption: 'Help', key: 72 }]")
+    set(WEB_TOUCH_TAP_CLICKS ON)
     configure_file("${WEB_DIR}/shell.html.in" "${CMAKE_BINARY_DIR}/shell.html" @ONLY)
 
     # The GitHub Pages cover page, from the shared template. The page text
@@ -109,10 +123,11 @@ if(EMSCRIPTEN)
     set(SITE_GAME_RATIO "3 / 2")
     # On touch screens the game frame holds the game at full width plus the
     # control bar. The D-pad has all four arms, as in Kurban Bayrami, so its
-    # three rows set the bar's height. The game is 3:2.
-    set(SITE_TOUCH_FRAME_HEIGHT "calc(100vw * 2 / 3 + 3 * 44px + 42px)")
-    set(SITE_HINT_KEYBOARD "Click the game, then press <kbd>Space</kbd> or click to go on. You need a keyboard.")
-    set(SITE_HINT_TOUCH "Tap <b>Pull</b> to go on. Play with the buttons under the game.")
+    # three rows set the bar's height. The game is 3:2, so the frame is
+    # taller than wide and the D-pad sizes its arms by the screen width.
+    set(SITE_TOUCH_FRAME_HEIGHT "calc(100vw * 2 / 3 + 3 * clamp(44px, 13vw, 60px) + 42px)")
+    set(SITE_HINT_KEYBOARD "Click <b>Play</b> in the game, or press <kbd>Space</kbd>. You need a keyboard.")
+    set(SITE_HINT_TOUCH "Tap <b>Play</b> in the game to start. Play with the buttons under the game.")
     file(READ "${CMAKE_SOURCE_DIR}/web/site-content.html" SITE_CONTENT)
     set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/web/site-content.html")
     configure_file("${WEB_DIR}/site.html.in" "${CMAKE_BINARY_DIR}/site.html" @ONLY)
@@ -148,12 +163,13 @@ if(EMSCRIPTEN)
     # Pages site: a cover page at the root and the game itself under play/.
     # The shared page names its heading font fonts/system.ttf, so it gets
     # the game's Joystix font under that name.
-    # ponytail: no cover.png or screenshots/ yet, step 9 of the plan adds them.
     set(PAGES_DIR "${CMAKE_BINARY_DIR}/pages")
     add_custom_target(pages
         COMMAND ${CMAKE_COMMAND} -E rm -rf "${PAGES_DIR}"
         COMMAND ${CMAKE_COMMAND} -E make_directory "${PAGES_DIR}/play" "${PAGES_DIR}/fonts"
         COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_BINARY_DIR}/site.html" "${PAGES_DIR}/index.html"
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/rockmorse-cover-630x500.png" "${PAGES_DIR}/cover.png"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/screenshots" "${PAGES_DIR}/screenshots"
         COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/assets/Joystix/joystix monospace.ttf" "${PAGES_DIR}/fonts/system.ttf"
         COMMAND ${CMAKE_COMMAND} -E copy ${WEB_FILES} "${PAGES_DIR}/play"
         COMMAND ${CMAKE_COMMAND} -E touch "${PAGES_DIR}/.nojekyll"

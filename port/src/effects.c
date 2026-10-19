@@ -30,15 +30,6 @@
 
 Shatter shatters[MAX_SHATTERS];
 
-// The Game scene's ambient light is not in values.h yet. These are the
-// dump's values, scenes/Game.json#scene_settings/RenderSettings:m_AmbientLight,
-// used until extract.py adds the row (step 10).
-#ifndef GAME_AMBIENT_LIGHT_R
-#define GAME_AMBIENT_LIGHT_R 1.0f
-#define GAME_AMBIENT_LIGHT_G 0.6710954f
-#define GAME_AMBIENT_LIGHT_B 0.49264705f
-#endif
-
 // The sprite that shows the material's whole texture.
 static int texture_sprite(void)
 {

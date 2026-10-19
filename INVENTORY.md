@@ -1,12 +1,12 @@
 # Rockmorse inventory
 
-This is the exact map of what the C port must implement. It was written from the Unity project, the 2016 Mac build and the 2016 WebGL build.
+This is the exact map of what the C port must implement. It was written from the Unity project, the 2016 Mac build and the 2016 WebGL build. Steps 2 to 8 of the port measured the engine behaviour the data cannot show. Section 11 has the results.
 
 How to read the citations:
 
 - `Earth.cs:73` is a line in `Assets/Scripts/` of the Unity project (`Unity/LD48-Unity` in the superdamage/LD30 repo).
 - `scenes/Game.json#Player:Rigidbody2D:m_Mass` is a value in the dumps under `extract/`. The dump path is `<file>#<GameObject path>:<component>:<field>`.
-- `VALUE_NAME` in capitals is a constant in `port/src/values.h`. Its comment names the same dump path.
+- `VALUE_NAME` in capitals is a constant in `port/src/values.h`. Its comment names the same dump path. Step 10 deleted the rows that no C code reads. A name of that kind no longer exists in `values.h`, but its value is still in the dump.
 - "The build" means the 2016 Mac and WebGL builds. "The source" means the Unity project.
 - `extract/build/` holds facts that exist only in the 2016 Mac build: `audio.json`, `shaders.json`, `font.json`, `color_space.json`. `extract/source_comments.json` holds every comment of the game scripts, verbatim. `port/src/code_constants.h` holds the strings and numbers that live only in the C# code. `tools/build_extract.py` reads the build for `tools/extract.py`.
 
@@ -238,7 +238,7 @@ What it does:
 
 1. The trigger circle of the player (radius 1.0) adds a Rock collider to `pullCandidates` on enter and removes it on exit. Candidates are added without a duplicate check.
 2. Every `Update`: `pullCandidate` = closest live candidate (`:51`). Destroyed ones read as null and are skipped.
-3. Space down: if there is a candidate and no active joint, `startPulling` (`:71`). It sets the rock's joint `connectedBody` to the Player body, stores it as `activeJoint`, enables it, plays the strain sound (`RockDragger.cs:79`). That sound is probably silent. The Player's AudioSource is disabled in the scene (`scenes/Game.json#Player:AudioSource:m_Enabled` is 0) and no script enables it (`TopDownControls` only switches the footsteps source). `Play()` on a disabled source most likely plays nothing in Unity 5.4. To be confirmed on the reference build (section 11).
+3. Space down: if there is a candidate and no active joint, `startPulling` (`:71`). It sets the rock's joint `connectedBody` to the Player body, stores it as `activeJoint`, enables it, plays the strain sound (`RockDragger.cs:79`). That sound is probably silent. The Player's AudioSource is disabled in the scene (`scenes/Game.json#Player:AudioSource:m_Enabled` is 0) and no script enables it (`TopDownControls` only switches the footsteps source). `Play()` on a disabled source plays nothing. Confirmed on the 2016 WebGL build, which logs "Can not play a disabled audio source" at every pull (section 11).
 4. Space up: if a joint is active, `release` (`:84`). It disables the joint, clears `connectedBody`, clears `activeJoint`, sets the player velocity to zero.
 5. The drag target marker follows the active rock, else the candidate, else nothing (`:42` to `:48`).
 6. `releaseIfDragging` (`:139`) has no caller.
@@ -297,7 +297,7 @@ What it does:
 3. Rock leaves (`:98`): if it is the snapped rock, clear it and reset the sprite to dash or dot. Else if nothing is snapped, reset the sprite.
 4. `isCorrect()` is true if the current sprite is the correct sprite. If `setDash` was never called, `spriteRenderer` is null and this would throw. It always is called first.
 
-A rock destroyed while inside a placeholder gets no exit event from the game code. Whether Unity 5.4 sends one is unverified (section 5).
+A rock destroyed while inside a placeholder gets no exit event from the game code. Whether Unity 5.4 sends one is still unverified. The port sends one at destroy time (section 11).
 
 C file: `rock_placeholder.c`.
 
@@ -344,7 +344,7 @@ What it does, every fixed update (50 Hz):
 3. If either velocity component has size 0.5 or more: footsteps on, the player rotation `y` is set to 180 when `vx <= 0` else 0, the listener pivot gets the opposite, and the animator plays `drag` or `run`. Otherwise footsteps off and the animator plays `idle`.
 4. The position is clamped to `x` in `±(52.8 / 2 - 0.5) = ±25.9` and `y` in `±(35.2 / 2 - 0.8) = ±16.8`.
 
-The code sets a raw quaternion component to 180 or 0, not an angle (`r.y = 180`). The effect is a half turn around the Y axis (the sprite and its children flip). What Unity's 2D physics does with that rotation for the player's two colliders is unverified. Measure it (section 5).
+The code sets a raw quaternion component to 180 or 0, not an angle (`r.y = 180`). The effect is a half turn around the Y axis (the sprite and its children flip). Unity normalises that quaternion into a half turn around Y (179.4 degrees). The listener's forward measured on the WebGL build agrees. The port mirrors the body polygon while the player faces left, which follows Unity's documented collider geometry. That part was not measured (section 11).
 
 C file: `player.c`.
 
@@ -783,12 +783,12 @@ Every collider is on layer 0, so every pair below is live. The rule in Unity 2D:
 
 Because the roof polygon and the repeller circle are both tagged `Rover`, a rock that reaches the roof usually has crossed the repeller first. The repeller has radius 3.29 around the rover centre (offset (-0.15, -0.06)), while the roof is about 3.5 units wide. So rocks are removed before they touch the roof, unless they are dragged in.
 
-Unverified, measure on the reference build (the full list is section 11):
+Open points from the inventory, and what became of them (section 11 has the details):
 
-1. Trigger-versus-trigger overlaps. The Player's trigger circle against `playerInsideRoverTrigger` (static trigger) and against placeholders is the only way the large circle can switch the rover screen on. The plan says Unity fires these. I have no measurement.
-2. Whether Unity 5.4 sends `OnTriggerExit2D` when a rock inside a placeholder is destroyed.
-3. The player's collider orientation after the half turn around Y (section 2.11).
-4. How the spin of rocks and the player's speed with a rock on the joint compare with Box2D 3 (step 4 of the plan).
+1. Trigger-versus-trigger overlaps. The Player's trigger circle against `playerInsideRoverTrigger` (static trigger) and against placeholders is the only way the large circle can switch the rover screen on. The port reports them, as the plan says Unity does. The rover screen turns on at the same spot in both builds.
+2. Whether Unity 5.4 sends `OnTriggerExit2D` when a rock inside a placeholder is destroyed. Still unverified. The port sends it.
+3. The player's collider orientation after the half turn around Y (section 2.11). The port mirrors the body polygon. Not measured.
+4. The spin of rocks and the player's speed with a rock on the joint. Measured in step 4, and the port matches.
 
 ## 6. Assets
 
@@ -893,7 +893,7 @@ The 18 AudioSources. "Spatial blend" and "reverb mix" are the values in the buil
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | scenes/Death `Victory_-arewhyae-8093_hifi` | `Sounds/Victory_-arewhyae-8093_hifi.mp3` | 0.35 | 1 | no | yes | on | 1/500 | log | no | 0 | 0 | 0 | 128 |
 | scenes/Game `Menu4` | `8BitSounds/Menu4.wav` | 1 | 1 | no | yes | on | 1/500 | log | no | 0 | 0 | 0 | 128 |
-| scenes/Game `Player` | `Sounds/player_strain.mp3` (probably silent: disabled, see 2.5) | 0.027 | 1 | no | no | off | 1/500 | log | yes | 1 | 1 | 0 | 128 |
+| scenes/Game `Player` | `Sounds/player_strain.mp3` (silent: disabled, see 2.5) | 0.027 | 1 | no | no | off | 1/500 | log | yes | 1 | 1 | 0 | 128 |
 | scenes/Game `Player/pivot/Sci-fi_AmbienceLoop1` | `Assets/Free/Assets/Sci-Fi_Ambiences/Sci-fi_AmbienceLoop1.wav` | 0.354 | 1 | yes | yes | on | 2.78327/500 | log | yes | 1 | 1 | 0 | 100 |
 | scenes/Game `Player/footsteps` | `Assets/Free/Assets/Footsteps/Footstep_Gravel_1.wav` | 0.05 | 1 | yes | yes | off | 1/500 | log | yes | 1 | 1 | 0 | 128 |
 | scenes/Game `Rover` | `Sounds/newMessage.mp3` | 0 | 0.95 | yes | yes | on | 0/25 | linear | yes | 1 | 1 | 1 | 128 |
@@ -912,7 +912,7 @@ The 18 AudioSources. "Spatial blend" and "reverb mix" are the values in the buil
 
 The only AudioListener in the Game scene is `Player/pivot/audioListener`. Master volume 1, speed of sound 347, doppler factor 1, rolloff scale 1 (`AUDIO_*`). `AudioListener.volume` is a global and survives scene loads.
 
-Reverb zones (3D sources have reverb mix 1): `Rover/Reverb` and `RocketPrefab/Reverb`, preset 22, min distance 1.3, max distance 2, room -1000, room HF -1000, decay time 2.81, decay HF ratio 0.14, reflections 429 at 0.014 s, reverb 1023 at 0.021 s, HF reference 5000, LF reference 250, diffusion 80, density 60 (`ROVER_REVERB_*`, `ROCKET_REVERB_*`). Each zone is tiny and sits at the vehicle. An AudioReverbZone acts on the listener position, not on each source. While the listener is inside the zone, every 3D source with reverb zone mix 1 is affected, wherever that source is. The listener is `Player/pivot/audioListener`, so the reverb is heard only while the player is within the zone (reverb at full strength inside min distance 1.3, fading out to max distance 2). The rover chatter, the new-message beep, rock drag and shatter sounds are affected during that time, and so are the player's own 3D sounds. How Unity blends and renders the reverb is in section 11.
+Reverb zones (3D sources have reverb mix 1): `Rover/Reverb` and `RocketPrefab/Reverb`, preset 22, min distance 1.3, max distance 2, room -1000, room HF -1000, decay time 2.81, decay HF ratio 0.14, reflections 429 at 0.014 s, reverb 1023 at 0.021 s, HF reference 5000, LF reference 250, diffusion 80, density 60 (`ROVER_REVERB_*`, `ROCKET_REVERB_*`). Each zone is tiny and sits at the vehicle. An AudioReverbZone acts on the listener position, not on each source. While the listener is inside the zone, every 3D source with reverb zone mix 1 is affected, wherever that source is. The listener is `Player/pivot/audioListener`, so the reverb is heard only while the player is within the zone (reverb at full strength inside min distance 1.3, fading out to max distance 2). The rover chatter, the new-message beep, rock drag and shatter sounds are affected during that time, and so are the player's own 3D sounds. The 2016 WebGL build renders no reverb at all, so the port leaves it out (section 11).
 
 ### 6.3 Fonts
 
@@ -960,6 +960,8 @@ Only one live emitter: `RockShatterPrefab/large flames` (Unity legacy particle s
 | Lifetime | the emitter stops after 0.5 s (animation). The root object is destroyed after 2.0 s (`TimedObjectDestructor`). The root also plays `Explosion1.wav` |
 
 The Game scene also holds `Level/rockDestructionEffect`, inactive and never enabled by any script. Leave it out.
+
+Step 8 measured how the legacy particle system runs these values. Section 11 has the rules.
 
 ## 7. Rendering
 
@@ -1069,7 +1071,7 @@ What follows from the data:
 1. **A 25th script.** The plan counts 24. The shatter prefab also carries `TimedObjectDestructor.js` (UnityScript, Standard Assets, `timeOut` 2.0). The port needs `Invoke` and `DestroyObject` for it, or a plain 2 s timer.
 2. **The shatter effect is not one-shot.** The plan says "one-shot emission". The emitter has `m_OneShot` false and emits 100 particles per second. A legacy `Animation` component turns emission off after 0.5 s. The prefab also plays an explosion sound, and its material is Alpha-Diffuse with the rock sprite as texture (section 6.5). The engine layer needs a float-curve animation on `m_Emit`.
 3. **Audio is not "mostly 3D".** The plan says most sounds are imported as 3D. 8 of 16 clips have the 3D flag. The scene files say panLevel 1.0 for every source, but the build makes the 10 sources with non-3D clips fully 2D and the 8 others fully 3D with reverb mix 1. `values.h` follows the build. So the Title, Story, Death, Win, Intro, Game start sound and placeholder sounds are plain 2D. 3D panning matters for the rover chatter, the new-message beep, the rock drag and the shatter. Footsteps, strain, ambience and the enter sound sit on the player, which is the listener, so they have no distance effect (section 6.2).
-4. **Reverb is not skippable by default.** The zones are tiny (max distance 2 around the rover and rocket) but they apply to all 3D sources there, reverb mix 1. The plan leaves it to a listening test; the data supports that test. The WebGL build has the same settings. It is unverified whether the WebGL player renders reverb.
+4. **Reverb is not skippable by default.** The zones are tiny (max distance 2 around the rover and rocket) but they apply to all 3D sources there, reverb mix 1. The plan leaves it to a listening test; the data supports that test. The WebGL build has the same settings. Step 7 settled it: the WebGL player creates no effect node, so it plays no reverb. The Mac build could not be heard headless. The port leaves reverb out.
 5. **The rover is protected by a trigger repeller.** The plan describes the rover's trigger and roof. It does not list `Rover/rockRepeller`, a circle trigger of radius 3.29 with the tag `Rover`. Rocks relocate when they enter it, long before they touch the roof. The rocket has the same: a 3.6 x 7.5 box repeller and a cover trigger, both tagged `Rover`.
 6. **Friction.** No physics material exists, so Unity's default friction 0.4 applies. Box2D defaults to 0.6.
 7. **Polygon pieces: 7, 3, 7.** The plan expected 7, 2, 7. Section 5.4 explains why.
@@ -1089,27 +1091,27 @@ What follows from the data:
 
 ## 10. Not extracted, and open questions
 
-- Unity engine behaviour that the data cannot show is listed in section 11. Measure it on the Mac build (plan section 9). The shader programs are not engine behaviour. They are in `extract/build/shaders.json` (section 7.5).
+- Unity engine behaviour that the data cannot show is listed in section 11, with what steps 2 to 8 measured. Most of it was measured on the 2016 WebGL build, because the Mac build cannot be heard or captured frame by frame headless. The shader programs are not engine behaviour. They are in `extract/build/shaders.json` (section 7.5).
 - IL logic of `Assembly-CSharp.dll`: done. See `extract/decompile_check.md` (all 24 scripts MATCH).
 - `smoketest2.psd` is not copied. It is only named by a material slot that the shader does not have. `Standard Assets` prefabs other than the ones listed are not dumped.
 - The `.meta` file of the font has no per-size data. Unity renders GUIText from the TTF at the size given by the GUIText.
 - Unused assets and why: `extract/derived/used_assets.json` (`excluded`, 152 files).
 
-## 11. Engine behaviour to measure
+## 11. Engine behaviour, measured
 
-The data cannot show these. Measure each on the reference build before relying on the port's behaviour. One line each, with the source line that depends on it.
+The data cannot show these. Steps 2 to 8 of the port measured them on the 2016 WebGL build, unless a line says otherwise. Each line gives the result, then the source lines that depend on it. The C file named holds the full comment.
 
-- Trigger against trigger overlaps (the Player trigger circle against `playerInsideRoverTrigger` and placeholders): `RoverInsideTrigger.cs:26`, `RockPlaceholder.cs:52`, `RockDragger.cs:93`.
-- Whether an exit event fires when a rock is destroyed while inside a placeholder: `RockPlaceholder.cs:98`, `Rock.cs:130`, `RockGenerator.cs:66`.
-- The player's colliders after the raw quaternion Y flip (180 or 0 written into `rotation.y`): `TopDownControls.cs:63` to `:69`.
-- Rock spin, rock drag and the player's speed with a rock on the joint: `Rock.cs:67`, `RockDragger.cs:71` to `:80`.
-- `GetAxis` smoothing, including its value after the pause at timeScale 0: `TopDownControls.cs:43`, `:44`, `Earth.cs:190`.
-- 3D audio: rolloff, spread, doppler and reverb output of the zones. The -0.88 pitch of the rover enter sound never plays, because the pitch is overwritten before `Play()`: `RoverInsideTrigger.cs:31` and `:52`.
-- GUIText, TextMesh and GUITexture layout (anchor, alignment, line spacing, pixel inset, scale 0 and negative inset) and the mouse hit rectangles: `Mars.cs:158`, `RoverScreen.cs:107`, `GUITextButton.cs:15` to `:30`, `LevelLoader.cs:319` to `:324`.
-- `Play()` on a disabled AudioSource, and what re-enabling does (the strain sound is probably silent): `RockDragger.cs:79`, `Rock.cs:60`, `:70`, `TopDownControls.cs:61`, `:76`.
-- Legacy particle semantics: the threshold of the `m_Emit` curve, whether damping is per frame or per second, the range of the random velocity including z, size units, colour keys against the shader (the shader ignores vertex colour, section 7.5) and draw order: `RockGenerator.cs:64`.
-- Sleeping rocks against new triggers: `Rock.cs:99` to `:108`, `RockPlaceholder.cs:52`.
-- `Animator.Play` every fixed update, and the pose at the start: `TopDownControls.cs:72`, `:78`.
-- A scene change cutting audio, and `Time.time` inside physics callbacks: `RoverScreen.cs:113`, `Rocket.cs:21`, `EndGame.cs:28`, `RockPlaceholder.cs:56`.
-- Equal-z draw ties (all ground tiles at z 0, rocks at z -3): `Mars.cs:112`, `RockGenerator.cs:58`.
-- The first-frame `deltaTime`: `Mars.cs:143`, `:150`, `Earth.cs:117`, `Intro.cs:17`.
+- Trigger against trigger overlaps (the Player trigger circle against `playerInsideRoverTrigger` and placeholders). Box2D 3 sensors detect sensors, so the port reports them. Events count per collider pair and go to both owners. The rover screen turns on at the same spot in both builds. `RoverInsideTrigger.cs:26`, `RockPlaceholder.cs:52`, `RockDragger.cs:93`. `physics.c`.
+- The exit event when a rock is destroyed inside a placeholder. Not measured. The port sends exit events at destroy time, while the rock still exists, and ignores Box2D's later end events. Unity 5.6 added `callbacksOnDisable`, on by default, which suggests that 5.4 sent them. `RockPlaceholder.cs:98`, `Rock.cs:130`, `RockGenerator.cs:66`. `physics.c`.
+- The raw quaternion Y flip. Unity turns it into a half turn around Y, 179.4 degrees. Walking right sets the listener's forward to about (0.011, 0, -1). Walking straight up or down faces left. The port mirrors the body polygon while facing left, without a measurement. `TopDownControls.cs:63` to `:69`. `player.c`.
+- Rock spin, rock drag and the player's speed with a rock on the joint. Measured in step 4, and the port matches. Unity's drag is Box2D 2.x damping, v *= 1 / (1 + h * drag) per 0.02 s step. The port spreads that over Box2D 3's sub-steps (`physics_damping`). Torque goes to Box2D unchanged. `Rock.cs:67`, `RockDragger.cs:71` to `:80`. `physics.c`, `rock.c`.
+- `GetAxis` smoothing. Unity's documented rule matches: sensitivity 3 up, gravity 3 down, snap on a sign change. Axes move with scaled time, so a pause freezes them. An arrow held through the paused tutorial ramps up over 20 frames after Space. `TopDownControls.cs:43`, `:44`, `Earth.cs:190`. `unity.c`.
+- 3D audio. Volume is AudioSource volume times the rolloff, with the 3D distance, so z counts. Custom curves are read at distance / max distance. Pan follows the listener, flip included, with HRTF in Chrome. The port uses WebAudio's equal-power law for the same angle. Doppler moves the pitch with the frame's velocity, and it is back to 1 on frames with no physics step. Spread has no WebGL counterpart. The WebGL build creates no ConvolverNode or other effect node, so the reverb zones do nothing there. How FMOD in the Mac build pans, spreads and applies Doppler was not measured. `RoverInsideTrigger.cs:31` and `:52` (the -0.88 pitch never plays: the enter sound starts at playbackRate 0.6). `unity.c`.
+- GUIText, TextMesh and GUITexture layout. Glyphs are unhinted and antialiased, drawn at whole pixel origins. The advance is 828 font units at the text's size, rounded to whole pixels. Lines sit a whole number of pixels apart, rounded: 16 px for the rover screen's 13 pt text. The rover screen GUITexture, scale 1 with inset width -220, covers the left 440 px. Title button hit boxes match. `Mars.cs:158`, `RoverScreen.cs:107`, `GUITextButton.cs:15` to `:30`, `LevelLoader.cs:319` to `:324`. `unity.c`.
+- `Play()` on a disabled AudioSource plays nothing. The build logs "Can not play a disabled audio source" at every pull, so the strain sound is silent. Turning the flag on starts a play-on-awake source from the beginning, and turning it off stops it. The footsteps and the rock drag sound work this way. `RockDragger.cs:79`, `Rock.cs:60`, `:70`, `TopDownControls.cs:61`, `:76`. `unity.c`.
+- Legacy particles, the rock shatter. Each frame emits the whole part of 100 * deltaTime and drops the rest. The emitter runs while the `m_Emit` curve is above 0, so new particles appear until 0.5 s, and the last one fades out 0.80 to 0.83 s after the shatter. Random velocity is up to 5 units/s each way. Damping applies per second: v *= damping ^ deltaTime. A particle is the dark rock texture times the ambient light, at alpha 0.42. The colour keys do nothing, because the shader ignores vertex colour. Particles draw over rocks at the same z. At timeScale 0 the effect waits. `RockGenerator.cs:64`. `effects.c`.
+- Sleeping rocks against new triggers. Not measured separately. The port relies on Box2D 3 sensor events. The step 5 playthroughs placed and checked answers the same way on both builds. `Rock.cs:99` to `:108`, `RockPlaceholder.cs:52`.
+- `Animator.Play` every fixed update. The port follows Unity's documented rule: it does nothing while that state already plays. The pose starts in the default state, `run`. Not measured separately. `TopDownControls.cs:72`, `:78`. `unity.c`.
+- A scene change stops every sound. The title's click sound stops 19 ms after the click, when Story1 loads. `Time.time` inside physics callbacks is the fixed time, at most one fixed step behind the frame. `RoverScreen.cs:113`, `Rocket.cs:21`, `EndGame.cs:28`, `RockPlaceholder.cs:56`. `unity.c`, `rock_placeholder.c`.
+- Equal-z draw ties. Particles draw over rocks. The order of rocks among themselves is the port's slot order. The 2016 order was not measured. `Mars.cs:112`, `RockGenerator.cs:58`. `game.c`.
+- The first frame. The port's Update runs at a fixed 60 Hz, so the first `deltaTime` is 1/60 s. The 2016 build runs one physics step in the Game scene's first frame, before the tutorial pauses it. The port may not, so a shatter from that step can sound after Space instead. `Mars.cs:143`, `:150`, `Earth.cs:117`, `Intro.cs:17`. `unity.c`.

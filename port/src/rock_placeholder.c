@@ -41,7 +41,7 @@ RockPlaceholder *rock_placeholder_instantiate(Vector3 position)
     // The CircleCollider2D trigger. The prefab has no Rigidbody2D, so the
     // collider is static.
     p->body = physics_body(b2_staticBody, (b2Vec2){position.x, position.y}, 0, 0, 0, false);
-    physics_circle(p->body, (Collider){OWNER_PLACEHOLDER, (int)(p - rockPlaceholders), TAG_UNTAGGED, PLACEHOLDER_IS_TRIGGER},
+    physics_circle(p->body, (Collider){OWNER_PLACEHOLDER, (int)(p - rockPlaceholders), PLACEHOLDER_TAG, PLACEHOLDER_IS_TRIGGER},
                    (b2Vec2){PLACEHOLDER_OFFSET_WORLD_X, PLACEHOLDER_OFFSET_WORLD_Y}, PLACEHOLDER_RADIUS_WORLD);
     Start(p);
     return p;

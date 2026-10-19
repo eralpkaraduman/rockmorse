@@ -352,7 +352,7 @@ static void check_physics_bridge(void)
     // up to 3 Box2D shape pairs touch.
     logCount = 0;
     b2BodyId box = physics_body(b2_staticBody, (b2Vec2){0, 0}, 0, 0, 0, false);
-    physics_box(box, (Collider){K_SENSOR_BOX, 0, TAG_UNTAGGED, true}, (b2Vec2){0, 0}, (b2Vec2){2, 2});
+    physics_box(box, (Collider){K_SENSOR_BOX, 0, "Untagged", true}, (b2Vec2){0, 0}, (b2Vec2){2, 2});
     b2BodyId walker = physics_body(b2_dynamicBody, (b2Vec2){-3, 0}, 0, 0, 0, true);
     physics_polygon(walker, (Collider){K_POLY, 0, PLAYER_TAG, false}, PLAYER_BODY_PIECES_POINTS,
                     PLAYER_BODY_PIECES_SIZES, PLAYER_BODY_PIECES_COUNT);
@@ -376,7 +376,7 @@ static void check_physics_bridge(void)
     physics_circle(a, (Collider){K_SENSOR_A, 0, PLAYER_TAG, true}, (b2Vec2){0, 0}, 1);
     physics_set_mass(a, 1);
     b2BodyId b = physics_body(b2_staticBody, (b2Vec2){11.5f, 0}, 0, 0, 0, false);
-    physics_circle(b, (Collider){K_SENSOR_B, 0, TAG_UNTAGGED, true}, (b2Vec2){0, 0}, 0.6f);
+    physics_circle(b, (Collider){K_SENSOR_B, 0, "Untagged", true}, (b2Vec2){0, 0}, 0.6f);
     steps(2);
     assert(count_events(TRIGGER_ENTER, K_SENSOR_A, K_SENSOR_B) == 1 && count_events(TRIGGER_ENTER, K_SENSOR_B, K_SENSOR_A) == 1);
     assert(logCount == 2);
@@ -395,7 +395,7 @@ static void check_physics_bridge(void)
     b2BodyId rep = physics_body(b2_staticBody, (b2Vec2){30, 0}, 0, 0, 0, false);
     physics_circle(rep, (Collider){K_REPELLER, 0, ROCK_REPELLER_TAG, true}, (b2Vec2){0, 0}, 3.29f);
     b2BodyId ball = physics_body(b2_dynamicBody, (b2Vec2){30 + 2.0f, 0}, 0, 0, 0, false);
-    physics_circle(ball, (Collider){K_BALL, 0, TAG_UNTAGGED, false}, (b2Vec2){0, 0}, ROCK_RADIUS_WORLD);
+    physics_circle(ball, (Collider){K_BALL, 0, "Untagged", false}, (b2Vec2){0, 0}, ROCK_RADIUS_WORLD);
     physics_set_mass(ball, ROCK_RB_MASS);
     for (int i = 0; i < 60; i++) {
         b2Body_SetLinearVelocity(ball, (b2Vec2){-1, 0});
@@ -427,7 +427,7 @@ static void check_rocks(void)
     player_start(); // the joint's other end
 
     b2BodyId zone = physics_body(b2_staticBody, (b2Vec2){0, 0}, 0, 0, 0, false);
-    physics_circle(zone, (Collider){K_ZONE, 0, TAG_UNTAGGED, true}, (b2Vec2){0, 0}, 0.2025f);
+    physics_circle(zone, (Collider){K_ZONE, 0, "Untagged", true}, (b2Vec2){0, 0}, 0.2025f);
 
     Rock *rock = rock_instantiate((Vector3){0, 0, ROCKS_POS_Z});
     assert(rock && rock->shadowAlive && !rock->dark);
@@ -663,7 +663,7 @@ static void check_placeholders(void)
 
     // A rock lying where a dash placeholder appears is pushed away in the
     // placeholder's first 0.6 s: it relocates, and a new rock spawns.
-    Rock *early = rock_at(-3, 0, true);
+    const Rock *early = rock_at(-3, 0, true);
     frames(10);
     RockRef earlyRef = rock_ref(early);
     float created = Time.time;
@@ -968,13 +968,13 @@ static void check_movement(void)
     // 0.8 * axis * 7.2.
     float x0 = player_position().x;
     flx_touch_key(KEY_LEFT, true);
-    int frames = 0;
-    while (b2Body_GetLinearVelocity(player.body).x > -5.76f + 1e-4f && frames < 120) {
+    int rampFrames = 0;
+    while (b2Body_GetLinearVelocity(player.body).x > -5.76f + 1e-4f && rampFrames < 120) {
         game_frame();
-        frames++;
+        rampFrames++;
     }
-    printf("movement: full speed %.3f units/s after %d frames\n", b2Body_GetLinearVelocity(player.body).x, frames);
-    assert(frames >= 20 && frames <= 22);
+    printf("movement: full speed %.3f units/s after %d frames\n", b2Body_GetLinearVelocity(player.body).x, rampFrames);
+    assert(rampFrames >= 20 && rampFrames <= 22);
     float x1 = player_position().x;
     for (int i = 0; i < 60; i++) game_frame();
     float speed = x1 - player_position().x;

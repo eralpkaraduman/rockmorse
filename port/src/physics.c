@@ -289,8 +289,8 @@ void physics_destroy_body(b2BodyId body)
 {
     if (!b2Body_IsValid(body)) return;
     // Exits for every collider pair this body still touches.
-    // ponytail: unverified on the reference whether Unity 5.4 sends these;
-    // step 5 of the plan checks it with a rock destroyed in a placeholder.
+    // ponytail: not measured on the reference whether Unity 5.4 sends these
+    // (INVENTORY.md section 11). Remove this if a measurement says it does not.
     // Unity 5.6 added Physics2D.callbacksOnDisable, on by default, which
     // suggests that earlier versions sent them.
     typedef struct { int a, b; bool trigger; } Pair;

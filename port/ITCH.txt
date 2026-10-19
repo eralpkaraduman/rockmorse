@@ -1,0 +1,95 @@
+ROCKMORSE
+itch.io page text. Copy each part into the matching field.
+Lines in [square brackets] are for you to fill in or delete.
+
+
+TITLE
+Rockmorse
+
+
+SHORT DESCRIPTION (tagline)
+Stranded on Mars, you answer Earth by dragging rocks into Morse code. A Ludum Dare 30 game by Super Damage, rebuilt in C.
+
+
+DESCRIPTION
+
+You are an astronaut stranded on Mars. Your radio still hears Earth, but Earth cannot hear you. Each sol, a Mars day, Earth sends a message to the screen in your rover.
+
+You answer by dragging rocks into Morse code. Dark rocks are dashes and light rocks are dots. Earth can only read your answer in daylight, when its satellite can see you.
+
+Life support lasts 14 sols. Answer every message before it runs out, and a lander comes to take you home.
+
+This is the post-compo version, the last state of the game's source, from December 2016.
+
+
+AIM OF THE GAME
+Answer each of Earth's messages in Morse code, then walk into the lander when it arrives.
+
+
+HOW TO PLAY
+1. Read the help screen, then press Space to start.
+2. Walk into the rover to read Earth's message on its screen. The screen also shows how much life support is left.
+3. Find the answer's slots on the ground near the rover. Hold M to see the whole answer from above.
+4. Hold Space near a rock to pull it, and drag it onto a slot of its kind. A slot turns green when its rock is right.
+5. Wait for daylight. Earth reads your answer, and a new message arrives at the rover.
+
+Tips
+- Rocks that touch the rover break, and new ones appear somewhere else.
+- Time stops while you sit in the rover, so read the messages there.
+
+
+CONTROLS
+On a phone or tablet, on-screen buttons under the game match these keys. Pull is Space, Map is M and Help is H. A tap on the game works as a click.
+A gamepad works too. The D-pad or left stick walks. The bottom face button is Space, the left shoulder is M, and Start is H.
+Arrows or WASD: walk
+Space, held: pull the nearest rock. Space also closes a message and goes on from the story screens.
+M or Tab, held: see the whole answer from above
+H or Shift: show or hide the help. Esc and P work too.
+Enter or a click: start from the title, and go on from the story and end screens
+
+
+HISTORY
+Super Damage made Rockmorse for Ludum Dare 30 in August 2014. The theme was "Connected Worlds".
+Super Damage was Eren Ozel (https://erenozel.art) and Eralp Karaduman (https://eralp.dev).
+It was made in Unity, and work went on after the jam. The post-compo fixes stop time in the rover and fix a bug that kept you from leaving it.
+The source is at https://github.com/superdamage/LD30. This port follows its last commit, 19ad7cb, from December 2016. The builds made then used Unity 5.4.
+
+[Optional: add the Ludum Dare 30 entry link here, if it is still online.]
+
+
+HOW IT WAS PORTED
+The Unity project and its 2016 builds survived. In October 2026 the game was rebuilt in C with raylib and Box2D.
+
+The scenes, prefabs and settings were read out of the Unity project into plain data files. Every number the game uses comes from those files. The C# scripts were rewritten by hand in plain C, with readable names. Their original comments are kept, word for word.
+
+The 2016 web and Mac builds still run, and served as references. The port's movement, rock physics, timing, text layout and 3D sound were measured against them.
+
+The port uses raylib 6.0 for drawing, input and sound, and Box2D 3.1 for physics. The web version is compiled to WebAssembly with Emscripten. The same code also builds for macOS, Windows and Linux.
+
+The port was written with Claude Code, Anthropic's coding agent, running the Claude Opus 5.5 model.
+
+
+CHANGES FROM THE ORIGINAL
+The port plays like the 2016 build, original bugs included. A few things changed on purpose.
+- The help keys froze the game when pressed during the short overview after Earth reads an answer. The port ignores them there.
+- The original cheat needed Shift and C pressed in the very same frame. The port uses "hold Ctrl, press C". It fills the current answer's slots with the right rocks.
+- New keys sit next to the old ones: Enter, Tab and Shift, plus the gamepad and touch controls. Every original key still works.
+- The title screen had no key for Play. Space and Enter now start the game.
+- The Unity splash screen is left out, as it is not part of the game.
+- The original had reverb inside the rover and the lander. The 2016 web build never played it, so the port leaves it out.
+
+
+ITCH.IO SETTINGS
+Cover image: rockmorse-cover-630x500.png (630 x 500, the size itch.io recommends)
+Screenshots: the 5 files in screenshots/, at the game size (660 x 440)
+Kind of project: HTML
+Upload: rockmorse-web-itch.zip from dist/, and tick "This file will be played in the browser"
+Embed options: Embed in page
+Viewport dimensions: 660 x 440
+Tick "Fullscreen button".
+Tick "Mobile friendly". If an Orientation setting appears, choose Portrait. Touch screens get on-screen controls under the game.
+Frame options: leave "Automatically start on page load" unticked. The click on "Run game" gives the game keyboard focus.
+Release status: Released
+Classification: Games
+Genre: Puzzle
+Suggested tags: ludum-dare, ludum-dare-30, pixel-art, unity, mars, morse-code, space, 2d, short, singleplayer
