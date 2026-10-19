@@ -117,6 +117,7 @@ if(EMSCRIPTEN)
     set(WEB_TOUCH_DPAD "{ left: 263, right: 262, up: 265, down: 264 }")
     set(WEB_TOUCH_BUTTONS "[{ label: 'Space', caption: 'Pull', key: 32 }, { label: 'M', caption: 'Map', key: 77 }, { label: 'H', caption: 'Help', key: 72 }]")
     set(WEB_TOUCH_TAP_CLICKS ON)
+    set(WEB_TOUCH_STICK ON)
     configure_file("${WEB_DIR}/shell.html.in" "${CMAKE_BINARY_DIR}/shell.html" @ONLY)
 
     # The GitHub Pages cover page, from the shared template. The page text

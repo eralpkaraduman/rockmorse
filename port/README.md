@@ -115,11 +115,11 @@ The output is deterministic. A rerun on unchanged input changes no file. Its ass
 
 ## Web page and touch controls
 
-On a touch screen, a control bar sits under the game: a D-pad, Pull (Space), Map (M) and Help (H). Pull and Map work while held, like the keys. A tap on the game is a mouse click, for the title's buttons and the screens a click skips. The page never zooms or scrolls. With a keyboard, the bar stays hidden. Add `?touch=1` to the address to test the touch layout on a desktop.
+On a touch screen, a control bar sits under the game: a thumb stick for the arrows, Pull (Space), Map (M) and Help (H). Pull and Map work while held, like the keys. A tap on the game is a mouse click, for the title's buttons and the screens a click skips. The page never zooms or scrolls. With a keyboard, the bar stays hidden. Add `?touch=1` to the address to test the touch layout on a desktop.
 
 The bar calls `flx_touch_key()` in `src/unity.c`, which feeds the same key state as the keyboard. A gamepad feeds it too, through `gamepad_poll()`. The D-pad is the arrows, A is Space, the left shoulder is Tab and Start is H. The left stick stays analog, as in the original.
 
-The web page and the touch controls are shared with Kurban Bayrami, which keeps them in its `port/web/`. On every configure, CMake downloads `shell.html.in`, `site.html.in`, `touch-controls.js` and `touch-controls.css` from that repo's `main` branch. It fills in this game's title, tagline, colours, game shape and touch keys. `WEB_TOUCH_TAP_CLICKS ON` turns on the taps as clicks. The cover page's text comes from `web/site-content.html`.
+The web page and the touch controls are shared with Kurban Bayrami, which keeps them in its `port/web/`. On every configure, CMake downloads `shell.html.in`, `site.html.in`, `touch-controls.js` and `touch-controls.css` from that repo's `main` branch. It fills in this game's title, tagline, colours, game shape and touch keys. `WEB_TOUCH_TAP_CLICKS ON` turns on the taps as clicks, and `WEB_TOUCH_STICK ON` shows the stick in place of the arrow buttons. The cover page's text comes from `web/site-content.html`.
 
 A change pushed to Kurban reaches this game on its next configure. GitHub may take up to 5 minutes to serve the new files. For a build that must not change, pin a Kurban commit. To try changes to the shared files before they are pushed, copy them from a local checkout instead:
 
