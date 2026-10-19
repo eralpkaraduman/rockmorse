@@ -8,7 +8,7 @@
 //     canvas: document.getElementById('canvas'),
 //     frame: document.getElementById('frame'),   // the canvas's parent; the bar goes under the canvas
 //     dpad: { left: 263, right: 262, up: 265, down: 264 },  // key codes; leave a direction out to hide it
-//     stick: true,                               // optional: a thumb stick in place of the D-pad's arrows
+//     stick: false,                              // optional: arrow buttons instead of the thumb stick
 //     buttons: [ { label: 'X', caption: 'Jump', key: 88 }, ... ],
 //     onKey: function (key, down) { ... },       // called when a button goes down or up
 //     tapClicks: true,                           // optional: a tap on the game is a mouse click
@@ -54,9 +54,10 @@
     var dpadKeys = options.dpad || {};
     var dpad = el('div', 'tc-dpad', bar);
     var knob = null;
-    if (options.stick) {
-      // A thumb stick in the D-pad's place. It sends the same arrow keys,
-      // two at once on a diagonal.
+    // With up or down, a thumb stick takes the D-pad's place, unless the
+    // game asks for arrows. It sends the same arrow keys, two at once on a
+    // diagonal. Left and right alone stay two arrow buttons.
+    if (options.stick !== false && (dpadKeys.up != null || dpadKeys.down != null)) {
       dpad.classList.add('tc-stick');
       dpad.setAttribute('role', 'group');
       dpad.setAttribute('aria-label', 'stick');
