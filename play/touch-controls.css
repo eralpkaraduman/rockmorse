@@ -1,0 +1,149 @@
+/* touch-controls: styles for touch-controls.js.
+   Kept in https://github.com/eralpkaraduman/kurban-bayrami (port/web/). */
+
+/* Page setup for touch play, switched on by TouchControls.lockPage(). */
+.tc-mobile,
+.tc-mobile body {
+  touch-action: none;           /* no double-tap zoom, pinch zoom or panning */
+  overscroll-behavior: none;    /* no pull-to-refresh or bounce */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;  /* no long-press menu on iOS */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+/* Embedded in another page: an up or down swipe over the game scrolls that
+   page, and the scroll may carry over to it. Pinch and double-tap zoom stay
+   off. The control bar keeps touch-action: none, so it never scrolls. */
+.tc-mobile.tc-embedded,
+.tc-mobile.tc-embedded body {
+  touch-action: pan-y;
+  overscroll-behavior: auto;
+}
+.tc-mobile body {
+  /* A column that fills the screen, clear of the notch and home indicator. */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Handheld-console layout, set on the element the bar is attached to:
+   the game pinned to the top at full width, and the controls filling the
+   rest of the screen with the buttons low, where thumbs rest. Nothing
+   covers the game. */
+.tc-console {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 auto;
+}
+.tc-console > .tc-bar {
+  align-self: stretch;
+  flex: 1 0 auto;
+  align-items: flex-end;
+  padding-bottom: 28px;
+}
+
+/* Controls over the game, switched on by fit() when a bar under the game
+   would shrink it, as in landscape. The game fills as much of the screen as
+   it can, centred. The bar spans the screen on top of it, with the D-pad in
+   the lower left and the buttons in the lower right, where thumbs rest.
+   Only the buttons take touches. They are half see-through, so the game
+   shows through them, and turn more solid while pressed. */
+.tc-overlay .tc-console { justify-content: center; }
+.tc-overlay .tc-console > .tc-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: env(safe-area-inset-top) calc(24px + env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) calc(24px + env(safe-area-inset-left));
+  background: transparent;
+  pointer-events: none;
+}
+.tc-overlay .tc-dpad,
+.tc-overlay .tc-actions { pointer-events: auto; }
+.tc-overlay .tc-button { background: rgba(0, 0, 0, 0.3); border-color: rgba(255, 255, 255, 0.6); opacity: 0.45; }
+.tc-overlay .tc-button.tc-pressed { background: rgba(255, 255, 255, 0.4); opacity: 0.85; }
+
+.tc-bar {
+  /* Buttons grow with the screen's short side, never below the 44 px minimum
+     touch target, so landscape keeps room for the game. */
+  --tc-cell: clamp(44px, 13vmin, 60px);   /* D-pad arm size */
+  --tc-round: clamp(56px, 17vmin, 76px);  /* action button size */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  background: #000;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.tc-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  font: 600 16px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.tc-button.tc-pressed {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+/* A plus-shaped D-pad on a 3x3 grid. */
+.tc-dpad {
+  display: grid;
+  grid-template-columns: repeat(3, var(--tc-cell));
+  grid-template-rows: repeat(3, var(--tc-cell));
+  flex: none;
+}
+.tc-dpad .tc-button { border-radius: 8px; font-size: 14px; }
+.tc-dpad .tc-caption { display: none; }
+.tc-up { grid-area: 1 / 2; }
+.tc-left { grid-area: 2 / 1; }
+.tc-right { grid-area: 2 / 3; }
+.tc-down { grid-area: 3 / 2; }
+/* Left and right only: one row, with a gap between the two arrows. */
+.tc-dpad-row { grid-template-rows: var(--tc-cell); align-self: flex-end; }
+.tc-dpad-row .tc-left { grid-area: 1 / 1; }
+.tc-dpad-row .tc-right { grid-area: 1 / 3; }
+
+/* Round buttons set on a diagonal, the first one lower, like a handheld. */
+.tc-actions {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  flex: none;
+}
+.tc-round {
+  width: var(--tc-round);
+  height: var(--tc-round);
+  border-radius: 50%;
+}
+.tc-round:nth-child(odd) { margin-top: calc(var(--tc-round) * 0.6); }
+/* Three or more buttons, set by touch-controls.js: smaller and closer, so a
+   full D-pad and three buttons fit side by side on a 360 px wide phone. */
+.tc-actions-many { gap: 10px; --tc-round: clamp(44px, 14vmin, 60px); }
+.tc-actions-many .tc-round .tc-label { font-size: 16px; }
+.tc-round .tc-label { font-size: 20px; }
+.tc-round .tc-caption {
+  margin-top: 3px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}

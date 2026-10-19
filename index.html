@@ -1,0 +1,192 @@
+<!doctype html>
+<!--
+  Cover page for a web game, like a simple itch.io page: the game first,
+  then its description, controls, screenshots and history. Shared by Kurban
+  Bayrami and Time Escape: kept in https://github.com/eralpkaraduman/kurban-bayrami
+  (port/web/), and Time Escape downloads it from there at a pinned commit.
+
+  CMake fills in each placeholder, a name between two at signs, with
+  configure_file(... @ONLY):
+    WEB_TITLE                 game title
+    SITE_TAGLINE              one-line description
+    SITE_URL                  the page's public address, for link previews
+    SITE_THEME                CSS colour variables: --bg, --surface, --text, --muted,
+                              --accent, --accent-strong, --border
+    SITE_GAME_RATIO           game width / height, e.g. 3 / 1
+    SITE_TOUCH_FRAME_HEIGHT   CSS height of the game frame on touch screens:
+                              the game plus its control bar
+    SITE_HINT_KEYBOARD        hint under the game for keyboard players (HTML)
+    SITE_HINT_TOUCH           hint under the game for touch players (HTML)
+    SITE_CONTENT              everything below the game (HTML), read from the
+                              game's web/site-content.html
+  The page expects cover.png, fonts/system.ttf, screenshots/ and the game in play/.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rockmorse</title>
+<meta name="description" content="Stranded on Mars, you answer Earth by dragging rocks into Morse code. A Ludum Dare 30 game by Super Damage, rebuilt in C.">
+<meta property="og:title" content="Rockmorse">
+<meta property="og:description" content="Stranded on Mars, you answer Earth by dragging rocks into Morse code. A Ludum Dare 30 game by Super Damage, rebuilt in C.">
+<meta property="og:image" content="https://eralpkaraduman.github.io/rockmorse/cover.png">
+<link rel="icon" href="cover.png">
+<style>
+  @font-face { font-family: "Flixel System"; src: url("fonts/system.ttf"); }
+  :root { --bg: #1a120c; --surface: #261a12; --text: #f3e9df; --muted: #b8a595; --accent: #ff8a3d; --accent-strong: #ffd2a8; --border: #3d2b1e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  img { image-rendering: pixelated; display: block; max-width: 100%; height: auto; }
+  a { color: var(--accent); }
+  /* One centred column, never the full width. Its 720 px inside width shows
+     a 360 px wide game at exactly 2x and a 240 px wide game at exactly 3x. */
+  .page { max-width: 760px; margin: 0 auto; padding: 40px 20px 64px; }
+  .pixel { font-family: "Flixel System", monospace; -webkit-font-smoothing: none; font-weight: normal; }
+  h1 { font-size: 32px; line-height: 1.2; margin: 0 0 8px; color: #fff; }
+  .tagline { color: var(--muted); margin: 0 0 24px; }
+  /* The outline sits outside the frame, so the frame keeps its full 720 px. */
+  .game { background: #000; box-shadow: 0 0 0 1px var(--border); border-radius: 8px; overflow: hidden; }
+  .game iframe { display: block; width: 100%; aspect-ratio: 3 / 2; border: 0; }
+  .game-bar { display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--surface); color: var(--muted); font-size: 14px; }
+  .button { display: inline-block; padding: 6px 14px; border-radius: 6px; background: var(--accent); color: #0b1218; text-decoration: none; font-weight: 600; }
+  article { margin-top: 40px; }
+  h2 { font-size: 16px; margin: 36px 0 8px; color: var(--accent-strong); text-transform: uppercase; letter-spacing: 0.05em; }
+  article > h2:first-child { margin-top: 0; }
+  p, ol, ul { margin: 0 0 12px; }
+  /* Text lines stay short enough to read, about 68 characters. The unit is
+     em, not ch. A ch is the width of a zero, much wider than an
+     average letter. The game, the screenshots and the info table still use
+     the full column width. */
+  article p, article ol, article ul, .controls, .note { max-width: 32em; }
+  li { margin-bottom: 4px; }
+  .controls { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+  .controls dt { font-weight: 600; }
+  .controls dd { margin: 0; color: var(--muted); }
+  kbd { display: inline-block; min-width: 1.6em; padding: 0 6px; border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; background: var(--surface); font: 13px/1.6 ui-monospace, monospace; text-align: center; }
+  .shots { display: grid; gap: 16px; margin-top: 8px; }
+  .shots.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Screenshots are stored at 3x and shown smaller. Pixelated scaling only
+     helps when it enlarges. When it shrinks, it drops whole pixel rows, so
+     smooth scaling looks more even here. */
+  .shots img { border-radius: 6px; border: 1px solid var(--border); width: 100%; image-rendering: auto; }
+  .note { font-size: 14px; color: var(--muted); }
+  /* "More information", like the table at the end of an itch.io page. */
+  .info { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .info th, .info td { padding: 8px 0; border-top: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .info th { width: 140px; color: var(--muted); font-weight: 500; }
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+  .hint-touch { display: none; }
+  @media (max-width: 600px) {
+    .page { padding: 32px 16px 56px; }
+    .shots.two { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+  }
+  /* Touch screens: the game and its control bar run edge to edge, and the
+     frame holds the game plus the bar. The text below scrolls normally. */
+  @media (pointer: coarse) {
+    .game { margin: 0 -16px; box-shadow: none; border-radius: 0; }
+    .game iframe { aspect-ratio: auto; height: calc(100vw * 2 / 3 + 3 * clamp(44px, 13vw, 60px) + 42px); }
+    .hint-keyboard { display: none; }
+    .hint-touch { display: inline; }
+    p.hint-touch { display: block; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1 class="pixel">Rockmorse</h1>
+  <p class="tagline">Stranded on Mars, you answer Earth by dragging rocks into Morse code. A Ludum Dare 30 game by Super Damage, rebuilt in C.</p>
+
+  <section class="game" aria-label="Play the game">
+    <iframe src="play/" title="Rockmorse, playable game"></iframe>
+    <div class="game-bar">
+      <span class="hint-keyboard">Click <b>Play</b> in the game, or press <kbd>Space</kbd>. You need a keyboard.</span>
+      <span class="hint-touch">Tap <b>Play</b> in the game to start. Play with the buttons under the game.</span>
+      <a class="button" href="play/">Play full screen</a>
+    </div>
+  </section>
+
+  <article>
+    <!-- Rockmorse's cover page text. CMake puts it into site.html.in. -->
+    <h2>About</h2>
+    <p>You are an astronaut stranded on Mars. Your radio still hears Earth, but Earth cannot hear you. Each sol, a Mars day, Earth sends a message to the screen in your rover.</p>
+    <p>You answer by dragging rocks into Morse code. Dark rocks are dashes and light rocks are dots. Earth can only read your answer in daylight, when its satellite can see you.</p>
+    <p>Life support lasts 14 sols. Answer every message before it runs out, and a lander comes to take you home.</p>
+    <p>This is the post-compo version, the last state of the game's source, from December 2016.</p>
+
+    <h2>Aim of the game</h2>
+    <p>Answer each of Earth's messages in Morse code, then walk into the lander when it arrives.</p>
+
+    <h2>How to play</h2>
+    <ol>
+      <li>Read the help screen, then press Space to start.</li>
+      <li>Walk into the rover to read Earth's message on its screen. The screen also shows how much life support is left.</li>
+      <li>Find the answer's slots on the ground near the rover. Hold M to see the whole answer from above.</li>
+      <li>Hold Space near a rock to pull it, and drag it onto a slot of its kind. A slot turns green when its rock is right.</li>
+      <li>Wait for daylight. Earth reads your answer, and a new message arrives at the rover.</li>
+    </ol>
+    <ul>
+      <li>Rocks that touch the rover break, and new ones appear somewhere else.</li>
+      <li>Time stops while you sit in the rover, so read the messages there.</li>
+    </ul>
+
+    <h2>Controls</h2>
+    <p class="hint-touch">On a touch screen, the buttons under the game stand in for these keys. Pull is <kbd>Space</kbd>, Map is <kbd>M</kbd> and Help is <kbd>H</kbd>. Hold Pull and Map, as you would the keys. A tap on the game works as a click.</p>
+    <dl class="controls">
+      <dt><kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> or <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></dt><dd>Walk</dd>
+      <dt><kbd>Space</kbd></dt><dd>Hold to pull the nearest rock. Also closes a message and goes on from the story screens.</dd>
+      <dt><kbd>M</kbd> or <kbd>Tab</kbd></dt><dd>Hold to see the whole answer from above</dd>
+      <dt><kbd>H</kbd> or <kbd>Shift</kbd></dt><dd>Show or hide the help. <kbd>Esc</kbd> and <kbd>P</kbd> work too.</dd>
+      <dt><kbd>Enter</kbd> or a click</dt><dd>Start from the title, and go on from the story and end screens</dd>
+    </dl>
+    <p>A gamepad works too. The D-pad or left stick walks. The bottom face button (A on Xbox, cross on PlayStation) is <kbd>Space</kbd>. The left shoulder button is <kbd>M</kbd>, and Start is <kbd>H</kbd>. In a browser, press a gamepad button once so the page sees the gamepad.</p>
+
+    <h2>Screenshots</h2>
+    <div class="shots two">
+      <img src="screenshots/1-title.png" width="660" height="440" alt="The title screen with the Play button">
+      <img src="screenshots/2-tutorial.png" width="660" height="440" alt="The help screen that explains the controls and the rocks">
+      <img src="screenshots/3-pulling-a-rock.png" width="660" height="440" alt="The astronaut pulling a light rock towards the answer's slots, next to the rover">
+      <img src="screenshots/4-rover-screen.png" width="660" height="440" alt="Earth's first message on the rover's screen, with life support left">
+      <img src="screenshots/5-decoded-answer.png" width="660" height="440" alt="The map view at night, with the answer OK decoded above its rocks">
+    </div>
+
+    <h2>History</h2>
+    <p>Super Damage made Rockmorse for Ludum Dare 30 in August 2014. The theme was "Connected Worlds". Super Damage was Eren Ozel and Eralp Karaduman.</p>
+    <p>It was made in Unity, and work went on after the jam. The post-compo fixes stop time in the rover and fix a bug that kept you from leaving it. The source is on GitHub at <a href="https://github.com/superdamage/LD30">superdamage/LD30</a>. This port follows its last commit, <code>19ad7cb</code>, from December 2016. The builds made then used Unity 5.4.</p>
+
+    <h2>How it was ported</h2>
+    <p>The Unity project and its 2016 builds survived. In October 2026 the game was rebuilt in C with raylib and Box2D.</p>
+    <p>The scenes, prefabs and settings were read out of the Unity project into plain data files. Every number the game uses comes from those files. The C# scripts were rewritten by hand in plain C, with readable names. Their original comments are kept, word for word.</p>
+    <p>The 2016 web and Mac builds still run, and served as references. The port's movement, rock physics, timing, text layout and 3D sound were measured against them.</p>
+    <p>The port uses raylib 6.0 for drawing, input and sound, and Box2D 3.1 for physics. The web version is compiled to WebAssembly with Emscripten. The same code also builds for macOS, Windows and Linux.</p>
+    <p>The port was written with Claude Code, Anthropic's coding agent, running the Claude Opus 5.5 model.</p>
+
+    <h2>Changes from the original</h2>
+    <p>The port plays like the 2016 build, original bugs included. A few things changed on purpose.</p>
+    <ul>
+      <li>The help keys froze the game when pressed during the short overview after Earth reads an answer. The port ignores them there.</li>
+      <li>The original cheat needed Shift and C pressed in the very same frame. The port uses "hold Ctrl, press C". It fills the current answer's slots with the right rocks.</li>
+      <li>New keys sit next to the old ones: Enter, Tab and Shift, plus the gamepad and touch controls. Every original key still works.</li>
+      <li>The title screen had no key for Play. Space and Enter now start the game.</li>
+      <li>The Unity splash screen is left out, as it is not part of the game.</li>
+      <li>The original had reverb inside the rover and the lander. The 2016 web build never played it, so the port leaves it out.</li>
+    </ul>
+
+    <h2>More information</h2>
+    <table class="info">
+      <tr><th>Made</th><td>August 2014, last build December 2016</td></tr>
+      <tr><th>Event</th><td>Ludum Dare 30, theme "Connected Worlds"</td></tr>
+      <tr><th>Made by</th><td>Super Damage: <a href="https://erenozel.art">Eren Ozel</a> and <a href="https://eralp.dev">Eralp Karaduman</a></td></tr>
+      <tr><th>Original</th><td>Unity, C#. <a href="https://github.com/superdamage/LD30">Source</a> at commit <code>19ad7cb</code></td></tr>
+      <tr><th>Port</th><td>C17, raylib 6.0, Box2D 3.1, WebAssembly</td></tr>
+      <tr><th>Genre</th><td>Puzzle, exploration</td></tr>
+      <tr><th>Controls</th><td>Keyboard and mouse, gamepad, or touch on phones and tablets</td></tr>
+      <tr><th>Source</th><td><a href="https://github.com/eralpkaraduman/rockmorse">github.com/eralpkaraduman/rockmorse</a></td></tr>
+    </table>
+
+    <footer>Rockmorse by Super Damage, 2014. C port, 2026.</footer>
+
+  </article>
+</main>
+</body>
+</html>
