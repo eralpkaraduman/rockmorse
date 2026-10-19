@@ -252,7 +252,7 @@ void gui_texture_draw(const GUITexture *t);
 
 // World-space text. Unity sizes it by the font's pixel scale, which is in
 // extract/build/font.json (m_PixelScale) but not yet in values.h, so the
-// scene sets pixelScale itself (step 5 of the plan).
+// scene sets pixelScale itself (level_loader.c).
 typedef struct {
     char text[GUI_TEXT_MAX];
     UnityTransform transform;

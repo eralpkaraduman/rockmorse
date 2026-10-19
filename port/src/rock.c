@@ -89,6 +89,12 @@ void rock_set_dark(Rock *r, bool value)
     r->dark = value;
 }
 
+void rock_set_position(Rock *r, Vector3 position)
+{
+    r->renderer.transform.position = position;
+    b2Body_SetTransform(r->body, (b2Vec2){position.x, position.y}, b2Body_GetRotation(r->body));
+}
+
 void rock_set_joint(Rock *r, bool enabled, bool connected)
 {
     r->jointEnabled = enabled;

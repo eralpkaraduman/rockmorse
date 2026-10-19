@@ -632,7 +632,10 @@ static int line_length(const char *s)
 
 static TextBlock text_block(const char *text, const FontSize *f, float lineSpacing, int anchor, Vector2 at)
 {
-    TextBlock b = {.lineHeight = (f->ascent + f->descent) * lineSpacing};
+    // Lines sit a whole number of pixels apart, rounded. Measured on the
+    // 2016 WebGL build: the rover screen's 13 pt lines are 16 px apart
+    // (15.6 unrounded), the visibility indicator's 11 pt lines 13 px (13.2).
+    TextBlock b = {.lineHeight = round_half_up((f->ascent + f->descent) * lineSpacing)};
     int widest = 0;
     for (const char *s = text;; ) {
         int n = line_length(s);

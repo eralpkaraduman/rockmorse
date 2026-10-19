@@ -51,7 +51,10 @@ set(GAME_SOURCES
     src/rock_dragger.c
     src/drag_target.c
     src/rover.c
-    src/rocket.c)
+    src/rocket.c
+    src/morse.c
+    src/level_loader.c
+    src/rock_placeholder.c)
 
 # The engine layer rasterises the Joystix font itself, with the
 # stb_truetype copy that ships inside raylib (see unity.c).

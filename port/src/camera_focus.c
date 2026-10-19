@@ -198,6 +198,13 @@ void camera_focus_late_update(void)
 void camera_focus_sprites(SpriteList *list)
 {
     sprite_list_add(list, &focus.nightosphere);
+}
+
+// The cutscene images, z -29 like the decoded letters. game.c draws them
+// after the letters, so an image covers them. Unity's order for this tie
+// is not known.
+void camera_focus_cutscene_sprites(SpriteList *list)
+{
     sprite_list_add(list, &focus.couldNotDecode);
     sprite_list_add(list, &focus.newMessage);
     sprite_list_add(list, &focus.couldDecode);

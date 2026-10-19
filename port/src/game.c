@@ -1,15 +1,17 @@
 // The Game scene. No script sets an execution order, so Unity's order was
 // undefined. The port fixes this one (plan section 6.3, item 10):
-// - Start: rover, player, drag marker, camera, rover screen, rock generator,
-//   rock dragger, Mars (tiles and rocks), Earth (shows the first tutorial).
+// - Start: rover, player, drag marker, camera, rock generator, rock
+//   dragger, Mars (tiles and rocks), LevelLoader, RoverScreen, Earth (shows
+//   the first tutorial). RoverScreen's Start reads Mars, which then still
+//   has its scene values, as it would in any order in Unity.
 // - FixedUpdate: TopDownControls, then the physics step and its handlers.
-// - Update: Mars, Earth, RockDragger, each Rock, SnapToTarget,
-//   CamerFocusSwitcher, then the Animator.
+// - Update: RoverScreen, Mars, Earth, LevelLoader, RockDragger, each Rock,
+//   SnapToTarget, CamerFocusSwitcher, then the Animator. RoverScreen comes
+//   before Mars, so the sol counter shows this frame's life support (plan
+//   section 6.3, item 10).
 // - LateUpdate: CutsSceneScaleFixer. Then deferred destroys.
 #include "game.h"
 #include "scenes.h"
-
-LevelLoader levelLoader;
 
 static AudioSource menu4;
 static SpriteList sprites;
@@ -17,12 +19,6 @@ static SpriteList sprites;
 void sprite_list_add(SpriteList *list, SpriteRenderer *r)
 {
     if (list->count < GAME_MAX_SPRITES) list->items[list->count++] = r;
-}
-
-// LevelLoader.setDecodedLettersHidden: the letters come in step 5.
-void level_loader_set_decoded_letters_hidden(bool hidden)
-{
-    (void)hidden;
 }
 
 // Every trigger and collision event, once for each owner.
@@ -43,6 +39,9 @@ static void on_physics(PhysicsEvent e, const Collider *self, const Collider *oth
     case OWNER_ROCKET_INSIDE:
         rocket_on_event((Owner)self->kind, e, other);
         break;
+    case OWNER_PLACEHOLDER:
+        rock_placeholder_on_event(&rockPlaceholders[self->index], e, other);
+        break;
     case OWNER_ROVER_ROOF:
     case OWNER_ROVER_REPELLER:
     case OWNER_ROCKET_BODY:
@@ -56,11 +55,8 @@ static void start(void)
     physics_shutdown();
     physics_init(on_physics);
     memset(rocks, 0, sizeof rocks);
+    rock_placeholders_reset();
     rockGenerator = (RockGenerator){.numRocks = ROCK_GENERATOR_NUM_ROCKS};
-    levelLoader = (LevelLoader){
-        .position = {LEVEL_POS_X, LEVEL_POS_Y, LEVEL_POS_Z},
-        .sentenceSize = {LEVEL_LOADER_SENTENCE_SIZE_X, LEVEL_LOADER_SENTENCE_SIZE_Y},
-    };
     rocket_reset();
 
     menu4 = AUDIO_SOURCE(GAME_START_SOUND);
@@ -70,10 +66,11 @@ static void start(void)
     player_start();
     drag_target_start();
     camera_focus_start();
-    rover_screen_start();
     rock_generator_start();
     rock_dragger_start();
     mars_start();
+    level_loader_start();
+    rover_screen_start();
     earth_start();
 }
 
@@ -91,8 +88,10 @@ static void physics(void)
 
 static void update(void)
 {
+    rover_screen_update();
     mars_update();
     earth_update();
+    level_loader_update();
     rock_dragger_update();
     for (int i = 0; i < MAX_ROCKS; i++) {
         if (rocks[i].alive) rock_update(&rocks[i]);
@@ -111,6 +110,7 @@ static void late_update(void)
 
 static void end_of_frame(void)
 {
+    rock_placeholders_end_of_frame();
     rocks_end_of_frame();
 }
 
@@ -121,15 +121,24 @@ static void draw(void)
     mars_sprites(&sprites);
     rover_sprites(&sprites);
     rocket_sprites(&sprites);
+    rock_placeholders_sprites(&sprites);
     sprite_list_add(&sprites, &player.renderer);
     rocks_sprites(&sprites);
     sprite_list_add(&sprites, &dragTarget.renderer);
     camera_focus_sprites(&sprites);
     draw_sprites(&focus.camera, sprites.items, sprites.count);
+    // The decoded letters and the cutscene images all have z -29, nearer
+    // than every sprite above.
+    level_loader_draw(&focus.camera);
+    sprites.count = 0;
+    camera_focus_cutscene_sprites(&sprites);
+    draw_sprites(&focus.camera, sprites.items, sprites.count);
 
     // GUI elements in front of the scene, the higher z in front: the rover
-    // screen's background has z -30, the texts 0.
+    // screen's background has z -30, the visibility indicator -25, the
+    // texts 0.
     gui_texture_draw(&roverScreen.background);
+    gui_text_draw(&roverScreen.visibilityIndicator);
     gui_text_draw(&mars.solCounterText);
     gui_text_draw(&roverScreen.screenGUIText);
 }

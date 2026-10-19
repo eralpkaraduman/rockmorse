@@ -32,6 +32,7 @@ typedef enum {
     OWNER_ROCKET_COVER,
     OWNER_ROCKET_REPELLER,
     OWNER_ROCKET_INSIDE,
+    OWNER_PLACEHOLDER,
 } Owner;
 
 // Unity's Rect.
@@ -122,6 +123,9 @@ extern RockGenerator rockGenerator;
 void rock_generator_start(void);
 void rock_generator_generate(Rect worldBounds);
 void rock_generator_replace(Rock *rock);
+Rock *rock_generator_add_rock(bool dark);
+// transform.position of a rock: moves its body too.
+void rock_set_position(Rock *rock, Vector3 position);
 
 // --- Player (player.c: TopDownControls and the Player object) --------------
 
@@ -192,6 +196,7 @@ void camera_focus_update(void);
 void camera_focus_late_update(void);
 void camera_focus_force_overview(bool forced);
 void camera_focus_sprites(SpriteList *list);
+void camera_focus_cutscene_sprites(SpriteList *list);
 
 // --- Rover (rover.c: Rover, RoverInsideTrigger, VisibleOnTrigger) ------------
 
@@ -205,36 +210,97 @@ extern SpriteRenderer missionUpdateIndicator;
 // --- Rocket (rocket.c: Rocket, InsideRocketTrigger, VisibleOnTrigger) --------
 
 // Instantiate(rocketPrefab) at its saved position. Earth calls it for the
-// last level (step 5 of the plan).
+// last level.
 void rocket_spawn(void);
 void rocket_reset(void);
 void rocket_on_event(Owner owner, PhysicsEvent e, const Collider *other);
 void rocket_sprites(SpriteList *list);
 
-// --- Earth (earth.c), RoverScreen (rover_screen.c), LevelLoader ---------------
+// --- Morse (morse.c) ------------------------------------------------------------
+
+// Morse.encode: one list of codes per word, MORSE_CODE_GAP between letters.
+#define MORSE_MAX_WORDS 8
+#define MORSE_MAX_CODES 64
+typedef struct {
+    int codes[MORSE_MAX_CODES];
+    int length;
+} MorseWord;
+int morse_encode(const char *sentence, MorseWord *words, int maxWords);
+
+// --- RockPlaceholder (rock_placeholder.c) -------------------------------------
+
+// One dot or dash slot of the answer, a RockPlaceholderPrefab instance.
+#define MAX_PLACEHOLDERS 64
+typedef struct {
+    bool alive;
+    bool destroyQueued;
+    SpriteRenderer spriteRenderer;
+    AudioSource correctAudioSource;
+    bool _isDash;
+    RockRef snappedRock;
+    float markTimeCreated;
+    float clearTime;
+    b2BodyId body;
+} RockPlaceholder;
+extern RockPlaceholder rockPlaceholders[MAX_PLACEHOLDERS];
+// Instantiate(placeholderPrefab, position, identity), then its Start.
+RockPlaceholder *rock_placeholder_instantiate(Vector3 position);
+void rock_placeholder_set_dash(RockPlaceholder *p, bool dash);
+bool rock_placeholder_is_dash(const RockPlaceholder *p);
+bool rock_placeholder_is_correct(const RockPlaceholder *p);
+void rock_placeholder_on_event(RockPlaceholder *p, PhysicsEvent e, const Collider *other);
+void rock_placeholder_destroy(RockPlaceholder *p);
+void rock_placeholders_reset(void);
+void rock_placeholders_end_of_frame(void);
+void rock_placeholders_sprites(SpriteList *list);
+
+// --- LevelLoader (level_loader.c) -------------------------------------------------
+
+typedef struct {
+    int currentLevel;
+    Vector3 position; // the Level object
+    Vector2 gap;
+    Vector2 sentenceSize;
+    const char *currentQuestion;
+    RockPlaceholder *placeholders[MAX_PLACEHOLDERS];
+    int placeholderCount;
+    // decodedLines: one TextMesh per word of the answer, under Level/letters.
+    TextMesh decodedLines[MORSE_MAX_WORDS];
+    int decodedLineCount;
+} LevelLoader;
+extern LevelLoader levelLoader;
+void level_loader_start(void);
+void level_loader_update(void);
+bool level_loader_next_level(int forceLevel); // false when no level is left
+bool level_loader_check(void);
+void level_loader_set_decoded_letters_hidden(bool hidden);
+void level_loader_draw(const UnityCamera *camera);
+
+// --- Earth (earth.c) ------------------------------------------------------------
 
 void earth_start(void);
 void earth_update(void);
 void earth_new_sol(void);
 void earth_player_is_in_rover(void);
+// Rover's AudioSource, the newMessage sound. Earth sets its volume.
+extern AudioSource roverNewMessageSound;
+
+// --- RoverScreen (rover_screen.c) ------------------------------------------------
 
 typedef struct {
     GUITexture background;
     GUIText screenGUIText;
+    GUIText visibilityIndicator; // Earth/visibiltyIndicator
     int startingLifeSupport;
     int lifeSupport;
     bool on;
 } RoverScreen;
 extern RoverScreen roverScreen;
 void rover_screen_start(void);
+void rover_screen_update(void);
 void rover_screen_set_on(bool on);
-
-// LevelLoader: only what the camera reads, until step 5 of the plan.
-typedef struct {
-    Vector3 position;
-    Vector2 sentenceSize;
-} LevelLoader;
-extern LevelLoader levelLoader;
-void level_loader_set_decoded_letters_hidden(bool hidden);
+// RoverScreen.printScreen: the screen text. It also sets the visibility
+// indicator, as in the source.
+const char *rover_screen_print_screen(void);
 
 #endif

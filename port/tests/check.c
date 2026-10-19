@@ -4,6 +4,7 @@
 #include "../src/scenes.h"
 #include "../src/game.h"
 #include "../src/code_constants.h"
+#include "../src/tables.h"
 
 // Release builds define NDEBUG, which would remove every assert below,
 // including the setup calls written inside them. Keep them in all builds.
@@ -480,7 +481,54 @@ static void check_rocks(void)
     physics_shutdown();
 }
 
-// --- The Game scene: movement ------------------------------------------------------
+
+// --- Morse and the level layout ---------------------------------------------
+
+// The answers in Morse, written out by hand: a space between letters, a
+// slash between words.
+static const char *const ANSWERS_IN_MORSE[LEVEL_COUNT - 1] = {
+    "--- -.-",                                  // OK
+    "-.. . -. -.--",                            // DENY
+    ".- -.-. -.-. . ... ...",                   // ACCESS
+    ".-. . .- -.. -.--",                        // READY
+    ".-. . -../-... .-.. ..-/--. .-. -.",       // RED BLU GRN
+    "--- -.-/... .-.. --- .--",                 // OK SLOW
+    "-... . - - . .-.",                         // BETTER
+};
+
+static void morse_to_text(const MorseWord *words, int count, char *out)
+{
+    *out = 0;
+    for (int w = 0; w < count; w++) {
+        if (w) strcat(out, "/");
+        for (int i = 0; i < words[w].length; i++) {
+            int c = words[w].codes[i];
+            strcat(out, c == MORSE_CODE_DOT ? "." : c == MORSE_CODE_DASH ? "-" : " ");
+        }
+    }
+}
+
+static void check_morse(void)
+{
+    MorseWord words[MORSE_MAX_WORDS];
+    char text[256];
+    for (int i = 0; i < LEVEL_COUNT - 1; i++) {
+        int n = morse_encode(LEVELS[i].decoded, words, MORSE_MAX_WORDS);
+        morse_to_text(words, n, text);
+        assert(strcmp(text, ANSWERS_IN_MORSE[i]) == 0);
+        printf("morse: %-12s %s\n", LEVELS[i].decoded, text);
+    }
+    // The last message has no answer.
+    assert(LEVELS[LEVEL_COUNT - 1].decoded[0] == 0 && morse_encode("", words, MORSE_MAX_WORDS) == 0);
+    // Lower case uses the alternate field. A letter with no row gives no
+    // codes but keeps its gap. A real double quote never matches (tables.h).
+    assert(morse_encode("ok", words, MORSE_MAX_WORDS) == 1);
+    morse_to_text(words, 1, text);
+    assert(strcmp(text, "--- -.-") == 0);
+    morse_encode("A~B\"", words, MORSE_MAX_WORDS);
+    morse_to_text(words, 1, text);
+    assert(strcmp(text, ".-  -... ") == 0);
+}
 
 // One frame as main.c runs it: latched presses are used up.
 static void game_frame(void)
@@ -488,6 +536,396 @@ static void game_frame(void)
     unity_frame();
     input_clear();
 }
+
+static void frames(int n)
+{
+    for (int i = 0; i < n; i++) game_frame();
+}
+
+// A key down for one frame, as a press on the touch controls does.
+static void press(int key)
+{
+    flx_touch_key(key, true);
+    game_frame();
+    flx_touch_key(key, false);
+    game_frame();
+}
+
+static void start_game(unsigned seed)
+{
+    static const Scene *const table[SCENE_COUNT] = {&GAME_SCENE, &GAME_SCENE, &GAME_SCENE, &GAME_SCENE,
+                                                    &GAME_SCENE, &DEATH_SCENE, &WIN_SCENE};
+    unity_init(table, SCENE_GAME);
+    SetRandomSeed(seed);
+    game_frame();
+    assert(scene_active() == SCENE_GAME);
+}
+
+static void clear_rocks(void)
+{
+    for (int i = 0; i < MAX_ROCKS; i++) {
+        if (rocks[i].alive) rock_destroy(&rocks[i]);
+    }
+    game_frame();
+}
+
+static int live_rocks(void)
+{
+    int n = 0;
+    for (int i = 0; i < MAX_ROCKS; i++) n += rocks[i].alive && !rocks[i].destroyQueued;
+    return n;
+}
+
+static void check_level_layout(void)
+{
+    start_game(2);
+    const float gx = LEVEL_LOADER_GAP_X, gy = LEVEL_LOADER_GAP_Y;
+    assert(gx == 1 && gy == 3 && levelLoader.currentLevel == -1);
+    assert(strcmp(levelLoader.currentQuestion, LEVEL_LOADER_INITIAL_QUESTION) == 0);
+    for (int level = 0; level < LEVEL_COUNT - 1; level++) {
+        assert(level_loader_next_level(-1) && levelLoader.currentLevel == level);
+        assert(strcmp(levelLoader.currentQuestion, LEVELS[level].question) == 0);
+        // Each word is a line, gap.y apart, centred on the Level object.
+        // Each code takes one gap.x slot; letter gaps get no placeholder.
+        const char *morse = ANSWERS_IN_MORSE[level];
+        int lines = 1;
+        for (const char *c = morse; *c; c++) lines += *c == '/';
+        float y = (lines + 1) * gy / 2, widest = 0;
+        int k = 0;
+        for (const char *word = morse; *word; ) {
+            int n = (int)strcspn(word, "/");
+            y -= gy;
+            widest = fmaxf(widest, n * gx);
+            for (int i = 0; i < n; i++) {
+                if (word[i] == ' ') continue;
+                const RockPlaceholder *p = levelLoader.placeholders[k++];
+                Vector3 at = p->spriteRenderer.transform.position;
+                assert(near(at.x, -n * gx / 2 + gx / 2 + i * gx, 1e-5f) && near(at.y, y, 1e-5f) && at.z == LEVEL_POS_Z);
+                assert(rock_placeholder_is_dash(p) == (word[i] == '-'));
+                assert(p->spriteRenderer.sprite == (word[i] == '-' ? PLACEHOLDER_DASH_SPRITE : PLACEHOLDER_DOT_SPRITE));
+            }
+            word += n + (word[n] == '/');
+        }
+        assert(k == levelLoader.placeholderCount && !level_loader_check());
+        assert(levelLoader.sentenceSize.x == widest && levelLoader.sentenceSize.y == (lines + 1) * gy);
+        // The decoded letters: one TextMesh per word, each letter followed
+        // by a space, hidden until the map view.
+        assert(levelLoader.decodedLineCount == lines);
+        for (int i = 0; i < lines; i++) {
+            const TextMesh *tm = &levelLoader.decodedLines[i];
+            assert(!tm->enabled && tm->transform.position.x == LETTERS_POS_X && tm->transform.position.z == LETTERS_POS_Z);
+            assert(near(tm->transform.position.y, gy * lines / 2 + LEVEL_LOADER_DECODED_Y_OFFSET - i * gy, 1e-5f));
+        }
+        game_frame(); // the old placeholders go at the end of a frame
+    }
+    // Spot checks against the numbers worked out by hand.
+    assert(strcmp(levelLoader.decodedLines[0].text, "B E T T E R ") == 0);
+    level_loader_next_level(0);
+    const RockPlaceholder *first = levelLoader.placeholders[0], *last = levelLoader.placeholders[5];
+    assert(first->spriteRenderer.transform.position.x == -3 && first->spriteRenderer.transform.position.y == 0);
+    assert(last->spriteRenderer.transform.position.x == 3 && levelLoader.sentenceSize.x == 7);
+    assert(strcmp(levelLoader.decodedLines[0].text, "O K ") == 0);
+    assert(near(levelLoader.decodedLines[0].transform.position.y, 0.105782f, 1e-6f));
+    level_loader_next_level(4);
+    assert(levelLoader.placeholderCount == 26 && levelLoader.sentenceSize.x == 13 && levelLoader.sentenceSize.y == 12);
+    assert(strcmp(levelLoader.decodedLines[2].text, "G R N ") == 0);
+    assert(levelLoader.placeholders[0]->spriteRenderer.transform.position.x == -4 &&
+           levelLoader.placeholders[0]->spriteRenderer.transform.position.y == 3);
+    // The last message: no placeholders, one empty line, and false.
+    assert(!level_loader_next_level(LEVEL_COUNT - 1) && levelLoader.placeholderCount == 0);
+    assert(levelLoader.decodedLineCount == 1 && levelLoader.decodedLines[0].text[0] == 0);
+    game_frame();
+    int alive = 0;
+    for (int i = 0; i < MAX_PLACEHOLDERS; i++) alive += rockPlaceholders[i].alive;
+    assert(alive == 0);
+    printf("layout: 7 answers, placeholders on a %g x %g grid, letters %g apart\n", gx, gy, gy);
+}
+
+// --- Placeholders: the 0.6 s clearing push, and correct or wrong --------------------
+
+static Rock *rock_at(float x, float y, bool dark)
+{
+    Rock *r = rock_generator_add_rock(dark);
+    rock_set_position(r, (Vector3){x, y, ROCKS_POS_Z});
+    return r;
+}
+
+static void check_placeholders(void)
+{
+    start_game(3);
+    press(KEY_SPACE); // the tutorial
+    clear_rocks();
+    assert(live_rocks() == 0);
+
+    // A rock lying where a dash placeholder appears is pushed away in the
+    // placeholder's first 0.6 s: it relocates, and a new rock spawns.
+    Rock *early = rock_at(-3, 0, true);
+    frames(10);
+    RockRef earlyRef = rock_ref(early);
+    float created = Time.time;
+    level_loader_next_level(0); // "OK": dashes at x -3 -2 -1 1 3, a dot at 2
+    frames(2);
+    assert(rock_get(earlyRef) == NULL && live_rocks() == 1);
+    assert(!rock_placeholder_is_correct(levelLoader.placeholders[0]));
+    clear_rocks();
+
+    // One that rolls in just before 0.6 s goes too.
+    while (Time.time < created + 0.5f) game_frame();
+    RockRef late = rock_ref(rock_at(-2, 0, true));
+    frames(2);
+    assert(rock_get(late) == NULL);
+    clear_rocks();
+
+    // After 0.6 s: the right colour snaps and turns the slot green, the
+    // wrong colour turns it red, and leaving resets it.
+    while (Time.time < created + 0.62f) game_frame();
+    Rock *dark = rock_at(-3, 0, true);
+    Rock *light = rock_at(-1, 0, false);
+    frames(2);
+    RockPlaceholder *p0 = levelLoader.placeholders[0], *p2 = levelLoader.placeholders[2];
+    assert(rock_placeholder_is_correct(p0) && rock_get(p0->snappedRock) == dark);
+    assert(p2->spriteRenderer.sprite == PLACEHOLDER_INCORRECT_SPRITE && rock_get(p2->snappedRock) == NULL);
+    rock_set_position(light, (Vector3){-1, -5, ROCKS_POS_Z});
+    frames(2);
+    assert(p2->spriteRenderer.sprite == PLACEHOLDER_DASH_SPRITE);
+    // A wrong rock next to a snapped one leaves the slot green.
+    Rock *wrong = rock_at(-3, 0.1f, false);
+    frames(2);
+    assert(rock_placeholder_is_correct(p0));
+    rock_set_position(wrong, (Vector3){-3, -5, ROCKS_POS_Z});
+    frames(2);
+    assert(rock_placeholder_is_correct(p0));
+    // The snapped rock leaves: back to a dash.
+    rock_set_position(dark, (Vector3){-3, 5, ROCKS_POS_Z});
+    frames(2);
+    assert(p0->spriteRenderer.sprite == PLACEHOLDER_DASH_SPRITE && rock_get(p0->snappedRock) == NULL);
+    printf("placeholders: a rock is pushed away before %.1f s, marked after\n", PLACEHOLDER_CLEAR_TIME);
+
+    // The cheat: hold Ctrl, press C. C alone does nothing, and Shift+C
+    // toggles the tutorial instead (plan 6.4).
+    int before = live_rocks();
+    press(KEY_C);
+    assert(live_rocks() == before);
+    flx_touch_key(KEY_LEFT_SHIFT, true);
+    press(KEY_C);
+    flx_touch_key(KEY_LEFT_SHIFT, false);
+    game_frame();
+    assert(live_rocks() == before);
+    assert(focus.tutorial.enabled && Time.timeScale == 0);
+    press(KEY_SPACE);
+    flx_touch_key(KEY_LEFT_CONTROL, true);
+    press(KEY_C);
+    flx_touch_key(KEY_LEFT_CONTROL, false);
+    assert(live_rocks() == before + levelLoader.placeholderCount);
+    frames(2);
+    assert(level_loader_check());
+    printf("cheat: Ctrl+C puts %d rocks on the placeholders, the answer checks\n", levelLoader.placeholderCount);
+}
+
+// --- Sol clock, pauses, the message flow, the freeze fix --------------------------
+
+#define SOL_SECONDS (24 * 1.027f * 3600)
+
+// Puts the player's body where a trigger is, or back outside.
+static void move_player(float x, float y)
+{
+    b2Body_SetTransform(player.body, (b2Vec2){x, y}, b2Rot_identity);
+    frames(3);
+}
+
+static void cheat_now(void)
+{
+    flx_touch_key(KEY_LEFT_CONTROL, true);
+    press(KEY_C);
+    flx_touch_key(KEY_LEFT_CONTROL, false);
+    frames(2);
+}
+
+static void check_sol_clock(void)
+{
+    // A sol is 24 x 1.027 hours, at 2000 game seconds per second: 44.37 s.
+    assert(near(SOL_SECONDS, 88732.8f, 0.01f) && MARS_TIME_SCALE == 2000);
+    printf("sol: %.1f game seconds, %.4f s of play\n", SOL_SECONDS, SOL_SECONDS / MARS_TIME_SCALE);
+
+    start_game(4);
+    // The first tutorial pauses the game and mutes it, but Earth.Start
+    // turns the sound back up (plan 6.3, item 8).
+    assert(focus.tutorial.enabled && Time.timeScale == 0 && audio_listener_volume() == 1);
+    // Sol 0 at midnight, so the satellite cannot see you.
+    assert(mars.currentSol == 0 && mars.darkness == 1 && !mars.isEarthVisible);
+    game_frame(); // RoverScreen runs before Mars, so it sees this a frame later
+    assert(roverScreen.visibilityIndicator.enabled);
+    assert(strcmp(roverScreen.visibilityIndicator.text, "VISIBILITY IS TOO LOW\n50%, WAIT FOR SOL") == 0);
+    // Pause path 1: a cutscene sets timeScale 0. Time and the sol clock stop.
+    float t0 = Time.time;
+    frames(120);
+    assert(Time.time == t0 && mars.secondsSpent == 0);
+    press(KEY_SPACE);
+    assert(Time.timeScale == 1 && !focus.tutorial.enabled);
+    // The first moving frame starts sol 1, shows the counter for 3 s and
+    // marks the sol for Earth.
+    assert(mars.currentSol == 1 && mars.solCounterText.enabled);
+    game_frame(); // life support follows the sol a frame later, in any order
+    assert(strcmp(mars.solCounterText.text, "SOL 1\n14 LEFT") == 0 && roverScreen.lifeSupport == 14);
+    float start = Time.time - UNITY_FRAME_TIME * 2; // the sol clock's zero: two frames have moved
+    while (Time.time < start + 3.1f) game_frame();
+    assert(!mars.solCounterText.enabled);
+
+    // Decode timing: Earth sees you from a quarter sol (darkness 0.5). Then,
+    // before any message, it "decodes" at once and answers after the
+    // telemetry delay of 1.8 s.
+    while (!focus.newMessage.enabled) game_frame();
+    float at = Time.time - start;
+    float want = SOL_SECONDS / 4 / MARS_TIME_SCALE + EARTH_TELEMETRY_DELAY;
+    printf("message: the first one comes %.3f s after the tutorial (want %.3f)\n", at, want);
+    // Each of the two tests waits for the first 60 Hz frame past its time.
+    assert(at >= want && at <= want + 2 * UNITY_FRAME_TIME);
+    assert(Time.timeScale == 0 && missionUpdateIndicator.enabled && roverNewMessageSound.volume == EARTH_MAX_MESSAGE_SOUND_VOLUME);
+    // The sol clock, worked out: secondsSpent is play time times 2000.
+    assert(near(mars.secondsSpent, (Time.time - start) * MARS_TIME_SCALE, 70));
+    assert(near(mars.darkness, fabsf(mars.secondsSpent / SOL_SECONDS * 2 - 1), 1e-4f) && mars.isEarthVisible);
+    assert(!roverScreen.visibilityIndicator.enabled);
+    press(KEY_SPACE);
+
+    // Into the rover: the screen goes on and the first message loads.
+    move_player(ROVER_INSIDE_TRIGGER_POS_X, ROVER_INSIDE_TRIGGER_POS_Y);
+    assert(focus.playerIsInRover && roverScreen.on && roverScreen.screenGUIText.enabled && mars.timeFrozen);
+    assert(levelLoader.currentLevel == 0 && levelLoader.placeholderCount == 6 && !missionUpdateIndicator.enabled);
+    const char *head = "EARTH:\n------\nConnection seems \nto be broken.";
+    assert(strncmp(roverScreen.screenGUIText.text, head, strlen(head)) == 0);
+    // Pause path 2: in the rover, time runs, but the sol clock stops.
+    float spent = mars.secondsSpent;
+    t0 = Time.time;
+    frames(120);
+    assert(Time.time > t0 + 1.9f && mars.secondsSpent == spent);
+
+    // The answer: the cheat, then Earth decodes and shows the map for 2 s.
+    cheat_now();
+    assert(level_loader_check() && focus.overViewForced);
+    frames(2);
+    // The letters show in the map view, bright because the answer is right.
+    assert(levelLoader.decodedLines[0].enabled && levelLoader.decodedLines[0].color.a == LEVEL_LOADER_LETTERS_ALPHA_CORRECT);
+    // The freeze fix: a tutorial key during the overview does nothing.
+    press(KEY_H);
+    assert(!focus.tutorial.enabled && Time.timeScale == 1);
+    float overview = Time.time;
+    while (!focus.couldDecode.enabled && Time.time < overview + 5) game_frame();
+    assert(focus.couldDecode.enabled && !focus.overViewForced && Time.timeScale == 0);
+    printf("freeze fix: H in the overview is ignored, the decoded screen comes %.2f s later\n", Time.time - overview);
+    frames(2);
+    assert(!levelLoader.decodedLines[0].enabled);
+    // Outside the overview H, Escape, P and Shift toggle the tutorial. It
+    // hides the decoded screen too, and the second press resumes.
+    press(KEY_H);
+    assert(focus.tutorial.enabled && !focus.couldDecode.enabled && Time.timeScale == 0);
+    press(KEY_P);
+    assert(!focus.tutorial.enabled && Time.timeScale == 1);
+    press(KEY_ESCAPE);
+    assert(focus.tutorial.enabled);
+    press(KEY_RIGHT_SHIFT);
+    assert(!focus.tutorial.enabled && Time.timeScale == 1);
+
+    // The next message, 1.8 s after the decoded screen.
+    while (!focus.newMessage.enabled) game_frame();
+    // The kept showCutscene bug: the tutorial over a new message leaves both on.
+    press(KEY_H);
+    assert(focus.tutorial.enabled && focus.newMessage.enabled);
+    press(KEY_SPACE);
+    assert(!focus.tutorial.enabled && !focus.newMessage.enabled);
+
+    // Out of the rover and back: the clock runs on from where it stopped,
+    // and the next message loads.
+    move_player(ROVER_INSIDE_TRIGGER_POS_X - 4, ROVER_INSIDE_TRIGGER_POS_Y - 3);
+    assert(!focus.playerIsInRover && !mars.timeFrozen && !roverScreen.on);
+    assert(mars.secondsSpent > spent && mars.secondsSpent < spent + 4 * UNITY_FRAME_TIME * MARS_TIME_SCALE);
+    move_player(ROVER_INSIDE_TRIGGER_POS_X, ROVER_INSIDE_TRIGGER_POS_Y);
+    assert(levelLoader.currentLevel == 1);
+
+    // The rest of the game with the cheat, to the rocket.
+    while (levelLoader.currentLevel < LEVEL_COUNT - 1) {
+        frames(40); // past the 0.6 s clearing push
+        cheat_now();
+        while (!focus.couldDecode.enabled) game_frame();
+        press(KEY_SPACE);
+        while (!focus.newMessage.enabled) game_frame();
+        press(KEY_SPACE);
+        move_player(ROVER_INSIDE_TRIGGER_POS_X - 4, ROVER_INSIDE_TRIGGER_POS_Y - 3);
+        move_player(ROVER_INSIDE_TRIGGER_POS_X, ROVER_INSIDE_TRIGGER_POS_Y);
+    }
+    assert(levelLoader.placeholderCount == 0 && strcmp(levelLoader.currentQuestion, LEVELS[LEVEL_COUNT - 1].question) == 0);
+    assert(mars.currentSol == 1); // all of it in the first sol, from the rover
+    // The rocket is down. Walking into it wins.
+    move_player(ROCKET_INSIDE_TRIGGER_POS_X, ROCKET_INSIDE_TRIGGER_POS_Y);
+    assert(scene_active() == SCENE_WIN);
+    printf("game: all %d messages with the cheat, then the rocket, then Win\n", LEVEL_COUNT);
+}
+
+// --- The rover screen text, and life support running out ---------------------------
+
+static void check_rover_screen(void)
+{
+    start_game(5);
+    level_loader_next_level(0);
+    roverScreen.lifeSupport = 9;
+    mars.hoursUntilNextSol = 7.9f;
+    mars.secondsUntilNextSol = 7.9f * 3600; // 474 minutes: 54 past the hour
+    mars.isEarthVisible = true;
+    mars.darkness = 0.3f;
+    // Worked out from RoverScreen.cs by a separate model (step 5-6 notes).
+    // The wrap counts the header's newlines, so the first line of the
+    // message is short.
+    const char *want =
+        "EARTH:\n"
+        "------\n"
+        "Connection seems \n"
+        "to be broken. We can send messa\n"
+        "ges to you, but you won't be ab\n"
+        "le to reply. You have to answer\n"
+        "us by arranging rocks in morse \n"
+        "code. Good luck! Write as short\n"
+        "and fast as you can. You are   \n"
+        "short on life support.\n"
+        "\n"
+        "\n"
+        "_______________________________\n"
+        "\n"
+        "LIFE SUPPORT LEFT:      09 SOLS\n"
+        "HOURS UNTIL NEXT SOL:     07:54\n"
+        "SATELITE IMAGERY COVERAGE:  YES";
+    assert(strcmp(rover_screen_print_screen(), want) == 0);
+    assert(!roverScreen.visibilityIndicator.enabled);
+    // Night: " NO", and the darkness percentage, 50 to 100.
+    mars.isEarthVisible = false;
+    mars.darkness = 0.73f;
+    const char *text = rover_screen_print_screen();
+    assert(strstr(text, "COVERAGE:   NO") && roverScreen.visibilityIndicator.enabled);
+    assert(strcmp(roverScreen.visibilityIndicator.text, "VISIBILITY IS TOO LOW\n77%, WAIT FOR SOL") == 0);
+    mars.darkness = 1;
+    rover_screen_print_screen();
+    assert(strcmp(roverScreen.visibilityIndicator.text, "VISIBILITY IS TOO LOW\n50%, WAIT FOR SOL") == 0);
+    // Rounding halves to even, as Mathf.Round does.
+    mars.darkness = 0.875f; // 62.5
+    rover_screen_print_screen();
+    assert(strcmp(roverScreen.visibilityIndicator.text, "VISIBILITY IS TOO LOW\n62%, WAIT FOR SOL") == 0);
+    printf("rover screen: the first message's text matches, with the kept wrapping bug\n");
+
+    // Life support: 14 + 1 sols. The player dies when it would go below 0,
+    // in sol 16, after 15 sols of play outside the rover and cutscenes.
+    press(KEY_SPACE);
+    clear_rocks();
+    float start = Time.time;
+    while (scene_active() == SCENE_GAME && Time.time < start + 700) {
+        if (Time.timeScale == 0) press(KEY_SPACE); // the messages
+        else game_frame();
+        assert(roverScreen.lifeSupport == ROVER_SCREEN_STARTING_LIFE_SUPPORT + 1 - mars.currentSol ||
+               roverScreen.lifeSupport == ROVER_SCREEN_STARTING_LIFE_SUPPORT + 2 - mars.currentSol);
+    }
+    float died = Time.time - start;
+    printf("life support: Death loads after %.2f s of play (15 sols: %.2f s)\n", died, 15 * SOL_SECONDS / MARS_TIME_SCALE);
+    assert(scene_active() == SCENE_DEATH && near(died, 15 * SOL_SECONDS / MARS_TIME_SCALE, 0.1f));
+}
+
+// --- The Game scene: movement ------------------------------------------------------
 
 static void check_movement(void)
 {
@@ -558,6 +996,11 @@ int main(void)
     check_physics_bridge();
     check_rocks();
     check_movement();
+    check_morse();
+    check_level_layout();
+    check_placeholders();
+    check_sol_clock();
+    check_rover_screen();
     check_axis();
     check_round();
     check_smooth_damp();

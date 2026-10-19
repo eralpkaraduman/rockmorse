@@ -14,7 +14,7 @@ void rock_generator_start(void)
     // none (plan section 6.3, item 10).
 }
 
-static Rock *addRock(bool dark)
+Rock *rock_generator_add_rock(bool dark) // addRock
 {
 
     Vector3 pos = randomPositon();
@@ -36,7 +36,7 @@ void rock_generator_generate(Rect _worldBounds)
 
         bool dark = random_range_int(ROCK_GENERATOR_COLOUR_RANGE_MIN, ROCK_GENERATOR_COLOUR_RANGE_MAX) ==
                     ROCK_GENERATOR_DARK_WHEN;
-        addRock(dark);
+        rock_generator_add_rock(dark);
 
         rockGenerator.numRocks--;
 

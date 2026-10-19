@@ -13,8 +13,9 @@ static AudioSource enterSound; // playerInsideRoverTrigger's AudioSource
 static float setOnPitch;
 static float setOffPitch;
 
-// The Rover's newMessage sound belongs to Earth (step 5 of the plan), and
-// the chatter and reverb to step 7: without the 3D fade, the static would
+// The Rover's own AudioSource is the newMessage loop. It plays from the
+// start at volume 0, and Earth turns it up while a message waits. The
+// chatter and reverb come in step 7: without the 3D fade, the static would
 // play all over the map.
 
 void rover_start(void)
@@ -24,6 +25,8 @@ void rover_start(void)
     missionUpdateIndicator = SPRITE_RENDERER(ROVER_UPDATES_INDICATOR);
     enterSound = AUDIO_SOURCE(ROVER_ENTER_SOUND);
     audio_source_awake(&enterSound);
+    roverNewMessageSound = AUDIO_SOURCE(ROVER_NEW_MESSAGE);
+    audio_source_awake(&roverNewMessageSound);
     setOnPitch = ROVER_INSIDE_SET_ON_PITCH;
     setOffPitch = ROVER_INSIDE_SET_OFF_PITCH;
 
