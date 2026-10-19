@@ -817,7 +817,8 @@ float curve_evaluate(const float *keys, int count, float time)
 //   it is back to exactly 1 on the frames with no physics step;
 // - the listener turns as the code turns it (plan 6.3, item 5);
 // - no ConvolverNode or other effect exists, so the reverb zones do
-//   nothing in that build. The port leaves reverb out (port/README.md).
+//   nothing in that build. The port plays them as the Mac build does
+//   (see Reverb below).
 // Spread has no WebGL counterpart either, so the port leaves it out.
 // raylib cannot do HRTF; the port pans with the equal-power law that
 // WebAudio defines for the same azimuth.
@@ -834,10 +835,18 @@ static int liveSourceCount;
 static float listenerVolume = 1;
 static Vector3 listenerPosition, listenerVelocity;
 static bool listenerTurned, listenerPlaced;
+static int reverbZoneCount;
+static float reverbTarget; // the zone weight at the listener; the reverb fades to it
 
 static const char *clip_path(int clip)
 {
+#if defined(PLATFORM_WEB)
+    // The web build ships a QOA copy of each WAV (CMakeLists.txt).
+    const char *path = SOUNDS[clip].path;
+    return TextFormat("assets/%.*s.qoa", (int)(strlen(path) - 4), path);
+#else
     return TextFormat("assets/%s", SOUNDS[clip].path);
+#endif
 }
 
 float audio_rolloff(const AudioSource *s, float distance)
@@ -1004,6 +1013,8 @@ static void audio_scene_unload(void)
     liveSourceCount = 0;
     listenerPosition = listenerVelocity = (Vector3){0};
     listenerTurned = listenerPlaced = false;
+    reverbZoneCount = 0;
+    reverbTarget = 0; // the tail rings out
 }
 
 void audio_listener_set_volume(float volume)
@@ -1028,6 +1039,185 @@ void audio_listener_set(Vector3 position, bool turned)
     listenerPosition = position;
     listenerTurned = turned;
     listenerPlaced = true;
+    reverbTarget = audio_reverb_zone_weight(position);
+}
+
+// --- Reverb -----------------------------------------------------------------
+// Unity's AudioReverbZone hands FMOD an I3DL2 reverb: the 2016 Mac player
+// holds the same preset table (preset 22 is "Sewer pipe", the values the
+// scene stores). The WebGL build has no reverb at all, so the port follows
+// the Mac build and the editor here. This is a small I3DL2 reverb in the
+// Freeverb mould, made from the zone's own numbers:
+// - Room and Room HF set the level of all reflected sound, and how much
+//   quieter it is at the HF reference;
+// - Reflections and Reverb set the early and late levels relative to Room,
+//   after Reflections delay and a further Reverb delay;
+// - the late part decays by 60 dB in Decay time at low frequencies and in
+//   Decay time times Decay HF ratio at the HF reference;
+// - Diffusion sets the gain of the four allpasses. Density is left out.
+// The late part is scaled so its energy is the Reverb level's, as in
+// OpenAL Soft. FMOD's exact output was never measured (the Mac build
+// cannot be heard here), so this sounds alike but not identical.
+// ponytail: the reverb runs on raylib's whole mix, so the Game scene's 2D
+// sounds (the start jingle, the slot beep) get it too while the player
+// stands in a zone. Unity sends only sources with reverb zone mix 1, the
+// 3D ones. Per-source sends need a change inside raylib's mixer.
+
+// Both zones use the same settings, so one reverb serves them.
+_Static_assert(ROVER_REVERB_ROOM == ROCKET_REVERB_ROOM && ROVER_REVERB_ROOM_HF == ROCKET_REVERB_ROOM_HF &&
+               ROVER_REVERB_DECAY_TIME == ROCKET_REVERB_DECAY_TIME &&
+               ROVER_REVERB_DECAY_HF_RATIO == ROCKET_REVERB_DECAY_HF_RATIO &&
+               ROVER_REVERB_REFLECTIONS == ROCKET_REVERB_REFLECTIONS &&
+               ROVER_REVERB_REFLECTIONS_DELAY == ROCKET_REVERB_REFLECTIONS_DELAY &&
+               ROVER_REVERB_REVERB == ROCKET_REVERB_REVERB && ROVER_REVERB_REVERB_DELAY == ROCKET_REVERB_REVERB_DELAY &&
+               ROVER_REVERB_HF_REFERENCE == ROCKET_REVERB_HF_REFERENCE &&
+               ROVER_REVERB_DIFFUSION == ROCKET_REVERB_DIFFUSION,
+               "the reverb zones differ");
+// Parts of I3DL2 this reverb does not do, all off in these zones.
+_Static_assert(ROVER_REVERB_ROOM_LF == 0 && ROVER_REVERB_ROOM_ROLLOFF == 0 && ROVER_REVERB_ENABLED &&
+               ROCKET_REVERB_ROOM_LF == 0 && ROCKET_REVERB_ROOM_ROLLOFF == 0 && ROCKET_REVERB_ENABLED,
+               "a reverb zone uses a setting the port does not do");
+
+// CMake gives raylib and the game the same output rate.
+#define REVERB_RATE AUDIO_DEVICE_SAMPLE_RATE
+#define REVERB_COMBS 8
+#define REVERB_ALLPASSES 4
+#define REVERB_EARLY_TAPS 4
+// Room for I3DL2's longest delays, 0.3 s and 0.1 s.
+#define REVERB_DELAY_FRAMES (REVERB_RATE * 2 / 5 + 1)
+// Freeverb's delay lengths at 44.1 kHz, and its right channel offset.
+static const int FREEVERB_COMBS[REVERB_COMBS] = {1116, 1188, 1277, 1356, 1422, 1491, 1557, 1617};
+static const int FREEVERB_ALLPASSES[REVERB_ALLPASSES] = {556, 441, 341, 225};
+#define FREEVERB_STEREO_SPREAD 23
+#define REVERB_MAX_LINE ((1617 + FREEVERB_STEREO_SPREAD) * REVERB_RATE / 44100 + 1)
+// How fast the reverb follows the listener in and out of a zone.
+#define REVERB_FADE_SECONDS 0.05f
+
+typedef struct { float *buf; int length, at; float feedback, damp, state; } Comb;
+typedef struct { float *buf; int length, at; } Allpass;
+
+static ReverbZone reverbZones[2];
+static float reverbWeight;
+static unsigned int reverbIdleFrames;
+static bool reverbReady;
+static float reverbDelay[REVERB_DELAY_FRAMES];
+static int reverbDelayAt;
+static int earlyTap[REVERB_EARLY_TAPS], lateTap;
+static float earlyGain, lateInputGain, roomHFDamp, roomHFState, allpassFeedback;
+static float combLines[2][REVERB_COMBS][REVERB_MAX_LINE], allpassLines[2][REVERB_ALLPASSES][REVERB_MAX_LINE];
+static Comb combs[2][REVERB_COMBS];
+static Allpass allpasses[2][REVERB_ALLPASSES];
+
+void audio_reverb_zone_add(ReverbZone zone)
+{
+    if (reverbZoneCount < 2) reverbZones[reverbZoneCount++] = zone;
+}
+
+// Linear between the two distances, as FMOD's 3D reverb fades.
+float audio_reverb_zone_weight(Vector3 l)
+{
+    float best = 0;
+    for (int i = 0; i < reverbZoneCount; i++) {
+        const ReverbZone *z = &reverbZones[i];
+        float dx = l.x - z->position.x, dy = l.y - z->position.y, dz = l.z - z->position.z;
+        float d = sqrtf(dx * dx + dy * dy + dz * dz);
+        float w = d <= z->minDistance ? 1 : d >= z->maxDistance ? 0 : (z->maxDistance - d) / (z->maxDistance - z->minDistance);
+        if (w > best) best = w;
+    }
+    return best;
+}
+
+static float millibels(int mb)
+{
+    return powf(10, mb / 2000.0f);
+}
+
+// The pole of a one-pole lowpass, y = (1 - p) x + p y, whose gain at
+// frequency hz is ratio of its gain at 0 Hz. Solves
+// (1 - p)^2 = ratio^2 (1 - 2 p cos w + p^2) for the root below 1.
+static float one_pole_for(float ratio, float hz)
+{
+    if (ratio >= 1) return 0;
+    float c = cosf(2 * PI * hz / REVERB_RATE), r2 = ratio * ratio;
+    float a = 1 - r2, b = 2 * r2 * c - 2;
+    return (-b - sqrtf(b * b - 4 * a * a)) / (2 * a);
+}
+
+static void reverb_setup(void)
+{
+    float decay = ROVER_REVERB_DECAY_TIME, hfDecay = decay * ROVER_REVERB_DECAY_HF_RATIO;
+    float room = millibels(ROVER_REVERB_ROOM);
+    roomHFDamp = one_pole_for(millibels(ROVER_REVERB_ROOM_HF), ROVER_REVERB_HF_REFERENCE);
+    // The early taps share the Reflections level's energy, two per ear.
+    earlyGain = room * millibels(ROVER_REVERB_REFLECTIONS) / sqrtf(REVERB_EARLY_TAPS / 2);
+    for (int k = 0; k < REVERB_EARLY_TAPS; k++)
+        earlyTap[k] = (int)lroundf((ROVER_REVERB_REFLECTIONS_DELAY + ROVER_REVERB_REVERB_DELAY * k / REVERB_EARLY_TAPS) * REVERB_RATE);
+    lateTap = (int)lroundf((ROVER_REVERB_REFLECTIONS_DELAY + ROVER_REVERB_REVERB_DELAY) * REVERB_RATE);
+    allpassFeedback = 0.5f * ROVER_REVERB_DIFFUSION / 80; // Freeverb's 0.5 at the zones' 80 %
+    float energy = 0;
+    for (int ch = 0; ch < 2; ch++) {
+        for (int i = 0; i < REVERB_COMBS; i++) {
+            Comb *c = &combs[ch][i];
+            c->buf = combLines[ch][i];
+            c->length = (FREEVERB_COMBS[i] + ch * FREEVERB_STEREO_SPREAD) * REVERB_RATE / 44100;
+            float seconds = (float)c->length / REVERB_RATE;
+            c->feedback = powf(10, -3 * seconds / decay);
+            c->damp = one_pole_for(powf(10, -3 * seconds / hfDecay) / c->feedback, ROVER_REVERB_HF_REFERENCE);
+            if (ch == 0) energy += 1 / (1 - c->feedback * c->feedback);
+        }
+        for (int i = 0; i < REVERB_ALLPASSES; i++) {
+            allpasses[ch][i].buf = allpassLines[ch][i];
+            allpasses[ch][i].length = (FREEVERB_ALLPASSES[i] + ch * FREEVERB_STEREO_SPREAD) * REVERB_RATE / 44100;
+        }
+    }
+    lateInputGain = room * millibels(ROVER_REVERB_REVERB) / sqrtf(energy);
+    reverbReady = true;
+}
+
+void audio_reverb_process(void *buffer, unsigned int frames)
+{
+    if (!reverbReady) reverb_setup();
+    // Out of every zone and the tail long gone (two decay times, -120 dB):
+    // skip the work. It also keeps the fading tail from reaching the tiny
+    // denormal numbers that are slow to compute in WebAssembly.
+    if (reverbTarget == 0 && reverbWeight < 1e-6f) {
+        if (reverbIdleFrames > 2 * ROVER_REVERB_DECAY_TIME * REVERB_RATE) return;
+        reverbIdleFrames += frames;
+    } else {
+        reverbIdleFrames = 0;
+    }
+    float *out = buffer;
+    for (unsigned int f = 0; f < frames; f++, out += 2) {
+        reverbWeight += (reverbTarget - reverbWeight) / (REVERB_FADE_SECONDS * REVERB_RATE);
+        float x = 0.5f * (out[0] + out[1]) * reverbWeight;
+        roomHFState = (1 - roomHFDamp) * x + roomHFDamp * roomHFState;
+        reverbDelay[reverbDelayAt] = roomHFState;
+#define DELAYED(n) reverbDelay[(reverbDelayAt - (n) + REVERB_DELAY_FRAMES) % REVERB_DELAY_FRAMES]
+        float late = DELAYED(lateTap) * lateInputGain;
+        for (int ch = 0; ch < 2; ch++) {
+            float y = 0;
+            for (int i = 0; i < REVERB_COMBS; i++) {
+                Comb *c = &combs[ch][i];
+                float o = c->buf[c->at];
+                c->state = (1 - c->damp) * o + c->damp * c->state;
+                c->buf[c->at] = late + c->feedback * c->state;
+                if (++c->at == c->length) c->at = 0;
+                y += o;
+            }
+            for (int i = 0; i < REVERB_ALLPASSES; i++) {
+                Allpass *a = &allpasses[ch][i];
+                // A true allpass. Freeverb's own form colours the sound.
+                float b = a->buf[a->at], v = y + allpassFeedback * b;
+                a->buf[a->at] = v;
+                if (++a->at == a->length) a->at = 0;
+                y = b - allpassFeedback * v;
+            }
+            for (int k = ch; k < REVERB_EARLY_TAPS; k += 2) y += DELAYED(earlyTap[k]) * earlyGain;
+            out[ch] += y;
+        }
+#undef DELAYED
+        if (++reverbDelayAt == REVERB_DELAY_FRAMES) reverbDelayAt = 0;
+    }
 }
 
 // --- Misc -------------------------------------------------------------------

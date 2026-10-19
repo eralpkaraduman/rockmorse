@@ -325,8 +325,20 @@ float audio_listener_volume(void);
 
 // The AudioListener's world position, and whether it is turned half way
 // round Y. Turned, its right ear points to -x. The Game scene sets it every
-// frame; the other scenes have only 2D sounds.
+// frame; the other scenes have only 2D sounds. It also sets how much reverb
+// the listener hears there.
 void audio_listener_set(Vector3 position, bool turned);
+
+// An AudioReverbZone. It acts on the listener's position, not on the
+// sources: full reverb within minDistance of the zone, none past
+// maxDistance. The scene adds its zones on start; a scene change drops them.
+typedef struct { Vector3 position; float minDistance, maxDistance; } ReverbZone;
+void audio_reverb_zone_add(ReverbZone zone);
+// How much reverb the listener hears at a position, from 0 to 1.
+float audio_reverb_zone_weight(Vector3 listener);
+// The reverb on raylib's whole mix, run on the audio thread. main.c
+// attaches it; the checks feed it an impulse. frames are stereo floats.
+void audio_reverb_process(void *buffer, unsigned int frames);
 
 // What a source sounds like for the listener: the volume and pan raylib
 // gets, and the pitch with the Doppler shift. Velocities are in units per

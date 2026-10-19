@@ -14,6 +14,7 @@ Walk with the arrows or WASD. Hold Space near a rock to pull it. Hold M to see t
 - `tests/check.c`: logic checks that run without a window.
 - `assets/`: the sprites, sounds and font the game uses, copied from the Unity project or, for some sounds, from the 2016 build.
 - `web/site-content.html`: this game's text for the GitHub Pages cover page.
+- `web/assets/`: QOA copies of the sounds, which the web build ships instead of the WAV files.
 - `screenshots/`, `rockmorse-cover-630x500.png`, `ITCH.txt`: the cover page and itch.io images and text.
 
 ## Build
@@ -127,6 +128,18 @@ emcmake cmake -S . -B build-web -DCMAKE_BUILD_TYPE=Release -DSHARED_WEB_REF=<com
 emcmake cmake -S . -B build-web -DCMAKE_BUILD_TYPE=Release -DSHARED_WEB_DIR=<kurban-bayrami>/port/web
 ```
 
+The page shows a loading bar until the game starts. The mouse wheel over the game scrolls the cover page.
+
+### Sounds on the web
+
+The WAV files are 27 MB of the game's 28 MB. The 115 s ambience loop alone is 22 MB. So the web build ships QOA copies from `web/assets/` instead, and the download is 6 MB. QOA is a simple lossy format that raylib reads. It keeps every sound's exact length, so the loops stay gapless. The desktop build keeps the WAV files.
+
+`tools/wav_to_qoa.c` makes the copies. The desktop build compiles it. After the WAV files change, run it from this folder:
+
+```sh
+./build/wav_to_qoa assets web/assets
+```
+
 ## Publish on itch.io
 
 ```sh
@@ -176,15 +189,25 @@ The WebGL build was measured with hooks on its WebAudio calls (`src/unity.c`, au
 
 How FMOD in the Mac build pans, spreads and applies Doppler was not verified. The measured speed of sound was about 340, with noise. The port uses `AUDIO_SPEED_OF_SOUND`, 347, from the project settings.
 
-### Reverb: left out
+### Reverb
 
-The Game scene has two AudioReverbZones, `Rover/Reverb` and `RocketPrefab/Reverb`. The port does not render them, and verblib is not added. The reasons:
+The Game scene has two AudioReverbZones, `Rover/Reverb` and `RocketPrefab/Reverb`. Both use Unity's preset 22, "Sewer pipe". The 2016 Mac player holds the same preset table, and its values match the ones the scene stores.
 
-- The 2016 WebGL build has no reverb. Its audio code never creates a ConvolverNode or any other effect node. A hook on every WebAudio constructor saw only GainNode, PannerNode and AudioBufferSourceNode while walking into the rover.
-- The 2016 Mac build is the plan's reference for sound, but it cannot be heard in the headless setup the port used. So the reverb could not be confirmed by ear.
-- The zones are small: full strength within 1.3 units of the vehicle, nothing past 2. The player is that close only while inside the rover or the lander.
+`src/unity.c` runs a small reverb on raylib's whole mix, built from those values:
 
-If someone listens to the Mac build and hears the reverb, verblib on raylib's audio stream is the option.
+- Room sets the level of all reflected sound. Room HF makes it 10 dB quieter at 5 kHz.
+- The early reflections start 14 ms after the sound. The late part starts 21 ms after them.
+- The late part fades by 60 dB in 2.81 s. At 5 kHz it fades 0.14 times as fast.
+- The reverb is at full strength within 1.3 units of a zone, and gone at 2 units. The player is that close only inside the rover or the lander.
+
+`tests/check.c` measures the first reflection, the decay time and the level on a test click.
+
+Some limits remain:
+
+- The 2016 WebGL build has no reverb. Its audio code never creates a ConvolverNode or other effect node. The port plays the reverb on the web as well, as the Mac build does.
+- Nobody could listen to the Mac build here. So the port follows the zone's numbers, but its sound may differ from FMOD's.
+- Unity sends only the 3D sources to the reverb. The port's reverb takes the whole mix. So the 2D start jingle and slot beep also get it while the player stands in a zone.
+- The zone's density setting is left out.
 
 ### Known small differences
 

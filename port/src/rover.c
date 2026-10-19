@@ -18,7 +18,7 @@ static float setOffPitch;
 // start at volume 0, and Earth turns it up while a message waits. The radio
 // static loops from the start too; its linear rolloff (0.42 to 4.6) makes
 // it heard only near the rover. All three are 3D and never move.
-// Rover/Reverb, an AudioReverbZone, is left out (port/README.md).
+// Rover/Reverb is an AudioReverbZone around the rover.
 
 void rover_start(void)
 {
@@ -34,6 +34,8 @@ void rover_start(void)
     chatter = AUDIO_SOURCE(ROVER_CHATTER);
     chatter.position = (Vector3){ROVER_CHATTER_POS_X, ROVER_CHATTER_POS_Y, ROVER_CHATTER_POS_Z};
     audio_source_awake(&chatter);
+    audio_reverb_zone_add((ReverbZone){{ROVER_REVERB_POS_X, ROVER_REVERB_POS_Y, ROVER_REVERB_POS_Z},
+                                       ROVER_REVERB_MIN_DISTANCE, ROVER_REVERB_MAX_DISTANCE});
     setOnPitch = ROVER_INSIDE_SET_ON_PITCH;
     setOffPitch = ROVER_INSIDE_SET_OFF_PITCH;
 

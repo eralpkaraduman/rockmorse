@@ -11,13 +11,14 @@ void rocket_reset(void)
     spawned = false;
 }
 
-// Instantiate(rocketPrefab) without a position: the prefab's own. Its
-// AudioReverbZone is left out, as the rover's is (port/README.md).
+// Instantiate(rocketPrefab) without a position: the prefab's own.
 void rocket_spawn(void)
 {
     spawned = true;
     rocketBody = SPRITE_RENDERER(ROCKET_BODY);
     rocketCover = SPRITE_RENDERER(ROCKET_COVER);
+    audio_reverb_zone_add((ReverbZone){{ROCKET_REVERB_POS_X, ROCKET_REVERB_POS_Y, ROCKET_REVERB_POS_Z},
+                                       ROCKET_REVERB_MIN_DISTANCE, ROCKET_REVERB_MAX_DISTANCE});
 
     // RocketBody: kinematic, with the solid body polygon.
     b2BodyId body = physics_body(ROCKET_BODY_RB_KINEMATIC ? b2_kinematicBody : b2_dynamicBody,

@@ -1072,6 +1072,65 @@ static void check_audio(void)
     printf("audio: WebGL volumes match; pan %.3f at 3 to the side, flipped when turned; Doppler (c+v)/c\n", side);
 }
 
+// --- Reverb ----------------------------------------------------------------------------
+
+static float reverbOut[4 * AUDIO_DEVICE_SAMPLE_RATE][2];
+
+static void check_reverb(void)
+{
+    Vector3 zone = {ROVER_REVERB_POS_X, ROVER_REVERB_POS_Y, ROVER_REVERB_POS_Z};
+    audio_reverb_zone_add((ReverbZone){zone, ROVER_REVERB_MIN_DISTANCE, ROVER_REVERB_MAX_DISTANCE});
+    // Full within the min distance, none past the max, linear between.
+    assert(audio_reverb_zone_weight((Vector3){zone.x, zone.y, -1}) == 1);
+    assert(near(audio_reverb_zone_weight((Vector3){zone.x + 1.65f, zone.y, zone.z}), 0.5f, 1e-5f));
+    assert(audio_reverb_zone_weight((Vector3){zone.x, zone.y + 2.5f, zone.z}) == 0);
+
+    // Stand in the zone, let the fade settle, then play a soft 2 ms click.
+    // Its sound is mostly below 1 kHz, where Room HF and the faster high
+    // decay take little away.
+    audio_listener_set(zone, false);
+    for (int i = 0; i < 10; i++) audio_reverb_process(reverbOut, AUDIO_DEVICE_SAMPLE_RATE / 10);
+    memset(reverbOut, 0, sizeof reverbOut);
+    enum { CLICK = AUDIO_DEVICE_SAMPLE_RATE / 500 };
+    float click[CLICK], clickEnergy = 0;
+    for (int i = 0; i < CLICK; i++) {
+        float w = sinf(PI * (i + 0.5f) / CLICK);
+        click[i] = reverbOut[i][0] = reverbOut[i][1] = w * w;
+        clickEnergy += click[i] * click[i];
+    }
+    int frames = (int)(sizeof reverbOut / sizeof reverbOut[0]);
+    audio_reverb_process(reverbOut, (unsigned)frames);
+    // The dry click is untouched: the first reflection comes after it.
+    for (int i = 0; i < CLICK; i++) assert(reverbOut[i][0] == click[i] && reverbOut[i][1] == click[i]);
+    for (int i = 0; i < CLICK; i++) reverbOut[i][0] = reverbOut[i][1] = 0;
+
+    // Nothing until the first reflection.
+    int first = 0;
+    while (reverbOut[first][0] == 0 && reverbOut[first][1] == 0) first++;
+    assert(first == (int)lroundf(ROVER_REVERB_REFLECTIONS_DELAY * AUDIO_DEVICE_SAMPLE_RATE));
+
+    // The decay time, from the backward energy sum (Schroeder) of the tail
+    // between -5 dB and -35 dB, scaled to 60 dB. The low frequencies decay
+    // slowest, so they set the end of the tail.
+    static double tail[sizeof reverbOut / sizeof reverbOut[0] + 1];
+    for (int i = frames - 1; i >= 1; i--)
+        tail[i] = tail[i + 1] + (double)reverbOut[i][0] * reverbOut[i][0] + (double)reverbOut[i][1] * reverbOut[i][1];
+    double total = tail[1];
+    int t5 = 1, t35 = 1;
+    while (10 * log10(tail[t5] / total) > -5) t5++;
+    while (10 * log10(tail[t35] / total) > -35) t35++;
+    float t60 = 2.0f * (t35 - t5) / AUDIO_DEVICE_SAMPLE_RATE;
+    // Energy, both ears: the reflections and the late part at their I3DL2
+    // levels, relative to the click's.
+    float room = powf(10, ROVER_REVERB_ROOM / 2000.0f);
+    float expected = 2 * clickEnergy * room * room *
+                     (powf(10, ROVER_REVERB_REFLECTIONS / 1000.0f) + powf(10, ROVER_REVERB_REVERB / 1000.0f));
+    printf("reverb: first reflection at %.3f s, decay %.2f s (zone %.2f s), energy %.2f of the I3DL2 level\n",
+           (float)first / AUDIO_DEVICE_SAMPLE_RATE, t60, ROVER_REVERB_DECAY_TIME, total / expected);
+    assert(fabsf(t60 - ROVER_REVERB_DECAY_TIME) < 0.05f * ROVER_REVERB_DECAY_TIME);
+    assert(total > 0.8 * expected && total < 1.25 * expected);
+}
+
 // --- The rock shatter effect ------------------------------------------------------------
 
 static void check_shatter(void)
@@ -1140,6 +1199,7 @@ int main(void)
     check_physics_bridge();
     check_rocks();
     check_audio();
+    check_reverb();
     check_shatter();
     check_movement();
     check_morse();

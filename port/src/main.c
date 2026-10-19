@@ -95,6 +95,7 @@ int main(void)
     SetTargetFPS(UNITY_FRAME_RATE);
 #endif
     InitAudioDevice();
+    AttachAudioMixedProcessor(audio_reverb_process);
     screen = LoadRenderTexture(WINDOW_WIDTH, WINDOW_HEIGHT);
 
     unity_init(SCENES, SCENE_INTRO);

@@ -56,7 +56,8 @@ The port plays, looks and sounds like the 2016 build. Original bugs stay in, eac
 - The original cheat was Shift and C pressed in the same frame, which almost never worked. Shift now toggles the help, so the cheat is "hold Ctrl, press C".
 - Enter, Tab and Shift work next to the original keys, and so do a gamepad and touch controls. Space and Enter start the game from the title.
 - The Unity splash screen is left out, as it is not part of the game.
-- The reverb zones in the rover and the lander are left out. The 2016 WebGL build never played them (`port/README.md`).
+- The rover and the lander have reverb on the web too. The 2016 WebGL build never played it, but the Mac build did (`port/README.md`).
+- The web version ships its sounds as QOA files, so the download is 6 MB instead of 28 MB.
 
 ## Credits
 

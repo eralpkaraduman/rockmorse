@@ -32,6 +32,9 @@ FetchContent_Declare(box2d
     URL_HASH SHA256=fb6ef914b50f4312d7d921a600eabc12318bb3c55a0b8c0b90608fa4488ef2e4
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE)
 FetchContent_MakeAvailable(raylib box2d)
+# A fixed output rate, so the reverb in unity.c knows it.
+set(AUDIO_RATE 48000)
+target_compile_definitions(raylib PRIVATE AUDIO_DEVICE_SAMPLE_RATE=${AUDIO_RATE})
 
 set(GAME_SOURCES
     src/unity.c
@@ -62,6 +65,7 @@ set(GAME_SOURCES
 function(rockmorse_setup target)
     target_link_libraries(${target} raylib box2d)
     target_include_directories(${target} PRIVATE "${raylib_SOURCE_DIR}/src/external")
+    target_compile_definitions(${target} PRIVATE AUDIO_DEVICE_SAMPLE_RATE=${AUDIO_RATE})
     # Unity computed in float32 with no fused multiply-add. Keep it so, for
     # the eased values (SmoothDamp, GetAxis) to match bit for bit.
     if(NOT MSVC)
@@ -137,13 +141,18 @@ if(EMSCRIPTEN)
     set_target_properties(rockmorse PROPERTIES OUTPUT_NAME "index" SUFFIX ".html")
     target_link_options(rockmorse PRIVATE
         # The raylib wiki advises a fixed heap over memory growth. The sounds
-        # are WAV files decoded into memory, about 40 MB in all with the
-        # 115 s ambience loop, so 128 MB leaves room.
+        # that play once are decoded into memory, about 9 MB; the loops
+        # stream. 128 MB leaves room.
         # emscripten_set_main_loop drives frames, so ASYNCIFY is not needed.
         -sUSE_GLFW=3
         -sINITIAL_MEMORY=134217728
         -sENVIRONMENT=web
-        --preload-file ${CMAKE_SOURCE_DIR}/assets@assets
+        # The sounds go as the QOA copies in web/assets/, a quarter of the
+        # download (tools/wav_to_qoa.c). unity.c loads those on the web.
+        # SHELL: keeps CMake from merging the two --preload-file flags.
+        "SHELL:--exclude-file *.wav"
+        "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/assets@assets"
+        "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/web/assets@assets"
         --shell-file ${CMAKE_BINARY_DIR}/shell.html)
     # Relink when the page changes, and put the touch controls beside it.
     set_target_properties(rockmorse PROPERTIES LINK_DEPENDS
@@ -185,4 +194,8 @@ else()
     # Logic checks, desktop only: ./build/rockmorse_check from this folder.
     add_executable(rockmorse_check tests/check.c ${GAME_SOURCES})
     rockmorse_setup(rockmorse_check)
+
+    # Makes the QOA sounds the web build ships, in web/assets/ (see the tool).
+    add_executable(wav_to_qoa ../tools/wav_to_qoa.c)
+    target_link_libraries(wav_to_qoa raylib)
 endif()
