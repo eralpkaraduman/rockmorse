@@ -79,7 +79,8 @@ static void startPulling(void)
     rock_set_joint(dst, true, true);
 
     // The Player's AudioSource is disabled in the scene and nothing
-    // enables it, so this plays nothing (INVENTORY.md section 2.5).
+    // enables it, so this plays nothing (INVENTORY.md section 2.5). The 2016
+    // WebGL build logs "Can not play a disabled audio source" here.
     audio_source_play(&player.strainSFX);
 
     // original: //pullCandidate.transform.GetComponent<Rock> ().setFixed(false);

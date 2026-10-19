@@ -13,9 +13,13 @@ extern const Scene DEATH_SCENE;  // end_game.c
 extern const Scene WIN_SCENE;    // end_game.c
 
 // Builds an AudioSource from a values.h prefix, e.g. AUDIO_SOURCE(INTRO_SOUND).
+// A source with ROLLOFF_CUSTOM also needs its curve, which only the 3D
+// ones have (rock.c, effects.c).
 #define AUDIO_SOURCE(p) ((AudioSource){ \
     .clip = p##_CLIP, .volume = p##_VOLUME, .pitch = p##_PITCH, \
-    .loop = p##_LOOP, .playOnAwake = p##_PLAY_ON_AWAKE, .enabled = p##_ENABLED})
+    .loop = p##_LOOP, .playOnAwake = p##_PLAY_ON_AWAKE, .enabled = p##_ENABLED, \
+    .spatialBlend = p##_SPATIAL_BLEND, .minDistance = p##_MIN_DISTANCE, .maxDistance = p##_MAX_DISTANCE, \
+    .rolloffMode = p##_ROLLOFF_MODE, .dopplerLevel = p##_DOPPLER})
 
 // Builds a GUIText from a values.h prefix, e.g. GUI_TEXT(TITLE_PLAY).
 // GUIText colours are bytes in the dumps.

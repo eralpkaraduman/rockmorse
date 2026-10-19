@@ -12,7 +12,7 @@ void rocket_reset(void)
 }
 
 // Instantiate(rocketPrefab) without a position: the prefab's own. Its
-// Reverb comes in step 7 of the plan.
+// AudioReverbZone is left out, as the rover's is (port/README.md).
 void rocket_spawn(void)
 {
     spawned = true;

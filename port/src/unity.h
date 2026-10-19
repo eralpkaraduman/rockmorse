@@ -267,9 +267,19 @@ typedef struct {
 
 void text_mesh_draw(const UnityCamera *camera, const TextMesh *t);
 
+// --- Animation curves ------------------------------------------------------
+
+// AnimationCurve.Evaluate for keys stored as values.h stores them: per key
+// inSlope, outSlope, tangentMode, time, value. Hermite between keys, and
+// the end values outside them (the clamp wrap mode every curve here has).
+float curve_evaluate(const float *keys, int count, float time);
+
 // --- Audio -----------------------------------------------------------------
 
-// A 2D audio source. A source loads its sound when it first plays. A scene
+// Unity's AudioRolloffMode, the values of *_ROLLOFF_MODE in values.h.
+enum { ROLLOFF_LOGARITHMIC, ROLLOFF_LINEAR, ROLLOFF_CUSTOM };
+
+// An audio source. A source loads its sound when it first plays. A scene
 // change stops every source, as the 2016 build does (measured: the title's
 // click sound stops 19 ms after the click, when Story1 loads).
 typedef struct {
@@ -279,10 +289,21 @@ typedef struct {
     bool loop;
     bool playOnAwake;
     bool enabled;
+    // 3D sound. spatialBlend 0 is a plain 2D sound, 1 a 3D one. The game
+    // keeps position up to date for 3D sources.
+    float spatialBlend;
+    float minDistance;
+    float maxDistance;
+    int rolloffMode;
+    const float *rolloffCurve; // ROLLOFF_CUSTOM: two keys, as curve_evaluate takes them
+    float dopplerLevel;
+    Vector3 position;
     // Runtime. A looping source streams, so it can loop without a gap.
     Sound sound;
     Music music;
     bool loaded;
+    Vector3 lastPosition; // for the Doppler velocity
+    bool hasLastPosition;
 } AudioSource;
 
 // Unity's Awake for a source: plays it when enabled and playOnAwake.
@@ -293,14 +314,28 @@ bool audio_source_is_playing(const AudioSource *s);
 // AudioSource.enabled. Turning it on from off starts a playOnAwake source.
 // Setting it to the value it has does nothing.
 void audio_source_set_enabled(AudioSource *s, bool enabled);
-// Pushes volume and pitch to the sound, and feeds a looping stream.
-void audio_source_update(const AudioSource *s);
+// Pushes volume, pan and pitch to the sound, and feeds a looping stream.
+void audio_source_update(AudioSource *s);
 // Destroying the source's object: stops and unloads it.
 void audio_source_destroy(AudioSource *s);
 
 // AudioListener.volume, a global that survives scene loads.
 void audio_listener_set_volume(float volume);
 float audio_listener_volume(void);
+
+// The AudioListener's world position, and whether it is turned half way
+// round Y. Turned, its right ear points to -x. The Game scene sets it every
+// frame; the other scenes have only 2D sounds.
+void audio_listener_set(Vector3 position, bool turned);
+
+// What a source sounds like for the listener: the volume and pan raylib
+// gets, and the pitch with the Doppler shift. Velocities are in units per
+// second. The checks call this with known positions.
+typedef struct { float volume, pan, pitch; } AudioMix;
+AudioMix audio_mix(const AudioSource *s, Vector3 listener, bool turned, Vector3 listenerVelocity,
+                   Vector3 sourceVelocity);
+// The distance fade of a 3D source, Unity's rolloff curves.
+float audio_rolloff(const AudioSource *s, float distance);
 
 // --- Misc ---------------------------------------------------------------
 

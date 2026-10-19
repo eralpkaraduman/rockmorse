@@ -122,8 +122,7 @@ void earth_update(void)
     }
 
     missionUpdateIndicator.enabled = willLoadNewLevel;
-    // A 3D sound at the rover in the original. Its distance fade is step 7
-    // of the plan.
+    // A 3D sound at the rover: linear fade to 0 at 25 units (unity.c).
     roverNewMessageSound.volume = willLoadNewLevel ? maxMessageSoundVolume : EARTH_MESSAGE_SOUND_VOLUME_IDLE;
     // original: // animate
     Rgba c = missionUpdateIndicator.color;

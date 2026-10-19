@@ -48,6 +48,7 @@ set(GAME_SOURCES
     src/camera_focus.c
     src/rock.c
     src/rock_generator.c
+    src/effects.c
     src/rock_dragger.c
     src/drag_target.c
     src/rover.c

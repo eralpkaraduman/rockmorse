@@ -58,8 +58,11 @@ static Vector3 randomPositon(void)
 void rock_generator_replace(Rock *rock)
 {
 
-    // Instantiate(rockShatterAnimationPrefab, rock position, identity):
-    // the shatter effect comes in step 8 of the plan.
+    // Instantiate(rockShatterAnimationPrefab, rock.transform.position,
+    // identity). This runs in a physics handler, where Unity's transform
+    // already has the body's new position.
+    Vector2 at = rock_position(rock);
+    shatter_instantiate((Vector3){at.x, at.y, rock->renderer.transform.position.z});
 
     rock_destroy(rock);
     rockGenerator.numRocks++;

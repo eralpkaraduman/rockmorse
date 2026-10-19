@@ -471,7 +471,11 @@ static void check_rocks(void)
     assert(b2Joint_IsValid(again->joint) && near(b2DistanceJoint_GetLength(again->joint), ROCK_JOINT_DISTANCE, 1e-6f));
     rockDragger.activeJoint = rock_ref(again);
     rockGenerator = (RockGenerator){.numRocks = 0, .worldBounds = {-26, -17.2f, 52.8f, 35.2f}};
+    shatters_reset();
     rock_relocate(again);
+    // The shatter effect starts where the rock was.
+    assert(shatters[0].alive && !shatters[1].alive && shatters[0].position.x == 5 && shatters[0].position.y == 5 &&
+           shatters[0].position.z == ROCKS_POS_Z);
     assert(B2_IS_NULL(again->joint) && again->jointEnabled && !again->jointConnected);
     assert(rock_get(rockDragger.activeJoint) == NULL && again->destroyQueued && again->shadowDestroyQueued);
     rocks_end_of_frame();
@@ -937,6 +941,8 @@ static void check_movement(void)
     assert(scene_active() == SCENE_GAME);
     // The first tutorial pauses the game.
     assert(focus.tutorial.enabled && Time.timeScale == 0);
+    // The listener starts turned, with the player facing right.
+    assert(player.listenerTurned && !player.renderer.transform.flipped);
     int count = 0;
     for (int i = 0; i < MAX_ROCKS; i++) count += rocks[i].alive;
     assert(count == ROCK_GENERATOR_NUM_ROCKS);
@@ -975,6 +981,9 @@ static void check_movement(void)
     printf("movement: %.4f units in the next second\n", speed);
     assert(near(speed, 5.76f, 0.02f));
     assert(x1 < x0 && player.renderer.transform.flipped && player.animator.state == 0); // run
+    // Facing left, the listener faces the other way: not turned, so its
+    // right ear is at +x. The footsteps move behind the player along z.
+    assert(!player.listenerTurned && near(player.footStepsSFX.position.z, PLAYER_POS_Z - 1, 1e-6f));
     flx_touch_key(KEY_LEFT, false);
     for (int i = 0; i < 30; i++) game_frame();
     assert(b2Body_GetLinearVelocity(player.body).x == 0 && player.animator.state == 2); // idle
@@ -982,11 +991,146 @@ static void check_movement(void)
     flx_touch_key(KEY_RIGHT, true);
     for (int i = 0; i < 30; i++) game_frame();
     flx_touch_key(KEY_RIGHT, false);
-    assert(!player.renderer.transform.flipped);
+    assert(!player.renderer.transform.flipped && player.listenerTurned);
     // The camera follows: SmoothDamp of 0.01 s keeps it within a few
     // hundredths of the player.
     assert(fabsf(focus.camera.position.x - player_position().x) < 0.1f);
     for (int i = 0; i < 30; i++) game_frame();
+}
+
+
+// --- 3D audio ------------------------------------------------------------------------
+
+static float dist3(Vector3 a, Vector3 b)
+{
+    return sqrtf((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z));
+}
+
+// One source at a logged position: the rolloff the 2016 WebGL build put on
+// the source's GainNode, for the listener position it logged.
+static void expect_rolloff(AudioSource s, Vector3 listener, Vector3 at, float logged)
+{
+    s.position = at;
+    float r = audio_rolloff(&s, dist3(listener, at));
+    assert(near(r, logged, 2e-4f));
+    AudioMix m = audio_mix(&s, listener, true, (Vector3){0}, (Vector3){0});
+    float k = 0.5f * 0.5f * (3 - 0.5f * 0.5f); // raylib's level at pan 0
+    assert(near(m.volume, s.volume * k * logged, 2e-4f));
+}
+
+static void check_audio(void)
+{
+    Time.deltaTime = UNITY_FRAME_TIME;
+    // Volumes logged on the 2016 WebGL build (GainNode.gain is volume times
+    // this), with the listener and source positions it logged.
+    Vector3 l1 = {6.4688f, 2.3649f, -1}, l2 = {6.5442f, 2.4086f, -1}, l3 = {7.629f, 3.5589f, -1};
+    expect_rolloff(AUDIO_SOURCE(ROVER_CHATTER), l1, (Vector3){9.1868f, 4.7685f, -0.5f}, 0.22426f);       // linear 0.42 to 4.6
+    expect_rolloff(AUDIO_SOURCE(ROVER_NEW_MESSAGE), l1, (Vector3){9.3f, 4.5f, -0.5f}, 0.85676f);        // linear 0 to 25
+    expect_rolloff(AUDIO_SOURCE(ROVER_ENTER_SOUND), l3, (Vector3){8.9298f, 4.5115f, -0.5f}, 0.99862f);   // linear 1 to 500
+    AudioSource shatter = AUDIO_SOURCE(SHATTER_SOUND), drag = AUDIO_SOURCE(ROCK_DRAG);
+    shatter.rolloffCurve = SHATTER_SOUND_ROLLOFF_CURVE;
+    drag.rolloffCurve = ROCK_DRAG_ROLLOFF_CURVE;
+    expect_rolloff(shatter, l1, (Vector3){6.901f, 2.0178f, -3}, 0.33176f);  // custom, at distance / 3
+    expect_rolloff(shatter, l1, (Vector3){7.9488f, 3.8942f, -3}, 0.02842f);
+    expect_rolloff(shatter, l1, (Vector3){9.5181f, 4.2648f, -3}, 0);        // past max distance
+    expect_rolloff(drag, l2, (Vector3){6.031f, 2.2269f, -3}, 0.78316f);     // custom, at distance / 10
+    expect_rolloff(AUDIO_SOURCE(PLAYER_FOOTSTEPS), l1, (Vector3){l1.x, l1.y, 0}, 1);  // logarithmic, at min distance
+    expect_rolloff(AUDIO_SOURCE(PLAYER_AMBIENCE), l1, l1, 1);
+    // Logarithmic past the min distance: min / distance, flat from the max.
+    AudioSource lg = AUDIO_SOURCE(PLAYER_FOOTSTEPS);
+    assert(near(audio_rolloff(&lg, 4), 0.25f, 1e-6f) && near(audio_rolloff(&lg, 1000), 1 / 500.0f, 1e-6f));
+
+    // A 2D source plays at its volume, unpanned, at its pitch.
+    AudioSource menu = AUDIO_SOURCE(GAME_START_SOUND);
+    menu.position = (Vector3){100, 0, 0};
+    AudioMix m = audio_mix(&menu, (Vector3){0}, false, (Vector3){50, 0, 0}, (Vector3){0});
+    assert(m.volume == menu.volume && m.pan == 0 && m.pitch == menu.pitch);
+
+    // Pan: the listener's right ear is +x, or -x when it is turned. Up and
+    // down on screen is the listener's up, so it does not pan. A source
+    // 3 to the side and 0.5 in front: asin(3 / 3.04) / 90 degrees.
+    AudioSource chatter = AUDIO_SOURCE(ROVER_CHATTER);
+    Vector3 l = {0, 0, -1};
+    chatter.position = (Vector3){3, 0, -0.5f};
+    float side = asinf(3 / sqrtf(9.25f)) / (PI / 2);
+    assert(near(audio_mix(&chatter, l, false, (Vector3){0}, (Vector3){0}).pan, side, 1e-5f));
+    assert(near(audio_mix(&chatter, l, true, (Vector3){0}, (Vector3){0}).pan, -side, 1e-5f));
+    chatter.position = (Vector3){0, 3, -0.5f};
+    assert(audio_mix(&chatter, l, true, (Vector3){0}, (Vector3){0}).pan == 0);
+    chatter.position = (Vector3){0.5f, 3, -0.5f}; // as far to the side as in front: half way
+    assert(near(audio_mix(&chatter, l, false, (Vector3){0}, (Vector3){0}).pan, 0.5f, 1e-5f));
+
+    // Doppler: moving at 10 units/s straight at the source raises the
+    // pitch by (c + 10) / c, the source moving away lowers it.
+    chatter.position = (Vector3){10, 0, -1};
+    m = audio_mix(&chatter, l, false, (Vector3){10, 0, 0}, (Vector3){0});
+    assert(near(m.pitch, (AUDIO_SPEED_OF_SOUND + 10) / AUDIO_SPEED_OF_SOUND, 1e-6f));
+    m = audio_mix(&chatter, l, false, (Vector3){0}, (Vector3){10, 0, 0});
+    assert(near(m.pitch, AUDIO_SPEED_OF_SOUND / (AUDIO_SPEED_OF_SOUND + 10), 1e-6f));
+    // Sideways motion has no shift.
+    assert(audio_mix(&chatter, l, false, (Vector3){0, 10, 0}, (Vector3){0}).pitch == 1);
+    printf("audio: WebGL volumes match; pan %.3f at 3 to the side, flipped when turned; Doppler (c+v)/c\n", side);
+}
+
+// --- The rock shatter effect ------------------------------------------------------------
+
+static void check_shatter(void)
+{
+    const float dt = UNITY_FRAME_TIME;
+    SetRandomSeed(3);
+    shatters_reset();
+    Shatter *s = shatter_instantiate((Vector3){1, 2, ROCKS_POS_Z});
+    assert(s && s->alive && s->emit && s->particleCount == 0);
+    // At timeScale 0 nothing changes.
+    shatter_update(s, 0);
+    assert(s->time == 0 && s->particleCount == 0);
+    int lastEmitFrame = 0, lastParticleFrame = 0, most = 0, destroyedAt = 0;
+    for (int frame = 1; frame <= 130 && !destroyedAt; frame++) {
+        shatter_update(s, dt);
+        if (!s->alive) {
+            destroyedAt = frame;
+            break;
+        }
+        if (s->emit) lastEmitFrame = frame;
+        if (s->particleCount) lastParticleFrame = frame;
+        if (s->particleCount > most) most = s->particleCount;
+        for (int i = 0; i < s->particleCount; i++) {
+            const Particle *p = &s->particles[i];
+            assert(p->energy > 0 && p->energy <= SHATTER_MAX_ENERGY);
+            assert(p->size >= SHATTER_MIN_SIZE && p->size <= SHATTER_MAX_SIZE);
+        }
+    }
+    // One a frame while the curve is above 0, which it is until 0.5 s.
+    assert(lastEmitFrame == 29 || lastEmitFrame == 30);
+    assert(most > 10 && most <= 30);
+    // Energy is at most 0.4 s, so the last particle goes by 0.9 s. On the
+    // reference the last one went 48 and 50 frames after the shatter.
+    assert(lastParticleFrame >= 40 && lastParticleFrame <= 54);
+    // TimedObjectDestructor: 2 s.
+    assert(destroyedAt >= 119 && destroyedAt <= 121);
+
+    // Damping is per second: velocity * 0.1 ^ t, so 0.4 s keeps 40%.
+    shatters_reset();
+    s = shatter_instantiate((Vector3){0, 0, ROCKS_POS_Z});
+    s->time = 1; // past the emitting part of the clip
+    s->particles[0] = (Particle){.velocity = {5, 0}, .energy = 1, .size = 0.2f};
+    s->particleCount = 1;
+    for (int i = 0; i < 24; i++) shatter_update(s, dt);
+    assert(near(s->particles[0].velocity.x, 5 * powf(SHATTER_ANIM_DAMPING, 0.4f), 1e-3f));
+    assert(s->particles[0].velocity.y < 0); // the force pulls down
+
+    // Drawn as the rock texture times the ambient light, at alpha 0.42,
+    // size units across, at the effect's z.
+    SpriteList list = {.count = 0};
+    shatters_sprites(&list);
+    assert(list.count == 1);
+    const SpriteRenderer *r = list.items[0];
+    assert(SPRITES[r->sprite].image == SHATTER_MATERIAL_MAIN_TEX && r->transform.position.z == ROCKS_POS_Z);
+    assert(near(r->transform.scale.x * SPRITES[r->sprite].size_world_x, 0.2f, 1e-6f));
+    assert(near(r->color.g, 0.6710954f, 1e-6f) && near(r->color.b, 0.49264705f, 1e-6f) && near(r->color.a, 0.41960785f, 1e-6f));
+    shatters_reset();
+    printf("shatter: emits until frame %d, at most %d particles, the last gone at frame %d, destroyed at frame %d\n",
+           lastEmitFrame, most, lastParticleFrame, destroyedAt);
 }
 
 int main(void)
@@ -995,6 +1139,8 @@ int main(void)
     check_hulls();
     check_physics_bridge();
     check_rocks();
+    check_audio();
+    check_shatter();
     check_movement();
     check_morse();
     check_level_layout();

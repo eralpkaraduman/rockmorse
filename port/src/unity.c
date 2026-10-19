@@ -475,7 +475,7 @@ static int compare_draw_order(const void *pa, const void *pb)
     return a->index - b->index;
 }
 
-#define MAX_SPRITES 8192
+#define MAX_SPRITES 16384
 
 void draw_sprites(const UnityCamera *camera, SpriteRenderer *const *sprites, int count)
 {
@@ -779,18 +779,109 @@ void gui_texture_draw(const GUITexture *t)
                    (Rectangle){x, WINDOW_HEIGHT - y - h, w, h}, (Vector2){0, 0}, 0, to_color(c));
 }
 
+// --- Animation curves --------------------------------------------------------
+
+#define KEY_FIELDS 5 // inSlope, outSlope, tangentMode, time, value
+#define KEY_IN_SLOPE(k) (k)[0]
+#define KEY_OUT_SLOPE(k) (k)[1]
+#define KEY_TIME(k) (k)[3]
+#define KEY_VALUE(k) (k)[4]
+
+float curve_evaluate(const float *keys, int count, float time)
+{
+    const float *first = keys, *last = keys + (count - 1) * KEY_FIELDS;
+    if (time <= KEY_TIME(first)) return KEY_VALUE(first);
+    if (time >= KEY_TIME(last)) return KEY_VALUE(last);
+    const float *a = first;
+    while (KEY_TIME(a + KEY_FIELDS) < time) a += KEY_FIELDS;
+    const float *b = a + KEY_FIELDS;
+    float dt = KEY_TIME(b) - KEY_TIME(a);
+    float t = (time - KEY_TIME(a)) / dt;
+    float t2 = t * t, t3 = t2 * t;
+    return (2 * t3 - 3 * t2 + 1) * KEY_VALUE(a) + (t3 - 2 * t2 + t) * dt * KEY_OUT_SLOPE(a) +
+           (-2 * t3 + 3 * t2) * KEY_VALUE(b) + (t3 - t2) * dt * KEY_IN_SLOPE(b);
+}
+
 // --- Audio -------------------------------------------------------------------
+// The 3D sound follows the 2016 WebGL build, the only reference that could be
+// measured here (the Mac build cannot be heard headless). Unity's WebGL
+// player works out each source's volume itself and puts it on a GainNode.
+// Its PannerNode has rolloffFactor 0, so it only pans, with Chrome's
+// default HRTF model. The pitch with the Doppler shift goes on the
+// buffer's playbackRate. Logged on that build while walking past the rover
+// and dragging rocks:
+// - volume = AudioSource.volume * rolloff, with the 3D distance (z
+//   counts: the listener is at z -1, rocks and shatters at -3), and the
+//   custom curves read at distance / maxDistance;
+// - the pitch moves with the frame's velocity of listener and source, so
+//   it is back to exactly 1 on the frames with no physics step;
+// - the listener turns as the code turns it (plan 6.3, item 5);
+// - no ConvolverNode or other effect exists, so the reverb zones do
+//   nothing in that build. The port leaves reverb out (port/README.md).
+// Spread has no WebGL counterpart either, so the port leaves it out.
+// raylib cannot do HRTF; the port pans with the equal-power law that
+// WebAudio defines for the same azimuth.
 
 #define MAX_LIVE_SOURCES 256
+
+// raylib's pan law gives each channel 0.5 * x * (3 - x * x), with x = 0.5
+// for both channels at pan 0 (raudio.c, MixAudioFrames).
+#define RAYLIB_PAN_CENTRE_LEVEL (0.5f * 0.5f * (3 - 0.5f * 0.5f))
 
 static Sound clips[SND_COUNT];
 static AudioSource *liveSources[MAX_LIVE_SOURCES];
 static int liveSourceCount;
 static float listenerVolume = 1;
+static Vector3 listenerPosition, listenerVelocity;
+static bool listenerTurned, listenerPlaced;
 
 static const char *clip_path(int clip)
 {
     return TextFormat("assets/%s", SOUNDS[clip].path);
+}
+
+float audio_rolloff(const AudioSource *s, float distance)
+{
+    switch (s->rolloffMode) {
+    case ROLLOFF_LOGARITHMIC:
+        // FMOD's inverse rolloff, which stops falling at the max distance.
+        return s->minDistance / mathf_clamp(distance, s->minDistance, s->maxDistance);
+    case ROLLOFF_LINEAR:
+        return mathf_clamp((s->maxDistance - distance) / (s->maxDistance - s->minDistance), 0, 1);
+    default:
+        return s->rolloffCurve ? curve_evaluate(s->rolloffCurve, 2, distance / s->maxDistance) : 1;
+    }
+}
+
+static float dot3(Vector3 a, Vector3 b)
+{
+    return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+AudioMix audio_mix(const AudioSource *s, Vector3 listener, bool turned, Vector3 lv, Vector3 sv)
+{
+    Vector3 to = {s->position.x - listener.x, s->position.y - listener.y, s->position.z - listener.z};
+    float distance = sqrtf(dot3(to, to));
+    // WebAudio's azimuth: the listener's up is +y, so only x and z count.
+    // Equal power folds the back onto the front, so the sine of the
+    // azimuth is the part of the direction along the listener's right ear.
+    float flat = sqrtf(to.x * to.x + to.z * to.z);
+    float side = flat > 0 ? (turned ? -to.x : to.x) / flat : 0;
+    float pan3d = asinf(mathf_clamp(side, -1, 1)) / (PI / 2);
+    float b = s->spatialBlend;
+    AudioMix m = {
+        // A 2D source plays unpanned, at raylib's centre level. A 3D one at
+        // full pan should match it, so its level is scaled by that too.
+        .volume = s->volume * ((1 - b) + b * RAYLIB_PAN_CENTRE_LEVEL * audio_rolloff(s, distance)),
+        .pan = b * pan3d,
+        .pitch = s->pitch,
+    };
+    if (b > 0 && distance > 0) {
+        // Doppler: velocities along the line from the listener to the source.
+        float k = s->dopplerLevel * AUDIO_DOPPLER_FACTOR / distance;
+        m.pitch *= (AUDIO_SPEED_OF_SOUND + k * dot3(lv, to)) / (AUDIO_SPEED_OF_SOUND + k * dot3(sv, to));
+    }
+    return m;
 }
 
 // Loads a source's sound on its first play, so the Game scene's hundred
@@ -807,6 +898,7 @@ static bool audio_source_load(AudioSource *s)
         s->sound = LoadSoundAlias(clips[s->clip]);
     }
     s->loaded = true;
+    s->hasLastPosition = false;
     liveSources[liveSourceCount++] = s;
     return true;
 }
@@ -818,8 +910,9 @@ void audio_source_awake(AudioSource *s)
 
 // Unity 5.4 does not play a disabled source. The Player's strain sound is
 // disabled in the scene and nothing enables it, so it never plays
-// (INVENTORY.md section 2.5).
-// ponytail: unverified, step 7 of the plan measures it.
+// (INVENTORY.md section 2.5). Measured on the 2016 WebGL build: each Space
+// press that starts a pull logs "Can not play a disabled audio source",
+// and no buffer of player_strain starts.
 void audio_source_play(AudioSource *s)
 {
     if (!s->enabled || !audio_source_load(s)) return;
@@ -845,6 +938,9 @@ bool audio_source_is_playing(const AudioSource *s)
     return s->loop ? IsMusicStreamPlaying(s->music) : IsSoundPlaying(s->sound);
 }
 
+// Measured on the 2016 WebGL build: the footsteps and a rock's drag sound
+// start from the beginning each time the flag goes on, and stop when it
+// goes off.
 void audio_source_set_enabled(AudioSource *s, bool enabled)
 {
     if (s->enabled == enabled) return;
@@ -853,16 +949,28 @@ void audio_source_set_enabled(AudioSource *s, bool enabled)
     else if (s->playOnAwake) audio_source_play(s);
 }
 
-void audio_source_update(const AudioSource *s)
+void audio_source_update(AudioSource *s)
 {
     if (!s->loaded) return;
+    // Unity takes a source's velocity from how far it moved this frame.
+    Vector3 v = {0};
+    if (s->hasLastPosition && Time.deltaTime > 0) {
+        v = (Vector3){(s->position.x - s->lastPosition.x) / Time.deltaTime,
+                      (s->position.y - s->lastPosition.y) / Time.deltaTime,
+                      (s->position.z - s->lastPosition.z) / Time.deltaTime};
+    }
+    s->lastPosition = s->position;
+    s->hasLastPosition = true;
+    AudioMix m = audio_mix(s, listenerPosition, listenerTurned, listenerVelocity, v);
     if (s->loop) {
-        SetMusicVolume(s->music, s->volume);
-        SetMusicPitch(s->music, s->pitch);
+        SetMusicVolume(s->music, m.volume);
+        SetMusicPan(s->music, m.pan);
+        SetMusicPitch(s->music, m.pitch);
         UpdateMusicStream(s->music);
     } else {
-        SetSoundVolume(s->sound, s->volume);
-        SetSoundPitch(s->sound, s->pitch);
+        SetSoundVolume(s->sound, m.volume);
+        SetSoundPan(s->sound, m.pan);
+        SetSoundPitch(s->sound, m.pitch);
     }
 }
 
@@ -894,6 +1002,8 @@ static void audio_scene_unload(void)
 {
     for (int i = 0; i < liveSourceCount; i++) audio_source_unload(liveSources[i]);
     liveSourceCount = 0;
+    listenerPosition = listenerVelocity = (Vector3){0};
+    listenerTurned = listenerPlaced = false;
 }
 
 void audio_listener_set_volume(float volume)
@@ -905,6 +1015,19 @@ void audio_listener_set_volume(float volume)
 float audio_listener_volume(void)
 {
     return listenerVolume;
+}
+
+void audio_listener_set(Vector3 position, bool turned)
+{
+    listenerVelocity = (Vector3){0};
+    if (listenerPlaced && Time.deltaTime > 0) {
+        listenerVelocity = (Vector3){(position.x - listenerPosition.x) / Time.deltaTime,
+                                     (position.y - listenerPosition.y) / Time.deltaTime,
+                                     (position.z - listenerPosition.z) / Time.deltaTime};
+    }
+    listenerPosition = position;
+    listenerTurned = turned;
+    listenerPlaced = true;
 }
 
 // --- Misc -------------------------------------------------------------------

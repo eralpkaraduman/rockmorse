@@ -8,15 +8,26 @@
 static SpriteRenderer roverBody, roof;
 SpriteRenderer missionUpdateIndicator;
 static AudioSource enterSound; // playerInsideRoverTrigger's AudioSource
+static AudioSource chatter;    // playerInsideRoverTrigger/chatter, the radio static
+
+// The chatter's world position is not in values.h yet. These are the
+// dump's values, scenes/Game.json#Rover/playerInsideRoverTrigger/chatter:
+// @transform:world_position, used until extract.py adds the row (step 10).
+#ifndef ROVER_CHATTER_POS_X
+#define ROVER_CHATTER_POS_X 9.186773f
+#define ROVER_CHATTER_POS_Y 4.7684665f
+#define ROVER_CHATTER_POS_Z -0.5f
+#endif
 
 // RoverInsideTrigger.cs fields.
 static float setOnPitch;
 static float setOffPitch;
 
 // The Rover's own AudioSource is the newMessage loop. It plays from the
-// start at volume 0, and Earth turns it up while a message waits. The
-// chatter and reverb come in step 7: without the 3D fade, the static would
-// play all over the map.
+// start at volume 0, and Earth turns it up while a message waits. The radio
+// static loops from the start too; its linear rolloff (0.42 to 4.6) makes
+// it heard only near the rover. All three are 3D and never move.
+// Rover/Reverb, an AudioReverbZone, is left out (port/README.md).
 
 void rover_start(void)
 {
@@ -24,9 +35,14 @@ void rover_start(void)
     roof = SPRITE_RENDERER(ROVER_ROOF);
     missionUpdateIndicator = SPRITE_RENDERER(ROVER_UPDATES_INDICATOR);
     enterSound = AUDIO_SOURCE(ROVER_ENTER_SOUND);
+    enterSound.position = (Vector3){ROVER_INSIDE_TRIGGER_POS_X, ROVER_INSIDE_TRIGGER_POS_Y, ROVER_INSIDE_TRIGGER_POS_Z};
     audio_source_awake(&enterSound);
     roverNewMessageSound = AUDIO_SOURCE(ROVER_NEW_MESSAGE);
+    roverNewMessageSound.position = (Vector3){ROVER_POS_X, ROVER_POS_Y, ROVER_POS_Z};
     audio_source_awake(&roverNewMessageSound);
+    chatter = AUDIO_SOURCE(ROVER_CHATTER);
+    chatter.position = (Vector3){ROVER_CHATTER_POS_X, ROVER_CHATTER_POS_Y, ROVER_CHATTER_POS_Z};
+    audio_source_awake(&chatter);
     setOnPitch = ROVER_INSIDE_SET_ON_PITCH;
     setOffPitch = ROVER_INSIDE_SET_OFF_PITCH;
 
@@ -95,6 +111,9 @@ static void RoverInsideTrigger_OnTrigger(PhysicsEvent e, const Collider *o)
 
         if (strcmp(o->tag, ROVER_INSIDE_PLAYER_TAG) == 0 && focus.playerIsInRover == false) {
 
+            // The scene's pitch of -0.88 never plays: it is set to 0.6 or
+            // 0.9 before every Play. Measured on the 2016 WebGL build: the
+            // enter sound starts with playbackRate 0.6.
             audio_source_stop(&enterSound);
             enterSound.pitch = setOnPitch;
             audio_source_play(&enterSound);

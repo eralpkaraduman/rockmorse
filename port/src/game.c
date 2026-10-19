@@ -6,9 +6,11 @@
 //   has its scene values, as it would in any order in Unity.
 // - FixedUpdate: TopDownControls, then the physics step and its handlers.
 // - Update: RoverScreen, Mars, Earth, LevelLoader, RockDragger, each Rock,
-//   SnapToTarget, CamerFocusSwitcher, then the Animator. RoverScreen comes
-//   before Mars, so the sol counter shows this frame's life support (plan
-//   section 6.3, item 10).
+//   SnapToTarget, CamerFocusSwitcher, then the Animator and the shatter
+//   effects, which Unity runs after the scripts. RoverScreen comes before
+//   Mars, so the sol counter shows this frame's life support (plan section
+//   6.3, item 10). Last, the listener and the player's sounds move to the
+//   player, for the audio update at the end of the frame.
 // - LateUpdate: CutsSceneScaleFixer. Then deferred destroys.
 #include "game.h"
 #include "scenes.h"
@@ -56,6 +58,7 @@ static void start(void)
     physics_init(on_physics);
     memset(rocks, 0, sizeof rocks);
     rock_placeholders_reset();
+    shatters_reset();
     rockGenerator = (RockGenerator){.numRocks = ROCK_GENERATOR_NUM_ROCKS};
     rocket_reset();
 
@@ -101,6 +104,8 @@ static void update(void)
 
     animator_update(&player.animator, Time.deltaTime);
     player.renderer.sprite = animator_sprite(&player.animator);
+    shatters_update();
+    player_audio_update();
 }
 
 static void late_update(void)
@@ -124,6 +129,9 @@ static void draw(void)
     rock_placeholders_sprites(&sprites);
     sprite_list_add(&sprites, &player.renderer);
     rocks_sprites(&sprites);
+    // After the rocks: at the same z the particles draw over them, as
+    // measured on the 2016 WebGL build.
+    shatters_sprites(&sprites);
     sprite_list_add(&sprites, &dragTarget.renderer);
     camera_focus_sprites(&sprites);
     draw_sprites(&focus.camera, sprites.items, sprites.count);

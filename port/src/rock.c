@@ -75,6 +75,8 @@ Rock *rock_instantiate(Vector3 position)
     r->renderer = SPRITE_RENDERER(ROCK);
     r->renderer.transform.position = position;
     r->dragSFXSource = AUDIO_SOURCE(ROCK_DRAG);
+    r->dragSFXSource.rolloffCurve = ROCK_DRAG_ROLLOFF_CURVE;
+    r->dragSFXSource.position = position;
     audio_source_awake(&r->dragSFXSource);
     r->jointEnabled = ROCK_JOINT_ENABLED;
     r->jointConnected = false;
@@ -144,6 +146,8 @@ void rock_update(Rock *r)
     } else {
         audio_source_set_enabled(&r->dragSFXSource, false);
     }
+
+    r->dragSFXSource.position = r->renderer.transform.position;
 
     Vector3 shadowPosition = r->renderer.transform.position;
     shadowPosition.y -= ROCK_SHADOW_OFFSET_Y;

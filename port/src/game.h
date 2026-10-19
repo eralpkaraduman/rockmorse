@@ -39,7 +39,7 @@ typedef enum {
 typedef struct { float x, y, width, height; } Rect;
 
 // Sprites to draw this frame. Unity sorts them, see draw_sprites.
-#define GAME_MAX_SPRITES 4096
+#define GAME_MAX_SPRITES 16384
 typedef struct {
     SpriteRenderer *items[GAME_MAX_SPRITES];
     int count;
@@ -127,6 +127,36 @@ Rock *rock_generator_add_rock(bool dark);
 // transform.position of a rock: moves its body too.
 void rock_set_position(Rock *rock, Vector3 position);
 
+// --- RockShatterPrefab (effects.c, with TimedObjectDestructor.js) ----------------
+
+// One particle a frame for 0.5 s, 30 at 60 Hz; room for 100 a second.
+#define SHATTER_MAX_PARTICLES 64
+#define MAX_SHATTERS 128
+typedef struct {
+    Vector2 position;
+    Vector2 velocity;
+    float energy; // seconds left
+    float size;   // world units across
+    float rotation;
+} Particle;
+
+typedef struct {
+    bool alive;
+    Vector3 position;
+    float time; // game time since Instantiate: the Animation clip and the Invoke
+    bool emit;  // ParticleEmitter.emit, set by the Animation clip
+    Particle particles[SHATTER_MAX_PARTICLES];
+    int particleCount;
+    SpriteRenderer sprites[SHATTER_MAX_PARTICLES]; // filled for drawing
+    AudioSource sound; // Explosion1
+} Shatter;
+extern Shatter shatters[MAX_SHATTERS];
+Shatter *shatter_instantiate(Vector3 position);
+void shatter_update(Shatter *s, float deltaTime);
+void shatters_update(void);
+void shatters_reset(void);
+void shatters_sprites(SpriteList *list);
+
 // --- Player (player.c: TopDownControls and the Player object) --------------
 
 typedef struct {
@@ -138,7 +168,9 @@ typedef struct {
     AudioSource footStepsSFX;
     AudioSource strainSFX; // RockDragger.strainSFX, the Player's own source
     AudioSource ambience;  // pivot/Sci-fi_AmbienceLoop1
-    bool listenerFacingLeft; // the audio listener faces the other way, step 7
+    // pivot, which holds the audio listener and the ambience: turned half
+    // way round Y while the player faces right, the other way to the player.
+    bool listenerTurned;
     float walkSpeed;
     float sprintSpeed;
     float curSpeed;
@@ -149,6 +181,8 @@ void player_start(void);
 void player_fixed_update(void);
 void player_sync(void);
 Vector3 player_position(void);
+// Moves the AudioListener and the Player's sounds to where the player is.
+void player_audio_update(void);
 
 // --- RockDragger (rock_dragger.c) ---------------------------------------------
 

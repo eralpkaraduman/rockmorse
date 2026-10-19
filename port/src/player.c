@@ -34,6 +34,8 @@ void player_start(void)
         .ambience = AUDIO_SOURCE(PLAYER_AMBIENCE),
     };
     bodyMirrored = false;
+    // pivot starts turned half way round Y (local euler y 180).
+    player.listenerTurned = PLAYER_PIVOT_EULER[1] == 180;
     player.body = physics_body(PLAYER_RB_KINEMATIC ? b2_kinematicBody : b2_dynamicBody,
                                (b2Vec2){PLAYER_POS_X, PLAYER_POS_Y}, PLAYER_RB_LINEAR_DRAG, PLAYER_RB_ANGULAR_DRAG,
                                PLAYER_RB_GRAVITY_SCALE, PLAYER_RB_FIXED_ANGLE);
@@ -43,6 +45,7 @@ void player_start(void)
     player.bodyCollider = physics_polygon(player.body, (Collider){OWNER_PLAYER, 0, PLAYER_TAG, PLAYER_BODY_IS_TRIGGER},
                                           PLAYER_BODY_PIECES_POINTS, PLAYER_BODY_PIECES_SIZES, PLAYER_BODY_PIECES_COUNT);
     physics_set_mass(player.body, PLAYER_RB_MASS);
+    player_audio_update();
     audio_source_awake(&player.footStepsSFX);
     audio_source_awake(&player.strainSFX);
     audio_source_awake(&player.ambience);
@@ -96,8 +99,11 @@ void player_fixed_update(void)
         }
 
 
-        // The listener turns the other way (plan section 6.3, item 5).
-        player.listenerFacingLeft = !facingLeft;
+        // audioListener is Player/pivot. It turns the other way, so it hears
+        // left and right swapped (plan section 6.3, item 5). Kept. Measured
+        // on the 2016 WebGL build: walking right sets the listener's
+        // forward to about (0.011, 0, -1), a turn of 179.4 degrees.
+        player.listenerTurned = !facingLeft;
 
 
         animator_play(&player.animator, dragging ? PLAYER_ANIM_DRAG : PLAYER_ANIM_RUN);
@@ -122,6 +128,20 @@ void player_fixed_update(void)
         player.renderer.transform.position = pos;
     }
 
+}
+
+// Unity reads the listener and source positions once a frame. pivot, its
+// audioListener and the ambience sit on the player; footsteps sits 1 unit
+// in front along z, which the half turn around Y puts behind.
+void player_audio_update(void)
+{
+    Vector3 p = player_position();
+    audio_listener_set(p, player.listenerTurned);
+    player.ambience.position = p;
+    player.strainSFX.position = p;
+    Vector3 feet = p;
+    feet.z += player.renderer.transform.flipped ? -PLAYER_FOOTSTEPS_LOCAL_POS_Z : PLAYER_FOOTSTEPS_LOCAL_POS_Z;
+    player.footStepsSFX.position = feet;
 }
 
 // The transform follows the body after each physics step.
