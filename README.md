@@ -45,6 +45,7 @@ The cheat is "hold Ctrl, press C". It fills the current answer's slots with the 
 - `port/`: the C port. See `port/README.md`.
 - `port/ITCH.txt`, `port/rockmorse-cover-630x500.png`, `port/screenshots/`: the itch.io page text and images.
 - `dist/`: ready-made builds of the port.
+- `unused/`: files Super Damage made for the game in 2014 that the game never used, kept for history.
 
 The 2016 reference builds stay in the LD30 repo under `Unity/Bin/`. This repo does not copy them.
 

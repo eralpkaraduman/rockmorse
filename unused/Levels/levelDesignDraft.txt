@@ -1,0 +1,50 @@
+## MSG 1, CHARS: 2
+
+	Q: Connection seems to be broken. We can send messages to you, but you won't be able to reply. You have to answer us by arranging rocks in morse code. Good luck! But be fast you have limited life support.
+
+	A: OK
+
+## MSG 2, CHARS: 4
+
+	Q: That looks good. We have redirected Europa lander to your site but you will have to operate it remotely. Can you try to access it?
+
+	A: DENY
+
+## MSG 3, CHARS: 6
+
+	Q: Ah sorry I forgot to send you the password. It's "spaceisawesome". When you get back earth, come punch me in the face for risking your life. Sorry about that.
+
+	A: ACCESS
+
+## MSG 4, CHARS: 5
+
+	Q: Great! Now you have to revire rover's control panel to telemetry computer so you can remotely control the lander. We are thinking of a solution, update us when you prepare the tools.
+
+	A: READY
+
+## MSG 5, CHARS: 9
+
+	Q: OK, now carefully remove the control panels casing and look at the cables connecting its keyboard, than tell us colors of the cables from left to right.
+
+	A: RED BLU GRN
+
+## MSG 5, CHARS: 6
+	
+	Q: Remove green and red ones from the board than connect them to telemetry computer. After that enter id LNDR436 than you will be able to control the lander. Try to move it when you are done.
+
+	A: OK SLOW
+	
+## MSG 6, CHARS: 6
+
+	Q: We were expecting the latency. We think you may be able to modify the telemetry software so it can establish a faster connection to lander. Open "TELEMETRY_CONFIG" file and add this line at the end of it "USE_COMPRESSION = TRUE".
+
+	A: BETTER
+
+## MSG 7, CHARS: 0
+
+	Q: WOW it worked! We have attached 2 trajectory instructions to this message. First ones destination is you, second ones is Earth. Enter first one to lander now. When it lands, get in and enter the second one manually, than you are off to Earth!
+
+	A: 
+
+
+	- When player gets out of rover, lander lands near the rover. Player gets inside the lander, game ends.
